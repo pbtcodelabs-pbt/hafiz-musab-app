@@ -353,25 +353,16 @@ html,body{height:100dvh;overflow:hidden;
   box-shadow:0 0 10px rgba(var(--acR),0.65),inset 0 1px 2px rgba(255,255,255,0.3);}
 .wheel-item.center .wi-tr{color:var(--hi);opacity:0.9;font-size:10px;font-weight:900;}
 
-/* Ayah Range Row — سلائیڈر سٹائل */
-.ayah-range-row{display:flex;gap:10px;align-items:flex-start;direction:ltr;
-  padding:6px 12px;border-radius:10px;background:rgba(var(--acR),0.18);
+/* Ayah Range Row — دو وہیل پکر: سے(From)=دائیں، تک(To)=بائیں (RTL میں پہلا DOM آئٹم دائیں طرف آتا ہے) */
+.ayah-range-row{display:flex;gap:8px;align-items:flex-start;
+  padding:6px 10px;border-radius:10px;background:rgba(var(--acR),0.18);
   border:1.5px solid rgba(var(--acR),0.4);box-shadow:0 0 10px rgba(var(--acR),0.2);
   width:100%;box-sizing:border-box;overflow:hidden;}
-.sw-col{flex:1;text-align:center;min-width:0;}
+.awheel-block{flex:1;text-align:center;min-width:0;}
 .sw-label{display:block;margin-bottom:3px;font-size:10px;font-weight:900;color:var(--hi);
   font-family:'JN',serif;direction:rtl;text-shadow:0 0 6px rgba(var(--hiR),0.5);white-space:nowrap;}
-.value-badge{display:inline-block;min-width:34px;margin-bottom:4px;
-  background:linear-gradient(145deg,#ffffff,#e2e8f0);color:#0f172a;
-  font-family:'Courier New',monospace;font-weight:900;font-size:15px;
-  padding:2px 10px;border-radius:8px;border:1.5px solid #94a3b8;
-  box-shadow:0 2px 0 #94a3b8,inset 0 1px 0 rgba(255,255,255,0.9);}
-.ayah-slider{-webkit-appearance:none;width:100%;height:8px;border-radius:6px;
-  background:linear-gradient(to right,var(--acl),rgba(var(--acR),0.2));outline:none;
-  cursor:pointer;touch-action:manipulation;}
-.ayah-slider::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;
-  background:radial-gradient(circle at 35% 28%,#6ee7b7,#22c55e,#16a34a);
-  border:2px solid #ffffff;box-shadow:0 2px 5px rgba(0,0,0,0.5);cursor:pointer;}
+.awheel-outer{height:76px !important;}
+.awheel-outer .wi-ar{font-family:'Courier New',monospace !important;font-size:20px !important;}
 /* Apply button — now standalone above wheel area */
 #applyBtnWrap{flex-shrink:0;display:none;justify-content:center;align-items:center;
   padding:5px 10px 3px;background:rgba(var(--acR),0.10);}
@@ -385,31 +376,30 @@ html,body{height:100dvh;overflow:hidden;
   text-shadow:0 1px 4px rgba(0,0,0,0.5);}
 #applyBtn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--acdd);}
 
-/* DOWNLOAD MANAGER — fixed, theme-independent colors so text is ALWAYS
-   readable no matter which theme (light or dark) is active */
+/* DOWNLOAD MANAGER — روشن، صاف بیک گراؤنڈ تاکہ ہر چیز واضح نظر آئے */
 #dlOverlay{display:none;position:fixed;inset:0;
-  background:linear-gradient(160deg,#1a2a1a 0%,#12201a 55%,#0e1a14 100%);
+  background:linear-gradient(160deg,#fefce8 0%,#fff7ed 55%,#fefce8 100%);
   z-index:400;flex-direction:column;
-  --dl-txt:#f0fdf4;--dl-txt2:rgba(220,252,231,0.80);--dl-gold:#fbbf24;}
+  --dl-txt:#1a1305;--dl-txt2:#57534e;--dl-gold:#92400e;}
 #dlOverlay.open{display:flex;}
 #dlHeader{flex-shrink:0;padding:12px 14px 8px;
-  background:linear-gradient(180deg,rgba(217,119,6,0.30),rgba(217,119,6,0.10));
-  border-bottom:2px solid rgba(217,119,6,0.5);}
-.dl-title{font-family:'JN',serif;font-size:15px;font-weight:900;color:var(--dl-gold);
+  background:linear-gradient(180deg,#fde68a,#fbbf24);
+  border-bottom:2px solid #d97706;}
+.dl-title{font-family:'JN',serif;font-size:15px;font-weight:900;color:#78350f;
   display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
 .dlx{width:34px;height:34px;border-radius:50%;border:none;cursor:pointer;
-  background:rgba(255,255,255,0.14);color:var(--dl-txt);font-size:17px;
+  background:rgba(0,0,0,0.14);color:#452b0a;font-size:17px;
   display:flex;align-items:center;justify-content:center;}
 .dl-info{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
 .dl-stat{font-size:9.5px;font-weight:900;font-family:'JN',serif;
-  color:var(--dl-gold);padding:3px 8px;background:rgba(217,119,6,0.16);
-  border-radius:10px;border:1px solid rgba(217,119,6,0.4);}
+  color:#78350f;padding:3px 8px;background:#fff7ed;
+  border-radius:10px;border:1.5px solid #d97706;}
 .dl-qsel{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px;}
 .dqb{padding:4px 10px;border-radius:10px;font-size:9.5px;font-weight:900;font-family:'JN',serif;
-  border:1.5px solid rgba(56,189,248,0.4);background:rgba(56,189,248,0.14);color:var(--dl-txt2);
+  border:1.5px solid #0369a1;background:#e0f2fe;color:#0c4a6e;
   cursor:pointer;touch-action:manipulation;}
-.dqb.active{background:linear-gradient(145deg,#38bdf8,#0369a1);color:#fff;border-color:#38bdf8;}
-#dlStorage{font-size:9px;color:var(--dl-txt2);font-family:'JN',serif;margin-top:4px;}
+.dqb.active{background:linear-gradient(145deg,#38bdf8,#0369a1);color:#fff;border-color:#0369a1;}
+#dlStorage{font-size:9px;color:#57534e;font-family:'JN',serif;margin-top:4px;}
 .dl-actions{display:flex;gap:6px;margin-top:8px;}
 .dla-btn{flex:1;padding:7px;border-radius:10px;border:none;cursor:pointer;font-family:'JN',serif;
   font-size:10px;font-weight:900;touch-action:manipulation;}
@@ -420,25 +410,24 @@ html,body{height:100dvh;overflow:hidden;
 /* Overall "downloading whole Quran / Juz Amma" progress bar */
 #dlOverallWrap{display:none;margin-top:8px;}
 #dlOverallWrap.show{display:block;}
-#dlOverallLabel{font-size:9.5px;font-weight:900;color:var(--dl-gold);font-family:'JN',serif;
+#dlOverallLabel{font-size:9.5px;font-weight:900;color:#78350f;font-family:'JN',serif;
   display:flex;justify-content:space-between;margin-bottom:3px;}
-#dlOverallTrack{width:100%;height:8px;background:rgba(255,255,255,0.12);border-radius:6px;overflow:hidden;}
+#dlOverallTrack{width:100%;height:8px;background:#fde68a;border-radius:6px;overflow:hidden;}
 #dlOverallFill{height:100%;width:0%;border-radius:6px;
-  background:linear-gradient(90deg,#fbbf24,#f97316);transition:width .25s;}
+  background:linear-gradient(90deg,#f59e0b,#ea580c);transition:width .25s;}
 #dlList{flex:1;overflow-y:auto;padding:6px 10px 16px;
-  background:rgba(0,0,0,0.18);
-  scrollbar-width:thin;scrollbar-color:rgba(56,189,248,0.4) transparent;}
+  background:#f8fafc;
+  scrollbar-width:thin;scrollbar-color:#38bdf8 transparent;}
 #dlList::-webkit-scrollbar{width:3px;}
-#dlList::-webkit-scrollbar-thumb{background:rgba(56,189,248,0.4);border-radius:3px;}
+#dlList::-webkit-scrollbar-thumb{background:#38bdf8;border-radius:3px;}
 .dl-surah-row{display:flex;align-items:center;gap:6px;padding:7px 10px;border-radius:10px;
-  margin-bottom:4px;background:rgba(255,255,255,0.13);border:1px solid rgba(255,255,255,0.22);}
-.ds-num{width:26px;height:26px;border-radius:50%;background:rgba(56,189,248,0.38);
-  color:#e0f2fe;font-size:9px;flex-shrink:0;font-weight:900;
+  margin-bottom:4px;background:#ffffff;border:1.5px solid #cbd5e1;box-shadow:0 2px 4px rgba(0,0,0,0.08);}
+.ds-num{width:26px;height:26px;border-radius:50%;background:#e0f2fe;
+  color:#0c4a6e;font-size:9px;flex-shrink:0;font-weight:900;
   display:flex;align-items:center;justify-content:center;font-family:'Courier New',monospace;
-  border:1px solid rgba(56,189,248,0.5);}
-.ds-name{font-family:'JN',serif;font-size:17px;font-weight:900;color:#f0fdf4;
-  text-shadow:0 0 8px rgba(255,255,255,0.3);}
-.ds-sub{font-size:9px;color:rgba(220,252,231,0.85);font-family:sans-serif;font-weight:600;}
+  border:1.5px solid #38bdf8;}
+.ds-name{font-family:'JN',serif;font-size:17px;font-weight:900;color:#111827;text-shadow:none;}
+.ds-sub{font-size:9px;color:#475569;font-family:sans-serif;font-weight:600;}
 .ds-status{flex-shrink:0;display:flex;align-items:center;gap:5px;}
 .ds-icon{font-size:14px;}
 .ds-btn{width:28px;height:28px;border-radius:50%;border:none;cursor:pointer;
@@ -446,8 +435,8 @@ html,body{height:100dvh;overflow:hidden;
 .ds-btn.dl{background:linear-gradient(145deg,#38bdf8,#0369a1);color:#fff;box-shadow:0 2px 0 #0c4a6e;}
 .ds-btn.del{background:linear-gradient(145deg,#ef4444,#b91c1c);color:#fff;box-shadow:0 2px 0 #7f1d1d;}
 .ds-btn:active{transform:scale(0.9);}
-.ds-prog{width:50px;height:5px;background:rgba(255,255,255,0.15);border-radius:4px;overflow:hidden;display:none;}
-.ds-prog-fill{height:100%;background:linear-gradient(90deg,#fbbf24,#f97316);border-radius:4px;width:0%;transition:width .2s;}
+.ds-prog{width:50px;height:5px;background:#e2e8f0;border-radius:4px;overflow:hidden;display:none;}
+.ds-prog-fill{height:100%;background:linear-gradient(90deg,#f59e0b,#ea580c);border-radius:4px;width:0%;transition:width .2s;}
 .ds-prog.show{display:block;}
 
 /* SHARE EDITOR */
@@ -634,11 +623,11 @@ html,body{height:100dvh;overflow:hidden;
 
 .s-item{margin:4px 5px;padding:8px 3px;border-radius:12px;cursor:pointer;
   text-align:center;font-family:'JN',serif;
-  background:linear-gradient(145deg,#ffffff,#dbe3ec);
-  border:1.5px solid #94a3b8;
-  box-shadow:0 3px 0 #94a3b8,inset 0 1px 0 rgba(255,255,255,0.9);
+  background:linear-gradient(145deg,#ffffff,#dbeafe);
+  border:1.5px solid #3b82f6;
+  box-shadow:0 3px 0 #1d4ed8,inset 0 1px 0 rgba(255,255,255,0.9);
   transition:all .12s;}
-.s-item:active{transform:translateY(2px);box-shadow:0 1px 0 #94a3b8;}
+.s-item:active{transform:translateY(2px);box-shadow:0 1px 0 #1d4ed8;}
 .s-item .sn{display:block;font-size:8.5px;color:#64748b;font-family:'Courier New',monospace;}
 .s-item .sa{display:block;font-size:12px;font-weight:900;color:#0f172a;line-height:1.3;}
 .s-item.selected{background:linear-gradient(145deg,#86efac,#4ade80);
@@ -647,11 +636,11 @@ html,body{height:100dvh;overflow:hidden;
 
 #qariCol .qc{width:100%;white-space:normal;text-align:center;font-size:10px;
   padding:6px 3px;border-radius:12px;margin:2.5px 0;color:#0f172a;
-  background:linear-gradient(145deg,#ffffff,#dbe3ec);
-  border:1.5px solid #94a3b8;box-shadow:0 3px 0 #94a3b8,inset 0 1px 0 rgba(255,255,255,0.9);
+  background:linear-gradient(145deg,#ffffff,#ede9fe);
+  border:1.5px solid #7c3aed;box-shadow:0 3px 0 #5b21b6,inset 0 1px 0 rgba(255,255,255,0.9);
   text-shadow:none;flex:1;display:flex;align-items:center;justify-content:center;
   font-weight:900;line-height:1.2;transition:all .12s;}
-#qariCol .qc:active{transform:translateY(2px);box-shadow:0 1px 0 #94a3b8;}
+#qariCol .qc:active{transform:translateY(2px);box-shadow:0 1px 0 #5b21b6;}
 #qariCol .qc.active{background:linear-gradient(145deg,#86efac,#4ade80);
   border-color:#15803d;color:#052e16;box-shadow:0 3px 0 #15803d,inset 0 1px 0 rgba(255,255,255,0.5);}
 #qariCol .qc.gold{background:linear-gradient(145deg,#fff9e6,#fde68a);border-color:#d97706;
@@ -670,16 +659,20 @@ html,body{height:100dvh;overflow:hidden;
 .panel-tag{color:#64748b !important;}
 #playerBar{background:#f1f5f9 !important;border-top-color:#94a3b8 !important;box-shadow:none !important;}
 .time-row{color:#334155 !important;}
-.ibtn,.pbtn,.spdbtn{background:linear-gradient(145deg,#ffffff,#cbd5e1) !important;color:#111827 !important;
-  text-shadow:none !important;border:1.5px solid #94a3b8 !important;
-  box-shadow:0 4px 0 #94a3b8,inset 0 1px 0 rgba(255,255,255,0.95) !important;}
-.ibtn:active,.pbtn:active,.spdbtn:active{background:linear-gradient(145deg,#cbd5e1,#e2e8f0) !important;
-  box-shadow:0 1px 0 #94a3b8 !important;transform:translateY(3px);}
+.ibtn,.pbtn,.spdbtn{background:linear-gradient(145deg,#ffffff,#cffafe) !important;color:#111827 !important;
+  text-shadow:none !important;border:1.5px solid #0891b2 !important;
+  box-shadow:0 4px 0 #0e7490,inset 0 1px 0 rgba(255,255,255,0.95) !important;}
+.ibtn:active,.pbtn:active,.spdbtn:active{background:linear-gradient(145deg,#cffafe,#a5f3fc) !important;
+  box-shadow:0 1px 0 #0e7490 !important;transform:translateY(3px);}
 .cbtn-lbl{color:#111827 !important;text-shadow:none !important;font-size:8.5px !important;font-weight:900 !important;line-height:1.15 !important;text-align:center;}
 .ibtn,.pbtn,.spdbtn{min-height:50px !important;}
 .pbtn.active{background:#bbf7d0 !important;color:#14532d !important;border-color:#16a34a !important;}
 #wheelArea{background:#f8fafc !important;border-top-color:#94a3b8 !important;}
 .sw-label{color:#0f172a !important;text-shadow:none !important;}
+.awheel-outer .wi-ar{color:#334155 !important;text-shadow:none !important;}
+.awheel-outer .wheel-item.center .wi-ar{color:#052e16 !important;font-weight:900 !important;text-shadow:none !important;}
+.awheel-outer .wheel-selector{background:linear-gradient(180deg,rgba(74,222,128,0.1),rgba(74,222,128,0.35),rgba(74,222,128,0.1)) !important;
+  border-top-color:#16a34a !important;border-bottom-color:#16a34a !important;box-shadow:0 0 10px rgba(22,163,74,0.4) !important;}
 .ayah-range-row{background:#eef2f7 !important;border-color:#94a3b8 !important;box-shadow:none !important;}
 
 
@@ -713,7 +706,7 @@ html,body{height:100dvh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">Hfz004</span>
+    <span class="ver-code" id="splashVerCode">Hfz005</span>
   </div>
 </div>
 
@@ -727,7 +720,7 @@ html,body{height:100dvh;overflow:hidden;
       <div style="display:none"><span class="net-dot online" id="netDot"></span><span id="netLabel">آن لائن</span></div>
       <div class="status-block" style="margin-top:3px;">
         <span class="ver-pill" id="tbVerPill" style="padding:2px 9px;font-size:9px;">Online</span>
-        <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz004</span>
+        <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz005</span>
       </div>
     </div>
     <div style="display:flex;align-items:center;gap:6px;">
@@ -850,19 +843,27 @@ html,body{height:100dvh;overflow:hidden;
     </div>
   </div>
 
-  <!-- AYAH RANGE — پلیئر پینل کے بالکل نیچے، سلائیڈر سے منتخب کریں -->
+  <!-- AYAH RANGE — پلیئر پینل کے بالکل نیچے، وہیل سے منتخب کریں (سے=دائیں، تک=بائیں) -->
   <div id="wheelArea">
     <span id="wheelCurName" style="display:none"></span>
     <div class="ayah-range-row" id="rrRow">
-      <div class="sw-col">
+      <div class="awheel-block">
         <span class="sw-label">سے آیت (From)</span>
-        <div class="value-badge" id="fvBadge">1</div>
-        <input class="ayah-slider" id="fv" type="range" min="1" max="7" value="1" oninput="onFVi(this.value)">
+        <div class="wheel-outer awheel-outer">
+          <div class="wheel-fade-top"></div>
+          <div class="wheel-selector"></div>
+          <div class="wheel-fade-bot"></div>
+          <div class="wheel-scroll" id="fromWheel"></div>
+        </div>
       </div>
-      <div class="sw-col">
+      <div class="awheel-block">
         <span class="sw-label">تک آیت (To)</span>
-        <div class="value-badge" id="tvBadge">7</div>
-        <input class="ayah-slider" id="tv" type="range" min="1" max="7" value="7" oninput="onTVi(this.value)">
+        <div class="wheel-outer awheel-outer">
+          <div class="wheel-fade-top"></div>
+          <div class="wheel-selector"></div>
+          <div class="wheel-fade-bot"></div>
+          <div class="wheel-scroll" id="toWheel"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -1305,12 +1306,75 @@ function onWheelChange(n){
   wSelected=n;
   St.s=n;const mx=SH[n-1].a;
   St.fr=1;St.to=mx;
-  const fv=document.getElementById('fv'),tv=document.getElementById('tv');
-  fv.min=1;fv.max=mx;fv.value=1;
-  tv.min=1;tv.max=mx;tv.value=mx;
-  document.getElementById('fvBadge').textContent=1;
-  document.getElementById('tvBadge').textContent=mx;
   document.getElementById('wheelCurName').textContent=SH[n-1].ar;
+  buildAyahWheels(mx);
+}
+
+// ══ AYAH WHEELS — "سے" (From) دائیں، "تک" (To) بائیں؛ گھماتے وقت اگلی/پچھلی آیت کا دھندلا پیش نظارہ ══
+const AITEM_H=40;
+function buildAyahWheels(mx){
+  buildOneAyahWheel('fromWheel',mx,1,n=>{
+    St.fr=n;
+    if(St.to<St.fr){St.to=St.fr;scrollAyahWheel('toWheel',St.to,true);}
+  });
+  buildOneAyahWheel('toWheel',mx,mx,n=>{
+    if(n<St.fr){scrollAyahWheel('toWheel',St.fr,true);n=St.fr;}
+    St.to=n;
+  });
+}
+function buildOneAyahWheel(id,max,initial,onChange){
+  const wh=document.getElementById(id);
+  if(!wh)return;
+  const pad=`<div class="wheel-item" style="height:${AITEM_H}px"></div>`;
+  let items='';
+  for(let i=1;i<=max;i++){
+    items+=`<div class="wheel-item" data-n="${i}" style="height:${AITEM_H}px" onclick="ayahWheelClick('${id}',${i})"><div class="wi-ar">${i}</div></div>`;
+  }
+  wh.innerHTML=pad+pad+items+pad+pad;
+  wh._onChange=onChange;wh._max=max;
+  let snapTimer,rafPending=false;
+  function onFrame(){updateAyahWheelVisuals(wh);rafPending=false;}
+  wh.onscroll=()=>{
+    if(!rafPending){rafPending=true;requestAnimationFrame(onFrame);}
+    clearTimeout(snapTimer);
+    snapTimer=setTimeout(()=>{
+      const absIdx=Math.round(wh.scrollTop/AITEM_H);
+      const n=absIdx-1;
+      if(n>=1&&n<=max)onChange(n);
+    },80);
+  };
+  scrollAyahWheel(id,initial,false);
+}
+function scrollAyahWheel(id,n,smooth){
+  const wh=document.getElementById(id);
+  if(!wh)return;
+  wh.scrollTo({top:n*AITEM_H,behavior:smooth?'smooth':'auto'});
+  updateAyahWheelVisuals(wh);
+}
+function updateAyahWheelVisuals(wh){
+  if(!wh)return;
+  const centerY=wh.scrollTop+wh.clientHeight/2;
+  const kids=wh.children;
+  for(let i=0;i<kids.length;i++){
+    const el=kids[i];
+    const mid=el.offsetTop+el.offsetHeight/2;
+    const dist=(mid-centerY)/AITEM_H;
+    const ad=Math.abs(dist);
+    el.classList.toggle('center',ad<0.5);
+    el.classList.toggle('near',ad>=0.5&&ad<1.5);
+    const rot=Math.max(-58,Math.min(58,dist*32));
+    const scale=Math.max(0.68,1-ad*0.14);
+    const op=Math.max(0,1-ad*0.85);
+    const bl=Math.min(3,ad*2.2);
+    el.style.transform=`rotateX(${-rot}deg) scale(${scale})`;
+    el.style.opacity=op;
+    el.style.filter=`blur(${bl}px)`;
+  }
+}
+function ayahWheelClick(id,n){
+  scrollAyahWheel(id,n,true);
+  const wh=document.getElementById(id);
+  wh._onChange(n);
 }
 
 // ══ SURAH COLUMN (بائیں طرف کی سیدھی فہرست) ══
@@ -1332,24 +1396,6 @@ function selSurah(n){
   const sel=document.querySelector(`#surahCol .s-item[data-n="${n}"]`);
   if(sel)sel.scrollIntoView({block:'center',behavior:'smooth'});
   loadA(n,1,false);
-}
-
-function onFVi(v){
-  const n=parseInt(v)||1,mx=SH[St.s-1].a;
-  St.fr=Math.max(1,Math.min(mx,n));
-  document.getElementById('fvBadge').textContent=St.fr;
-  const tv=document.getElementById('tv');
-  tv.min=St.fr; // اگلا ڈبہ پچھلے سے چھوٹا نہیں ہو سکتا
-  if(St.to<St.fr){
-    St.to=St.fr;tv.value=St.to;
-    document.getElementById('tvBadge').textContent=St.to;
-  }
-}
-function onTVi(v){
-  const n=parseInt(v)||1,mx=SH[St.s-1].a;
-  St.to=Math.max(St.fr,Math.min(mx,n));
-  document.getElementById('tv').value=St.to;
-  document.getElementById('tvBadge').textContent=St.to;
 }
 
 function applySel(){
@@ -1536,6 +1582,7 @@ function initApp(){
   try{setTheme(localStorage.getItem('qtheme')||'emerald');}catch{setTheme('emerald');}
   updateQariBadges();
   renderSurahList();
+  buildAyahWheels(SH[0].a);
   setTimeout(()=>{
     const sel=document.querySelector('#surahCol .s-item[data-n="1"]');
     if(sel){sel.classList.add('selected');sel.scrollIntoView({block:'center'});}
@@ -1663,7 +1710,7 @@ function changeZoom(delta){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='Hfz004';
+const APP_VERSION='Hfz005';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
