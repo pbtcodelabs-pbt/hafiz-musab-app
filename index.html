@@ -141,6 +141,10 @@ html,body{height:100dvh;overflow:hidden;
   color:var(--gdi);box-shadow:0 3px 0 rgba(0,0,0,0.55),inset 0 1px 0 rgba(var(--gdR),0.22);}
 .btn-dl{background:linear-gradient(145deg,rgba(var(--gdR),0.6),rgba(0,0,0,0.65));
   color:var(--gdi);box-shadow:0 3px 0 rgba(0,0,0,0.55),inset 0 1px 0 rgba(var(--gdR),0.22);}
+.btn-refresh{background:linear-gradient(145deg,#4ade80,#15803d);color:#fff;
+  box-shadow:0 3px 0 #14532d,inset 0 1px 0 rgba(255,255,255,0.35);}
+.btn-refresh.spinning svg{animation:spinIcon .7s linear infinite;}
+@keyframes spinIcon{to{transform:rotate(360deg);}}
 .btn-share{background:linear-gradient(145deg,#38bdf8,#0369a1);color:#fff;
   box-shadow:0 3px 0 #0c4a6e,inset 0 1px 0 rgba(255,255,255,0.35);}
 .btn-eq{background:linear-gradient(145deg,rgba(var(--gdR),0.5),rgba(var(--acR),0.5));
@@ -349,28 +353,25 @@ html,body{height:100dvh;overflow:hidden;
   box-shadow:0 0 10px rgba(var(--acR),0.65),inset 0 1px 2px rgba(255,255,255,0.3);}
 .wheel-item.center .wi-tr{color:var(--hi);opacity:0.9;font-size:10px;font-weight:900;}
 
-/* Ayah Range Row */
-.ayah-range-row{display:flex;gap:4px;align-items:center;direction:ltr;
-  padding:4px 6px;border-radius:10px;background:rgba(var(--acR),0.18);
+/* Ayah Range Row — سلائیڈر سٹائل */
+.ayah-range-row{display:flex;gap:10px;align-items:flex-start;direction:ltr;
+  padding:6px 12px;border-radius:10px;background:rgba(var(--acR),0.18);
   border:1.5px solid rgba(var(--acR),0.4);box-shadow:0 0 10px rgba(var(--acR),0.2);
   width:100%;box-sizing:border-box;overflow:hidden;}
 .sw-col{flex:1;text-align:center;min-width:0;}
-.sw-label{display:block;margin-bottom:2px;font-size:10px;font-weight:900;color:var(--hi);
+.sw-label{display:block;margin-bottom:3px;font-size:10px;font-weight:900;color:var(--hi);
   font-family:'JN',serif;direction:rtl;text-shadow:0 0 6px rgba(var(--hiR),0.5);white-space:nowrap;}
-.spn-box{display:flex;align-items:center;gap:2px;
-  background:rgba(0,0,0,0.5);border:2px solid rgba(var(--acR),0.7);
-  border-radius:8px;padding:2px;box-shadow:inset 0 2px 5px rgba(0,0,0,0.5);}
-.spnbtn{width:22px;height:22px;border-radius:50%;flex-shrink:0;
-  background:radial-gradient(circle at 35% 28%,var(--acli),var(--acl),var(--acd));
-  border:1px solid rgba(255,255,255,0.2);color:#fff;font-size:14px;font-weight:900;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 2px 0 var(--acdd);touch-action:manipulation;}
-.spnbtn:active{transform:translateY(1px);box-shadow:0 1px 0 var(--acdd);}
-.ayah-inp{width:36px;text-align:center;background:#fff;
-  border:2px solid rgba(var(--acR),0.8);border-radius:6px;
-  color:#000;font-size:14px;font-weight:900;padding:3px 1px;
-  font-family:'Courier New',monospace;outline:none;direction:ltr;}
-.ayah-inp:focus{border-color:var(--acli);}
+.value-badge{display:inline-block;min-width:34px;margin-bottom:4px;
+  background:linear-gradient(145deg,#ffffff,#e2e8f0);color:#0f172a;
+  font-family:'Courier New',monospace;font-weight:900;font-size:15px;
+  padding:2px 10px;border-radius:8px;border:1.5px solid #94a3b8;
+  box-shadow:0 2px 0 #94a3b8,inset 0 1px 0 rgba(255,255,255,0.9);}
+.ayah-slider{-webkit-appearance:none;width:100%;height:8px;border-radius:6px;
+  background:linear-gradient(to right,var(--acl),rgba(var(--acR),0.2));outline:none;
+  cursor:pointer;touch-action:manipulation;}
+.ayah-slider::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;
+  background:radial-gradient(circle at 35% 28%,#6ee7b7,#22c55e,#16a34a);
+  border:2px solid #ffffff;box-shadow:0 2px 5px rgba(0,0,0,0.5);cursor:pointer;}
 /* Apply button — now standalone above wheel area */
 #applyBtnWrap{flex-shrink:0;display:none;justify-content:center;align-items:center;
   padding:5px 10px 3px;background:rgba(var(--acR),0.10);}
@@ -631,20 +632,32 @@ html,body{height:100dvh;overflow:hidden;
   direction:rtl;scrollbar-width:none;padding:2px;box-sizing:border-box;}
 #qariCol::-webkit-scrollbar{display:none;}
 
-.s-item{padding:5px 2px;text-align:center;cursor:pointer;
-  border-bottom:1px solid #e2e8f0;font-family:'JN',serif;}
+.s-item{margin:4px 5px;padding:8px 3px;border-radius:12px;cursor:pointer;
+  text-align:center;font-family:'JN',serif;
+  background:linear-gradient(145deg,#ffffff,#dbe3ec);
+  border:1.5px solid #94a3b8;
+  box-shadow:0 3px 0 #94a3b8,inset 0 1px 0 rgba(255,255,255,0.9);
+  transition:all .12s;}
+.s-item:active{transform:translateY(2px);box-shadow:0 1px 0 #94a3b8;}
 .s-item .sn{display:block;font-size:8.5px;color:#64748b;font-family:'Courier New',monospace;}
 .s-item .sa{display:block;font-size:12px;font-weight:900;color:#0f172a;line-height:1.3;}
-.s-item.selected{background:#bbf7d0;border:2px solid #16a34a;border-radius:8px;margin:2px 1px;}
-.s-item.selected .sa{color:#14532d;}
+.s-item.selected{background:linear-gradient(145deg,#86efac,#4ade80);
+  border-color:#15803d;box-shadow:0 3px 0 #15803d,inset 0 1px 0 rgba(255,255,255,0.5);}
+.s-item.selected .sa{color:#052e16;}
 
 #qariCol .qc{width:100%;white-space:normal;text-align:center;font-size:10px;
-  padding:5px 3px;border-radius:8px;margin:1.5px 0;background:#f1f5f9;color:#0f172a;
-  border:1.5px solid #cbd5e1;box-shadow:none;text-shadow:none;flex:1;
-  display:flex;align-items:center;justify-content:center;font-weight:900;line-height:1.2;}
-#qariCol .qc.active{background:#bbf7d0;border-color:#16a34a;color:#14532d;}
-#qariCol .qc.gold{border-color:#d97706;}
-#qariCol .qc.gold.active{background:#fef3c7;border-color:#b45309;color:#78350f;}
+  padding:6px 3px;border-radius:12px;margin:2.5px 0;color:#0f172a;
+  background:linear-gradient(145deg,#ffffff,#dbe3ec);
+  border:1.5px solid #94a3b8;box-shadow:0 3px 0 #94a3b8,inset 0 1px 0 rgba(255,255,255,0.9);
+  text-shadow:none;flex:1;display:flex;align-items:center;justify-content:center;
+  font-weight:900;line-height:1.2;transition:all .12s;}
+#qariCol .qc:active{transform:translateY(2px);box-shadow:0 1px 0 #94a3b8;}
+#qariCol .qc.active{background:linear-gradient(145deg,#86efac,#4ade80);
+  border-color:#15803d;color:#052e16;box-shadow:0 3px 0 #15803d,inset 0 1px 0 rgba(255,255,255,0.5);}
+#qariCol .qc.gold{background:linear-gradient(145deg,#fff9e6,#fde68a);border-color:#d97706;
+  box-shadow:0 3px 0 #d97706,inset 0 1px 0 rgba(255,255,255,0.9);}
+#qariCol .qc.gold.active{background:linear-gradient(145deg,#fef3c7,#fcd34d);
+  border-color:#b45309;color:#78350f;box-shadow:0 3px 0 #b45309,inset 0 1px 0 rgba(255,255,255,0.5);}
 #qariCol .qc .dlbadge{top:-2px;left:-2px;}
 
 /* ══ روشن/صاف بیک گراؤنڈ — ہر تھیم میں یکساں، کہیں بھی اندھیرا نہیں ══ */
@@ -657,9 +670,11 @@ html,body{height:100dvh;overflow:hidden;
 .panel-tag{color:#64748b !important;}
 #playerBar{background:#f1f5f9 !important;border-top-color:#94a3b8 !important;box-shadow:none !important;}
 .time-row{color:#334155 !important;}
-.ibtn,.pbtn,.spdbtn{background:#e2e8f0 !important;color:#111827 !important;
-  text-shadow:none !important;border-color:#94a3b8 !important;box-shadow:0 4px 0 #b6c2d1 !important;}
-.ibtn:active,.pbtn:active,.spdbtn:active{background:#cbd5e1 !important;box-shadow:0 1px 0 #b6c2d1 !important;}
+.ibtn,.pbtn,.spdbtn{background:linear-gradient(145deg,#ffffff,#cbd5e1) !important;color:#111827 !important;
+  text-shadow:none !important;border:1.5px solid #94a3b8 !important;
+  box-shadow:0 4px 0 #94a3b8,inset 0 1px 0 rgba(255,255,255,0.95) !important;}
+.ibtn:active,.pbtn:active,.spdbtn:active{background:linear-gradient(145deg,#cbd5e1,#e2e8f0) !important;
+  box-shadow:0 1px 0 #94a3b8 !important;transform:translateY(3px);}
 .cbtn-lbl{color:#111827 !important;text-shadow:none !important;font-size:8.5px !important;font-weight:900 !important;line-height:1.15 !important;text-align:center;}
 .ibtn,.pbtn,.spdbtn{min-height:50px !important;}
 .pbtn.active{background:#bbf7d0 !important;color:#14532d !important;border-color:#16a34a !important;}
@@ -698,7 +713,7 @@ html,body{height:100dvh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">Hfz003</span>
+    <span class="ver-code" id="splashVerCode">Hfz004</span>
   </div>
 </div>
 
@@ -712,7 +727,7 @@ html,body{height:100dvh;overflow:hidden;
       <div style="display:none"><span class="net-dot online" id="netDot"></span><span id="netLabel">آن لائن</span></div>
       <div class="status-block" style="margin-top:3px;">
         <span class="ver-pill" id="tbVerPill" style="padding:2px 9px;font-size:9px;">Online</span>
-        <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz003</span>
+        <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz004</span>
       </div>
     </div>
     <div style="display:flex;align-items:center;gap:6px;">
@@ -732,6 +747,9 @@ html,body{height:100dvh;overflow:hidden;
       </button>
       <button class="icon-btn btn-share" id="shareBtn">
         <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
+      </button>
+      <button class="icon-btn btn-refresh" onclick="forceRefresh()" title="تازہ ترین ورژن لوڈ کریں">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/></svg>
       </button>
       <button class="icon-btn btn-dl" onclick="openDL()" title="ڈاؤن لوڈ مینیجر">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
@@ -832,33 +850,26 @@ html,body{height:100dvh;overflow:hidden;
     </div>
   </div>
 
-  <!-- START BUTTON — above wheel, centered -->
-  <div id="applyBtnWrap" class="show">
-    <button id="applyBtn" onclick="applySel()">▶ START</button>
-  </div>
-
-  <!-- AYAH RANGE (سورہ اب اوپر بائیں کالم سے منتخب ہوتی ہے) -->
+  <!-- AYAH RANGE — پلیئر پینل کے بالکل نیچے، سلائیڈر سے منتخب کریں -->
   <div id="wheelArea">
     <span id="wheelCurName" style="display:none"></span>
     <div class="ayah-range-row" id="rrRow">
       <div class="sw-col">
-        <span class="sw-label">تک آیت</span>
-        <div class="spn-box">
-          <button class="spnbtn" onclick="spT(-1)">−</button>
-          <input class="ayah-inp" id="tv" type="number" min="1" value="7" oninput="onTVi(this.value)">
-          <button class="spnbtn" onclick="spT(1)">+</button>
-        </div>
+        <span class="sw-label">سے آیت (From)</span>
+        <div class="value-badge" id="fvBadge">1</div>
+        <input class="ayah-slider" id="fv" type="range" min="1" max="7" value="1" oninput="onFVi(this.value)">
       </div>
-      <div style="color:rgba(255,255,255,0.2);font-size:14px;padding-top:18px">—</div>
       <div class="sw-col">
-        <span class="sw-label">سے آیت</span>
-        <div class="spn-box">
-          <button class="spnbtn" onclick="spF(-1)">−</button>
-          <input class="ayah-inp" id="fv" type="number" min="1" value="1" oninput="onFVi(this.value)">
-          <button class="spnbtn" onclick="spF(1)">+</button>
-        </div>
+        <span class="sw-label">تک آیت (To)</span>
+        <div class="value-badge" id="tvBadge">7</div>
+        <input class="ayah-slider" id="tv" type="range" min="1" max="7" value="7" oninput="onTVi(this.value)">
       </div>
     </div>
+  </div>
+
+  <!-- START BUTTON -->
+  <div id="applyBtnWrap" class="show">
+    <button id="applyBtn" onclick="applySel()">▶ START</button>
   </div>
 
 </div>
@@ -1294,8 +1305,11 @@ function onWheelChange(n){
   wSelected=n;
   St.s=n;const mx=SH[n-1].a;
   St.fr=1;St.to=mx;
-  document.getElementById('fv').value=1;
-  document.getElementById('tv').value=mx;
+  const fv=document.getElementById('fv'),tv=document.getElementById('tv');
+  fv.min=1;fv.max=mx;fv.value=1;
+  tv.min=1;tv.max=mx;tv.value=mx;
+  document.getElementById('fvBadge').textContent=1;
+  document.getElementById('tvBadge').textContent=mx;
   document.getElementById('wheelCurName').textContent=SH[n-1].ar;
 }
 
@@ -1320,10 +1334,23 @@ function selSurah(n){
   loadA(n,1,false);
 }
 
-function spF(d){const mx=SH[St.s-1].a;St.fr=Math.max(1,Math.min(mx,St.fr+d));if(St.to<St.fr)St.to=St.fr;document.getElementById('fv').value=St.fr;document.getElementById('tv').value=St.to;}
-function spT(d){const mx=SH[St.s-1].a;St.to=Math.max(St.fr,Math.min(mx,St.to+d));document.getElementById('tv').value=St.to;}
-function onFVi(v){const n=parseInt(v)||1,mx=SH[St.s-1].a;St.fr=Math.max(1,Math.min(mx,n));if(St.to<St.fr){St.to=St.fr;document.getElementById('tv').value=St.to;}}
-function onTVi(v){const n=parseInt(v)||1,mx=SH[St.s-1].a;St.to=Math.max(St.fr,Math.min(mx,n));}
+function onFVi(v){
+  const n=parseInt(v)||1,mx=SH[St.s-1].a;
+  St.fr=Math.max(1,Math.min(mx,n));
+  document.getElementById('fvBadge').textContent=St.fr;
+  const tv=document.getElementById('tv');
+  tv.min=St.fr; // اگلا ڈبہ پچھلے سے چھوٹا نہیں ہو سکتا
+  if(St.to<St.fr){
+    St.to=St.fr;tv.value=St.to;
+    document.getElementById('tvBadge').textContent=St.to;
+  }
+}
+function onTVi(v){
+  const n=parseInt(v)||1,mx=SH[St.s-1].a;
+  St.to=Math.max(St.fr,Math.min(mx,n));
+  document.getElementById('tv').value=St.to;
+  document.getElementById('tvBadge').textContent=St.to;
+}
 
 function applySel(){
   if(SHAKIR){
@@ -1636,7 +1663,7 @@ function changeZoom(delta){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='Hfz003';
+const APP_VERSION='Hfz004';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
@@ -1661,6 +1688,28 @@ window.addEventListener('online',updateNetStatus);
 window.addEventListener('offline',updateNetStatus);
 document.addEventListener('DOMContentLoaded',updateNetStatus);
 updateNetStatus();
+
+// ══ FORCE REFRESH — سروس ورکر اور پرانی کیش صاف کر کے تازہ ترین فائل لوڈ کرے ══
+async function forceRefresh(){
+  const btn=document.querySelector('.btn-refresh');
+  btn?.classList.add('spinning');
+  showToast('🔄 تازہ ترین ورژن لوڈ ہو رہی ہے...');
+  try{
+    if('serviceWorker' in navigator){
+      const regs=await navigator.serviceWorker.getRegistrations();
+      for(const r of regs){await r.unregister();}
+    }
+    if('caches' in window){
+      const names=await caches.keys();
+      for(const n of names){
+        if(n.startsWith('hafiz-musab-shell-')) await caches.delete(n);
+      }
+    }
+  }catch(e){}
+  setTimeout(()=>{
+    location.href=location.pathname+'?v='+Date.now();
+  },350);
+}
 
 function saveApp(){
   try{
