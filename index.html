@@ -608,6 +608,15 @@ html,body{height:100dvh;overflow:hidden;
 .dla-btn.fullq{background:linear-gradient(145deg,var(--ghi),var(--gd),var(--gdd));
   color:#1a1305;font-weight:900;text-shadow:none;border:2px solid var(--gdi);}
 
+/* ══ VERSION CHECK BADGE — تازہ ترین اپلوڈ شدہ فائل کی تصدیق کے لیے ══ */
+.ver-pill{display:inline-flex;align-items:center;justify-content:center;
+  padding:3px 13px;border-radius:999px;font-weight:900;font-size:11px;
+  font-family:'Courier New',monospace;box-shadow:0 2px 6px rgba(0,0,0,0.3);
+  background:#eaf2ff;color:#1d4ed8;transition:all .2s;}
+.ver-pill.offline{background:#fee2e2;color:#b91c1c;}
+.ver-code{margin-top:3px;font-family:'Courier New',monospace;font-size:12px;font-weight:900;
+  color:var(--ghi);text-shadow:0 0 8px rgba(var(--gdR),0.6);letter-spacing:1px;text-align:center;}
+
 </style>
 </head>
 <body>
@@ -638,6 +647,10 @@ html,body{height:100dvh;overflow:hidden;
   <div class="net-status" id="splashNetStatus" style="justify-content:center;margin-top:8px;font-size:10px;">
     <span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span>
   </div>
+  <div style="display:flex;flex-direction:column;align-items:center;margin-top:10px;">
+    <span class="ver-pill" id="splashVerPill">Online</span>
+    <span class="ver-code" id="splashVerCode">Hfz002</span>
+  </div>
 </div>
 
 <div id="app" style="display:none">
@@ -648,6 +661,10 @@ html,body{height:100dvh;overflow:hidden;
       <div class="tb-surah" id="tbSurah">الفاتحة</div>
       <div class="tb-ayah" id="tbAyah">۱/۷</div>
       <div class="net-status"><span class="net-dot online" id="netDot"></span><span id="netLabel">آن لائن</span></div>
+      <div style="display:flex;flex-direction:column;align-items:flex-start;margin-top:3px;">
+        <span class="ver-pill" id="tbVerPill" style="padding:2px 9px;font-size:9px;">Online</span>
+        <span class="ver-code" id="tbVerCode" style="font-size:9px;margin-top:2px;">Hfz002</span>
+      </div>
     </div>
     <div style="display:flex;align-items:center;gap:6px;">
       <div id="timerBadge" onclick="openTimer()">
@@ -1533,7 +1550,11 @@ function changeZoom(delta){
   try{localStorage.setItem('qfontsize',curFontSize);}catch{}
 }
 
-// ══ ONLINE / OFFLINE INDICATOR ══
+// ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
+// فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
+const APP_VERSION='Hfz002';
+
+// ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
   const on=navigator.onLine;
   const dot=document.getElementById('netDot'),lbl=document.getElementById('netLabel');
@@ -1542,6 +1563,15 @@ function updateNetStatus(){
   if(lbl){lbl.textContent=on?'آن لائن':'آف لائن';}
   if(sdot){sdot.className='net-dot '+(on?'online':'offline');}
   if(slbl){slbl.textContent=on?'آن لائن':'آف لائن';}
+
+  const pills=[document.getElementById('splashVerPill'),document.getElementById('tbVerPill')];
+  const codes=[document.getElementById('splashVerCode'),document.getElementById('tbVerCode')];
+  pills.forEach(p=>{
+    if(!p)return;
+    p.textContent=on?'Online':'Offline';
+    p.classList.toggle('offline',!on);
+  });
+  codes.forEach(c=>{if(c)c.textContent=APP_VERSION;});
 }
 window.addEventListener('online',updateNetStatus);
 window.addEventListener('offline',updateNetStatus);
