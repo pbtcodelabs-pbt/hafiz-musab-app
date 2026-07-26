@@ -312,7 +312,7 @@ html,body{height:100dvh;overflow:hidden;
   text-shadow:0 1px 3px rgba(0,0,0,0.9);}
 
 /* ══ VOLUME KNOB v3 — اصلی میٹل نوب + رنگین سکیل رِنگ (ریفرنس تصاویر جیسا) ══ */
-.vol-row{display:flex;justify-content:space-between;align-items:center;margin-top:6px;padding:0 10px;}
+.vol-row{display:flex;justify-content:center;align-items:center;margin-top:4px;padding:0 8px;gap:6px;}
 .vol-side-info{font-family:'JN',serif;font-size:11px;font-weight:900;color:var(--hi);
   text-align:center;max-width:78px;line-height:1.5;text-shadow:0 0 6px rgba(var(--hiR),0.5);}
 .vol-knob-wrap{display:flex;flex-direction:column;align-items:center;gap:4px;}
@@ -422,11 +422,12 @@ html,body{height:100dvh;overflow:hidden;
   padding:6px 10px;border-radius:10px;background:rgba(var(--acR),0.18);
   border:1.5px solid rgba(var(--acR),0.4);box-shadow:0 0 10px rgba(var(--acR),0.2);
   width:100%;box-sizing:border-box;overflow:hidden;}
-.awheel-block{flex:1;text-align:center;min-width:0;}
+.awheel-block{flex:0 0 auto;width:64px;text-align:center;min-width:0;}
 .sw-label{display:block;margin-bottom:3px;font-size:10px;font-weight:900;color:var(--hi);
   font-family:'JN',serif;direction:rtl;text-shadow:0 0 6px rgba(var(--hiR),0.5);white-space:nowrap;}
 .awheel-outer{height:108px !important;}
-.awheel-outer .wi-ar{font-family:'Courier New',monospace !important;font-size:24px !important;}
+.awheel-outer .wheel-item{padding:0 2px !important;}
+.awheel-outer .wi-ar{font-family:'Courier New',monospace !important;font-size:22px !important;}
 /* Apply button — now standalone above wheel area */
 #applyBtnWrap{flex-shrink:0;display:none;justify-content:center;align-items:center;
   padding:5px 10px 3px;background:rgba(var(--acR),0.10);}
@@ -697,11 +698,11 @@ html,body{height:100dvh;overflow:hidden;
 /* ══ MIDDLE ROW — سورہ کالم (بائیں) + عربی/اردو (درمیان) + قاری کالم (دائیں) ══
    direction:ltr جان بوجھ کر لگایا ہے تاکہ سورہ ہمیشہ بائیں اور قاری ہمیشہ دائیں رہے */
 #midRow{flex:1;display:flex;flex-direction:row;direction:ltr;overflow:hidden;min-height:0;}
-#surahCol{width:62px;flex-shrink:0;overflow-y:auto;background:#f8fafc;
+#surahCol{width:76px;flex-shrink:0;overflow-y:auto;background:#f8fafc;
   border-right:1.5px solid #cbd5e1;direction:rtl;scrollbar-width:none;}
 #surahCol::-webkit-scrollbar{display:none;}
 #centerWrap{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0;direction:rtl;}
-#qariCol{width:74px;flex-shrink:0;overflow-y:auto;background:#f8fafc;
+#qariCol{width:88px;flex-shrink:0;overflow-y:auto;background:#f8fafc;
   border-left:1.5px solid #cbd5e1;display:flex;flex-direction:column;
   direction:rtl;scrollbar-width:none;padding:2px;box-sizing:border-box;}
 #qariCol::-webkit-scrollbar{display:none;}
@@ -793,7 +794,7 @@ html,body{height:100dvh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">Hfz016</span>
+    <span class="ver-code" id="splashVerCode">Hfz017</span>
   </div>
 </div>
 
@@ -809,7 +810,7 @@ html,body{height:100dvh;overflow:hidden;
         <button class="ads-btn" onclick="openAds()" title="میرے اشتہار">📣</button>
         <div class="status-block">
           <span class="ver-pill" id="tbVerPill" style="padding:2px 9px;font-size:9px;">Online</span>
-          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz016</span>
+          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz017</span>
         </div>
       </div>
     </div>
@@ -946,7 +947,15 @@ html,body{height:100dvh;overflow:hidden;
       <button class="spdbtn" id="spdBtn" onclick="chgSpd()"><span id="spdVal">1x</span><span class="cbtn-lbl">اسپیڈ<br>Speed</span></button>
     </div>
     <div class="vol-row">
-      <div class="vol-side-info" id="volSurahParaInfo">الفاتحة • پارہ 1</div>
+      <div class="awheel-block rr-block">
+        <span class="sw-label">سے (From)</span>
+        <div class="wheel-outer awheel-outer">
+          <div class="wheel-fade-top"></div>
+          <div class="wheel-selector"></div>
+          <div class="wheel-fade-bot"></div>
+          <div class="wheel-scroll" id="fromWheel"></div>
+        </div>
+      </div>
       <div class="vol-knob-wrap">
         <div class="vol-knob-outer">
           <div class="vol-ticks" id="volTicks"></div>
@@ -957,25 +966,8 @@ html,body{height:100dvh;overflow:hidden;
         </div>
         <span class="cbtn-lbl">🔊 والیوم<br>Volume</span>
       </div>
-      <div class="vol-side-info" id="volAyahInfo">آیت 1</div>
-    </div>
-  </div>
-
-  <!-- AYAH RANGE — پلیئر پینل کے بالکل نیچے، وہیل سے منتخب کریں (سے=دائیں، تک=بائیں) -->
-  <div id="wheelArea">
-    <span id="wheelCurName" style="display:none"></span>
-    <div class="ayah-range-row" id="rrRow">
-      <div class="awheel-block">
-        <span class="sw-label">سے آیت (From)</span>
-        <div class="wheel-outer awheel-outer">
-          <div class="wheel-fade-top"></div>
-          <div class="wheel-selector"></div>
-          <div class="wheel-fade-bot"></div>
-          <div class="wheel-scroll" id="fromWheel"></div>
-        </div>
-      </div>
-      <div class="awheel-block">
-        <span class="sw-label">تک آیت (To)</span>
+      <div class="awheel-block rr-block">
+        <span class="sw-label">تک (To)</span>
         <div class="wheel-outer awheel-outer">
           <div class="wheel-fade-top"></div>
           <div class="wheel-selector"></div>
@@ -983,6 +975,7 @@ html,body{height:100dvh;overflow:hidden;
           <div class="wheel-scroll" id="toWheel"></div>
         </div>
       </div>
+      <span id="wheelCurName" style="display:none"></span>
     </div>
   </div>
 
@@ -1436,12 +1429,12 @@ function setQari(k){
     document.getElementById('shakirSurahName').textContent=SH[St.s-1].ar;
     document.getElementById('trTag').textContent='قاری: '+q.name+' (مکمل سورت آڈیو)';
     // Hide ayah range for surah-mode
-    document.getElementById('rrRow').style.display='none';
+    document.querySelectorAll('.rr-block').forEach(el=>el.style.display='none');
     loadA(St.s,1,false);
   }else{
     sb.classList.remove('show');
     document.getElementById('trTag').textContent='ترجمہ: فتح محمد جالندھری ● قرآن متن آف لائن';
-    document.getElementById('rrRow').style.display='';document.getElementById('applyBtnWrap').classList.add('show');
+    document.querySelectorAll('.rr-block').forEach(el=>el.style.display='');document.getElementById('applyBtnWrap').classList.add('show');
     loadA(St.s,St.a,false);
   }
   showToast('✓ '+q.name);
@@ -2011,7 +2004,7 @@ function setUrZoom(v){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='Hfz016';
+const APP_VERSION='Hfz017';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
