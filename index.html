@@ -145,6 +145,11 @@ html,body{height:100dvh;overflow:hidden;
   box-shadow:0 3px 0 #14532d,inset 0 1px 0 rgba(255,255,255,0.35);}
 .btn-refresh.spinning svg{animation:spinIcon .7s linear infinite;}
 @keyframes spinIcon{to{transform:rotate(360deg);}}
+.ads-btn{width:24px;height:24px;border-radius:50%;border:1.5px solid #db2777;cursor:pointer;
+  background:linear-gradient(145deg,#fce7f3,#f9a8d4);color:#831843;font-size:12px;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 0 #9d174d,inset 0 1px 0 rgba(255,255,255,0.8);flex-shrink:0;}
+.ads-btn:active{transform:translateY(2px);box-shadow:0 1px 0 #9d174d;}
 .btn-share{background:linear-gradient(145deg,#38bdf8,#0369a1);color:#fff;
   box-shadow:0 3px 0 #0c4a6e,inset 0 1px 0 rgba(255,255,255,0.35);}
 .btn-eq{background:linear-gradient(145deg,rgba(var(--gdR),0.5),rgba(var(--acR),0.5));
@@ -439,6 +444,27 @@ html,body{height:100dvh;overflow:hidden;
 .ds-prog-fill{height:100%;background:linear-gradient(90deg,#f59e0b,#ea580c);border-radius:4px;width:0%;transition:width .2s;}
 .ds-prog.show{display:block;}
 
+/* MY ADS / POSTER OVERLAY */
+#adOverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:450;
+  align-items:center;justify-content:center;padding:16px;}
+#adOverlay.open{display:flex;}
+.ad-card{width:100%;max-width:340px;max-height:90vh;overflow-y:auto;
+  background:linear-gradient(160deg,#fefce8,#fff7ed);border-radius:16px;
+  border:2px solid #d97706;padding:14px;box-shadow:0 10px 30px rgba(0,0,0,0.6);}
+.ad-title{font-family:'JN',serif;font-size:15px;font-weight:900;color:#78350f;
+  display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+#adPosterBox{width:100%;min-height:160px;border-radius:12px;overflow:hidden;
+  background:#f1f5f9;border:1.5px dashed #94a3b8;
+  display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
+#adPosterImg{width:100%;display:block;}
+#adPosterEmpty{text-align:center;color:#64748b;font-size:12px;font-weight:700;
+  font-family:'JN',serif;line-height:2;padding:20px;}
+.ad-actions{display:flex;gap:6px;margin-bottom:8px;}
+.ad-share-row{display:flex;flex-direction:column;gap:6px;}
+.dla-btn.wa{background:linear-gradient(145deg,#25d366,#128c3e);color:#fff;box-shadow:0 3px 0 #0d6b30;}
+.dla-btn.wab{background:linear-gradient(145deg,#34b7ac,#0f766e);color:#fff;box-shadow:0 3px 0 #0b544e;}
+.ad-note{font-size:9.5px;color:#78350f;margin-top:8px;line-height:1.5;font-family:'JN',serif;}
+
 /* SHARE EDITOR */
 #shareEditOverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:700;
   align-items:center;justify-content:center;padding:16px;}
@@ -706,7 +732,7 @@ html,body{height:100dvh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">Hfz005</span>
+    <span class="ver-code" id="splashVerCode">Hfz006</span>
   </div>
 </div>
 
@@ -718,9 +744,12 @@ html,body{height:100dvh;overflow:hidden;
       <div class="tb-surah" id="tbSurah">الفاتحة</div>
       <div class="tb-ayah" id="tbAyah">۱/۷</div>
       <div style="display:none"><span class="net-dot online" id="netDot"></span><span id="netLabel">آن لائن</span></div>
-      <div class="status-block" style="margin-top:3px;">
-        <span class="ver-pill" id="tbVerPill" style="padding:2px 9px;font-size:9px;">Online</span>
-        <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz005</span>
+      <div style="display:flex;align-items:center;gap:4px;margin-top:3px;">
+        <button class="ads-btn" onclick="openAds()" title="میرے اشتہار">📣</button>
+        <div class="status-block">
+          <span class="ver-pill" id="tbVerPill" style="padding:2px 9px;font-size:9px;">Online</span>
+          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz006</span>
+        </div>
       </div>
     </div>
     <div style="display:flex;align-items:center;gap:6px;">
@@ -900,6 +929,30 @@ html,body{height:100dvh;overflow:hidden;
     </div>
   </div>
   <div id="dlList"></div>
+</div>
+
+<!-- MY ADS / POSTER OVERLAY -->
+<div id="adOverlay">
+  <div class="ad-card">
+    <div class="ad-title">
+      <span>📣 میرے اشتہار</span>
+      <button class="dlx" onclick="closeAds()">✕</button>
+    </div>
+    <div id="adPosterBox">
+      <img id="adPosterImg" style="display:none">
+      <div id="adPosterEmpty">🖼<br>ابھی کوئی پوسٹر اپلوڈ نہیں ہوا</div>
+    </div>
+    <input type="file" id="adFileInput" accept="image/*" style="display:none" onchange="handleAdUpload(event)">
+    <div class="ad-actions">
+      <button class="dla-btn green" onclick="document.getElementById('adFileInput').click()">🖼 گیلری سے چنیں</button>
+      <button class="dla-btn red" onclick="deleteAdPoster()">🗑 حذف کریں</button>
+    </div>
+    <div class="ad-share-row">
+      <button class="dla-btn wa" onclick="shareAdPoster()">💬 واٹس ایپ پر شیئر کریں</button>
+      <button class="dla-btn wab" onclick="shareAdPoster()">💼 واٹس ایپ بزنس پر شیئر کریں</button>
+    </div>
+    <div class="ad-note">نوٹ: دونوں بٹن فون کا عام شیئر مینیو کھولیں گے — اس میں سے آپ خود واٹس ایپ یا واٹس ایپ بزنس چن لیں، ویب ایپ خود بخود دونوں میں فرق نہیں کر سکتی۔</div>
+  </div>
 </div>
 
 <!-- SLEEP TIMER OVERLAY -->
@@ -1412,6 +1465,65 @@ let dlQari=CQ;
 function openDL(){document.getElementById('dlOverlay').classList.add('open');buildDLQsel();buildDLList();updateDLStats();}
 function closeDL(){dlStop=true;document.getElementById('dlOverlay').classList.remove('open');document.getElementById('dlOverallWrap')?.classList.remove('show');}
 
+// ══ MY ADS / POSTER ══
+function openAds(){document.getElementById('adOverlay').classList.add('open');renderAdPoster();}
+function closeAds(){document.getElementById('adOverlay').classList.remove('open');}
+function renderAdPoster(){
+  const img=document.getElementById('adPosterImg'),empty=document.getElementById('adPosterEmpty');
+  let data=null;
+  try{data=localStorage.getItem('hfz_ad_poster');}catch{}
+  if(data){img.src=data;img.style.display='block';empty.style.display='none';}
+  else{img.style.display='none';empty.style.display='block';}
+}
+function handleAdUpload(ev){
+  const file=ev.target.files&&ev.target.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=()=>{
+    const im=new Image();
+    im.onload=()=>{
+      const maxW=900,maxH=1600;
+      let w=im.width,h=im.height;
+      const ratio=Math.min(1,maxW/w,maxH/h);
+      w=Math.round(w*ratio);h=Math.round(h*ratio);
+      const c=document.createElement('canvas');c.width=w;c.height=h;
+      c.getContext('2d').drawImage(im,0,0,w,h);
+      const outData=c.toDataURL('image/jpeg',0.85);
+      try{
+        localStorage.setItem('hfz_ad_poster',outData);
+        showToast('✓ پوسٹر محفوظ ہو گیا');
+        renderAdPoster();
+      }catch(e){showToast('⚠️ پوسٹر بہت بڑا ہے، دوبارہ کوشش کریں');}
+    };
+    im.src=reader.result;
+  };
+  reader.readAsDataURL(file);
+  ev.target.value='';
+}
+function deleteAdPoster(){
+  if(!confirm('پوسٹر حذف کریں؟'))return;
+  try{localStorage.removeItem('hfz_ad_poster');}catch{}
+  renderAdPoster();
+  showToast('🗑 پوسٹر حذف ہو گیا');
+}
+async function shareAdPoster(){
+  let data=null;
+  try{data=localStorage.getItem('hfz_ad_poster');}catch{}
+  if(!data){showToast('پہلے پوسٹر اپلوڈ کریں');return;}
+  try{
+    const res=await fetch(data);
+    const blob=await res.blob();
+    const file=new File([blob],'poster.jpg',{type:'image/jpeg'});
+    if(navigator.canShare&&navigator.canShare({files:[file]})){
+      await navigator.share({files:[file],title:'حافظ قرآن',text:getShareText()});
+      return;
+    }
+  }catch(e){}
+  // fallback: image share not supported, share text/link instead
+  if(navigator.share){navigator.share({title:'حافظ قرآن',text:getShareText(),url:getShareLink()}).catch(()=>{});}
+  else{window.open('https://wa.me/?text='+encodeURIComponent(getShareText()+' '+getShareLink()),'_blank');}
+}
+
 function buildDLQsel(){
   document.getElementById('dlQsel').innerHTML=Object.keys(QARIS).map(k=>
     `<button class="dqb${k===dlQari?' active':''}" onclick="setDLQ('${k}')">${QARIS[k].name}</button>`
@@ -1710,7 +1822,7 @@ function changeZoom(delta){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='Hfz005';
+const APP_VERSION='Hfz006';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
