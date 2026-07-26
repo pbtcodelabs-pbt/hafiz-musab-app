@@ -732,7 +732,7 @@ html,body{height:100dvh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">Hfz006</span>
+    <span class="ver-code" id="splashVerCode">Hfz007</span>
   </div>
 </div>
 
@@ -748,7 +748,7 @@ html,body{height:100dvh;overflow:hidden;
         <button class="ads-btn" onclick="openAds()" title="میرے اشتہار">📣</button>
         <div class="status-block">
           <span class="ver-pill" id="tbVerPill" style="padding:2px 9px;font-size:9px;">Online</span>
-          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz006</span>
+          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz007</span>
         </div>
       </div>
     </div>
@@ -1158,6 +1158,8 @@ aud.addEventListener('error',()=>{
     aud.dataset.ua='1';
     const url=q.mode==='surah'?q.alt(St.s):q.alt(St.s,St.a);
     aud.src=url;aud.load();if(St.pl)aud.play().catch(()=>{});
+  }else if(!navigator.onLine){
+    showToast('📴 یہ آیت پہلے سے ڈاؤن لوڈ نہیں — آن لائن ہو کر 📥 ڈاؤن لوڈ مینیجر سے یہ سورہ محفوظ کر لیں');
   }else{
     showToast('⚠ آڈیو لوڈ نہیں ہوسکی — انٹرنیٹ چیک کریں');
   }
@@ -1822,7 +1824,7 @@ function changeZoom(delta){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='Hfz006';
+const APP_VERSION='Hfz007';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
