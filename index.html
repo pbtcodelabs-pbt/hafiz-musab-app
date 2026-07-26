@@ -429,7 +429,19 @@ html,body{height:100dvh;overflow:hidden;
 .awheel-block{flex:0 0 auto;width:64px;text-align:center;min-width:0;}
 .sw-label{display:block;margin-bottom:3px;font-size:10px;font-weight:900;color:var(--hi);
   font-family:'JN',serif;direction:rtl;text-shadow:0 0 6px rgba(var(--hiR),0.5);white-space:nowrap;}
-.awheel-outer{height:108px !important;}
+.awheel-outer{height:108px !important;
+  background:
+    repeating-linear-gradient(180deg,rgba(255,255,255,0.35) 0px,rgba(255,255,255,0.35) 1px,transparent 1px,transparent 3px),
+    linear-gradient(180deg,#7c8a9a 0%,#e2e8f0 12%,#ffffff 30%,#ffffff 70%,#e2e8f0 88%,#7c8a9a 100%) !important;
+  border:2px solid #64748b !important;
+  border-radius:14px !important;
+  box-shadow:
+    inset 0 8px 12px rgba(0,0,0,0.4),
+    inset 0 -8px 12px rgba(0,0,0,0.4),
+    inset 0 0 0 1px rgba(255,255,255,0.3),
+    0 3px 0 #475569,0 5px 8px rgba(0,0,0,0.35) !important;}
+.awheel-outer .wheel-fade-top,.awheel-outer .wheel-fade-bot{background:transparent !important;}
+.awheel-outer .wheel-fade-top::before,.awheel-outer .wheel-fade-bot::before{display:none !important;}
 .awheel-outer .wheel-item{padding:0 2px !important;}
 .awheel-outer .wi-ar{font-family:'Courier New',monospace !important;font-size:22px !important;}
 /* Apply button — now standalone above wheel area */
@@ -798,7 +810,7 @@ html,body{height:100dvh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">Hfz019</span>
+    <span class="ver-code" id="splashVerCode">Hfz021</span>
   </div>
 </div>
 
@@ -814,7 +826,7 @@ html,body{height:100dvh;overflow:hidden;
         <button class="ads-btn" onclick="openAds()" title="میرے اشتہار">📣</button>
         <div class="status-block">
           <span class="ver-pill" id="tbVerPill" style="padding:2px 9px;font-size:9px;">Online</span>
-          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz019</span>
+          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz021</span>
         </div>
       </div>
     </div>
@@ -1570,8 +1582,7 @@ function buildOneAyahWheel(id,max,initial,onChange){
     if(!rafPending){rafPending=true;requestAnimationFrame(onFrame);}
     clearTimeout(snapTimer);
     snapTimer=setTimeout(()=>{
-      const absIdx=Math.round(wh.scrollTop/AITEM_H);
-      const n=absIdx-1;
+      const n=Math.round(wh.scrollTop/AITEM_H);
       if(n>=1&&n<=max)onChange(n);
     },80);
   };
@@ -1596,9 +1607,10 @@ function updateAyahWheelVisuals(wh){
     el.classList.toggle('near',ad>=0.5&&ad<1.5);
     const scale=Math.max(0.82,1-ad*0.06);
     const op=Math.max(0.55,1-ad*0.2);
+    const bl=ad<0.5?0:Math.min(1.4,(ad-0.5)*1.6);
     el.style.transform=`scale(${scale})`;
     el.style.opacity=op;
-    el.style.filter='none';
+    el.style.filter=bl>0?`blur(${bl}px)`:'none';
   }
 }
 function ayahWheelClick(id,n){
@@ -2006,7 +2018,7 @@ function setUrZoom(v){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='Hfz019';
+const APP_VERSION='Hfz021';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
