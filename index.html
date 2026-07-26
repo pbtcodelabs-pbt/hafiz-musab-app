@@ -298,6 +298,39 @@ html,body{height:100dvh;overflow:hidden;
   font-family:'Courier New',monospace;
   box-shadow:0 4px 0 rgba(0,0,0,0.72),inset 0 2px 0 rgba(255,255,255,0.2);
   text-shadow:0 1px 3px rgba(0,0,0,0.9);}
+
+/* ══ VOLUME KNOB — اصلی گھومنے والے پلیئر نوب جیسا، انگلی سے گھمائیں ══ */
+.vol-row{display:flex;justify-content:center;margin-top:6px;}
+.vol-knob-wrap{display:flex;flex-direction:column;align-items:center;gap:3px;}
+.vol-knob{position:relative;width:68px;height:68px;border-radius:50%;
+  touch-action:none;cursor:grab;user-select:none;
+  background:
+    radial-gradient(circle at 50% 22%,rgba(255,255,255,0.55),rgba(255,255,255,0) 45%),
+    linear-gradient(180deg,#1f2937 0%,#4b5563 32%,#9ca3af 62%,#f1f5f9 100%);
+  box-shadow:
+    0 6px 0 #94a3b8,
+    0 9px 14px rgba(0,0,0,0.45),
+    inset 0 2px 3px rgba(255,255,255,0.55),
+    inset 0 -3px 5px rgba(0,0,0,0.35);
+  border:1.5px solid #64748b;}
+.vol-knob:active{cursor:grabbing;}
+.vol-groove{position:absolute;inset:5px;border-radius:50%;pointer-events:none;
+  background:repeating-conic-gradient(
+    rgba(255,255,255,0.16) 0deg 1.2deg,
+    rgba(0,0,0,0.10) 1.2deg 2.4deg);
+  -webkit-mask:radial-gradient(circle,transparent 62%,#000 63%,#000 100%);
+          mask:radial-gradient(circle,transparent 62%,#000 63%,#000 100%);
+  opacity:0.9;}
+.vol-indicator{position:absolute;top:6px;left:50%;width:4px;height:16px;
+  margin-left:-2px;border-radius:3px;
+  background:linear-gradient(180deg,#fbbf24,#b45309);
+  box-shadow:0 0 4px rgba(251,191,36,0.9);
+  transform-origin:50% 28px;pointer-events:none;}
+.vol-center{position:absolute;inset:16px;border-radius:50%;
+  background:radial-gradient(circle at 45% 35%,#f8fafc,#cbd5e1);
+  box-shadow:inset 0 2px 4px rgba(0,0,0,0.25),0 1px 0 rgba(255,255,255,0.7);
+  display:flex;align-items:center;justify-content:center;pointer-events:none;}
+.vol-center span{font-size:9.5px;font-weight:900;color:#1e293b;font-family:'Courier New',monospace;}
 .spdbtn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,0.72);}
 
 /* ══ INLINE WHEEL AREA (compact — kept small so Arabic/Urdu boxes get the room) ══ */
@@ -732,7 +765,7 @@ html,body{height:100dvh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">Hfz007</span>
+    <span class="ver-code" id="splashVerCode">Hfz008</span>
   </div>
 </div>
 
@@ -748,7 +781,7 @@ html,body{height:100dvh;overflow:hidden;
         <button class="ads-btn" onclick="openAds()" title="میرے اشتہار">📣</button>
         <div class="status-block">
           <span class="ver-pill" id="tbVerPill" style="padding:2px 9px;font-size:9px;">Online</span>
-          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz007</span>
+          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz008</span>
         </div>
       </div>
     </div>
@@ -869,6 +902,16 @@ html,body{height:100dvh;overflow:hidden;
       </button>
       <button class="pbtn" id="ayahRepBtn" onclick="togAR()">↺<span class="cbtn-lbl">آیت<br>Ayah</span></button>
       <button class="spdbtn" id="spdBtn" onclick="chgSpd()"><span id="spdVal">1x</span><span class="cbtn-lbl">اسپیڈ<br>Speed</span></button>
+    </div>
+    <div class="vol-row">
+      <div class="vol-knob-wrap">
+        <div class="vol-knob" id="volKnob">
+          <div class="vol-groove"></div>
+          <div class="vol-indicator" id="volIndicator"></div>
+          <div class="vol-center"><span id="volPct">100%</span></div>
+        </div>
+        <span class="cbtn-lbl">🔊 والیوم<br>Volume</span>
+      </div>
     </div>
   </div>
 
@@ -1242,6 +1285,54 @@ function togAR(){St.ar=!St.ar;if(St.ar)St.rr=false;
 const SPEEDS=[1,1.25,1.5,2,0.75];let sIdx=0;
 function chgSpd(){sIdx=(sIdx+1)%SPEEDS.length;St.spd=SPEEDS[sIdx];aud.playbackRate=St.spd;
   document.getElementById('spdVal').textContent=St.spd+'x';}
+
+// ══ VOLUME KNOB — انگلی سے گھما کر آواز کم/زیادہ کریں (فون کے والیوم بٹن کے بغیر) ══
+const VOL_MIN_ANG=-135,VOL_MAX_ANG=135;
+function volToAngle(v){return VOL_MIN_ANG+v*(VOL_MAX_ANG-VOL_MIN_ANG);}
+function angleToVol(a){return (a-VOL_MIN_ANG)/(VOL_MAX_ANG-VOL_MIN_ANG);}
+function setKnobVisual(vol){
+  const ang=volToAngle(vol);
+  const ind=document.getElementById('volIndicator');
+  if(ind)ind.style.transform='rotate('+ang+'deg)';
+  const pct=document.getElementById('volPct');
+  if(pct)pct.textContent=Math.round(vol*100)+'%';
+}
+function applyVolume(vol,save){
+  vol=Math.max(0,Math.min(1,vol));
+  aud.volume=vol;
+  setKnobVisual(vol);
+  if(save){try{localStorage.setItem('qvolume',vol);}catch{}}
+}
+function initVolumeKnob(){
+  const knob=document.getElementById('volKnob');
+  if(!knob)return;
+  let saved=1;
+  try{const v=parseFloat(localStorage.getItem('qvolume'));if(!isNaN(v))saved=v;}catch{}
+  applyVolume(saved,false);
+  let dragging=false;
+  function angleFromEvent(clientX,clientY){
+    const r=knob.getBoundingClientRect();
+    const cx=r.left+r.width/2,cy=r.top+r.height/2;
+    const dx=clientX-cx,dy=clientY-cy;
+    let ang=Math.atan2(dx,-dy)*180/Math.PI; // 0 = up, +ve clockwise
+    ang=Math.max(VOL_MIN_ANG,Math.min(VOL_MAX_ANG,ang));
+    return ang;
+  }
+  function onMove(clientX,clientY){
+    const ang=angleFromEvent(clientX,clientY);
+    applyVolume(angleToVol(ang),true);
+  }
+  knob.addEventListener('pointerdown',e=>{
+    dragging=true;knob.setPointerCapture(e.pointerId);
+    onMove(e.clientX,e.clientY);
+  });
+  knob.addEventListener('pointermove',e=>{
+    if(!dragging)return;
+    onMove(e.clientX,e.clientY);
+  });
+  knob.addEventListener('pointerup',e=>{dragging=false;});
+  knob.addEventListener('pointercancel',()=>{dragging=false;});
+}
 
 // ══ QARI ══
 function setQari(k){
@@ -1697,6 +1788,7 @@ function initApp(){
   updateQariBadges();
   renderSurahList();
   buildAyahWheels(SH[0].a);
+  initVolumeKnob();
   setTimeout(()=>{
     const sel=document.querySelector('#surahCol .s-item[data-n="1"]');
     if(sel){sel.classList.add('selected');sel.scrollIntoView({block:'center'});}
@@ -1824,7 +1916,7 @@ function changeZoom(delta){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='Hfz007';
+const APP_VERSION='Hfz008';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
