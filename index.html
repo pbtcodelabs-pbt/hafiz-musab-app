@@ -110,7 +110,7 @@
 html,body{height:100dvh;overflow:hidden;
   background:linear-gradient(160deg,var(--b1) 0%,var(--b2) 60%,var(--b3) 100%);
   font-family:'JN',serif;color:var(--txt);}
-#app{display:flex;flex-direction:column;height:100dvh;max-width:500px;margin:0 auto;overflow:hidden;}
+#app{display:flex;flex-direction:column;height:100vh;height:100svh;max-width:500px;margin:0 auto;overflow:hidden;}
 
 /* TOP BAR */
 #topBar{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:5px 10px;
@@ -389,6 +389,11 @@ html,body{height:100dvh;overflow:hidden;
   font-size:14px;color:var(--acli);opacity:0.75;text-shadow:0 0 8px rgba(var(--acR),0.8);}
 .wheel-selector::after{content:'❯';position:absolute;left:-1px;top:50%;transform:translateY(-50%);
   font-size:14px;color:var(--acli);opacity:0.75;text-shadow:0 0 8px rgba(var(--acR),0.8);}
+.awheel-outer .wheel-selector::before,.awheel-outer .wheel-selector::after{
+  font-size:20px !important;opacity:1 !important;color:#16a34a !important;
+  text-shadow:0 0 6px rgba(74,222,128,0.9) !important;font-weight:900;}
+.awheel-outer .wheel-selector::before{right:-6px !important;}
+.awheel-outer .wheel-selector::after{left:-6px !important;}
 .wheel-scroll{height:100%;overflow-y:auto;scrollbar-width:none;scroll-snap-type:y mandatory;scroll-behavior:auto;
   transform-style:preserve-3d;}
 .wheel-scroll::-webkit-scrollbar{display:none;}
@@ -692,11 +697,11 @@ html,body{height:100dvh;overflow:hidden;
 /* ══ MIDDLE ROW — سورہ کالم (بائیں) + عربی/اردو (درمیان) + قاری کالم (دائیں) ══
    direction:ltr جان بوجھ کر لگایا ہے تاکہ سورہ ہمیشہ بائیں اور قاری ہمیشہ دائیں رہے */
 #midRow{flex:1;display:flex;flex-direction:row;direction:ltr;overflow:hidden;min-height:0;}
-#surahCol{width:76px;flex-shrink:0;overflow-y:auto;background:#f8fafc;
+#surahCol{width:62px;flex-shrink:0;overflow-y:auto;background:#f8fafc;
   border-right:1.5px solid #cbd5e1;direction:rtl;scrollbar-width:none;}
 #surahCol::-webkit-scrollbar{display:none;}
 #centerWrap{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0;direction:rtl;}
-#qariCol{width:88px;flex-shrink:0;overflow-y:auto;background:#f8fafc;
+#qariCol{width:74px;flex-shrink:0;overflow-y:auto;background:#f8fafc;
   border-left:1.5px solid #cbd5e1;display:flex;flex-direction:column;
   direction:rtl;scrollbar-width:none;padding:2px;box-sizing:border-box;}
 #qariCol::-webkit-scrollbar{display:none;}
@@ -730,9 +735,9 @@ html,body{height:100dvh;overflow:hidden;
 #qariCol .qc .dlbadge{top:-2px;left:-2px;}
 
 /* ══ روشن/صاف بیک گراؤنڈ — ہر تھیم میں یکساں، کہیں بھی اندھیرا نہیں ══ */
-#arabicPanel{background:#fffdf5 !important;border-bottom-color:#e5c07b !important;border-radius:14px 14px 0 0 !important;}
+#arabicPanel{background:#fffdf5 !important;border-bottom-color:#e5c07b !important;border-radius:16px 16px 0 0 !important;}
 #arabicText{color:#1a1a1a !important;text-shadow:none !important;}
-#urduPanel{background:#eef6ff !important;border-radius:0 0 14px 14px !important;}
+#urduPanel{background:#eef6ff !important;border-radius:0 0 16px 16px !important;}
 .zoom-lbl{color:#334155 !important;opacity:1 !important;}
 #urduText{color:#0f172a !important;text-shadow:none !important;}
 .tr-tag{background:#dbeafe !important;color:#1e3a8a !important;text-shadow:none !important;}
@@ -788,7 +793,7 @@ html,body{height:100dvh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">Hfz015</span>
+    <span class="ver-code" id="splashVerCode">Hfz016</span>
   </div>
 </div>
 
@@ -804,7 +809,7 @@ html,body{height:100dvh;overflow:hidden;
         <button class="ads-btn" onclick="openAds()" title="میرے اشتہار">📣</button>
         <div class="status-block">
           <span class="ver-pill" id="tbVerPill" style="padding:2px 9px;font-size:9px;">Online</span>
-          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz015</span>
+          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz016</span>
         </div>
       </div>
     </div>
@@ -2006,7 +2011,7 @@ function setUrZoom(v){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='Hfz015';
+const APP_VERSION='Hfz016';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
