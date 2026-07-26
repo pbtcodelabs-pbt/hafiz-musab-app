@@ -304,12 +304,12 @@ html,body{height:100dvh;overflow:hidden;
 .vol-knob-wrap{display:flex;flex-direction:column;align-items:center;gap:4px;}
 .vol-knob-outer{position:relative;width:104px;height:104px;padding:10px;box-sizing:border-box;}
 /* رنگین سکیل رِنگ — سبز (کم) سے پیلا/نارنجی سے سرخ (زیادہ)، ہمیشہ نظر آنے والا فکسڈ سکیل، بالکل ریفرنس تصویر جیسا */
-.vol-scale-ring{position:absolute;inset:0;border-radius:50%;pointer-events:none;
-  background:conic-gradient(from -135deg,
-    #4ade80 0deg, #a3e635 55deg, #facc15 120deg, #f97316 190deg, #ef4444 270deg, transparent 270deg 360deg);
+/* رنگین ٹِک لائنیں — والیوم کے مطابق رنگ بدلتی ہیں (JS سے سیٹ ہوتا ہے)، ہلکا گرے→سبز→سرخ */
+.vol-ticks{position:absolute;inset:0;border-radius:50%;pointer-events:none;
+  transition:filter .15s;
+  filter:drop-shadow(0 0 3px currentColor);
   -webkit-mask:radial-gradient(circle,transparent 76%,#000 79%,#000 96%,transparent 99%);
-          mask:radial-gradient(circle,transparent 76%,#000 79%,#000 96%,transparent 99%);
-  filter:drop-shadow(0 1px 2px rgba(0,0,0,0.3));}
+          mask:radial-gradient(circle,transparent 76%,#000 79%,#000 96%,transparent 99%);}
 /* اصلی میٹل نوب کا چہرہ — بھرے ہوئے سٹیل جیسا سنبرسٹ ٹیکسچر */
 .vol-knob{position:relative;width:82px;height:82px;margin:11px;border-radius:50%;
   touch-action:none;cursor:grab;user-select:none;
@@ -333,11 +333,11 @@ html,body{height:100dvh;overflow:hidden;
   box-shadow:0 0 4px rgba(0,0,0,0.6),0 0 3px rgba(239,68,68,0.9);
   transform-origin:50% 35px;pointer-events:none;z-index:2;}
 .vol-center{position:absolute;inset:24px;border-radius:50%;
-  background:radial-gradient(circle at 40% 32%,#ffffff,#cbd5e1);
-  box-shadow:inset 0 2px 4px rgba(0,0,0,0.3),0 1px 0 rgba(255,255,255,0.7);
+  background:radial-gradient(circle at 40% 32%,#1e293b,#020617);
+  box-shadow:inset 0 2px 5px rgba(0,0,0,0.7),inset 0 -1px 2px rgba(255,255,255,0.08),0 1px 0 rgba(255,255,255,0.15);
   display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:1;}
-.vol-center span{font-size:11px;font-weight:900;color:#14532d;font-family:'Courier New',monospace;
-  text-shadow:0 0 6px rgba(74,222,128,0.9),0 0 2px #fff;}
+.vol-center span{font-size:17px;font-weight:900;color:#4ade80;font-family:'Courier New',monospace;
+  text-shadow:0 0 4px #4ade80,0 0 10px #22c55e,0 0 18px rgba(74,222,128,0.85);}
 .spdbtn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,0.72);}
 
 /* ══ INLINE WHEEL AREA (compact — kept small so Arabic/Urdu boxes get the room) ══ */
@@ -772,7 +772,7 @@ html,body{height:100dvh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">Hfz010</span>
+    <span class="ver-code" id="splashVerCode">Hfz011</span>
   </div>
 </div>
 
@@ -788,7 +788,7 @@ html,body{height:100dvh;overflow:hidden;
         <button class="ads-btn" onclick="openAds()" title="میرے اشتہار">📣</button>
         <div class="status-block">
           <span class="ver-pill" id="tbVerPill" style="padding:2px 9px;font-size:9px;">Online</span>
-          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz010</span>
+          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz011</span>
         </div>
       </div>
     </div>
@@ -913,7 +913,7 @@ html,body{height:100dvh;overflow:hidden;
     <div class="vol-row">
       <div class="vol-knob-wrap">
         <div class="vol-knob-outer">
-          <div class="vol-scale-ring"></div>
+          <div class="vol-ticks" id="volTicks"></div>
           <div class="vol-knob" id="volKnob">
             <div class="vol-indicator" id="volIndicator"></div>
             <div class="vol-center"><span id="volPct">100%</span></div>
@@ -1298,48 +1298,74 @@ function chgSpd(){sIdx=(sIdx+1)%SPEEDS.length;St.spd=SPEEDS[sIdx];aud.playbackRa
 // ══ VOLUME KNOB — انگلی سے گھما کر آواز کم/زیادہ کریں (فون کے والیوم بٹن کے بغیر) ══
 const VOL_MIN_ANG=-135,VOL_MAX_ANG=135;
 function volToAngle(v){return VOL_MIN_ANG+v*(VOL_MAX_ANG-VOL_MIN_ANG);}
-function angleToVol(a){return (a-VOL_MIN_ANG)/(VOL_MAX_ANG-VOL_MIN_ANG);}
+function lerp(a,b,t){return a+(b-a)*t;}
+function volumeColor(vol){
+  const gray=[203,213,225],green=[74,222,128],red=[239,68,68];
+  let c1,c2,t;
+  if(vol<0.5){c1=gray;c2=green;t=vol/0.5;}
+  else{c1=green;c2=red;t=(vol-0.5)/0.5;}
+  const r=lerp(c1[0],c2[0],t),g=lerp(c1[1],c2[1],t),b=lerp(c1[2],c2[2],t);
+  return 'rgb('+Math.round(r)+','+Math.round(g)+','+Math.round(b)+')';
+}
+function buildTicksGradient(vol){
+  const color=volumeColor(vol);
+  const totalDeg=270,tickCount=28,tickWidth=4;
+  const step=totalDeg/tickCount;
+  const parts=[];
+  let cur=0;
+  for(let i=0;i<tickCount;i++){
+    parts.push(color+' '+cur+'deg '+(cur+tickWidth)+'deg');
+    parts.push('transparent '+(cur+tickWidth)+'deg '+(cur+step)+'deg');
+    cur+=step;
+  }
+  parts.push('transparent 270deg 360deg');
+  return 'conic-gradient(from -135deg,'+parts.join(',')+')';
+}
 function setKnobVisual(vol){
   const ang=volToAngle(vol);
   const ind=document.getElementById('volIndicator');
   if(ind)ind.style.transform='rotate('+ang+'deg)';
   const pct=document.getElementById('volPct');
-  if(pct)pct.textContent=Math.round(vol*100)+'%';
+  if(pct)pct.textContent=Math.round(vol*100);
+  const ring=document.getElementById('volTicks');
+  if(ring){ring.style.background=buildTicksGradient(vol);ring.style.color=volumeColor(vol);}
 }
 function applyVolume(vol,save){
   vol=Math.max(0,Math.min(1,vol));
   aud.volume=vol;
   setKnobVisual(vol);
   if(save){try{localStorage.setItem('qvolume',vol);}catch{}}
+  return vol;
 }
 function initVolumeKnob(){
   const knob=document.getElementById('volKnob');
   if(!knob)return;
-  let saved=1;
-  try{const v=parseFloat(localStorage.getItem('qvolume'));if(!isNaN(v))saved=v;}catch{}
-  applyVolume(saved,false);
-  let dragging=false;
-  function angleFromEvent(clientX,clientY){
+  let curVol=1;
+  try{const v=parseFloat(localStorage.getItem('qvolume'));if(!isNaN(v))curVol=v;}catch{}
+  curVol=applyVolume(curVol,false);
+  let dragging=false,lastAngle=0;
+  function rawAngle(clientX,clientY){
     const r=knob.getBoundingClientRect();
     const cx=r.left+r.width/2,cy=r.top+r.height/2;
     const dx=clientX-cx,dy=clientY-cy;
-    let ang=Math.atan2(dx,-dy)*180/Math.PI; // 0 = up, +ve clockwise
-    ang=Math.max(VOL_MIN_ANG,Math.min(VOL_MAX_ANG,ang));
-    return ang;
+    return Math.atan2(dx,-dy)*180/Math.PI; // -180..180, 0=up, +ve clockwise
   }
-  function onMove(clientX,clientY){
-    const ang=angleFromEvent(clientX,clientY);
-    applyVolume(angleToVol(ang),true);
-  }
+  // نوٹ: نوب کبھی بھی انگلی کی پوزیشن پر "جمپ" نہیں کرتا — صرف اتنا ہی گھومتا ہے
+  // جتنا انگلی نے فعلی طور پر حرکت کی (نسبتی گھماؤ)، اور 0%/100% پر پہنچ کر رک جاتا ہے
   knob.addEventListener('pointerdown',e=>{
     dragging=true;knob.setPointerCapture(e.pointerId);
-    onMove(e.clientX,e.clientY);
+    lastAngle=rawAngle(e.clientX,e.clientY);
   });
   knob.addEventListener('pointermove',e=>{
     if(!dragging)return;
-    onMove(e.clientX,e.clientY);
+    const cur=rawAngle(e.clientX,e.clientY);
+    let delta=cur-lastAngle;
+    if(delta>180)delta-=360;
+    if(delta<-180)delta+=360;
+    lastAngle=cur;
+    curVol=applyVolume(curVol+delta/270,true);
   });
-  knob.addEventListener('pointerup',e=>{dragging=false;});
+  knob.addEventListener('pointerup',()=>{dragging=false;});
   knob.addEventListener('pointercancel',()=>{dragging=false;});
 }
 
@@ -1925,7 +1951,7 @@ function changeZoom(delta){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='Hfz010';
+const APP_VERSION='Hfz011';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
