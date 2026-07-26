@@ -312,7 +312,9 @@ html,body{height:100dvh;overflow:hidden;
   text-shadow:0 1px 3px rgba(0,0,0,0.9);}
 
 /* ══ VOLUME KNOB v3 — اصلی میٹل نوب + رنگین سکیل رِنگ (ریفرنس تصاویر جیسا) ══ */
-.vol-row{display:flex;justify-content:center;margin-top:8px;}
+.vol-row{display:flex;justify-content:space-between;align-items:center;margin-top:6px;padding:0 10px;}
+.vol-side-info{font-family:'JN',serif;font-size:11px;font-weight:900;color:var(--hi);
+  text-align:center;max-width:78px;line-height:1.5;text-shadow:0 0 6px rgba(var(--hiR),0.5);}
 .vol-knob-wrap{display:flex;flex-direction:column;align-items:center;gap:4px;}
 .vol-knob-outer{position:relative;width:104px;height:104px;box-sizing:border-box;}
 /* رنگین سکیل رِنگ — سبز (کم) سے پیلا/نارنجی سے سرخ (زیادہ)، ہمیشہ نظر آنے والا فکسڈ سکیل، بالکل ریفرنس تصویر جیسا */
@@ -378,7 +380,7 @@ html,body{height:100dvh;overflow:hidden;
   background:linear-gradient(90deg,transparent,var(--gd),transparent);opacity:0.85;}
 /* This is the "long strip" the user wants kept — everything else around it is now transparent */
 .wheel-selector{position:absolute;top:50%;left:8px;right:8px;transform:translateY(-50%);
-  height:40px;pointer-events:none;z-index:2;
+  height:34px;pointer-events:none;z-index:2;
   border-top:2px solid var(--acli);border-bottom:2px solid var(--acli);
   background:linear-gradient(180deg,rgba(var(--acR),0.05),rgba(var(--acR),0.22),rgba(var(--acR),0.05));
   box-shadow:0 0 14px rgba(var(--acR),0.55),inset 0 1px 0 rgba(255,255,255,0.14);
@@ -390,7 +392,7 @@ html,body{height:100dvh;overflow:hidden;
 .wheel-scroll{height:100%;overflow-y:auto;scrollbar-width:none;scroll-snap-type:y mandatory;scroll-behavior:auto;
   transform-style:preserve-3d;}
 .wheel-scroll::-webkit-scrollbar{display:none;}
-.wheel-item{height:40px;display:flex;align-items:center;justify-content:center;
+.wheel-item{height:34px;display:flex;align-items:center;justify-content:center;
   scroll-snap-align:center;cursor:pointer;padding:0 14px;gap:8px;
   transition:filter .15s ease;
   opacity:0.4;filter:blur(0.2px);will-change:transform,opacity;
@@ -418,8 +420,8 @@ html,body{height:100dvh;overflow:hidden;
 .awheel-block{flex:1;text-align:center;min-width:0;}
 .sw-label{display:block;margin-bottom:3px;font-size:10px;font-weight:900;color:var(--hi);
   font-family:'JN',serif;direction:rtl;text-shadow:0 0 6px rgba(var(--hiR),0.5);white-space:nowrap;}
-.awheel-outer{height:76px !important;}
-.awheel-outer .wi-ar{font-family:'Courier New',monospace !important;font-size:20px !important;}
+.awheel-outer{height:108px !important;}
+.awheel-outer .wi-ar{font-family:'Courier New',monospace !important;font-size:24px !important;}
 /* Apply button — now standalone above wheel area */
 #applyBtnWrap{flex-shrink:0;display:none;justify-content:center;align-items:center;
   padding:5px 10px 3px;background:rgba(var(--acR),0.10);}
@@ -748,6 +750,7 @@ html,body{height:100dvh;overflow:hidden;
 .pbtn.active{background:#bbf7d0 !important;color:#14532d !important;border-color:#16a34a !important;}
 #wheelArea{background:#f8fafc !important;border-top-color:#94a3b8 !important;}
 .sw-label{color:#0f172a !important;text-shadow:none !important;}
+.vol-side-info{color:#0f172a !important;text-shadow:none !important;}
 .awheel-outer .wi-ar{color:#334155 !important;text-shadow:none !important;}
 .awheel-outer .wheel-item.center .wi-ar{color:#052e16 !important;font-weight:900 !important;text-shadow:none !important;}
 .awheel-outer .wheel-selector{background:linear-gradient(180deg,rgba(74,222,128,0.1),rgba(74,222,128,0.35),rgba(74,222,128,0.1)) !important;
@@ -785,7 +788,7 @@ html,body{height:100dvh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">Hfz014</span>
+    <span class="ver-code" id="splashVerCode">Hfz015</span>
   </div>
 </div>
 
@@ -801,7 +804,7 @@ html,body{height:100dvh;overflow:hidden;
         <button class="ads-btn" onclick="openAds()" title="میرے اشتہار">📣</button>
         <div class="status-block">
           <span class="ver-pill" id="tbVerPill" style="padding:2px 9px;font-size:9px;">Online</span>
-          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz014</span>
+          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz015</span>
         </div>
       </div>
     </div>
@@ -938,6 +941,7 @@ html,body{height:100dvh;overflow:hidden;
       <button class="spdbtn" id="spdBtn" onclick="chgSpd()"><span id="spdVal">1x</span><span class="cbtn-lbl">اسپیڈ<br>Speed</span></button>
     </div>
     <div class="vol-row">
+      <div class="vol-side-info" id="volSurahParaInfo">الفاتحة • پارہ 1</div>
       <div class="vol-knob-wrap">
         <div class="vol-knob-outer">
           <div class="vol-ticks" id="volTicks"></div>
@@ -948,6 +952,7 @@ html,body{height:100dvh;overflow:hidden;
         </div>
         <span class="cbtn-lbl">🔊 والیوم<br>Volume</span>
       </div>
+      <div class="vol-side-info" id="volAyahInfo">آیت 1</div>
     </div>
   </div>
 
@@ -1146,6 +1151,20 @@ const SH=[
   {n:113,ar:'الفلق',tr:'Al-Falaq',a:5},{n:114,ar:'الناس',tr:'An-Nas',a:6}
 ];
 
+// پارہ (جز) کی حد بندی — 30 پاروں کا آغاز (سورہ:آیت)
+const JUZ_START=[
+  [1,1],[2,142],[2,253],[3,93],[4,24],[4,148],[5,82],[6,111],[7,88],[8,41],
+  [9,93],[11,6],[12,53],[15,1],[17,1],[18,75],[21,1],[23,1],[25,21],[27,56],
+  [29,46],[33,31],[36,28],[39,32],[41,47],[46,1],[51,31],[58,1],[67,1],[78,1]
+];
+function getJuz(s,a){
+  for(let j=JUZ_START.length-1;j>=0;j--){
+    const [js,ja]=JUZ_START[j];
+    if(s>js||(s===js&&a>=ja))return j+1;
+  }
+  return 1;
+}
+
 const SS=(()=>{const s=[1];for(let i=0;i<SH.length-1;i++)s.push(s[i]+SH[i].a);return s;})();
 const gNum=(s,a)=>SS[s-1]+a-1;
 const p3=n=>String(n).padStart(3,'0');
@@ -1287,6 +1306,9 @@ async function loadA(s,a,play=false){
   document.getElementById('bdgSurah').textContent=sh.ar;
   document.getElementById('bdgAyah').textContent='آیت '+toUN(a);
   document.getElementById('wheelCurName').textContent=sh.ar;
+  const vAy=document.getElementById('volAyahInfo'),vSp=document.getElementById('volSurahParaInfo');
+  if(vAy)vAy.textContent='آیت '+a;
+  if(vSp)vSp.textContent=sh.ar+' • پارہ '+getJuz(s,a);
   const aT=document.getElementById('arabicText'),uT=document.getElementById('urduText');
   aT.classList.add('fade');uT.classList.add('fade');
   const d=getAyah(s,a);
@@ -1519,7 +1541,7 @@ function onWheelChange(n){
 }
 
 // ══ AYAH WHEELS — "سے" (From) دائیں، "تک" (To) بائیں؛ گھماتے وقت اگلی/پچھلی آیت کا دھندلا پیش نظارہ ══
-const AITEM_H=40;
+const AITEM_H=34;
 function buildAyahWheels(mx){
   buildOneAyahWheel('fromWheel',mx,1,n=>{
     St.fr=n;
@@ -1984,7 +2006,7 @@ function setUrZoom(v){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='Hfz014';
+const APP_VERSION='Hfz015';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
