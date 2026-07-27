@@ -634,6 +634,22 @@ html,body{height:100dvh;overflow:hidden;
   background:rgba(0,0,0,0.55);}
 .wlc-from-label{font-family:'JN',serif;font-size:13px;font-weight:900;
   color:rgba(253,230,138,0.75);margin-bottom:4px;letter-spacing:0.05em;}
+.wlc-chatdev-btn{display:block;margin:4px auto 0;padding:10px 24px;border-radius:14px;
+  border:1.5px solid rgba(253,230,138,0.6);cursor:pointer;
+  background:linear-gradient(145deg,rgba(253,230,138,0.18),rgba(253,230,138,0.05));
+  color:#fde68a;font-family:'JN',serif;font-size:15px;font-weight:900;
+  box-shadow:0 3px 0 rgba(0,0,0,0.4);touch-action:manipulation;}
+.wlc-chatdev-btn:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,0.4);}
+.wlc-chatdev-opts{display:none;flex-direction:column;gap:8px;margin:10px auto 0;max-width:220px;}
+.wlc-chatdev-opts.open{display:flex;}
+.cd-opt{display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:9px 14px;border-radius:12px;text-decoration:none;
+  font-family:'JN',serif;font-size:14px;font-weight:900;
+  box-shadow:0 3px 0 rgba(0,0,0,0.35);touch-action:manipulation;}
+.cd-opt:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,0.35);}
+.cd-opt.cd-wa{background:linear-gradient(145deg,#25d366,#128c3e);color:#fff;}
+.cd-opt.cd-sms{background:linear-gradient(145deg,#38bdf8,#0369a1);color:#fff;}
+.cd-opt.cd-mail{background:linear-gradient(145deg,#f59e0b,#b45309);color:#fff;}
 .wlc-start-btn{margin-top:22px;padding:14px 48px;border-radius:16px;border:none;cursor:pointer;
   font-family:'JN',serif;font-size:20px;font-weight:900;color:#fff;
   background:radial-gradient(ellipse at 40% 30%,#4ade80,#22c55e,#15803d,#166534);
@@ -805,8 +821,19 @@ html,body{height:100dvh;overflow:hidden;
   <div class="wlc-card">
     <div class="wlc-text">یہ ایپ حفاظ کی آسانی کے لیے عالمی شہرت یافتہ بہترین قراء کی تلاوت اور اردو ترجمے کے ساتھ بہت بہترین طریقے سے ڈیزائن کی گئی ہے — برائے مہربانی اسے دوسروں کے ساتھ بھی شیئر کریں</div>
     <div class="wlc-divider"></div>
-    <div class="wlc-from-label">✦ منجانب ✦</div>
-    <div class="wlc-from">محمد مصعب گجر<br><span style="font-size:22px;color:rgba(253,230,138,0.8)">ڈجکوٹ ⟡ فیصل آباد</span></div>
+    <div class="wlc-from-label">✦ رابطہ ✦</div>
+    <button class="wlc-chatdev-btn" onclick="toggleChatDev()">💬 چیٹ ود ڈویلپر</button>
+    <div class="wlc-chatdev-opts" id="chatDevOpts">
+      <a class="cd-opt cd-wa" href="https://wa.me/923206793793" target="_blank">
+        <span>📱</span><span>واٹس ایپ</span>
+      </a>
+      <a class="cd-opt cd-sms" href="sms:03206793793">
+        <span>💬</span><span>ایس ایم ایس</span>
+      </a>
+      <a class="cd-opt cd-mail" href="mailto:pbtcodelabs@gmail.com">
+        <span>📧</span><span>جی میل</span>
+      </a>
+    </div>
     <button class="wlc-dots-btn" id="wlcShareBtn" aria-label="شیئر">
       <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
       <span>شیئر</span>
@@ -825,7 +852,7 @@ html,body{height:100dvh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">Hfz027</span>
+    <span class="ver-code" id="splashVerCode">Hfz029</span>
   </div>
 </div>
 
@@ -841,7 +868,7 @@ html,body{height:100dvh;overflow:hidden;
         <button class="ads-btn" onclick="openAds()" title="میرے اشتہار">📣</button>
         <div class="status-block">
           <span class="ver-pill" id="tbVerPill" style="padding:2px 9px;font-size:9px;">Online</span>
-          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz027</span>
+          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz029</span>
         </div>
       </div>
     </div>
@@ -950,6 +977,7 @@ html,body{height:100dvh;overflow:hidden;
     <button class="qc"        id="qMinsh"   onclick="setQari('minsh')">المنشاوی<span class="dlbadge" id="dlb-minsh">✓</span></button>
     <button class="qc"        id="qHani"    onclick="setQari('hani')">ہانی الرفاعی<span class="dlbadge" id="dlb-hani">✓</span></button>
     <button class="qc"        id="qAyyub"   onclick="setQari('ayyub')">محمد ایوب<span class="dlbadge" id="dlb-ayyub">✓</span></button>
+    <button class="qc gold"   id="qFaqih"   onclick="setQari('faqih')">محمد الفقیہ ★<span class="dlbadge" id="dlb-faqih">✓</span></button>
     <button class="qc gold"   id="qSadaqat" onclick="setQari('sadaqat')">صداقت علی ★<span class="dlbadge" id="dlb-sadaqat">✓</span></button>
     <button class="qc gold"   id="qShaker"  onclick="setQari('shaker')">شاکر قاسمی ★<span class="dlbadge" id="dlb-shaker">✓</span></button>
   </div>
@@ -1230,6 +1258,8 @@ const QARIS={
   ayyub:{name:'محمد ایوب',mode:'ayah',
     url:(s,a)=>`https://everyayah.com/data/Muhammad_Ayyoub_128kbps/${p3(s)}${p3(a)}.mp3`,
     alt:(s,a)=>`https://everyayah.com/data/Muhammad_Ayyoub_64kbps/${p3(s)}${p3(a)}.mp3`},
+  faqih:{name:'محمد الفقیہ',mode:'surah',
+    url:s=>`https://archive.org/download/Muhammad_Al_Faqih/${p3(s)}.mp3`},
   sadaqat:{name:'سید صداقت علی',mode:'surah',
     url:s=>`https://download.quranicaudio.com/quran/sadaqat_ali/${p3(s)}.mp3`,
     alt:s=>`https://ia803005.us.archive.org/quran/sadaqat_ali/${p3(s)}.mp3`},
@@ -1461,7 +1491,7 @@ function setQari(k){
   CQ=k;const q=QARIS[k];SHAKIR=q.mode==='surah';
   document.querySelectorAll('.qc').forEach(b=>b.classList.remove('active'));
   const ids={afasy:'qAfasy',sudais:'qSudais',basit:'qBasit',maher:'qMaher',
-    husary:'qHusary',ghamdi:'qGhamdi',minsh:'qMinsh',hani:'qHani',sadaqat:'qSadaqat',shaker:'qShaker'};
+    husary:'qHusary',ghamdi:'qGhamdi',minsh:'qMinsh',hani:'qHani',ayyub:'qAyyub',faqih:'qFaqih',sadaqat:'qSadaqat',shaker:'qShaker'};
   document.getElementById(ids[k])?.classList.add('active');
   const sb=document.getElementById('shakirBanner');
   if(SHAKIR){
@@ -1838,6 +1868,9 @@ function getShareText(){try{return localStorage.getItem('shareText')||'حافظ 
 // saved link/text (in localStorage) applies to BOTH buttons automatically — you only need
 // to set it once, from either the welcome page or the home page button.
 const SHARE_LONGPRESS_MS=600;
+function toggleChatDev(){
+  document.getElementById('chatDevOpts')?.classList.toggle('open');
+}
 function setupShareLongPress(btnId){
   const el=document.getElementById(btnId);
   if(!el)return;
@@ -2048,7 +2081,7 @@ function setUrZoom(v){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='Hfz027';
+const APP_VERSION='Hfz029';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
