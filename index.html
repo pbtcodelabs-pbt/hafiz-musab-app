@@ -775,14 +775,16 @@ html,body{height:100dvh;overflow:hidden;
 .panel-tag{color:#64748b !important;}
 #playerBar{background:#f1f5f9 !important;border-top-color:#94a3b8 !important;box-shadow:none !important;}
 .time-row{color:#334155 !important;}
-.ibtn,.pbtn,.spdbtn{background:linear-gradient(145deg,#ffffff,#cffafe) !important;color:#111827 !important;
-  text-shadow:none !important;border:1.5px solid #0891b2 !important;
-  box-shadow:0 4px 0 #0e7490,inset 0 1px 0 rgba(255,255,255,0.95) !important;}
-.ibtn:active,.pbtn:active,.spdbtn:active{background:linear-gradient(145deg,#cffafe,#a5f3fc) !important;
-  box-shadow:0 1px 0 #0e7490 !important;transform:translateY(3px);}
-.cbtn-lbl{color:#111827 !important;text-shadow:none !important;font-size:8.5px !important;font-weight:900 !important;line-height:1.15 !important;text-align:center;}
+.ibtn,.pbtn,.spdbtn{background:linear-gradient(160deg,#ffffff 0%,#e0f7fa 45%,#b2ebf2 100%) !important;
+  color:#0c3b4a !important;text-shadow:none !important;border:1.5px solid #0e7490 !important;
+  box-shadow:0 4px 0 #0a5a6e,inset 0 1px 0 rgba(255,255,255,0.95),inset 0 -6px 10px rgba(14,116,144,0.12) !important;}
+.ibtn:active,.pbtn:active,.spdbtn:active{background:linear-gradient(160deg,#b2ebf2,#80deea) !important;
+  box-shadow:0 1px 0 #0a5a6e !important;transform:translateY(3px);}
+.cbtn-lbl{color:#0c3b4a !important;text-shadow:none !important;font-size:8.5px !important;
+  font-weight:900 !important;line-height:1.2 !important;text-align:center;letter-spacing:0.2px;}
 .ibtn,.pbtn,.spdbtn{min-height:50px !important;}
-.pbtn.active{background:#bbf7d0 !important;color:#14532d !important;border-color:#16a34a !important;}
+.pbtn.active{background:linear-gradient(160deg,#bbf7d0,#86efac) !important;color:#14532d !important;border-color:#15803d !important;
+  box-shadow:0 4px 0 #14532d,inset 0 1px 0 rgba(255,255,255,0.6) !important;}
 #wheelArea{background:#f8fafc !important;border-top-color:#94a3b8 !important;}
 .sw-label{color:#0f172a !important;text-shadow:none !important;}
 .vol-side-info{color:#0f172a !important;text-shadow:none !important;}
@@ -823,7 +825,7 @@ html,body{height:100dvh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">Hfz024</span>
+    <span class="ver-code" id="splashVerCode">Hfz025</span>
   </div>
 </div>
 
@@ -839,7 +841,7 @@ html,body{height:100dvh;overflow:hidden;
         <button class="ads-btn" onclick="openAds()" title="میرے اشتہار">📣</button>
         <div class="status-block">
           <span class="ver-pill" id="tbVerPill" style="padding:2px 9px;font-size:9px;">Online</span>
-          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz024</span>
+          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz025</span>
         </div>
       </div>
     </div>
@@ -972,7 +974,6 @@ html,body{height:100dvh;overflow:hidden;
         <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M5 6l10 6-10 6zM15.5 6H18v12h-2.5z"/></svg>
         <span class="cbtn-lbl">اگلی<br>Next</span>
       </button>
-      <button class="pbtn" id="ayahRepBtn" onclick="togAR()">↺<span class="cbtn-lbl">آیت<br>Ayah</span></button>
       <button class="spdbtn" id="spdBtn" onclick="chgSpd()"><span id="spdVal">1x</span><span class="cbtn-lbl">اسپیڈ<br>Speed</span></button>
     </div>
     <div class="vol-row">
@@ -1371,11 +1372,7 @@ function nextA(auto=false){
   if(St.rr){if(St.a<St.to)loadA(St.s,St.a+1,true);else loadA(St.s,St.fr,true);}
   else{if(St.a<St.to)loadA(St.s,St.a+1,auto||St.pl);else{showToast('آخری آیت ✓');if(auto)aud.pause();}}
 }
-function togRR(){St.rr=!St.rr;if(St.rr)St.ar=false;
-  document.getElementById('rangeRepBtn').classList.toggle('active',St.rr);
-  document.getElementById('ayahRepBtn').classList.toggle('active',St.ar);}
-function togAR(){St.ar=!St.ar;if(St.ar)St.rr=false;
-  document.getElementById('ayahRepBtn').classList.toggle('active',St.ar);
+function togRR(){St.rr=!St.rr;
   document.getElementById('rangeRepBtn').classList.toggle('active',St.rr);}
 const SPEEDS=[1,1.25,1.5,2,0.75];let sIdx=0;
 function chgSpd(){sIdx=(sIdx+1)%SPEEDS.length;St.spd=SPEEDS[sIdx];aud.playbackRate=St.spd;
@@ -2047,7 +2044,7 @@ function setUrZoom(v){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='Hfz024';
+const APP_VERSION='Hfz025';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
