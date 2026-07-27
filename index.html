@@ -321,6 +321,12 @@ html,body{height:100dvh;overflow:hidden;
 
 /* ══ VOLUME KNOB v3 — اصلی میٹل نوب + رنگین سکیل رِنگ (ریفرنس تصاویر جیسا) ══ */
 .vol-row{display:flex;justify-content:center;align-items:center;margin-top:4px;padding:0 8px;gap:6px;}
+.vol-row2{display:flex;justify-content:center;align-items:flex-start;margin-top:6px;padding:0 8px;gap:10px;}
+.wide-wheel{width:150px !important;}
+.wide-wheel .awheel-row{justify-content:center;}
+.wide-wheel-outer{width:140px !important;}
+.wide-wheel-outer .wi-ar{font-size:13px !important;font-family:'JN',serif !important;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px;}
 .cur-surah-big{text-align:center;font-family:'JN',serif;font-size:19px;font-weight:900;
   color:#052e16;margin-top:2px;padding:3px 10px;
   background:linear-gradient(180deg,#dcfce7,#bbf7d0);border:1.5px solid #16a34a;
@@ -864,7 +870,7 @@ html,body{height:100dvh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">Hfz030</span>
+    <span class="ver-code" id="splashVerCode">Hfz031</span>
   </div>
 </div>
 
@@ -880,7 +886,7 @@ html,body{height:100dvh;overflow:hidden;
         <button class="ads-btn" onclick="openAds()" title="میرے اشتہار">📣</button>
         <div class="status-block">
           <span class="ver-pill" id="tbVerPill" style="padding:2px 9px;font-size:9px;">Online</span>
-          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz030</span>
+          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz031</span>
         </div>
       </div>
     </div>
@@ -939,7 +945,6 @@ html,body{height:100dvh;overflow:hidden;
 
   <!-- MIDDLE ROW: سورہ کالم (بائیں) + عربی/اردو (درمیان) + قاری کالم (دائیں) -->
   <div id="midRow">
-  <div id="surahCol"></div>
   <div id="centerWrap">
 
   <!-- ARABIC PANEL -->
@@ -980,22 +985,6 @@ html,body{height:100dvh;overflow:hidden;
   </div>
 
   </div><!-- /centerWrap -->
-
-  <!-- QARI COLUMN (دائیں طرف) -->
-  <div id="qariCol">
-    <button class="qc active" id="qAfasy"   onclick="setQari('afasy')">العفاسی<span class="dlbadge" id="dlb-afasy">✓</span></button>
-    <button class="qc"        id="qSudais"  onclick="setQari('sudais')">السدیس<span class="dlbadge" id="dlb-sudais">✓</span></button>
-    <button class="qc gold"   id="qBasit"   onclick="setQari('basit')">عبدالباسط ★<span class="dlbadge" id="dlb-basit">✓</span></button>
-    <button class="qc"        id="qMaher"   onclick="setQari('maher')">ماہر<span class="dlbadge" id="dlb-maher">✓</span></button>
-    <button class="qc"        id="qHusary"  onclick="setQari('husary')">الحصری<span class="dlbadge" id="dlb-husary">✓</span></button>
-    <button class="qc"        id="qGhamdi"  onclick="setQari('ghamdi')">الغامدی<span class="dlbadge" id="dlb-ghamdi">✓</span></button>
-    <button class="qc"        id="qMinsh"   onclick="setQari('minsh')">المنشاوی<span class="dlbadge" id="dlb-minsh">✓</span></button>
-    <button class="qc"        id="qHani"    onclick="setQari('hani')">ہانی الرفاعی<span class="dlbadge" id="dlb-hani">✓</span></button>
-    <button class="qc"        id="qAyyub"   onclick="setQari('ayyub')">محمد ایوب<span class="dlbadge" id="dlb-ayyub">✓</span></button>
-    <button class="qc gold"   id="qFaqih"   onclick="setQari('faqih')">محمد الفقیہ ★<span class="dlbadge" id="dlb-faqih">✓</span></button>
-    <button class="qc gold"   id="qSadaqat" onclick="setQari('sadaqat')">صداقت علی ★<span class="dlbadge" id="dlb-sadaqat">✓</span></button>
-    <button class="qc gold"   id="qShaker"  onclick="setQari('shaker')">شاکر قاسمی ★<span class="dlbadge" id="dlb-shaker">✓</span></button>
-  </div>
 
   </div><!-- /midRow -->
 
@@ -1057,6 +1046,30 @@ html,body{height:100dvh;overflow:hidden;
             <div class="wheel-scroll" id="toWheel"></div>
           </div>
           <div class="wheel-updown">▲<span>▼</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="vol-row2">
+      <div class="awheel-block wide-wheel">
+        <span class="sw-label">قاری</span>
+        <div class="wheel-outer awheel-outer wide-wheel-outer">
+          <div class="wheel-fade-top"></div>
+          <div class="wheel-selector"></div>
+          <div class="wheel-fade-bot"></div>
+          <div class="wheel-tick-strip wts-l"></div>
+          <div class="wheel-tick-strip wts-r"></div>
+          <div class="wheel-scroll" id="qariSelWheel"></div>
+        </div>
+      </div>
+      <div class="awheel-block wide-wheel">
+        <span class="sw-label">سورہ</span>
+        <div class="wheel-outer awheel-outer wide-wheel-outer">
+          <div class="wheel-fade-top"></div>
+          <div class="wheel-selector"></div>
+          <div class="wheel-fade-bot"></div>
+          <div class="wheel-tick-strip wts-l"></div>
+          <div class="wheel-tick-strip wts-r"></div>
+          <div class="wheel-scroll" id="surahSelWheel"></div>
         </div>
       </div>
     </div>
@@ -1508,6 +1521,7 @@ function setQari(k){
   const ids={afasy:'qAfasy',sudais:'qSudais',basit:'qBasit',maher:'qMaher',
     husary:'qHusary',ghamdi:'qGhamdi',minsh:'qMinsh',hani:'qHani',ayyub:'qAyyub',faqih:'qFaqih',sadaqat:'qSadaqat',shaker:'qShaker'};
   document.getElementById(ids[k])?.classList.add('active');
+  syncQariWheel(k);
   const sb=document.getElementById('shakirBanner');
   if(SHAKIR){
     sb.classList.add('show');
@@ -1538,6 +1552,7 @@ function syncSurahHighlight(n){
   });
   const sel=document.querySelector(`#surahCol .s-item[data-n="${n}"]`);
   if(sel)sel.scrollIntoView({block:'center',behavior:'smooth'});
+  syncSurahWheel(n);
 }
 
 // ══ WHEEL PICKER (BUG FIXED) ══
@@ -1663,6 +1678,56 @@ function scrollAyahWheel(id,n,smooth){
   wh.scrollTo({top:n*AITEM_H,behavior:smooth?'smooth':'auto'});
   updateAyahWheelVisuals(wh);
 }
+
+// ══ نامی وہیل — قاری اور سورہ سلیکشن کے لیے (0-based انڈیکس) ══
+function buildOneNamedWheel(id,labels,initialIdx,onChange){
+  const wh=document.getElementById(id);
+  if(!wh)return;
+  const pad=`<div class="wheel-item" style="height:${AITEM_H}px"></div>`;
+  let items='';
+  labels.forEach((lbl,i)=>{
+    items+=`<div class="wheel-item" data-i="${i}" style="height:${AITEM_H}px" onclick="namedWheelClick('${id}',${i})"><div class="wi-ar">${lbl}</div></div>`;
+  });
+  wh.innerHTML=pad+pad+items+pad+pad;
+  wh._onChange=onChange;wh._max=labels.length-1;
+  let snapTimer,rafPending=false;
+  function onFrame(){updateAyahWheelVisuals(wh);rafPending=false;}
+  wh.onscroll=()=>{
+    if(!rafPending){rafPending=true;requestAnimationFrame(onFrame);}
+    clearTimeout(snapTimer);
+    snapTimer=setTimeout(()=>{
+      const idx=Math.round(wh.scrollTop/AITEM_H);
+      if(idx>=0&&idx<=wh._max)onChange(idx);
+    },80);
+  };
+  scrollNamedWheel(id,initialIdx,false);
+}
+function scrollNamedWheel(id,idx,smooth){
+  const wh=document.getElementById(id);
+  if(!wh)return;
+  wh.scrollTo({top:idx*AITEM_H,behavior:smooth?'smooth':'auto'});
+  updateAyahWheelVisuals(wh);
+}
+function namedWheelClick(id,idx){
+  scrollNamedWheel(id,idx,true);
+  document.getElementById(id)._onChange(idx);
+}
+function buildQariSelWheel(){
+  const keys=Object.keys(QARIS);
+  const idx=Math.max(0,keys.indexOf(CQ));
+  buildOneNamedWheel('qariSelWheel',keys.map(k=>QARIS[k].name),idx,i=>setQari(keys[i]));
+}
+function buildSurahSelWheel(){
+  buildOneNamedWheel('surahSelWheel',SH.map(s=>s.n+'. '+s.ar),St.s-1,i=>selSurah(i+1));
+}
+function syncQariWheel(k){
+  const keys=Object.keys(QARIS);
+  const idx=keys.indexOf(k);
+  if(idx>=0)scrollNamedWheel('qariSelWheel',idx,true);
+}
+function syncSurahWheel(n){
+  scrollNamedWheel('surahSelWheel',n-1,true);
+}
 function updateAyahWheelVisuals(wh){
   if(!wh)return;
   const centerY=wh.scrollTop+wh.clientHeight/2;
@@ -1712,6 +1777,7 @@ function selSurah(n){
   });
   const sel=document.querySelector(`#surahCol .s-item[data-n="${n}"]`);
   if(sel)sel.scrollIntoView({block:'center',behavior:'smooth'});
+  syncSurahWheel(n);
   loadA(n,1,false);
 }
 
@@ -1987,6 +2053,8 @@ function initApp(){
   updateQariBadges();
   renderSurahList();
   buildAyahWheels(SH[0].a);
+  buildQariSelWheel();
+  buildSurahSelWheel();
   initVolumeKnob();
   setTimeout(()=>{
     const sel=document.querySelector('#surahCol .s-item[data-n="1"]');
@@ -2137,7 +2205,7 @@ function applyUrFont(idx){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='Hfz030';
+const APP_VERSION='Hfz031';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
