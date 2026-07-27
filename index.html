@@ -423,22 +423,31 @@ html,body{height:100dvh;overflow:hidden;
   padding:6px 10px;border-radius:10px;background:rgba(var(--acR),0.18);
   border:1.5px solid rgba(var(--acR),0.4);box-shadow:0 0 10px rgba(var(--acR),0.2);
   width:100%;box-sizing:border-box;overflow:hidden;}
-.awheel-block{flex:0 0 auto;width:78px;text-align:center;min-width:0;}
+.awheel-block{flex:0 0 auto;width:96px;text-align:center;min-width:0;}
+.awheel-row{display:flex;align-items:center;justify-content:center;gap:2px;}
+.wheel-updown{display:flex;flex-direction:column;align-items:center;justify-content:space-between;
+  height:78px;font-size:11px;color:#16a34a;font-weight:900;opacity:0.9;
+  text-shadow:0 0 4px rgba(74,222,128,0.6);width:14px;flex-shrink:0;}
+.wheel-tick-strip{position:absolute;top:6px;bottom:6px;width:5px;z-index:1;pointer-events:none;
+  background:repeating-linear-gradient(180deg,rgba(71,85,105,0.55) 0 2px,transparent 2px 9px);
+  border-radius:3px;}
+.wheel-tick-strip.wts-l{left:5px;}
+.wheel-tick-strip.wts-r{right:5px;}
 .sw-label{display:block;margin-bottom:3px;font-size:10px;font-weight:900;color:var(--hi);
   font-family:'JN',serif;direction:rtl;text-shadow:0 0 6px rgba(var(--hiR),0.5);white-space:nowrap;}
 .awheel-outer{height:108px !important;width:70px !important;margin:0 auto !important;
   background:
     radial-gradient(ellipse 60% 100% at 50% 50%,rgba(255,255,255,0.55) 0%,transparent 70%),
     repeating-linear-gradient(180deg,rgba(255,255,255,0.35) 0px,rgba(255,255,255,0.35) 1px,transparent 1px,transparent 3px),
-    linear-gradient(90deg,#5f6b78 0%,#c3ccd6 12%,#f4f7fa 30%,#ffffff 50%,#f4f7fa 70%,#c3ccd6 88%,#5f6b78 100%),
+    linear-gradient(90deg,#3f4854 0%,#a8b4c0 10%,#f4f7fa 26%,#ffffff 50%,#f4f7fa 74%,#a8b4c0 90%,#3f4854 100%),
     linear-gradient(180deg,#7c8a9a 0%,#e2e8f0 12%,#ffffff 30%,#ffffff 70%,#e2e8f0 88%,#7c8a9a 100%) !important;
   border:2px solid #64748b !important;
   border-radius:50%/22px !important;
   box-shadow:
     inset 0 8px 12px rgba(0,0,0,0.4),
     inset 0 -8px 12px rgba(0,0,0,0.4),
-    inset 10px 0 14px rgba(0,0,0,0.3),
-    inset -10px 0 14px rgba(0,0,0,0.3),
+    inset 12px 0 16px rgba(0,0,0,0.42),
+    inset -12px 0 16px rgba(0,0,0,0.42),
     inset 0 0 0 1px rgba(255,255,255,0.3),
     0 3px 0 #475569,0 5px 8px rgba(0,0,0,0.35) !important;}
 .awheel-outer .wheel-fade-top,.awheel-outer .wheel-fade-bot{background:transparent !important;}
@@ -814,7 +823,7 @@ html,body{height:100dvh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">Hfz023</span>
+    <span class="ver-code" id="splashVerCode">Hfz024</span>
   </div>
 </div>
 
@@ -830,7 +839,7 @@ html,body{height:100dvh;overflow:hidden;
         <button class="ads-btn" onclick="openAds()" title="میرے اشتہار">📣</button>
         <div class="status-block">
           <span class="ver-pill" id="tbVerPill" style="padding:2px 9px;font-size:9px;">Online</span>
-          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz023</span>
+          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz024</span>
         </div>
       </div>
     </div>
@@ -969,11 +978,16 @@ html,body{height:100dvh;overflow:hidden;
     <div class="vol-row">
       <div class="awheel-block rr-block">
         <span class="sw-label">سے (From)</span>
-        <div class="wheel-outer awheel-outer">
-          <div class="wheel-fade-top"></div>
-          <div class="wheel-selector"></div>
-          <div class="wheel-fade-bot"></div>
-          <div class="wheel-scroll" id="fromWheel"></div>
+        <div class="awheel-row">
+          <div class="wheel-updown">▲<span>▼</span></div>
+          <div class="wheel-outer awheel-outer">
+            <div class="wheel-fade-top"></div>
+            <div class="wheel-selector"></div>
+            <div class="wheel-fade-bot"></div>
+            <div class="wheel-tick-strip wts-l"></div>
+            <div class="wheel-tick-strip wts-r"></div>
+            <div class="wheel-scroll" id="fromWheel"></div>
+          </div>
         </div>
       </div>
       <div class="vol-knob-wrap">
@@ -988,11 +1002,16 @@ html,body{height:100dvh;overflow:hidden;
       </div>
       <div class="awheel-block rr-block">
         <span class="sw-label">تک (To)</span>
-        <div class="wheel-outer awheel-outer">
-          <div class="wheel-fade-top"></div>
-          <div class="wheel-selector"></div>
-          <div class="wheel-fade-bot"></div>
-          <div class="wheel-scroll" id="toWheel"></div>
+        <div class="awheel-row">
+          <div class="wheel-outer awheel-outer">
+            <div class="wheel-fade-top"></div>
+            <div class="wheel-selector"></div>
+            <div class="wheel-fade-bot"></div>
+            <div class="wheel-tick-strip wts-l"></div>
+            <div class="wheel-tick-strip wts-r"></div>
+            <div class="wheel-scroll" id="toWheel"></div>
+          </div>
+          <div class="wheel-updown">▲<span>▼</span></div>
         </div>
       </div>
     </div>
@@ -1616,6 +1635,12 @@ function updateAyahWheelVisuals(wh){
     el.style.opacity=op;
     el.style.filter=bl>0?`blur(${bl}px)`:'none';
   }
+  // ویل کے کنارے کی باریک لکیریں بھی گھماؤ کے ساتھ حرکت دیں تاکہ گھومنے کا احساس ہو
+  const outer=wh.closest('.awheel-outer');
+  if(outer){
+    const off=(-wh.scrollTop%9+9)%9;
+    outer.querySelectorAll('.wheel-tick-strip').forEach(t=>{t.style.backgroundPositionY=off+'px';});
+  }
 }
 function ayahWheelClick(id,n){
   scrollAyahWheel(id,n,true);
@@ -2022,7 +2047,7 @@ function setUrZoom(v){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='Hfz023';
+const APP_VERSION='Hfz024';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
