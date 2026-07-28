@@ -698,8 +698,12 @@ html,body{height:100dvh;overflow:hidden;
 .wlc-start-btn:active{transform:translateY(4px);box-shadow:0 2px 0 #14532d;}
 .wlc-share-hint{margin-top:10px;font-family:'JN',serif;font-size:11px;
   color:rgba(74,222,128,0.45);text-align:center;}
-.wlc-ver-tag{margin-top:6px;font-family:'Courier New',monospace;font-size:10px;
-  color:rgba(148,163,184,0.6);text-align:center;letter-spacing:1px;}
+.wlc-ver-tag{margin-top:8px;font-family:'Courier New',monospace;font-size:13px;font-weight:900;
+  color:#4ade80;text-align:center;letter-spacing:2px;
+  text-shadow:0 0 8px rgba(74,222,128,0.7);
+  background:rgba(74,222,128,0.12);border:1px solid rgba(74,222,128,0.4);
+  border-radius:8px;padding:3px 12px;display:inline-block;
+  position:relative;left:50%;transform:translateX(-50%);}
 
 
 /* ══ SLEEP TIMER OVERLAY ══ */
@@ -884,7 +888,7 @@ html,body{height:100dvh;overflow:hidden;
   </div>
   <button class="wlc-start-btn" onclick="startApp()">▶ شروع کریں</button>
   <div class="wlc-share-hint">📤 اپنے دوستوں اور گھر والوں کو بھی بھیجیں</div>
-  <div class="wlc-ver-tag" id="wlcVerTag">Hfz041</div>
+  <div class="wlc-ver-tag" id="wlcVerTag">Hfz042</div>
 </div>
 
 <div id="splash">
@@ -896,7 +900,7 @@ html,body{height:100dvh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">Hfz041</span>
+    <span class="ver-code" id="splashVerCode">Hfz042</span>
   </div>
 </div>
 
@@ -912,7 +916,7 @@ html,body{height:100dvh;overflow:hidden;
         <button class="ads-btn" onclick="openAds()" title="میرے اشتہار">📣</button>
         <div class="status-block">
           <span class="ver-pill" id="tbVerPill" style="padding:2px 9px;font-size:9px;">Online</span>
-          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz041</span>
+          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz042</span>
         </div>
       </div>
     </div>
@@ -2300,7 +2304,7 @@ function applyUrFont(idx){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='Hfz041';
+const APP_VERSION='Hfz042';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
