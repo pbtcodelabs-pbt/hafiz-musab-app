@@ -327,7 +327,7 @@ html,body{height:100dvh;overflow:hidden;
 .wide-wheel,.awheel-block.wide-wheel,.vol-row2 .awheel-block{width:33.3% !important;flex:1 1 0 !important;min-width:0;}
 .wide-wheel .awheel-row{justify-content:center;}
 .wide-wheel-outer,.vol-row2 .awheel-outer{width:100% !important;box-sizing:border-box;}
-.vol-row2 .awheel-outer .wi-ar{font-size:16px !important;font-weight:700 !important;font-family:'Noto Naskh Arabic','JN',serif !important;
+.vol-row2 .awheel-outer .wi-ar{font-size:16px !important;font-weight:900 !important;font-family:'Noto Naskh Arabic','JN',serif !important;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;width:100%;padding:0 4px;box-sizing:border-box;}
 .vol-row2 .awheel-block{text-align:center;}
 .vol-row2 .sw-label{font-size:13px !important;font-weight:900 !important;letter-spacing:0.5px;
@@ -852,7 +852,7 @@ html,body{height:100dvh;overflow:hidden;
 .vol-side-info{color:#0f172a !important;text-shadow:none !important;}
 .awheel-outer .wi-ar{color:#334155 !important;text-shadow:none !important;}
 .awheel-outer .wheel-item.center .wi-ar{color:#052e16 !important;font-weight:900 !important;text-shadow:none !important;}
-.vol-row2 .awheel-outer .wheel-item.center .wi-ar{font-weight:700 !important;font-size:17px !important;}
+.vol-row2 .awheel-outer .wheel-item.center .wi-ar{font-weight:900 !important;font-size:17px !important;}
 .awheel-outer .wheel-selector{background:linear-gradient(180deg,rgba(74,222,128,0.1),rgba(74,222,128,0.35),rgba(74,222,128,0.1)) !important;
   border-top-color:#16a34a !important;border-bottom-color:#16a34a !important;box-shadow:0 0 10px rgba(22,163,74,0.4) !important;}
 .ayah-range-row{background:#eef2f7 !important;border-color:#94a3b8 !important;box-shadow:none !important;}
@@ -889,7 +889,7 @@ html,body{height:100dvh;overflow:hidden;
   </div>
   <button class="wlc-start-btn" onclick="startApp()">▶ شروع کریں</button>
   <div class="wlc-share-hint">📤 اپنے دوستوں اور گھر والوں کو بھی بھیجیں</div>
-  <div class="wlc-ver-tag" id="wlcVerTag">Hfz046</div>
+  <div class="wlc-ver-tag" id="wlcVerTag">Hfz047</div>
 </div>
 
 <div id="splash">
@@ -901,7 +901,7 @@ html,body{height:100dvh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">Hfz046</span>
+    <span class="ver-code" id="splashVerCode">Hfz047</span>
   </div>
 </div>
 
@@ -917,7 +917,7 @@ html,body{height:100dvh;overflow:hidden;
         <button class="ads-btn" onclick="openAds()" title="میرے اشتہار">📣</button>
         <div class="status-block">
           <span class="ver-pill" id="tbVerPill" style="padding:2px 9px;font-size:9px;">Online</span>
-          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz046</span>
+          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz047</span>
         </div>
       </div>
     </div>
@@ -1717,7 +1717,11 @@ function buildOneAyahWheel(id,max,initial,onChange){
     items+=`<div class="wheel-item" data-n="${i}" style="height:${AITEM_H}px" onclick="ayahWheelClick('${id}',${i})"><div class="wi-ar">${i}</div></div>`;
   }
   wh.innerHTML=pad+pad+items+pad+pad;
-  wh._onChange=onChange;wh._max=max;
+  wh._onChange=onChange;wh._max=max;wh._userTouch=false;
+  let touchClearTimer2;
+  wh.addEventListener('pointerdown',()=>{wh._userTouch=true;clearTimeout(touchClearTimer2);});
+  wh.addEventListener('pointerup',()=>{touchClearTimer2=setTimeout(()=>{wh._userTouch=false;},600);});
+  wh.addEventListener('pointercancel',()=>{touchClearTimer2=setTimeout(()=>{wh._userTouch=false;},600);});
   let snapTimer,rafPending=false;
   function onFrame(){updateAyahWheelVisuals(wh);rafPending=false;}
   wh.onscroll=()=>{
@@ -1726,7 +1730,7 @@ function buildOneAyahWheel(id,max,initial,onChange){
     snapTimer=setTimeout(()=>{
       updateAyahWheelVisuals(wh);
       const n=(wh._closestIdx??1)-1;
-      if(n>=1&&n<=max)onChange(n);
+      if(wh._userTouch&&n>=1&&n<=max)onChange(n);
     },80);
   };
   requestAnimationFrame(()=>requestAnimationFrame(()=>scrollAyahWheel(id,initial,false)));
@@ -1753,17 +1757,22 @@ function buildOneNamedWheel(id,labels,initialIdx,onChange){
     items+=`<div class="wheel-item" data-i="${i}" style="height:${AITEM_H}px" onclick="namedWheelClick('${id}',${i})"><div class="wi-ar">${lbl}</div></div>`;
   });
   wh.innerHTML=pad+pad+items+pad+pad;
-  wh._onChange=onChange;wh._max=labels.length-1;wh._cur=initialIdx;wh._locked=false;
+  wh._onChange=onChange;wh._max=labels.length-1;wh._cur=initialIdx;wh._locked=false;wh._userTouch=false;
+  let touchClearTimer;
+  wh.addEventListener('pointerdown',()=>{wh._userTouch=true;clearTimeout(touchClearTimer);});
+  wh.addEventListener('pointerup',()=>{touchClearTimer=setTimeout(()=>{wh._userTouch=false;},600);});
+  wh.addEventListener('pointercancel',()=>{touchClearTimer=setTimeout(()=>{wh._userTouch=false;},600);});
   let snapTimer,rafPending=false;
   function onFrame(){updateAyahWheelVisuals(wh);rafPending=false;}
   wh.onscroll=()=>{
-    if(wh._locked)return; // پروگرام کے ذریعے سکرول ہو رہا ہے تو یوزر سکرول لاجک مداخلت نہ کرے
     if(!rafPending){rafPending=true;requestAnimationFrame(onFrame);}
     clearTimeout(snapTimer);
     snapTimer=setTimeout(()=>{
       updateAyahWheelVisuals(wh);
       const idx=(wh._closestIdx??2)-2;
-      if(idx>=0&&idx<=wh._max){wh._cur=idx;onChange(idx);}
+      // صرف حقیقی صارف کے چھونے سے آنے والی تبدیلی پر ہی نیویگیشن ہو —
+      // خودکار/پروگرامی سنک (جیسے پارہ کی ڈسپلے اپڈیٹ) کبھی سورت/آیت کی سلیکشن کو نہ بدلے
+      if(wh._userTouch&&idx>=0&&idx<=wh._max){wh._cur=idx;onChange(idx);}
     },80);
   };
   // پہلی پوزیشن لے آؤٹ مکمل ہونے کے بعد سیٹ کریں — ورنہ وہیل زیرو پر واپس چلا جاتا ہے
@@ -2305,7 +2314,7 @@ function applyUrFont(idx){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='Hfz046';
+const APP_VERSION='Hfz047';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
