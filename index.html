@@ -641,8 +641,8 @@ html,body{height:100dvh;overflow:hidden;
   text-shadow:0 0 30px rgba(74,222,128,0.7),0 0 60px rgba(74,222,128,0.3);
   margin-bottom:8px;animation:wglow 2.5s ease-in-out infinite alternate;}
 @keyframes wglow{from{text-shadow:0 0 20px rgba(74,222,128,0.5);}to{text-shadow:0 0 50px rgba(74,222,128,0.9),0 0 80px rgba(74,222,128,0.4);}}
-.wlc-quran-title{font-family:'JN',serif;font-size:30px;font-weight:900;color:#f0fdf4;
-  text-shadow:0 2px 10px rgba(0,0,0,0.5);margin-bottom:20px;}
+.wlc-quran-title{font-family:'Jameel-Noori.N','JN',serif;font-size:42px;font-weight:400;color:#f0fdf4;
+  text-shadow:0 0 18px rgba(74,222,128,0.55),0 2px 10px rgba(0,0,0,0.6);margin-bottom:22px;letter-spacing:1px;}
 .wlc-card{position:relative;width:100%;max-width:420px;
   background:linear-gradient(145deg,rgba(21,128,61,0.18),rgba(0,0,0,0.75));
   border:2px solid rgba(74,222,128,0.35);border-radius:22px;
@@ -652,7 +652,7 @@ html,body{height:100dvh;overflow:hidden;
 .wlc-card::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
   width:60%;height:2px;border-radius:2px;
   background:linear-gradient(90deg,transparent,#4ade80,transparent);}
-.wlc-text{font-family:'JN',serif;font-size:20px;font-weight:900;color:#f0fdf4;
+.wlc-text{font-family:'Jameel-Noori.N','JN',serif;font-size:20px;font-weight:400;color:#f0fdf4;
   direction:rtl;text-align:center;line-height:2.2;
   text-shadow:0 1px 6px rgba(0,0,0,0.4);}
 .wlc-divider{width:80%;height:1.5px;margin:14px auto;
@@ -864,11 +864,10 @@ html,body{height:100dvh;overflow:hidden;
 
 <div id="welcomeOverlay">
   <div class="wlc-bismillah">﷽</div>
-  <div class="wlc-quran-title">القرآن الكريم</div>
+  <div class="wlc-quran-title">الْقُرْآنُ الْكَرِيمُ</div>
   <div class="wlc-card">
     <div class="wlc-text">یہ ایپ حفاظ کی آسانی کے لیے عالمی شہرت یافتہ بہترین قراء کی تلاوت اور اردو ترجمے کے ساتھ بہت بہترین طریقے سے ڈیزائن کی گئی ہے — برائے مہربانی اسے دوسروں کے ساتھ بھی شیئر کریں</div>
     <div class="wlc-divider"></div>
-    <div class="wlc-from-label">✦ Contact Us ✦</div>
     <button class="wlc-chatdev-btn" onclick="toggleChatDev()">💬 Chat with Developer</button>
     <div class="wlc-chatdev-opts" id="chatDevOpts">
       <a class="cd-opt cd-wa" id="cdWaLink" href="#" target="_blank">
@@ -889,7 +888,7 @@ html,body{height:100dvh;overflow:hidden;
   </div>
   <button class="wlc-start-btn" onclick="startApp()">▶ شروع کریں</button>
   <div class="wlc-share-hint">📤 اپنے دوستوں اور گھر والوں کو بھی بھیجیں</div>
-  <div class="wlc-ver-tag" id="wlcVerTag">Hfz047</div>
+  <div class="wlc-ver-tag" id="wlcVerTag">Hfz049</div>
 </div>
 
 <div id="splash">
@@ -901,7 +900,7 @@ html,body{height:100dvh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">Hfz047</span>
+    <span class="ver-code" id="splashVerCode">Hfz049</span>
   </div>
 </div>
 
@@ -917,7 +916,7 @@ html,body{height:100dvh;overflow:hidden;
         <button class="ads-btn" onclick="openAds()" title="میرے اشتہار">📣</button>
         <div class="status-block">
           <span class="ver-pill" id="tbVerPill" style="padding:2px 9px;font-size:9px;">Online</span>
-          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz047</span>
+          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz049</span>
         </div>
       </div>
     </div>
@@ -1695,6 +1694,7 @@ function buildAyahWheels(mx){
   buildOneAyahWheel('fromWheel',mx,1,n=>{
     St.fr=n;
     if(St.to<St.fr){St.to=St.fr;scrollAyahWheel('toWheel',St.to,true);}
+    loadA(St.s,n,false); // سے (From) بدلتے ہی فوراً اسی آیت پر چلے جائیں تاکہ ڈسپلے ہم آہنگ رہے
   });
   buildOneAyahWheel('toWheel',mx,mx,n=>{
     if(n<St.fr){scrollAyahWheel('toWheel',St.fr,true);n=St.fr;}
@@ -2314,7 +2314,7 @@ function applyUrFont(idx){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='Hfz047';
+const APP_VERSION='Hfz049';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
