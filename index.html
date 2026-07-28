@@ -884,7 +884,7 @@ html,body{height:100dvh;overflow:hidden;
   </div>
   <button class="wlc-start-btn" onclick="startApp()">▶ شروع کریں</button>
   <div class="wlc-share-hint">📤 اپنے دوستوں اور گھر والوں کو بھی بھیجیں</div>
-  <div class="wlc-ver-tag" id="wlcVerTag">Hfz039</div>
+  <div class="wlc-ver-tag" id="wlcVerTag">Hfz041</div>
 </div>
 
 <div id="splash">
@@ -896,7 +896,7 @@ html,body{height:100dvh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">Hfz039</span>
+    <span class="ver-code" id="splashVerCode">Hfz041</span>
   </div>
 </div>
 
@@ -912,7 +912,7 @@ html,body{height:100dvh;overflow:hidden;
         <button class="ads-btn" onclick="openAds()" title="میرے اشتہار">📣</button>
         <div class="status-block">
           <span class="ver-pill" id="tbVerPill" style="padding:2px 9px;font-size:9px;">Online</span>
-          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz039</span>
+          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz041</span>
         </div>
       </div>
     </div>
@@ -947,16 +947,16 @@ html,body{height:100dvh;overflow:hidden;
 
   <!-- THEME BAR -->
   <div id="themeBar">
-    <button class="thm-btn active" id="th-emerald"   onclick="setTheme('emerald')"   style="background:linear-gradient(135deg,#0a2a17,#16a34a)"></button>
-    <button class="thm-btn"        id="th-sapphire"  onclick="setTheme('sapphire')"  style="background:linear-gradient(135deg,#07102a,#1d4ed8)"></button>
-    <button class="thm-btn"        id="th-amethyst"  onclick="setTheme('amethyst')"  style="background:linear-gradient(135deg,#0d0526,#7c3aed)"></button>
-    <button class="thm-btn"        id="th-crimson"   onclick="setTheme('crimson')"   style="background:linear-gradient(135deg,#180606,#b91c1c)"></button>
-    <button class="thm-btn"        id="th-teal"      onclick="setTheme('teal')"      style="background:linear-gradient(135deg,#031a19,#0f766e)"></button>
-    <button class="thm-btn"        id="th-pearl"     onclick="setTheme('pearl')"     style="background:linear-gradient(135deg,#f0f9f4,#059669)"></button>
-    <button class="thm-btn"        id="th-sky"       onclick="setTheme('sky')"       style="background:linear-gradient(135deg,#dbeafe,#1d4ed8)"></button>
-    <button class="thm-btn"        id="th-parchment" onclick="setTheme('parchment')" style="background:linear-gradient(135deg,#fef3c7,#78350f)"></button>
-    <button class="thm-btn"        id="th-rose"      onclick="setTheme('rose')"      style="background:linear-gradient(135deg,#1a0614,#be185d)"></button>
-    <button class="thm-btn"        id="th-midnight"  onclick="setTheme('midnight')"  style="background:linear-gradient(135deg,#030308,#312e81)"></button>
+    <button class="thm-btn active" id="th-emerald"   onclick="setTheme('emerald')"   style="background:#16a34a"></button>
+    <button class="thm-btn"        id="th-sapphire"  onclick="setTheme('sapphire')"  style="background:#2563eb"></button>
+    <button class="thm-btn"        id="th-amethyst"  onclick="setTheme('amethyst')"  style="background:#8b5cf6"></button>
+    <button class="thm-btn"        id="th-crimson"   onclick="setTheme('crimson')"   style="background:#dc2626"></button>
+    <button class="thm-btn"        id="th-teal"      onclick="setTheme('teal')"      style="background:#0d9488"></button>
+    <button class="thm-btn"        id="th-pearl"     onclick="setTheme('pearl')"     style="background:#10b981"></button>
+    <button class="thm-btn"        id="th-sky"       onclick="setTheme('sky')"       style="background:#0ea5e9"></button>
+    <button class="thm-btn"        id="th-parchment" onclick="setTheme('parchment')" style="background:#b45309"></button>
+    <button class="thm-btn"        id="th-rose"      onclick="setTheme('rose')"      style="background:#db2777"></button>
+    <button class="thm-btn"        id="th-midnight"  onclick="setTheme('midnight')"  style="background:#4338ca"></button>
   </div>
 
   <!-- SHAKIR BANNER -->
@@ -1834,15 +1834,10 @@ function updateAyahWheelVisuals(wh){
   wh._closestIdx=closestI;
   for(let i=0;i<kids.length;i++){
     const el=kids[i];
-    const mid=el.offsetTop+el.offsetHeight/2;
-    const dist=(mid-centerY)/AITEM_H;
-    const ad=i===closestI?0:Math.abs(dist);
     el.classList.toggle('center',i===closestI);
-    el.classList.toggle('near',!(i===closestI)&&ad<1.5);
-    const scale=Math.max(0.86,1-ad*0.05);
-    const op=Math.max(0.5,1-ad*0.25);
-    el.style.transform=`scale(${scale})`;
-    el.style.opacity=i===closestI?1:op;
+    el.classList.toggle('near',false);
+    el.style.transform='none';
+    el.style.opacity='1';
     el.style.filter='none';
   }
   // ویل کے کنارے کی باریک لکیریں بھی گھماؤ کے ساتھ حرکت دیں تاکہ گھومنے کا احساس ہو
@@ -2305,7 +2300,7 @@ function applyUrFont(idx){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='Hfz039';
+const APP_VERSION='Hfz041';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
