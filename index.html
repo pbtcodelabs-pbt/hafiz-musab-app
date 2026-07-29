@@ -325,6 +325,8 @@ html,body{height:100dvh;overflow:hidden;
 .vol-row2{gap:4px !important;padding:0 2px !important;}
 .awheel-outer.sel-wheel-outer{height:66px !important;}
 .wide-wheel,.awheel-block.wide-wheel,.vol-row2 .awheel-block{width:33.3% !important;flex:1 1 0 !important;min-width:0;}
+.vol-row2 .wcol-para,.vol-row2 .wcol-ruku{width:58px !important;flex:0 0 auto !important;}
+.vol-row2 .wcol-qari,.vol-row2 .wcol-surah{flex:1 1 0 !important;width:auto !important;}
 .wide-wheel .awheel-row{justify-content:center;}
 .wide-wheel-outer,.vol-row2 .awheel-outer{width:100% !important;box-sizing:border-box;}
 .vol-row2 .awheel-outer .wi-ar{font-size:16px !important;font-weight:900 !important;font-family:'Noto Naskh Arabic','JN',serif !important;
@@ -332,19 +334,23 @@ html,body{height:100dvh;overflow:hidden;
 .vol-row2 .awheel-block{text-align:center;}
 .vol-row2 .sw-label{font-size:13px !important;font-weight:900 !important;letter-spacing:0.5px;
   padding:2px 4px;border-radius:6px;margin-bottom:4px;color:#fff !important;}
-/* قاری = نیلا، پارہ = سرخی مائل نارنجی، سورہ = سبز — الگ الگ پہچان کے لیے */
+/* قاری = نیلا، پارہ = سرخی مائل نارنجی، سورہ = سبز، رکوع = جامنی — الگ الگ پہچان کے لیے */
 .wcol-qari .sw-label{background:linear-gradient(145deg,#1d4ed8,#1e3a8a);box-shadow:0 0 10px rgba(59,130,246,0.8);}
 .wcol-para .sw-label{background:linear-gradient(145deg,#ea580c,#9a3412);box-shadow:0 0 10px rgba(249,115,22,0.8);}
 .wcol-surah .sw-label{background:linear-gradient(145deg,#059669,#065f46);box-shadow:0 0 10px rgba(16,185,129,0.8);}
+.wcol-ruku .sw-label{background:linear-gradient(145deg,#7c3aed,#4c1d95);box-shadow:0 0 10px rgba(124,58,237,0.8);}
 .wcol-qari .wheel-outer{border:2px solid #3b82f6 !important;box-shadow:0 0 12px rgba(59,130,246,0.55) !important;}
 .wcol-para .wheel-outer{border:2px solid #f97316 !important;box-shadow:0 0 12px rgba(249,115,22,0.55) !important;}
 .wcol-surah .wheel-outer{border:2px solid #10b981 !important;box-shadow:0 0 12px rgba(16,185,129,0.55) !important;}
+.wcol-ruku .wheel-outer{border:2px solid #7c3aed !important;box-shadow:0 0 12px rgba(124,58,237,0.55) !important;}
 .vol-row2 .wcol-qari .wi-ar{color:#1e3a8a !important;text-shadow:none !important;}
 .vol-row2 .wcol-para .wi-ar{color:#9a3412 !important;text-shadow:none !important;}
 .vol-row2 .wcol-surah .wi-ar{color:#065f46 !important;text-shadow:none !important;}
+.vol-row2 .wcol-ruku .wi-ar{color:#4c1d95 !important;text-shadow:none !important;}
 .vol-row2 .wcol-qari .wheel-item.center .wi-ar{color:#1e3a8a !important;font-weight:900 !important;text-shadow:none !important;}
 .vol-row2 .wcol-para .wheel-item.center .wi-ar{color:#9a3412 !important;font-weight:900 !important;text-shadow:none !important;}
 .vol-row2 .wcol-surah .wheel-item.center .wi-ar{color:#065f46 !important;font-weight:900 !important;text-shadow:none !important;}
+.vol-row2 .wcol-ruku .wheel-item.center .wi-ar{color:#4c1d95 !important;font-weight:900 !important;text-shadow:none !important;}
 /* آگے/پیچھے والے آئٹمز مدھم — درمیان والا نمایاں */
 .vol-row2 .wheel-item{opacity:1 !important;filter:none !important;transform:none !important;}
 .vol-row2 .wheel-item.near{opacity:0.6;}
@@ -890,7 +896,7 @@ html,body{height:100dvh;overflow:hidden;
   </div>
   <button class="wlc-start-btn" onclick="startApp()">▶ شروع کریں</button>
   <div class="wlc-share-hint">📤 اپنے دوستوں اور گھر والوں کو بھی بھیجیں</div>
-  <div class="wlc-ver-tag" id="wlcVerTag">Hfz050</div>
+  <div class="wlc-ver-tag" id="wlcVerTag">Hfz051</div>
 </div>
 
 <div id="splash">
@@ -902,7 +908,7 @@ html,body{height:100dvh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">Hfz050</span>
+    <span class="ver-code" id="splashVerCode">Hfz051</span>
   </div>
 </div>
 
@@ -918,7 +924,7 @@ html,body{height:100dvh;overflow:hidden;
         <button class="ads-btn" onclick="openAds()" title="میرے اشتہار">📣</button>
         <div class="status-block">
           <span class="ver-pill" id="tbVerPill" style="padding:2px 9px;font-size:9px;">Online</span>
-          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz050</span>
+          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz051</span>
         </div>
       </div>
     </div>
@@ -1113,6 +1119,17 @@ html,body{height:100dvh;overflow:hidden;
           <div class="wheel-tick-strip wts-l"></div>
           <div class="wheel-tick-strip wts-r"></div>
           <div class="wheel-scroll" id="paraSelWheel"></div>
+        </div>
+      </div>
+      <div class="awheel-block wcol-ruku">
+        <span class="sw-label">رکوع</span>
+        <div class="wheel-outer awheel-outer sel-wheel-outer">
+          <div class="wheel-fade-top"></div>
+          <div class="wheel-selector"></div>
+          <div class="wheel-fade-bot"></div>
+          <div class="wheel-tick-strip wts-l"></div>
+          <div class="wheel-tick-strip wts-r"></div>
+          <div class="wheel-scroll" id="rukuSelWheel"></div>
         </div>
       </div>
     </div>
@@ -1814,6 +1831,8 @@ function buildParaSelWheel(){
   const curPara=getJuz(St.s,St.a);
   const labels=Array.from({length:30},(_,i)=>(i+1)+'. '+PARA_NAMES[i]);
   buildOneNamedWheel('paraSelWheel',labels,curPara-1,i=>selPara(i+1));
+  lastBuiltRukuPara=curPara;
+  buildRukuSelWheel(curPara);
 }
 function selPara(p){
   const idx=Math.max(0,Math.min(29,p-1));
@@ -1823,6 +1842,62 @@ function selPara(p){
   scrollAyahWheel('fromWheel',a,true);
   syncSurahWheel(s);
   loadA(s,a,false);
+  lastBuiltRukuPara=p;
+  buildRukuSelWheel(p);
+}
+// ══ رکوع — لائیو اے پی آئی (alquran.cloud) سے اس پارے کے رکوع کی حدیں حاصل کرتے ہیں،
+// کیونکہ 540+ رکوعوں کی حدیں ہاتھ سے لکھنا غلطی کا خطرہ رکھتا ہے؛ ایک بار حاصل ہونے کے بعد یاد رکھ لیا جاتا ہے ══
+const rukuCache={};
+let rukuLoadToken=0;
+async function fetchParaRukus(juzNum){
+  if(rukuCache[juzNum])return rukuCache[juzNum];
+  const res=await fetch(`https://api.alquran.cloud/v1/juz/${juzNum}/quran-uthmani`);
+  if(!res.ok)throw new Error('network');
+  const data=await res.json();
+  const ayahs=data.data.ayahs;
+  const rukus=[];
+  let lastRuku=null;
+  for(const a of ayahs){
+    if(a.ruku!==lastRuku){
+      rukus.push({surah:a.surah.number,ayah:a.numberInSurah});
+      lastRuku=a.ruku;
+    }
+  }
+  rukuCache[juzNum]=rukus;
+  return rukus;
+}
+async function buildRukuSelWheel(juzNum){
+  const myToken=++rukuLoadToken;
+  const wh=document.getElementById('rukuSelWheel');
+  if(wh)wh.innerHTML='';
+  try{
+    const rukus=await fetchParaRukus(juzNum);
+    if(myToken!==rukuLoadToken)return; // اس دوران کوئی اور پارہ منتخب ہو چکا، پرانا نتیجہ نظرانداز کریں
+    const curAyahGlobalIdx=rukus.findIndex((r,i)=>{
+      const next=rukus[i+1];
+      if(St.s!==r.surah)return false;
+      if(!next||next.surah!==r.surah)return St.a>=r.ayah;
+      return St.a>=r.ayah&&St.a<next.ayah;
+    });
+    const labels=rukus.map((_,i)=>String(i+1));
+    buildOneNamedWheel('rukuSelWheel',labels,Math.max(0,curAyahGlobalIdx),i=>selRuku(juzNum,i));
+  }catch(e){
+    if(myToken!==rukuLoadToken)return;
+    if(wh)wh.innerHTML='<div class="wheel-item" style="height:'+AITEM_H+'px"><div class="wi-ar" style="font-size:10px">آف لائن</div></div>';
+    showToast('⚠ رکوع لوڈ نہیں ہو سکا — انٹرنیٹ چیک کریں');
+  }
+}
+function selRuku(juzNum,idx){
+  const rukus=rukuCache[juzNum];
+  if(!rukus||!rukus[idx])return;
+  const r=rukus[idx],next=rukus[idx+1];
+  const endAyah=(next&&next.surah===r.surah)?next.ayah-1:SH[r.surah-1].a;
+  onWheelChange(r.surah);
+  St.fr=r.ayah;St.to=endAyah;
+  scrollAyahWheel('fromWheel',St.fr,true);
+  scrollAyahWheel('toWheel',St.to,true);
+  syncSurahWheel(r.surah);
+  loadA(r.surah,r.ayah,false);
 }
 function syncQariWheel(k){
   const keys=Object.keys(QARIS);
@@ -1832,8 +1907,10 @@ function syncQariWheel(k){
 function syncSurahWheel(n){
   scrollNamedWheel('surahSelWheel',n-1,true);
 }
+let lastBuiltRukuPara=null;
 function syncParaWheel(p){
   scrollNamedWheel('paraSelWheel',p-1,true);
+  if(p!==lastBuiltRukuPara){lastBuiltRukuPara=p;buildRukuSelWheel(p);}
 }
 function updateAyahWheelVisuals(wh){
   if(!wh)return;
@@ -2316,7 +2393,7 @@ function applyUrFont(idx){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='Hfz050';
+const APP_VERSION='Hfz051';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
