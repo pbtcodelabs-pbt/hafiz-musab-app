@@ -325,12 +325,24 @@ html,body{height:100dvh;overflow:hidden;
 .vol-row2{gap:4px !important;padding:0 2px !important;}
 .awheel-outer.sel-wheel-outer{height:66px !important;}
 .wide-wheel,.awheel-block.wide-wheel,.vol-row2 .awheel-block{width:33.3% !important;flex:1 1 0 !important;min-width:0;}
-.vol-row2 .wcol-para,.vol-row2 .wcol-ruku{width:58px !important;flex:0 0 auto !important;}
+.vol-row2 .wcol-ruku{width:46px !important;flex:0 0 auto !important;}
+.vol-row2 .wcol-para{width:132px !important;flex:0 0 auto !important;}
 .vol-row2 .wcol-qari,.vol-row2 .wcol-surah{flex:1 1 0 !important;width:auto !important;}
 .wide-wheel .awheel-row{justify-content:center;}
 .wide-wheel-outer,.vol-row2 .awheel-outer{width:100% !important;box-sizing:border-box;}
 .vol-row2 .awheel-outer .wi-ar{font-size:16px !important;font-weight:900 !important;font-family:'Noto Naskh Arabic','JN',serif !important;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;width:100%;padding:0 4px;box-sizing:border-box;}
+.vol-row2 .wcol-para .wheel-item:nth-child(even){background:rgba(249,115,22,0.10);}
+.vol-row2 .wcol-para .wheel-item:nth-child(odd){background:rgba(249,115,22,0.02);}
+.vol-row2 .wcol-qari .wheel-item:nth-child(even){background:rgba(59,130,246,0.10);}
+.vol-row2 .wcol-qari .wheel-item:nth-child(odd){background:rgba(59,130,246,0.02);}
+.vol-row2 .wcol-surah .wheel-item:nth-child(even){background:rgba(16,185,129,0.10);}
+.vol-row2 .wcol-surah .wheel-item:nth-child(odd){background:rgba(16,185,129,0.02);}
+.vol-row2 .wcol-ruku .wheel-item:nth-child(even){background:rgba(124,58,237,0.10);}
+.vol-row2 .wcol-ruku .wheel-item:nth-child(odd){background:rgba(124,58,237,0.02);}
+
+.vol-row2 .wcol-para .wi-ar{font-size:12px !important;}
+.vol-row2 .wcol-ruku .wi-ar{padding:0 2px !important;}
 .vol-row2 .awheel-block{text-align:center;}
 .vol-row2 .sw-label{font-size:13px !important;font-weight:900 !important;letter-spacing:0.5px;
   padding:2px 4px;border-radius:6px;margin-bottom:4px;color:#fff !important;}
@@ -896,7 +908,7 @@ html,body{height:100dvh;overflow:hidden;
   </div>
   <button class="wlc-start-btn" onclick="startApp()">▶ شروع کریں</button>
   <div class="wlc-share-hint">📤 اپنے دوستوں اور گھر والوں کو بھی بھیجیں</div>
-  <div class="wlc-ver-tag" id="wlcVerTag">Hfz051</div>
+  <div class="wlc-ver-tag" id="wlcVerTag">Hfz053</div>
 </div>
 
 <div id="splash">
@@ -908,7 +920,7 @@ html,body{height:100dvh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">Hfz051</span>
+    <span class="ver-code" id="splashVerCode">Hfz053</span>
   </div>
 </div>
 
@@ -924,7 +936,7 @@ html,body{height:100dvh;overflow:hidden;
         <button class="ads-btn" onclick="openAds()" title="میرے اشتہار">📣</button>
         <div class="status-block">
           <span class="ver-pill" id="tbVerPill" style="padding:2px 9px;font-size:9px;">Online</span>
-          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz051</span>
+          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz053</span>
         </div>
       </div>
     </div>
@@ -2393,7 +2405,7 @@ function applyUrFont(idx){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='Hfz051';
+const APP_VERSION='Hfz053';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
