@@ -143,6 +143,8 @@ html,body{height:100dvh;overflow:hidden;
   color:var(--gdi);box-shadow:0 3px 0 rgba(0,0,0,0.55),inset 0 1px 0 rgba(var(--gdR),0.22);}
 .btn-dl{background:linear-gradient(145deg,rgba(var(--gdR),0.6),rgba(0,0,0,0.65));
   color:var(--gdi);box-shadow:0 3px 0 rgba(0,0,0,0.55),inset 0 1px 0 rgba(var(--gdR),0.22);}
+.btn-special{background:linear-gradient(145deg,#a78bfa,#5b21b6);color:#fff;
+  box-shadow:0 3px 0 #4c1d95,inset 0 1px 0 rgba(255,255,255,0.3);}
 .btn-refresh{background:linear-gradient(145deg,#4ade80,#15803d);color:#fff;
   box-shadow:0 3px 0 #14532d,inset 0 1px 0 rgba(255,255,255,0.35);}
 .btn-refresh.spinning svg{animation:spinIcon .7s linear infinite;}
@@ -530,6 +532,24 @@ html,body{height:100dvh;overflow:hidden;
   z-index:400;flex-direction:column;
   --dl-txt:#1a1305;--dl-txt2:#57534e;--dl-gold:#92400e;}
 #dlOverlay.open{display:flex;}
+#specialQOverlay{display:none;position:fixed;inset:0;
+  background:linear-gradient(160deg,#f5f3ff 0%,#ede9fe 55%,#f5f3ff 100%);
+  z-index:400;flex-direction:column;overflow-y:auto;}
+#specialQOverlay.open{display:flex;}
+#specialQHeader{flex-shrink:0;padding:12px 14px 10px;
+  background:linear-gradient(180deg,#c4b5fd,#7c3aed);
+  border-bottom:2px solid #5b21b6;}
+#specialQHeader .dl-title{color:#fff;}
+.sq-hint{font-size:11px;font-weight:900;font-family:'JN',serif;color:#f5f3ff;
+  line-height:1.7;margin-top:4px;}
+#sqSurahName{color:#fde68a;}
+#specialQList{padding:14px;display:flex;flex-direction:column;gap:10px;}
+.sq-btn{padding:14px;border-radius:14px;border:2px solid #7c3aed;cursor:pointer;
+  background:linear-gradient(145deg,#ffffff,#ede9fe);color:#4c1d95;
+  font-family:'JN',serif;font-size:15px;font-weight:900;text-align:center;
+  box-shadow:0 3px 0 #5b21b6;touch-action:manipulation;}
+.sq-btn:active{transform:translateY(2px);box-shadow:0 1px 0 #5b21b6;}
+.sq-btn.active{background:linear-gradient(145deg,#86efac,#4ade80);color:#052e16;border-color:#15803d;box-shadow:0 3px 0 #15803d;}
 #dlHeader{flex-shrink:0;padding:12px 14px 8px;
   background:linear-gradient(180deg,#fde68a,#fbbf24);
   border-bottom:2px solid #d97706;}
@@ -908,7 +928,7 @@ html,body{height:100dvh;overflow:hidden;
   </div>
   <button class="wlc-start-btn" onclick="startApp()">▶ شروع کریں</button>
   <div class="wlc-share-hint">📤 اپنے دوستوں اور گھر والوں کو بھی بھیجیں</div>
-  <div class="wlc-ver-tag" id="wlcVerTag">Hfz053</div>
+  <div class="wlc-ver-tag" id="wlcVerTag">Hfz054</div>
 </div>
 
 <div id="splash">
@@ -920,7 +940,7 @@ html,body{height:100dvh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">Hfz053</span>
+    <span class="ver-code" id="splashVerCode">Hfz054</span>
   </div>
 </div>
 
@@ -936,7 +956,7 @@ html,body{height:100dvh;overflow:hidden;
         <button class="ads-btn" onclick="openAds()" title="میرے اشتہار">📣</button>
         <div class="status-block">
           <span class="ver-pill" id="tbVerPill" style="padding:2px 9px;font-size:9px;">Online</span>
-          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz053</span>
+          <span class="ver-code" id="tbVerCode" style="font-size:9px;padding:0 6px;">Hfz054</span>
         </div>
       </div>
     </div>
@@ -963,6 +983,9 @@ html,body{height:100dvh;overflow:hidden;
       </button>
       <button class="icon-btn btn-dl" onclick="openDL()" title="ڈاؤن لوڈ مینیجر">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+      </button>
+      <button class="icon-btn btn-special" onclick="openSpecialQaris()" title="خصوصی تلاوت — مکمل سورت">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 5a7 7 0 0 1 7 7"/><path d="M12 2v3"/><path d="M12 19v3"/></svg>
       </button>
     </div>
   </div>
@@ -1245,6 +1268,18 @@ html,body{height:100dvh;overflow:hidden;
       <button class="se-btn cancel" onclick="closeShareEditor()">✕ منسوخ</button>
     </div>
   </div>
+</div>
+
+<!-- خصوصی تلاوت — مکمل سورت والے قاری (جن کی ایت بہ ایت آڈیو دستیاب نہیں) -->
+<div id="specialQOverlay">
+  <div id="specialQHeader">
+    <div class="dl-title">
+      <span>🎙 خصوصی تلاوت — مکمل سورت</span>
+      <button class="dlx" onclick="closeSpecialQaris()">✕</button>
+    </div>
+    <div class="sq-hint">یہ قاری صرف مکمل سورت کی صورت میں دستیاب ہیں (آیت وار انتخاب کام نہیں کرتا)۔ نیچے سے قاری منتخب کریں، موجودہ سورت (<span id="sqSurahName">—</span>) چلنا شروع ہو جائے گی۔</div>
+  </div>
+  <div id="specialQList"></div>
 </div>
 
 <div id="toast"></div>
@@ -1832,7 +1867,7 @@ function namedWheelClick(id,idx){
   document.getElementById(id)._onChange(idx);
 }
 function buildQariSelWheel(){
-  const keys=Object.keys(QARIS);
+  const keys=Object.keys(QARIS).filter(k=>QARIS[k].mode!=='surah');
   const idx=Math.max(0,keys.indexOf(CQ));
   buildOneNamedWheel('qariSelWheel',keys.map(k=>QARIS[k].name),idx,i=>setQari(keys[i]));
 }
@@ -1912,7 +1947,7 @@ function selRuku(juzNum,idx){
   loadA(r.surah,r.ayah,false);
 }
 function syncQariWheel(k){
-  const keys=Object.keys(QARIS);
+  const keys=Object.keys(QARIS).filter(kk=>QARIS[kk].mode!=='surah');
   const idx=keys.indexOf(k);
   if(idx>=0)scrollNamedWheel('qariSelWheel',idx,true);
 }
@@ -1991,6 +2026,24 @@ function applySel(){
 
 // ══ DOWNLOAD MANAGER ══
 let dlQari=CQ;
+function openSpecialQaris(){
+  document.getElementById('sqSurahName').textContent=SH[St.s-1].ar;
+  buildSpecialQList();
+  document.getElementById('specialQOverlay').classList.add('open');
+}
+function closeSpecialQaris(){
+  document.getElementById('specialQOverlay').classList.remove('open');
+}
+function buildSpecialQList(){
+  const keys=Object.keys(QARIS).filter(k=>QARIS[k].mode==='surah');
+  document.getElementById('specialQList').innerHTML=keys.map(k=>
+    `<button class="sq-btn${k===CQ?' active':''}" onclick="pickSpecialQari('${k}')">${QARIS[k].name}</button>`
+  ).join('');
+}
+function pickSpecialQari(k){
+  setQari(k);
+  closeSpecialQaris();
+}
 function openDL(){document.getElementById('dlOverlay').classList.add('open');buildDLQsel();buildDLList();updateDLStats();}
 function closeDL(){dlStop=true;document.getElementById('dlOverlay').classList.remove('open');document.getElementById('dlOverallWrap')?.classList.remove('show');}
 
@@ -2405,7 +2458,7 @@ function applyUrFont(idx){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='Hfz053';
+const APP_VERSION='Hfz054';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
