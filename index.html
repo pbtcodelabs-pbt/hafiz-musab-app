@@ -327,13 +327,13 @@ html,body{height:100dvh;overflow:hidden;
 .vol-row2{gap:4px !important;padding:0 2px !important;}
 .awheel-outer.sel-wheel-outer{height:66px !important;}
 .wide-wheel,.awheel-block.wide-wheel,.vol-row2 .awheel-block{width:33.3% !important;flex:1 1 0 !important;min-width:0;}
-.vol-row2 .wcol-ruku{width:46px !important;flex:0 0 auto !important;}
-.vol-row2 .wcol-para{width:132px !important;flex:0 0 auto !important;}
-.vol-row2 .wcol-qari,.vol-row2 .wcol-surah{flex:1 1 0 !important;width:auto !important;}
+.vol-row2 .wcol-ruku{width:36px !important;flex:0 0 auto !important;}
+.vol-row2 .wcol-para{width:86px !important;flex:0 0 auto !important;}
+.vol-row2 .wcol-qari,.vol-row2 .wcol-surah{flex:1 1 0 !important;width:auto !important;min-width:0;}
 .wide-wheel .awheel-row{justify-content:center;}
 .wide-wheel-outer,.vol-row2 .awheel-outer{width:100% !important;box-sizing:border-box;}
 .vol-row2 .awheel-outer .wi-ar{font-size:16px !important;font-weight:900 !important;font-family:'Noto Naskh Arabic','JN',serif !important;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;width:100%;padding:0 4px;box-sizing:border-box;}
+  white-space:nowrap;overflow:hidden;text-overflow:clip;max-width:100%;width:100%;padding:0 3px;box-sizing:border-box;}
 .vol-row2 .wcol-para .wheel-item:nth-child(even){background:rgba(249,115,22,0.10);}
 .vol-row2 .wcol-para .wheel-item:nth-child(odd){background:rgba(249,115,22,0.02);}
 .vol-row2 .wcol-qari .wheel-item:nth-child(even){background:rgba(59,130,246,0.10);}
@@ -1866,13 +1866,47 @@ function namedWheelClick(id,idx){
   scrollNamedWheel(id,idx,true);
   document.getElementById(id)._onChange(idx);
 }
+// ══ خودکار فونٹ فٹنگ — کاری/سورت/پارے کے نام کبھی نہ کٹیں، نہ ہی آگے ڈاٹ (...) آئیں۔
+// ہر لیبل کی چوڑائی کینوس سے ناپ کر، اگر باکس میں پوری نہ آئے تو فونٹ سائز خود بخود
+// چھوٹا کر دیا جاتا ہے (کم از کم حد تک) — لیکن باکس سے باہر کبھی نہیں جاتا ══
+const _fitCanvas=document.createElement('canvas');
+const _fitCtx=_fitCanvas.getContext('2d');
+function fitWheelLabels(wheelId,maxSize,minSize){
+  const wh=document.getElementById(wheelId);
+  if(!wh)return;
+  const items=wh.querySelectorAll('.wi-ar');
+  items.forEach(el=>{
+    const cs=getComputedStyle(el);
+    const pad=parseFloat(cs.paddingLeft)+parseFloat(cs.paddingRight);
+    const availW=el.clientWidth-pad;
+    const txt=el.textContent||'';
+    if(availW<=0||!txt)return;
+    let size=maxSize;
+    _fitCtx.font=`900 ${size}px 'Noto Naskh Arabic','JN',serif`;
+    let textW=_fitCtx.measureText(txt).width;
+    if(textW>availW){
+      // پہلے تناسب سے تخمینہ لگائیں، پھر باریک ایڈجسٹ کریں تاکہ باکس سے باہر نہ جائے
+      size=Math.max(minSize,Math.floor(size*(availW/textW)*0.94));
+      _fitCtx.font=`900 ${size}px 'Noto Naskh Arabic','JN',serif`;
+      textW=_fitCtx.measureText(txt).width;
+      while(textW>availW&&size>minSize){
+        size--;
+        _fitCtx.font=`900 ${size}px 'Noto Naskh Arabic','JN',serif`;
+        textW=_fitCtx.measureText(txt).width;
+      }
+    }
+    el.style.setProperty('font-size',size+'px','important');
+  });
+}
 function buildQariSelWheel(){
   const keys=Object.keys(QARIS).filter(k=>QARIS[k].mode!=='surah');
   const idx=Math.max(0,keys.indexOf(CQ));
   buildOneNamedWheel('qariSelWheel',keys.map(k=>QARIS[k].name),idx,i=>setQari(keys[i]));
+  requestAnimationFrame(()=>requestAnimationFrame(()=>fitWheelLabels('qariSelWheel',16,9)));
 }
 function buildSurahSelWheel(){
   buildOneNamedWheel('surahSelWheel',SH.map(s=>s.n+'. '+s.ar),St.s-1,i=>selSurah(i+1));
+  requestAnimationFrame(()=>requestAnimationFrame(()=>fitWheelLabels('surahSelWheel',16,9)));
 }
 function buildParaSelWheel(){
   const curPara=getJuz(St.s,St.a);
@@ -1880,6 +1914,7 @@ function buildParaSelWheel(){
   buildOneNamedWheel('paraSelWheel',labels,curPara-1,i=>selPara(i+1));
   lastBuiltRukuPara=curPara;
   buildRukuSelWheel(curPara);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>fitWheelLabels('paraSelWheel',12,8)));
 }
 function selPara(p){
   const idx=Math.max(0,Math.min(29,p-1));
@@ -2458,7 +2493,7 @@ function applyUrFont(idx){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='Hfz054';
+const APP_VERSION='Hfz055';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
