@@ -942,19 +942,19 @@ html,body{height:100vh;height:100svh;overflow:hidden;
     </button>
   </div>
   <button class="wlc-start-btn" onclick="startApp()">▶ شروع کریں</button>
-  <div class="wlc-ver-tag" id="wlcVerTag">Hfz065</div>
+  <div class="wlc-ver-tag" id="wlcVerTag">Hfz066</div>
 </div>
 
 <div id="splash">
   <div class="sb1">﷽</div>
   <div class="sb2">القرآن الكريم</div>
-  <div class="sb3">حافظ قرآن اسسٹنٹ Pro</div>
+  <div class="sb3">Hifz Pro</div>
   <div id="splashBar"><div id="splashFill"></div></div>
   <div id="splashNote">6236 آیات عربی + اردو — مکمل آف لائن متن</div>
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">Hfz065</span>
+    <span class="ver-code" id="splashVerCode">Hfz066</span>
   </div>
 </div>
 
@@ -968,7 +968,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
     </div>
     <div class="status-block-mini">
       <span class="ver-pill" id="tbVerPill">Online</span>
-      <span class="ver-code" id="tbVerCode">Hfz065</span>
+      <span class="ver-code" id="tbVerCode">Hfz066</span>
       <button class="icon-btn btn-refresh sm" onclick="forceRefresh()" title="تازہ ترین ورژن لوڈ کریں">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/></svg>
       </button>
@@ -2145,12 +2145,12 @@ async function shareAdPoster(){
     const blob=await res.blob();
     const file=new File([blob],'poster.jpg',{type:'image/jpeg'});
     if(navigator.canShare&&navigator.canShare({files:[file]})){
-      await navigator.share({files:[file],title:'حافظ قرآن',text:getShareText()});
+      await navigator.share({files:[file],title:'Hifz Pro',text:getShareText()});
       return;
     }
   }catch(e){}
   // fallback: image share not supported, share text/link instead
-  if(navigator.share){navigator.share({title:'حافظ قرآن',text:getShareText(),url:getShareLink()}).catch(()=>{});}
+  if(navigator.share){navigator.share({title:'Hifz Pro',text:getShareText(),url:getShareLink()}).catch(()=>{});}
   else{window.open('https://wa.me/?text='+encodeURIComponent(getShareText()+' '+getShareLink()),'_blank');}
 }
 
@@ -2242,7 +2242,7 @@ function showToast(m){const t=document.getElementById('toast');t.textContent=m;t
 
 // ══ SHARE ══
 function getShareLink(){try{return localStorage.getItem('shareLink')||'https://drive.google.com/YOUR-LINK';}catch{return'https://drive.google.com/YOUR-LINK';}}
-function getShareText(){try{return localStorage.getItem('shareText')||'حافظ قرآن اسسٹنٹ — قرآن پاک ایپ ڈاؤنلوڈ کریں:';}catch{return'یہ ایپ ڈاؤنلوڈ کریں';}}
+function getShareText(){try{return localStorage.getItem('shareText')||'Hifz Pro — قرآن پاک ایپ ڈاؤنلوڈ کریں:';}catch{return'یہ ایپ ڈاؤنلوڈ کریں';}}
 
 // Long-press (developer mode) — press & hold ~600ms on a share button opens the link editor.
 // A normal short tap/click just shares. Both share buttons use this same setup, so the
@@ -2306,7 +2306,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 });
 function doShare(){
   const url=getShareLink(),text=getShareText()+'\n\n'+url;
-  if(navigator.share){navigator.share({title:'حافظ قرآن',text,url}).catch(()=>{});}
+  if(navigator.share){navigator.share({title:'Hifz Pro',text,url}).catch(()=>{});}
   else if(navigator.clipboard){navigator.clipboard.writeText(text).then(()=>showToast('لنک کاپی ✓')).catch(()=>showToast(url));}
   else showToast('لنک: '+url);
 }
@@ -2506,7 +2506,7 @@ function applyUrFont(idx){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='Hfz065';
+const APP_VERSION='Hfz066';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
@@ -2545,7 +2545,7 @@ async function forceRefresh(){
     if('caches' in window){
       const names=await caches.keys();
       for(const n of names){
-        if(n.startsWith('hafiz-musab-shell-')) await caches.delete(n);
+        if(n.startsWith('hafiz-musab-shell-')||n.startsWith('hifz-pro-shell-')) await caches.delete(n);
       }
     }
   }catch(e){}
