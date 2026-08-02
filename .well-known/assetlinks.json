@@ -1,0 +1,10 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "io.github.pbtcodelabs_pbt.twa",
+      "sha256_cert_fingerprints": ["0F:1E:E7:42:EC:69:B6:80:6C:F0:52:4A:69:E1:6A:27:D4:45:6B:FD:B5:4F:9F:B4:66:23:C4:D6:BB:25:AE:22"]
+    }
+  }
+]
