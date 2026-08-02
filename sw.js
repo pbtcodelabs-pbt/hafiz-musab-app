@@ -6,7 +6,7 @@
 // اس لیے یہاں انہیں جان بوجھ کر چھوا نہیں گیا تاکہ دونوں سسٹم آپس میں نہ ٹکرائیں۔
 // ══════════════════════════════════════════════════════════
 
-const SHELL_CACHE = 'hifz-pro-shell-Hfz067';
+const SHELL_CACHE = 'hifz-pro-shell-Hfz068';
 
 // یہ فائلیں انہی ناموں سے اسی فولڈر میں موجود ہونی چاہئیں (index.html کے ساتھ)
 const SHELL_FILES = [
@@ -16,7 +16,9 @@ const SHELL_FILES = [
   './icon-32.png',
   './icon-192.png',
   './icon-512.png',
-  './icon-180.png'
+  './icon-180.png',
+  './icon-192-maskable.png',
+  './icon-512-maskable.png'
 ];
 
 // یہ ڈومینز کبھی بھی اس سروس ورکر میں انٹرسیپٹ نہیں ہوں گے —
