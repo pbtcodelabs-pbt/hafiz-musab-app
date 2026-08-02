@@ -1,12 +1,12 @@
 // ══════════════════════════════════════════════════════════
-// Hafiz Musab App — Service Worker
+// Hifz Pro — Service Worker
 // صرف ایپ شیل (HTML/آئیکنز/مینی فیسٹ/فونٹس) کو آف لائن کیش کرتا ہے۔
 // قرآن کی تلاوت والی آڈیو فائلیں اس سروس ورکر کے ذریعے کیش نہیں ہوتیں —
 // وہ خود ایپ کے اندر موجود ڈاؤن لوڈ سسٹم (cache 'quran-audio-v2') سنبھالتا ہے،
 // اس لیے یہاں انہیں جان بوجھ کر چھوا نہیں گیا تاکہ دونوں سسٹم آپس میں نہ ٹکرائیں۔
 // ══════════════════════════════════════════════════════════
 
-const SHELL_CACHE = 'hafiz-musab-shell-v62';
+const SHELL_CACHE = 'hifz-pro-shell-Hfz065';
 
 // یہ فائلیں انہی ناموں سے اسی فولڈر میں موجود ہونی چاہئیں (index.html کے ساتھ)
 const SHELL_FILES = [
@@ -20,15 +20,14 @@ const SHELL_FILES = [
 ];
 
 // یہ ڈومینز کبھی بھی اس سروس ورکر میں انٹرسیپٹ نہیں ہوں گے —
-// قرآن آڈیو + آرٹ ورک امیج۔ انہیں براہ راست نیٹ ورک/براؤزر پر چھوڑ دیا جاتا ہے۔
+// قرآن آڈیو۔ انہیں براہ راست نیٹ ورک/براؤزر پر چھوڑ دیا جاتا ہے۔
 const AUDIO_HOSTS = [
   'everyayah.com',
   'cdn.islamic.network',
   'download.quranicaudio.com',
   'archive.org',
   'ia803005.us.archive.org',
-  'ia601504.us.archive.org',
-  'upload.wikimedia.org'
+  'ia601504.us.archive.org'
 ];
 
 // یہ ڈومینز فونٹس کے لیے ہیں — دستیاب ہونے پر کیش، ورنہ خاموشی سے ناکام
@@ -53,13 +52,14 @@ self.addEventListener('install', (event) => {
   })());
 });
 
-// ── ACTIVATE: صرف اپنی پرانی shell کیشز صاف کریں، quran-audio کیش کو کبھی نہ چھوئیں ──
+// ── ACTIVATE: پرانی تمام کیشز صاف کریں (بشمول پرانے "hafiz-musab-shell-*" برانڈ کی کیشز
+// چونکہ ایپ کا نام Hifz Pro میں بدل چکا ہے)، صرف quran-audio کیش کو کبھی نہ چھوئیں ──
 self.addEventListener('activate', (event) => {
   event.waitUntil((async () => {
     const names = await caches.keys();
     await Promise.all(
       names.map((name) => {
-        if (name.startsWith('hafiz-musab-shell-') && name !== SHELL_CACHE) {
+        if (name !== SHELL_CACHE && !name.startsWith('quran-audio')) {
           return caches.delete(name);
         }
         return Promise.resolve();
@@ -76,12 +76,12 @@ self.addEventListener('fetch', (event) => {
 
   const url = new URL(req.url);
 
-  // 1) قرآن آڈیو / آرٹ ورک — بالکل مداخلت نہیں (ایپ کا اپنا سسٹم سنبھالے گا)
+  // 1) قرآن آڈیو — بالکل مداخلت نہیں (ایپ کا اپنا سسٹم سنبھالے گا)
   if (AUDIO_HOSTS.some((h) => url.hostname.endsWith(h))) {
     return; // respondWith کال نہیں کی — براؤزر نارمل نیٹ ورک ریکویسٹ کرے گا
   }
 
-  // 2) صفحہ کھلنے کی درخواست (navigation) — پہلے کیش، پھر نیٹ ورک (آف لائن گارنٹی)
+  // 2) صفحہ کھلنے کی درخواست (navigation) — نیٹ ورک اولیت، ناکامی پر کیش (آف لائن گارنٹی)
   if (req.mode === 'navigate') {
     event.respondWith((async () => {
       const cache = await caches.open(SHELL_CACHE);

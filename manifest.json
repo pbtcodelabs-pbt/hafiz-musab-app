@@ -1,16 +1,13 @@
 {
-  "id": "/",
-  "name": "قرآن حافظ Pro",
-  "short_name": "حافظ قرآن",
-  "description": "حفاظ کی آسانی کے لیے بہترین قراء کی تلاوت اور اردو ترجمے کے ساتھ ڈیزائن کی گئی قرآن پاک ایپ",
+  "name": "Hifz Pro",
+  "short_name": "Hifz Pro",
+  "description": "Memorize, Review, Achieve — Quran Hifz companion app",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#0b3d2e",
+  "background_color": "#ffffff",
   "theme_color": "#0b3d2e",
-  "lang": "ur",
-  "dir": "rtl",
   "icons": [
     {
       "src": "icon-32.png",
