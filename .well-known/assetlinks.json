@@ -4,7 +4,9 @@
     "target": {
       "namespace": "android_app",
       "package_name": "io.github.pbtcodelabs_pbt.twa",
-      "sha256_cert_fingerprints": ["0F:1E:E7:42:EC:69:B6:80:6C:F0:52:4A:69:E1:6A:27:D4:45:6B:FD:B5:4F:9F:B4:66:23:C4:D6:BB:25:AE:22"]
+      "sha256_cert_fingerprints": [
+        "1F:1B:32:BC:B4:A5:4A:96:4A:9E:FD:99:3B:73:76:EF:86:8E:F6:6F:FF:0C:DB:C5:4C:74:57:CE:89:3A:52:43"
+      ]
     }
   }
 ]
