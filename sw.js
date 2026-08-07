@@ -1,5 +1,5 @@
-// Hfz070-Test — Service Worker
-const CACHE_NAME = 'hafiz-musab-shell-Hfz070-Test';
+// Hfz071-Test — Service Worker
+const CACHE_NAME = 'hafiz-musab-shell-Hfz071-Test';
 const SHELL_FILES = ['./', './index.html', './manifest.json'];
 
 self.addEventListener('install', (event) => {
