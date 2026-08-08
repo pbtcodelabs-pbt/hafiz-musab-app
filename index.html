@@ -1225,7 +1225,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
     </button>
   </div>
   <button class="wlc-start-btn" onclick="startApp()">▶ شروع کریں</button>
-  <div class="wlc-ver-tag" id="wlcVerTag">Hfz88sa0842pm</div>
+  <div class="wlc-ver-tag" id="wlcVerTag">Hfz88sa0955pm</div>
 </div>
 
 <div id="splash">
@@ -1237,7 +1237,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">Hfz88sa0842pm</span>
+    <span class="ver-code" id="splashVerCode">Hfz88sa0955pm</span>
   </div>
 </div>
 
@@ -1251,7 +1251,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
     </div>
     <div class="status-block-mini">
       <span class="ver-pill" id="tbVerPill">Online</span>
-      <span class="ver-code" id="tbVerCode">Hfz88sa0842pm</span>
+      <span class="ver-code" id="tbVerCode">Hfz88sa0955pm</span>
       <button class="icon-btn btn-refresh sm" onclick="forceRefresh()" title="تازہ ترین ورژن لوڈ کریں">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/></svg>
       </button>
@@ -1551,19 +1551,6 @@ html,body{height:100vh;height:100svh;overflow:hidden;
     <div class="ad-note">نوٹ: دونوں بٹن فون کا عام شیئر مینیو کھولیں گے — اس میں سے آپ خود واٹس ایپ یا واٹس ایپ بزنس چن لیں، ویب ایپ خود بخود دونوں میں فرق نہیں کر سکتی۔</div>
   </div>
 </div>
-
-<!-- WELCOME MESSAGE EDIT MODAL -->
-<div id="wlcEditOverlay">
-  <div class="wlce-card">
-    <div class="wlce-title">✎ خوش آمدید پیغام تبدیل کریں</div>
-    <textarea class="wlce-textarea" id="wlcEditTextarea"></textarea>
-    <div class="wlce-btn-row">
-      <button class="wlce-btn cancel" onclick="closeWelcomeEdit()">منسوخ</button>
-      <button class="wlce-btn save" onclick="saveWelcomeEdit()">محفوظ کریں</button>
-    </div>
-  </div>
-</div>
-
 <!-- CARD THEME PREVIEW OVERLAY -->
 <div id="cardPreviewOverlay" onclick="cpvBgClick(event)">
   <div class="cpv-title">🎨 تھیم منتخب کریں — بائیں/دائیں سلائیڈ کریں</div>
@@ -1998,7 +1985,7 @@ function toggleCtrlDrawer(){
 }
 
 // ═══ پلے کنٹرول ٹوگل بٹن صرف ہوم پیج پر نظر آئے — سیٹنگز/اشتہار/ڈاؤن لوڈ وغیرہ کھلے ہوں تو چھپا رہے ═══
-const CTRL_HIDE_OVERLAY_IDS=['settingsOverlay','adOverlay','dlOverlay','specialQOverlay','shareEditOverlay','timerOverlay','wlcEditOverlay','cardPreviewOverlay'];
+const CTRL_HIDE_OVERLAY_IDS=['settingsOverlay','adOverlay','dlOverlay','specialQOverlay','shareEditOverlay','timerOverlay','cardPreviewOverlay'];
 function isOtherOverlayOpen(){
   return CTRL_HIDE_OVERLAY_IDS.some(function(id){
     const el=document.getElementById(id);
@@ -2957,69 +2944,21 @@ function toggleChatDev(){
   document.getElementById('chatDevOpts')?.classList.toggle('open');
 }
 
-// ══ WELCOME MESSAGE — نظر آنے والا کوئی بٹن نہیں۔ خفیہ طریقہ: پیغام پر لگاتار 5 دفعہ
-// ٹچ کریں تو ایڈٹ باکس کھلتا ہے (setupWelcomeTapEdit میں نیچے) ══
-// پیغام اب گٹ ہب پیجز کی الگ چھوٹی فائل 'welcome.txt' سے پڑھا جاتا ہے — ہر صارف کے فون پر
-// خودکار اپڈیٹ ہوتا ہے، HTML فائل دوبارہ بنانے کی ضرورت نہیں۔
-const DEFAULT_WELCOME_MSG='یہ ایپ حفاظ کی آسانی کے لیے عالمی شہرت یافتہ بہترین قراء کی تلاوت اور اردو ترجمے کے ساتھ بہت بہترین طریقے سے ڈیزائن کی گئی ہے — برائے مہربانی اسے دوسروں کے ساتھ بھی شیئر کریں';
-function getWelcomeMsg(){
-  try{return localStorage.getItem('welcome_msg')||DEFAULT_WELCOME_MSG;}catch{return DEFAULT_WELCOME_MSG;}
-}
+// ══ خوش آمدید پیغام — سیدھا گٹ ہب کی welcome.txt فائل سے پڑھا جاتا ہے۔
+// بدلنے کے لیے: گٹ ہب پر welcome.txt کھولیں → ایڈٹ (پنسل) → نیا متن لکھیں → Commit۔
+// نہ ایپ کھولنی، نہ کوئی اور قدم — خودکار سب صارفین تک پہنچ جائے گا۔
 async function loadRemoteWelcomeMsg(){
   try{
     const res=await fetch('./welcome.txt?t='+Date.now(),{cache:'no-store'});
     if(res.ok){
       const txt=(await res.text()).trim();
-      if(txt){
-        try{localStorage.setItem('welcome_msg',txt);}catch{}
-        applyWelcomeMsg();
-      }
+      const el=document.getElementById('wlcTextEl');
+      if(txt&&el)el.textContent=txt;
     }
-  }catch(e){/* آف لائن یا فائل موجود نہیں — پرانا/ڈیفالٹ پیغام ہی رہنے دیں */}
+  }catch(e){/* آف لائن — فائل میں پہلے سے لکھا پیغام ہی نظر آتا رہے گا */}
 }
-function applyWelcomeMsg(){
-  const el=document.getElementById('wlcTextEl');
-  if(el)el.textContent=getWelcomeMsg();
-}
-function editWelcomeMsg(){
-  const ta=document.getElementById('wlcEditTextarea');
-  if(ta)ta.value=getWelcomeMsg();
-  document.getElementById('wlcEditOverlay')?.classList.add('open');
-  setTimeout(()=>ta?.focus(),50);
-}
-function closeWelcomeEdit(){
-  document.getElementById('wlcEditOverlay')?.classList.remove('open');
-}
-function saveWelcomeEdit(){
-  const ta=document.getElementById('wlcEditTextarea');
-  const trimmed=(ta?.value||'').trim();
-  try{
-    if(trimmed)localStorage.setItem('welcome_msg',trimmed);
-    else localStorage.removeItem('welcome_msg');
-  }catch{}
-  applyWelcomeMsg();
-  // welcome.txt فائل ڈاؤن لوڈ کریں — اسے گٹ ہب پر پرانی فائل کی جگہ اپلوڈ کر دیں
-  try{
-    const blob=new Blob([trimmed||DEFAULT_WELCOME_MSG],{type:'text/plain;charset=utf-8'});
-    const url=URL.createObjectURL(blob);
-    const a=document.createElement('a');a.href=url;a.download='welcome.txt';a.click();
-    setTimeout(()=>URL.revokeObjectURL(url),4000);
-  }catch(e){}
-  closeWelcomeEdit();
-  showToast('✓ محفوظ — welcome.txt ڈاؤن لوڈ ہو گئی، اسے گٹ ہب پر اپلوڈ کر دیں');
-}
-// خفیہ 5-ٹچ: پیغام پر 1.2 سیکنڈ کے اندر 5 دفعہ ٹچ کریں تو ایڈٹ باکس کھلے گا
-function setupWelcomeTapEdit(){
-  const el=document.getElementById('wlcTextEl');
-  if(!el)return;
-  let count=0,resetTimer=null;
-  el.addEventListener('click',()=>{
-    count++;
-    clearTimeout(resetTimer);
-    if(count>=5){count=0;editWelcomeMsg();return;}
-    resetTimer=setTimeout(()=>{count=0;},1200);
-  });
-}
+document.addEventListener('DOMContentLoaded',loadRemoteWelcomeMsg);
+
 function setupShareLongPress(btnId){
   const el=document.getElementById(btnId);
   if(!el)return;
@@ -3046,9 +2985,6 @@ function setupShareLongPress(btnId){
 document.addEventListener('DOMContentLoaded',()=>{
   setupShareLongPress('wlcShareBtn');
   setupShareLongPress('shareBtn');
-  applyWelcomeMsg();
-  loadRemoteWelcomeMsg();
-  setupWelcomeTapEdit();
 });
 function doShare(){
   const url=getShareLink(),text=getShareText()+'\n\n'+url;
@@ -3483,7 +3419,7 @@ function applyUrFont(idx){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='Hfz88sa0842pm';
+const APP_VERSION='Hfz88sa0955pm';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){

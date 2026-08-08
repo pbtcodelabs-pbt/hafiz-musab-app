@@ -1,5 +1,5 @@
-// Hfz88sa0842pm — Service Worker
-const CACHE_NAME = 'hafiz-musab-shell-Hfz88sa0842pm';
+// Hfz88sa0955pm — Service Worker
+const CACHE_NAME = 'hafiz-musab-shell-Hfz88sa0955pm';
 const SHELL_FILES = ['./', './index.html', './manifest.json'];
 
 self.addEventListener('install', (event) => {
