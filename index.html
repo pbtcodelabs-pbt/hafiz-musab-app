@@ -1225,7 +1225,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
     </button>
   </div>
   <button class="wlc-start-btn" onclick="startApp()">▶ شروع کریں</button>
-  <div class="wlc-ver-tag" id="wlcVerTag">Hfz88sa1021am</div>
+  <div class="wlc-ver-tag" id="wlcVerTag">Hfz88sa0842pm</div>
 </div>
 
 <div id="splash">
@@ -1237,7 +1237,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">Hfz88sa1021am</span>
+    <span class="ver-code" id="splashVerCode">Hfz88sa0842pm</span>
   </div>
 </div>
 
@@ -1251,7 +1251,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
     </div>
     <div class="status-block-mini">
       <span class="ver-pill" id="tbVerPill">Online</span>
-      <span class="ver-code" id="tbVerCode">Hfz88sa1021am</span>
+      <span class="ver-code" id="tbVerCode">Hfz88sa0842pm</span>
       <button class="icon-btn btn-refresh sm" onclick="forceRefresh()" title="تازہ ترین ورژن لوڈ کریں">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/></svg>
       </button>
@@ -2959,9 +2959,23 @@ function toggleChatDev(){
 
 // ══ WELCOME MESSAGE — نظر آنے والا کوئی بٹن نہیں۔ خفیہ طریقہ: پیغام پر لگاتار 5 دفعہ
 // ٹچ کریں تو ایڈٹ باکس کھلتا ہے (setupWelcomeTapEdit میں نیچے) ══
+// پیغام اب گٹ ہب پیجز کی الگ چھوٹی فائل 'welcome.txt' سے پڑھا جاتا ہے — ہر صارف کے فون پر
+// خودکار اپڈیٹ ہوتا ہے، HTML فائل دوبارہ بنانے کی ضرورت نہیں۔
 const DEFAULT_WELCOME_MSG='یہ ایپ حفاظ کی آسانی کے لیے عالمی شہرت یافتہ بہترین قراء کی تلاوت اور اردو ترجمے کے ساتھ بہت بہترین طریقے سے ڈیزائن کی گئی ہے — برائے مہربانی اسے دوسروں کے ساتھ بھی شیئر کریں';
 function getWelcomeMsg(){
   try{return localStorage.getItem('welcome_msg')||DEFAULT_WELCOME_MSG;}catch{return DEFAULT_WELCOME_MSG;}
+}
+async function loadRemoteWelcomeMsg(){
+  try{
+    const res=await fetch('./welcome.txt?t='+Date.now(),{cache:'no-store'});
+    if(res.ok){
+      const txt=(await res.text()).trim();
+      if(txt){
+        try{localStorage.setItem('welcome_msg',txt);}catch{}
+        applyWelcomeMsg();
+      }
+    }
+  }catch(e){/* آف لائن یا فائل موجود نہیں — پرانا/ڈیفالٹ پیغام ہی رہنے دیں */}
 }
 function applyWelcomeMsg(){
   const el=document.getElementById('wlcTextEl');
@@ -2984,8 +2998,15 @@ function saveWelcomeEdit(){
     else localStorage.removeItem('welcome_msg');
   }catch{}
   applyWelcomeMsg();
+  // welcome.txt فائل ڈاؤن لوڈ کریں — اسے گٹ ہب پر پرانی فائل کی جگہ اپلوڈ کر دیں
+  try{
+    const blob=new Blob([trimmed||DEFAULT_WELCOME_MSG],{type:'text/plain;charset=utf-8'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');a.href=url;a.download='welcome.txt';a.click();
+    setTimeout(()=>URL.revokeObjectURL(url),4000);
+  }catch(e){}
   closeWelcomeEdit();
-  showToast('✓ پیغام محفوظ ہو گیا');
+  showToast('✓ محفوظ — welcome.txt ڈاؤن لوڈ ہو گئی، اسے گٹ ہب پر اپلوڈ کر دیں');
 }
 // خفیہ 5-ٹچ: پیغام پر 1.2 سیکنڈ کے اندر 5 دفعہ ٹچ کریں تو ایڈٹ باکس کھلے گا
 function setupWelcomeTapEdit(){
@@ -3026,6 +3047,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   setupShareLongPress('wlcShareBtn');
   setupShareLongPress('shareBtn');
   applyWelcomeMsg();
+  loadRemoteWelcomeMsg();
   setupWelcomeTapEdit();
 });
 function doShare(){
@@ -3461,7 +3483,7 @@ function applyUrFont(idx){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='Hfz88sa1021am';
+const APP_VERSION='Hfz88sa0842pm';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
