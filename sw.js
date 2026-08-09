@@ -1,12 +1,12 @@
-// Hfz88sa0955pm — Service Worker
-const CACHE_NAME = 'hafiz-musab-shell-Hfz88sa0955pm';
+// Hfz98su1150am-test — Service Worker
+const CACHE_NAME = 'hafiz-musab-shell-Hfz98su1150am-test';
 const SHELL_FILES = ['./', './index.html', './manifest.json'];
 
 self.addEventListener('install', (event) => {
-  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => cache.addAll(SHELL_FILES).catch(() => {}))
   );
+  self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
@@ -17,41 +17,26 @@ self.addEventListener('activate', (event) => {
           .filter((n) => n.startsWith('hafiz-musab-shell-') && n !== CACHE_NAME)
           .map((n) => caches.delete(n))
       )
-    ).then(() => self.clients.claim())
+    )
   );
+  self.clients.claim();
 });
 
 self.addEventListener('fetch', (event) => {
   const req = event.request;
   if (req.method !== 'GET') return;
-
-  // HTML: network-first (ہمیشہ تازہ ترین ورژن ترجیح دیں)
-  if (req.mode === 'navigate' || (req.headers.get('accept') || '').includes('text/html')) {
-    event.respondWith(
-      fetch(req)
-        .then((res) => {
-          const copy = res.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(req, copy));
-          return res;
-        })
-        .catch(() => caches.match(req).then((r) => r || caches.match('./index.html')))
-    );
-    return;
-  }
-
-  // باقی اثاثے: cache-first with background update
   event.respondWith(
-    caches.match(req).then((cached) => {
-      const fetchPromise = fetch(req)
-        .then((res) => {
-          if (res && res.status === 200) {
-            const copy = res.clone();
-            caches.open(CACHE_NAME).then((cache) => cache.put(req, copy));
-          }
-          return res;
+    fetch(req)
+      .then((res) => {
+        const copy = res.clone();
+        caches.open(CACHE_NAME).then((cache) => cache.put(req, copy));
+        return res;
+      })
+      .catch(() =>
+        caches.match(req).then((cached) => {
+          if (cached) return cached;
+          return caches.open(CACHE_NAME).then((cache) => cache.put(req, req)).then(() => fetch(req));
         })
-        .catch(() => cached);
-      return cached || fetchPromise;
-    })
+      )
   );
 });
