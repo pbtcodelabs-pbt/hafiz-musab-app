@@ -261,6 +261,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
 /* ══ QARI NOW-PLAYING TAG — پلے/شیئر بٹنوں کی قطار میں دائیں طرف، خالی جگہ استعمال کرتے ہوئے ══ */
 .ar-left-controls{display:flex;align-items:center;gap:6px;}
 #qariNowName,.qariNowName2{display:inline-flex;align-items:center;gap:5px;max-width:150px;
+  flex-shrink:0;
   padding:3px 12px;border-radius:20px;font-family:'JN',serif;font-size:11px;font-weight:800;
   letter-spacing:.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
   color:#065f46;background:linear-gradient(145deg,#ecfdf5,#d1fae5);
@@ -1169,18 +1170,20 @@ html,body{height:100vh;height:100svh;overflow:hidden;
 #ctrlToggleBtn span:first-child{font-size:11px;}
 .ctrl-toggle-lbl{font-size:8px;font-weight:700;}
 
-/* ══ چھوٹا والیوم نوب (عربی/اردو پینل شیئر لائن میں) ══ */
-.mini-vol-widget{flex-shrink:0;}
-.mini-vol-outer{position:relative;width:38px;height:38px;}
-.mini-vol-ticks{position:absolute;inset:0;border-radius:50%;}
-.mini-vol-knob{position:absolute;inset:3px;border-radius:50%;
-  background:radial-gradient(circle at 35% 28%,#f8fafc,#cbd5e1 45%,#94a3b8 75%,#64748b);
-  border:1.5px solid rgba(255,255,255,0.6);box-shadow:0 2px 4px rgba(0,0,0,0.35);
-  cursor:pointer;touch-action:none;display:flex;align-items:center;justify-content:center;}
-.mini-vol-ind{position:absolute;top:2px;left:50%;width:2px;height:8px;
-  background:#dc2626;border-radius:1px;transform-origin:50% 15px;}
-.mini-vol-pct{font-size:7.5px;font-weight:900;color:#1f2937;background:rgba(255,255,255,0.65);
-  border-radius:5px;padding:0px 2px;}
+/* ══ افقی والیوم ویل (عربی/اردو پینل شیئر لائن میں) — دھات نما گھومنے والا پہیہ ══ */
+.mini-vol-widget{flex:1;min-width:80px;max-width:170px;display:flex;flex-direction:column;gap:1px;}
+.mini-vol-track{position:relative;height:26px;border-radius:7px;overflow:hidden;
+  background:repeating-linear-gradient(90deg,#111827 0px,#374151 2px,#111827 4px);
+  border:1.5px solid #030712;box-shadow:inset 0 2px 4px rgba(0,0,0,0.6);
+  cursor:pointer;touch-action:none;}
+.mini-vol-fill{position:absolute;top:0;left:0;bottom:0;width:100%;
+  background:linear-gradient(90deg,rgba(34,197,94,0.55),rgba(74,222,128,0.75));
+  border-right:2px solid #22c55e;pointer-events:none;}
+.mini-vol-pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-size:10.5px;font-weight:900;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,0.9);
+  pointer-events:none;}
+.mini-vol-marks{display:flex;justify-content:space-between;font-size:7px;color:rgba(255,255,255,0.55);
+  padding:0 2px;}
 
 #ctrlDrawerOverlay{position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:998;
   display:none;}
@@ -1210,7 +1213,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   -webkit-appearance:none;margin:0;}
 
 /* عربی پینل — شیئر بٹن کے ساتھ چھوٹے پلے/پاز/سٹاپ بٹن */
-.panel-share-row{gap:6px;align-items:center;}
+.panel-share-row{gap:6px;align-items:center;flex-wrap:wrap;}
 .mini-play-controls{display:flex;gap:5px;}
 .mini-pbtn{width:26px;height:26px;border:none;border-radius:50%;
   background:linear-gradient(145deg,#16a34a,#15803d);color:#fff;display:flex;
@@ -1265,7 +1268,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
     </button>
   </div>
   <button class="wlc-start-btn" onclick="startApp()">▶ شروع کریں</button>
-  <div class="wlc-ver-tag" id="wlcVerTag">Hfz1208we1848pm-test</div>
+  <div class="wlc-ver-tag" id="wlcVerTag">1208we1940pm</div>
 </div>
 
 <div id="splash">
@@ -1277,7 +1280,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">Hfz1208we1848pm-test</span>
+    <span class="ver-code" id="splashVerCode">1208we1940pm</span>
   </div>
 </div>
 
@@ -1291,7 +1294,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
     </div>
     <div class="status-block-mini">
       <span class="ver-pill" id="tbVerPill">Online</span>
-      <span class="ver-code" id="tbVerCode">Hfz1208we1848pm-test</span>
+      <span class="ver-code" id="tbVerCode">1208we1940pm</span>
       <button class="icon-btn btn-refresh sm" onclick="forceRefresh()" title="تازہ ترین ورژن لوڈ کریں">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/></svg>
       </button>
@@ -1362,10 +1365,11 @@ html,body{height:100vh;height:100svh;overflow:hidden;
         </div>
       </div>
       <div class="mini-vol-widget">
-        <div class="mini-vol-outer">
-          <div class="mini-vol-ticks"></div>
-          <div class="mini-vol-knob"><div class="mini-vol-ind"></div><div class="mini-vol-pct">100%</div></div>
+        <div class="mini-vol-track" onpointerdown="volWheelStart(event,this)">
+          <div class="mini-vol-fill"></div>
+          <span class="mini-vol-pct">100%</span>
         </div>
+        <div class="mini-vol-marks"><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div>
       </div>
       <span id="qariNowName"><span class="qn-ic">🎙️</span><span id="qariNowNameTxt">القاری</span></span>
     </div>
@@ -1405,20 +1409,13 @@ html,body{height:100vh;height:100svh;overflow:hidden;
           <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
           <span>شیئر</span>
         </button>
-        <div class="mini-play-controls">
-          <button class="mini-pbtn mini-play-icon" onclick="togPlay()" title="پلے/پاز">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          </button>
-          <button class="mini-pbtn stopbtn" onclick="stopPlayback()" title="بند کریں">
-            <svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="1.5"/></svg>
-          </button>
-        </div>
       </div>
       <div class="mini-vol-widget">
-        <div class="mini-vol-outer">
-          <div class="mini-vol-ticks"></div>
-          <div class="mini-vol-knob"><div class="mini-vol-ind"></div><div class="mini-vol-pct">100%</div></div>
+        <div class="mini-vol-track" onpointerdown="volWheelStart(event,this)">
+          <div class="mini-vol-fill"></div>
+          <span class="mini-vol-pct">100%</span>
         </div>
+        <div class="mini-vol-marks"><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div>
       </div>
       <span class="qariNowName2"><span class="qn-ic">🎙️</span><span class="qariNowNameTxt2">القاری</span></span>
     </div>
@@ -2131,18 +2128,6 @@ function updateCtrlToggleVisibility(){
 // ══ STATE ══
 const St={s:1,a:1,fr:1,to:7,pl:false,spd:1,ar:false,rr:false};
 const aud=document.getElementById('aud');
-// ══ والیوم 200% تک بڑھانے کے لیے Web Audio API گین نوڈ ══
-let gainNode=null,audioCtx=null;
-function ensureAudioGain(){
-  if(gainNode)return;
-  try{
-    audioCtx=new (window.AudioContext||window.webkitAudioContext)();
-    const src=audioCtx.createMediaElementSource(aud);
-    gainNode=audioCtx.createGain();
-    src.connect(gainNode).connect(audioCtx.destination);
-    aud.volume=1; // اصل والیوم ہمیشہ 100%، اونچی آواز gainNode سے کنٹرول ہوگی
-  }catch(e){/* اگر سپورٹ نہ ہو تو عام volume ہی چلتا رہے گا */}
-}
 let curBlobUrl=null;
 
 aud.addEventListener('error',()=>{
@@ -2272,7 +2257,7 @@ async function loadA(s,a,play=false){
 }
 
 // ══ CONTROLS ══
-function togPlay(){ensureAudioGain();if(audioCtx&&audioCtx.state==='suspended')audioCtx.resume();if(aud.paused){aud.play().catch(()=>{});}else{St.pl=false;aud.pause();}}
+function togPlay(){if(aud.paused){aud.play().catch(()=>{});}else{St.pl=false;aud.pause();}}
 function stopPlayback(){St.pl=false;St.rr=false;aud.pause();aud.currentTime=0;showToast('⏹ روک دی گئی');}
 function prevA(){if(St.a>St.fr)loadA(St.s,St.a-1,St.pl);else loadA(St.s,St.fr,St.pl);}
 function nextA(auto=false){
@@ -2311,55 +2296,38 @@ function buildTicksGradient(vol){
   parts.push('transparent 270deg 360deg');
   return 'conic-gradient(from -135deg,'+parts.join(',')+')';
 }
-function setKnobVisual(vol){
-  // vol رینج 0 سے 2 (0%-200%) — زاویہ/رنگ کے لیے 0-1 پر نارملائز کریں
-  const norm=vol/2;
-  const ang=volToAngle(norm);
-  document.querySelectorAll('.mini-vol-ind').forEach(ind=>{ind.style.transform='rotate('+ang+'deg)';});
-  document.querySelectorAll('.mini-vol-pct').forEach(pct=>{pct.textContent=Math.round(vol*100)+'%';});
-  document.querySelectorAll('.mini-vol-ticks').forEach(ring=>{
-    ring.style.background=buildTicksGradient(norm);ring.style.color=volumeColor(norm);
-  });
-}
 function applyVolume(vol,save){
-  vol=Math.max(0,Math.min(2,vol));
-  if(gainNode){gainNode.gain.value=vol;aud.volume=1;}
-  else{aud.volume=Math.min(1,vol);} // Web Audio سپورٹ نہ ہو تو 100% تک محدود
-  setKnobVisual(vol);
+  vol=Math.max(0,Math.min(1,vol));
+  aud.volume=vol;
+  document.querySelectorAll('.mini-vol-fill').forEach(f=>{f.style.width=Math.round(vol*100)+'%';});
+  document.querySelectorAll('.mini-vol-pct').forEach(pct=>{pct.textContent=Math.round(vol*100)+'%';});
   if(save){try{localStorage.setItem('qvolume',vol);}catch{}}
   return vol;
 }
-let curVolShared=1;
+function volFromEvent(e,track){
+  const r=track.getBoundingClientRect();
+  const x=(e.clientX!=null?e.clientX:(e.touches&&e.touches[0]?e.touches[0].clientX:r.left))-r.left;
+  return Math.max(0,Math.min(1,x/r.width));
+}
+function volWheelStart(e,track){
+  e.preventDefault();
+  applyVolume(volFromEvent(e,track),true);
+  track.setPointerCapture&&track.setPointerCapture(e.pointerId);
+  function move(ev){applyVolume(volFromEvent(ev,track),true);}
+  function up(){
+    track.removeEventListener('pointermove',move);
+    track.removeEventListener('pointerup',up);
+    track.removeEventListener('pointercancel',up);
+  }
+  track.addEventListener('pointermove',move);
+  track.addEventListener('pointerup',up);
+  track.addEventListener('pointercancel',up);
+}
 function initVolumeKnob(){
-  const knobs=document.querySelectorAll('.mini-vol-knob');
-  if(!knobs.length)return;
-  try{const v=parseFloat(localStorage.getItem('qvolume'));if(!isNaN(v))curVolShared=v;}catch{}
-  curVolShared=applyVolume(curVolShared,false);
-  knobs.forEach(knob=>{
-    let dragging=false,lastAngle=0;
-    function rawAngle(clientX,clientY){
-      const r=knob.getBoundingClientRect();
-      const cx=r.left+r.width/2,cy=r.top+r.height/2;
-      const dx=clientX-cx,dy=clientY-cy;
-      return Math.atan2(dx,-dy)*180/Math.PI;
-    }
-    knob.addEventListener('pointerdown',e=>{
-      ensureAudioGain();
-      dragging=true;knob.setPointerCapture(e.pointerId);
-      lastAngle=rawAngle(e.clientX,e.clientY);
-    });
-    knob.addEventListener('pointermove',e=>{
-      if(!dragging)return;
-      const cur=rawAngle(e.clientX,e.clientY);
-      let delta=cur-lastAngle;
-      if(delta>180)delta-=360;
-      if(delta<-180)delta+=360;
-      lastAngle=cur;
-      curVolShared=applyVolume(curVolShared+delta/135,true); // 270deg سویپ = 0 تا 200%
-    });
-    knob.addEventListener('pointerup',()=>{dragging=false;});
-    knob.addEventListener('pointercancel',()=>{dragging=false;});
-  });
+  if(!document.querySelector('.mini-vol-track'))return;
+  let vol=1;
+  try{const v=parseFloat(localStorage.getItem('qvolume'));if(!isNaN(v))vol=v;}catch{}
+  applyVolume(vol,false);
 }
 
 // ══ QARI ══
@@ -3653,7 +3621,7 @@ function applyUrFont(idx){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='Hfz1208we1848pm-test';
+const APP_VERSION='1208we1940pm';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
