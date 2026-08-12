@@ -1,5 +1,5 @@
-// 1308th0209am — Service Worker
-const CACHE_NAME = 'hafiz-musab-shell-1308th0209am';
+// 1308th0216am — Service Worker
+const CACHE_NAME = 'hafiz-musab-shell-1308th0216am';
 const SHELL_FILES = ['./', './index.html', './manifest.json'];
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(SHELL_FILES).catch(() => {})));
