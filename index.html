@@ -1343,7 +1343,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
     </button>
   </div>
   <button class="wlc-start-btn" onclick="startApp()">▶ شروع کریں</button>
-  <div class="wlc-ver-tag" id="wlcVerTag">1308th0810am</div>
+  <div class="wlc-ver-tag" id="wlcVerTag">1308th1005am</div>
 </div>
 
 <div id="splash">
@@ -1355,7 +1355,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">1308th0810am</span>
+    <span class="ver-code" id="splashVerCode">1308th1005am</span>
   </div>
 </div>
 
@@ -1369,7 +1369,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
     </div>
     <div class="status-block-mini">
       <span class="ver-pill" id="tbVerPill">Online</span>
-      <span class="ver-code" id="tbVerCode">1308th0810am</span>
+      <span class="ver-code" id="tbVerCode">1308th1005am</span>
       <button class="icon-btn btn-refresh sm" onclick="forceRefresh()" title="تازہ ترین ورژن لوڈ کریں">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/></svg>
       </button>
@@ -3110,14 +3110,37 @@ function updateQariBadges(){Object.keys(QARIS).forEach(k=>{const done=Object.key
 let tto;
 function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(tto);tto=setTimeout(()=>t.classList.remove('show'),2600);}
 
-// ══ SHARE ══
-function getShareLink(){try{return localStorage.getItem('shareLink')||'https://drive.google.com/YOUR-LINK';}catch{return'https://drive.google.com/YOUR-LINK';}}
+// ══ SHARE LINK — سیدھا گٹ ہب کی share-link.txt فائل سے پڑھا جاتا ہے (بالکل welcome.txt کی طرح)۔
+// بدلنے کے لیے: گٹ ہب پر share-link.txt کھولیں → ایڈٹ (پنسل) → نیا لنک لکھیں (پہلی لائن میں) → Commit۔
+// نہ ایپ کھولنی، نہ کوئی اور قدم، نہ ہر صارف کو کچھ کرنا — خودکار سب صارفین تک پہنچ جائے گا۔
+// جب پلے اسٹور پر لائیو ہو جائے تو بس اسی فائل میں پلے اسٹور کا لنک لکھ دیں — سب کو خودکار مل جائے گا۔
+let remoteShareLink=null;
+async function loadRemoteShareLink(){
+  try{
+    const res=await fetch('./share-link.txt?t='+Date.now(),{cache:'no-store'});
+    if(res.ok){
+      const txt=(await res.text()).trim();
+      if(txt){
+        remoteShareLink=txt;
+        try{localStorage.setItem('remoteShareLinkCache',txt);}catch{}
+      }
+    }
+  }catch(e){/* آف لائن — پہلے سے محفوظ (کیش شدہ) لنک ہی استعمال ہوگا */}
+}
+document.addEventListener('DOMContentLoaded',loadRemoteShareLink);
+
+// SHARE ══ ترجیح: (1) گٹ ہب کی share-link.txt (تازہ ترین)، (2) اسی فائل کی آف لائن کیش،
+// (3) لانگ پریس سے مقامی طور پر سیٹ کردہ لنک (صرف اسی ڈیوائس کے لیے)، (4) آخری چارہ ڈیفالٹ۔
+function getShareLink(){
+  if(remoteShareLink)return remoteShareLink;
+  try{const c=localStorage.getItem('remoteShareLinkCache');if(c)return c;}catch{}
+  try{return localStorage.getItem('shareLink')||'https://drive.google.com/YOUR-LINK';}catch{return'https://drive.google.com/YOUR-LINK';}
+}
 function getShareText(){try{return localStorage.getItem('shareText')||'حافظ قرآن اسسٹنٹ — قرآن پاک ایپ ڈاؤنلوڈ کریں:';}catch{return'یہ ایپ ڈاؤنلوڈ کریں';}}
 
-// Long-press (developer mode) — press & hold ~600ms on a share button opens the link editor.
-// A normal short tap/click just shares. Both share buttons use this same setup, so the
-// saved link/text (in localStorage) applies to BOTH buttons automatically — you only need
-// to set it once, from either the welcome page or the home page button.
+// Long-press (developer/testing mode only) — press & hold ~600ms on a share button opens a
+// manual link editor. This is now just a LOCAL fallback for testing on your own device; it
+// does NOT affect other users — the real, app-wide link comes from share-link.txt above.
 const SHARE_LONGPRESS_MS=600;
 const DEFAULT_CHATDEV_MSG='Assalamu Alaikum, I am using the Hafiz Quran app and would like to get in touch.';
 function getChatDevMsg(){
@@ -3190,7 +3213,9 @@ document.addEventListener('DOMContentLoaded',()=>{
   setupShareLongPress('wlcShareBtn');
   setupShareLongPress('shareBtn');
 });
-function doShare(){
+async function doShare(){
+  // شیئر سے پہلے تازہ ترین لنک منگوانے کی کوشش (زیادہ سے زیادہ 1.2 سیکنڈ انتظار، ورنہ موجودہ/کیش شدہ لنک استعمال ہوگا)
+  await Promise.race([loadRemoteShareLink(),new Promise(r=>setTimeout(r,1200))]).catch(()=>{});
   const url=getShareLink(),text=getShareText()+'\n\n'+url;
   if(navigator.share){navigator.share({title:'حافظ قرآن',text,url}).catch(()=>{});}
   else if(navigator.clipboard){navigator.clipboard.writeText(text).then(()=>showToast('لنک کاپی ✓')).catch(()=>showToast(url));}
@@ -3725,7 +3750,7 @@ function applyUrFont(idx){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='1308th0810am';
+const APP_VERSION='1308th1005am';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
