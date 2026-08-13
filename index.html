@@ -787,6 +787,16 @@ html,body{height:100vh;height:100svh;overflow:hidden;
 .wlc-text{font-family:'Jameel-Noori.N','JN',serif;font-size:20px;font-weight:400;color:#f0fdf4;
   direction:rtl;text-align:center;line-height:2.2;
   text-shadow:0 1px 6px rgba(0,0,0,0.4);}
+.wlc-text-sm{font-size:16px;line-height:1.9;}
+/* ══ یوٹیوب تعارفی ویڈیو بٹن ══ */
+.wlc-video-btn{width:100%;display:flex;align-items:center;gap:10px;
+  background:linear-gradient(145deg,#16a34a,#0d6b38);border:1.5px solid rgba(253,230,138,0.6);
+  border-radius:12px;padding:10px 12px;margin-bottom:14px;cursor:pointer;touch-action:manipulation;
+  box-shadow:0 3px 10px rgba(0,0,0,0.35);}
+.wvb-ic{font-size:22px;flex-shrink:0;}
+.wvb-txt{display:flex;flex-direction:column;gap:3px;text-align:right;flex:1;}
+.wvb-title{font-family:'JN',serif;font-size:13px;font-weight:900;color:#fde68a;}
+.wvb-sub{font-family:'JN',serif;font-size:10.5px;font-weight:700;color:#dcfce7;}
 .wlc-divider{width:80%;height:1.5px;margin:14px auto;
   background:linear-gradient(90deg,transparent,rgba(202,138,4,0.55),transparent);}
 .wlc-from{font-family:'JN',serif;font-size:28px;font-weight:900;
@@ -1302,10 +1312,17 @@ html,body{height:100vh;height:100svh;overflow:hidden;
 
 <div id="welcomeOverlay">
   <div class="wlc-bismillah">﷽</div>
-  <div class="wlc-quran-title">Hifz Pro</div>
+  <div class="wlc-quran-title" onclick="secretVideoLinkTap()">Hifz Pro</div>
   <div class="wlc-by-ahg">By ahgujjar</div>
   <div class="wlc-card">
-    <div class="wlc-text" id="wlcTextEl">یہ ایپ حفاظ کی آسانی کے لیے عالمی شہرت یافتہ بہترین قراء کی تلاوت اور اردو ترجمے کے ساتھ بہت بہترین طریقے سے ڈیزائن کی گئی ہے — برائے مہربانی اسے دوسروں کے ساتھ بھی شیئر کریں</div>
+    <button class="wlc-video-btn" onclick="openIntroVideo()">
+      <span class="wvb-ic">▶️</span>
+      <span class="wvb-txt">
+        <span class="wvb-title">Hifz Pro کی تعارفی ویڈیو یہاں سے دیکھیں</span>
+        <span class="wvb-sub">📱 یہ ایپ استعمال کرنے کا طریقہ اس ویڈیو میں دیکھیں</span>
+      </span>
+    </button>
+    <div class="wlc-text wlc-text-sm" id="wlcTextEl">یہ ایپ حفاظ کی آسانی کے لیے عالمی شہرت یافتہ بہترین قراء کی تلاوت اور اردو ترجمے کے ساتھ بہت بہترین طریقے سے ڈیزائن کی گئی ہے — برائے مہربانی اسے دوسروں کے ساتھ بھی شیئر کریں</div>
     <div class="wlc-divider"></div>
     <button class="wlc-chatdev-btn" onclick="toggleChatDev()">💬 Chat with Developer</button>
     <div class="wlc-chatdev-opts" id="chatDevOpts">
@@ -1326,7 +1343,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
     </button>
   </div>
   <button class="wlc-start-btn" onclick="startApp()">▶ شروع کریں</button>
-  <div class="wlc-ver-tag" id="wlcVerTag">1308th0253am</div>
+  <div class="wlc-ver-tag" id="wlcVerTag">1308th0810am</div>
 </div>
 
 <div id="splash">
@@ -1338,7 +1355,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">1308th0253am</span>
+    <span class="ver-code" id="splashVerCode">1308th0810am</span>
   </div>
 </div>
 
@@ -1352,7 +1369,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
     </div>
     <div class="status-block-mini">
       <span class="ver-pill" id="tbVerPill">Online</span>
-      <span class="ver-code" id="tbVerCode">1308th0253am</span>
+      <span class="ver-code" id="tbVerCode">1308th0810am</span>
       <button class="icon-btn btn-refresh sm" onclick="forceRefresh()" title="تازہ ترین ورژن لوڈ کریں">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/></svg>
       </button>
@@ -2860,6 +2877,33 @@ function applySel(){
 
 // ══ DOWNLOAD MANAGER ══
 let dlQari=CQ;
+// ══ یوٹیوب تعارفی ویڈیو — لنک صرف سیٹنگز میں 5-ٹچ کے خفیہ طریقے سے تبدیل ہو سکتا ہے،
+// عام صارف کو یہ آپشن نظر ہی نہیں آتا ══
+function getIntroVideoLink(){
+  try{return localStorage.getItem('introVideoLink')||'';}catch{return '';}
+}
+function openIntroVideo(){
+  const link=getIntroVideoLink();
+  if(link){window.open(link,'_blank');}
+  else{showToast('ابھی ویڈیو شامل نہیں ہوئی — جلد شامل کی جائے گی');}
+}
+let _videoTapCount=0,_videoTapTimer=null;
+function secretVideoLinkTap(){
+  _videoTapCount++;
+  clearTimeout(_videoTapTimer);
+  _videoTapTimer=setTimeout(()=>{_videoTapCount=0;},1200);
+  if(_videoTapCount>=5){
+    _videoTapCount=0;
+    const cur=getIntroVideoLink();
+    const nl=window.prompt('یوٹیوب ویڈیو کا لنک درج کریں:',cur);
+    if(nl!==null){
+      try{localStorage.setItem('introVideoLink',nl.trim());}catch{}
+      showToast('✓ ویڈیو لنک محفوظ ہو گیا');
+    }
+    return true; // خفیہ ٹچ مکمل ہوئی
+  }
+  return false;
+}
 function openSettings(){
   document.getElementById('settingsOverlay').classList.add('open');
   populateDefQariSelect();
@@ -3681,7 +3725,7 @@ function applyUrFont(idx){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='1308th0253am';
+const APP_VERSION='1308th0810am';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
