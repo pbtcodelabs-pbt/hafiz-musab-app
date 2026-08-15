@@ -120,17 +120,31 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   padding:8px 10px;background:rgba(var(--b3R),0.55);border-bottom:1px solid rgba(255,255,255,0.08);}
 .aib-item{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1 1 0;
   min-width:0;padding:6px 8px;border-radius:12px;
-  background:linear-gradient(160deg,rgba(var(--acR),0.16),rgba(var(--b3R),0.4));
-  border:1px solid rgba(var(--acR),0.32);box-shadow:inset 0 1px 0 rgba(255,255,255,0.06),0 2px 6px rgba(0,0,0,0.2);}
+  background:var(--b3);
+  border:1px solid rgba(var(--acR),0.35);box-shadow:none;}
 .aib-lbl{font-family:Arial,sans-serif;font-size:10.5px;color:var(--txt2);opacity:.9;letter-spacing:.2px;margin-bottom:2px;}
 .aib-val{font-family:Arial,sans-serif;font-size:19px;font-weight:900;color:var(--hi);
-  text-shadow:0 0 10px rgba(var(--hiR),0.55);line-height:1.1;}
+  text-shadow:none;line-height:1.1;}
+/* ══ صاف ستھرا سبز رنگ — انفو گرڈ اور سورہ ڈراپ ڈاؤن پر، بغیر گلو/بلر کے ══ */
+.aib-val,.quick-mini-sel{
+  color:#16a34a !important;text-shadow:none !important;}
+/* فرام/ٹو کے خالی لکھنے والے خانے — بالکل سادہ سیاہ/سفید، بغیر کسی چمک/سایہ کے */
+.ayat-manual-input{color:#111827 !important;text-shadow:none !important;font-weight:900 !important;
+  background:#ffffff !important;}
+/* صرف جو آیت اس وقت پلے ہو رہی ہے، وہی حقیقی دھڑکتی گلو پائے */
+#infoAayatNo.now-playing{
+  animation:radiumPlayingPulse 1.1s ease-in-out infinite;}
+@keyframes radiumPlayingPulse{
+  0%,100%{text-shadow:0 0 6px rgba(34,197,94,0.7);}
+  50%{text-shadow:0 0 16px rgba(74,222,128,1),0 0 26px rgba(34,197,94,0.9);}
+}
 .aib-prog{margin-inline-start:6px;flex:0 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:2px;padding:6px 12px;border-radius:12px;background:rgba(var(--gdR),0.14);
   border:1px solid rgba(var(--gdR),0.4);box-shadow:inset 0 1px 0 rgba(255,255,255,0.06);}
 .aib-prog-lbl{font-size:10px;color:var(--gd);font-weight:800;white-space:nowrap;}
 .aib-prog-val{font-family:'Courier New',monospace;font-size:15px;font-weight:900;color:var(--txt);}
-#topBar{flex-shrink:0;display:flex;align-items:center;gap:5px;padding:5px 8px;overflow:hidden;
+#topBar{flex-shrink:0;display:flex;align-items:center;gap:5px;padding:5px 8px 5px 54px;overflow:hidden;
+  position:relative;
   background:linear-gradient(180deg,rgba(var(--acR),0.35) 0%,rgba(var(--acR),0.14) 100%);
   border-bottom:2px solid rgba(var(--acR),0.6);box-shadow:0 3px 14px rgba(0,0,0,0.38);}
 .tb-info-mini{display:flex;align-items:baseline;gap:4px;flex-shrink:0;}
@@ -152,9 +166,10 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   box-shadow:0 3px 0 #1e293b,inset 0 1px 0 rgba(255,255,255,0.3);}
 .icon-btn.sm{width:26px;height:26px;flex-shrink:0;}
 .icon-btn.sm svg{width:13px;height:13px;}
-.pdot{width:7px;height:7px;border-radius:50%;background:var(--hi);display:none;
-  box-shadow:0 0 8px var(--hi);animation:blink .7s infinite alternate;}
-.pdot.on{display:inline-block;}
+.pdot{width:7px;height:7px;border-radius:50%;background:var(--hi);display:inline-block;
+  opacity:0;transition:opacity .2s;
+  box-shadow:0 0 8px var(--hi);}
+.pdot.on{opacity:1;animation:blink .7s infinite alternate;}
 @keyframes blink{from{opacity:.2}to{opacity:1}}
 .top-btns{display:flex;align-items:center;gap:6px;}
 .icon-btn{width:38px;height:38px;border-radius:50%;border:none;cursor:pointer;
@@ -230,13 +245,14 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   box-shadow:0 0 0 3px rgba(255,255,255,0.32),0 4px 14px rgba(0,0,0,0.6);}
 
 /* SHAKIR BANNER */
-#shakirBanner{flex-shrink:0;display:none;align-items:center;justify-content:space-between;
+#shakirBanner{flex-shrink:0;display:none;align-items:center;justify-content:center;position:relative;
   padding:4px 10px;
   background:linear-gradient(135deg,rgba(var(--gdR),0.55),rgba(var(--gdR),0.22));
   border-bottom:2.5px solid rgba(var(--gdR),0.7);}
 #shakirBanner.show{display:flex;}
-.sk-label{font-size:11px;color:var(--ghi);font-weight:900;font-family:'JN',serif;}
-.sk-nav{display:flex;align-items:center;gap:6px;}
+.sk-label{font-size:11px;color:var(--ghi);font-weight:900;font-family:'JN',serif;
+  position:absolute;right:10px;top:50%;transform:translateY(-50%);}
+.sk-nav{display:flex;align-items:center;gap:6px;margin:0 auto;}
 .sk-btn{width:26px;height:26px;border-radius:50%;border:none;cursor:pointer;
   background:linear-gradient(145deg,var(--gdi),var(--gdd));color:var(--b1);font-size:13px;
   box-shadow:0 3px 0 var(--gddd);display:flex;align-items:center;justify-content:center;touch-action:manipulation;}
@@ -255,7 +271,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   color:var(--gd);border:1.5px solid rgba(var(--gdR),0.75);border-radius:20px;
   padding:2px 12px;background:rgba(var(--gdR),0.22);text-shadow:0 0 10px rgba(var(--gdR),0.7);}
 .panel-tag{font-size:8.5px;font-weight:900;color:rgba(var(--hiR),0.55);font-family:'JN',serif;}
-#arabicScroll{flex:1;overflow-y:auto;scrollbar-width:none;padding:2px 12px 5px;}
+#arabicScroll{flex:1;overflow-y:auto;scrollbar-width:none;padding:2px 12px 5px 38px;}
 #arabicScroll::-webkit-scrollbar{display:none;}
 
 /* ══ QARI NOW-PLAYING TAG — پلے/شیئر بٹنوں کی قطار میں دائیں طرف، خالی جگہ استعمال کرتے ہوئے ══ */
@@ -324,7 +340,13 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   border:1.5px solid #7c3aed;background:linear-gradient(145deg,#ede9fe,#ddd6fe);
   color:#5b21b6;font-size:11px;display:flex;align-items:center;justify-content:center;
   cursor:pointer;touch-action:manipulation;}
-#urduScroll{flex:1;overflow-y:auto;scrollbar-width:none;padding:4px 14px 5px;}
+/* top-bar placement: same 26x26 pill size/shape as the other top-bar icons (tb-share-btn-lg) */
+.tb-urfont{width:26px !important;height:26px !important;margin:0 !important;border-radius:8px !important;
+  flex-shrink:0;box-shadow:0 2px 0 #4c1d95,0 3px 6px rgba(0,0,0,0.35),inset 0 1px 0 rgba(255,255,255,0.5) !important;
+  background:linear-gradient(160deg,#c4b5fd,#7c3aed 60%,#5b21b6) !important;
+  border:1.5px solid rgba(237,233,254,0.7) !important;color:#fff !important;font-size:13px !important;}
+.tb-urfont:active{transform:translateY(1px);box-shadow:0 1px 0 #4c1d95,0 1px 3px rgba(0,0,0,0.3) !important;}
+#urduScroll{flex:1;overflow-y:auto;scrollbar-width:none;padding:4px 14px 5px 38px;}
 #urduScroll::-webkit-scrollbar{display:none;}
 #urduText{font-family:'Jameel-Noori.N','JN',serif;font-size:22px;font-weight:900;
   color:var(--hi);direction:rtl;text-align:justify;line-height:2.1;
@@ -581,7 +603,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
 .awheel-outer .wheel-item{padding:0 8px !important;}
 .awheel-outer .wi-ar{font-family:'Courier New',monospace !important;font-size:21px !important;}
 /* Apply button — now standalone above wheel area */
-#applyBtnWrap{flex-shrink:0;display:none;justify-content:center;align-items:center;
+#applyBtnWrap{flex-shrink:0;display:none !important;justify-content:center;align-items:center;
   padding:5px 10px 3px;background:rgba(var(--acR),0.10);}
 #applyBtnWrap.show{display:flex;}
 #applyBtn{padding:9px 32px;
@@ -630,8 +652,9 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   border-bottom:2px solid #d97706;}
 .dl-title{font-family:'JN',serif;font-size:15px;font-weight:900;color:#78350f;
   display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
-.dlx{width:34px;height:34px;border-radius:50%;border:none;cursor:pointer;
-  background:rgba(0,0,0,0.14);color:#452b0a;font-size:17px;
+.dlx{width:34px;height:34px;border-radius:50%;border:1.5px solid rgba(0,0,0,0.15);cursor:pointer;
+  background:#ffffff;color:#1f2937;font-size:17px;font-weight:900;
+  box-shadow:0 2px 6px rgba(0,0,0,0.25);
   display:flex;align-items:center;justify-content:center;}
 .dl-info{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
 .dl-stat{font-size:9.5px;font-weight:900;font-family:'JN',serif;
@@ -1077,7 +1100,8 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   box-shadow:none !important;background:rgba(var(--acR),0.28) !important;color:var(--txt) !important;
   border:1px solid rgba(var(--acR),0.55) !important;}
 .btn-timer{background:rgba(var(--gdR),0.28) !important;border-color:rgba(var(--gdR),0.6) !important;color:var(--gdi) !important;}
-.btn-refresh{background:rgba(74,222,128,0.16) !important;border-color:rgba(74,222,128,0.55) !important;color:#4ade80 !important;}
+.btn-refresh{background:linear-gradient(145deg,#fde68a,#f59e0b 70%,#b45309) !important;border:1.5px solid #92400e !important;color:#3f1d00 !important;
+  box-shadow:0 0 9px 2px rgba(251,191,36,0.85),inset 0 1px 0 rgba(255,255,255,0.55) !important;}
 
 .qc{border-radius:8px !important;box-shadow:none !important;border:1px solid rgba(var(--acR),0.4) !important;
   background:rgba(var(--acR),0.14) !important;padding:4px 10px !important;}
@@ -1121,8 +1145,15 @@ html,body{height:100vh;height:100svh;overflow:hidden;
    REAL COMPACT SIZING PASS — سائز واقعی چھوٹے کرنا (Hfz069)
    ══════════════════════════════════════════════════════════════ */
 #topBar{padding:4px 8px !important;gap:4px !important;}
-/* ayatInfoBar کو جان بوجھ کر compact pass سے مستثنیٰ رکھا گیا ہے — بڑے، صاف نظر آنے والے باکس درکار تھے */
-#ayatInfoBar{padding:8px 10px !important;}
+/* ══ AYAT INFO BAR — نیچے والے ٹرے/بٹنوں جیسا خوبصورت ابھرا ہوا لُک (وہی ڈارک گریڈیئنٹ تھیم) ══ */
+#ayatInfoBar{background:linear-gradient(180deg,rgba(15,23,42,0.62),rgba(15,23,42,0.4)) !important;
+  border:1px solid rgba(255,255,255,0.1) !important;border-radius:16px !important;
+  margin:2px 6px 4px !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.07),inset 0 -3px 8px rgba(0,0,0,0.4),0 3px 8px rgba(0,0,0,0.28) !important;}
+.aib-item{background:#08201a !important;border:1.5px solid #052e1e !important;border-radius:12px !important;
+  box-shadow:inset 0 0 8px rgba(34,197,94,0.22),0 3px 0 rgba(0,0,0,0.5),0 4px 6px rgba(0,0,0,0.35) !important;}
+.aib-item:active{transform:translateY(1px);box-shadow:inset 0 0 8px rgba(34,197,94,0.22),0 1px 0 rgba(0,0,0,0.5) !important;}
+
 .aib-lbl{font-size:10.5px !important;}
 .aib-val{font-size:19px !important;}
 .aib-prog-lbl{font-size:10px !important;}
@@ -1177,11 +1208,26 @@ html,body{height:100vh;height:100svh;overflow:hidden;
 #urduText{font-size:24px;line-height:1.9 !important;}
 /* زوم سلائیڈر موٹے، پکڑنے میں آسان — بوڑھے/بڑی عمر کے صارفین کے لیے */
 .zoom-slider-v{height:10px !important;width:110px !important;}
-.zoom-slider-v::-webkit-slider-thumb{width:30px !important;height:30px !important;}
+.zoom-slider-v::-webkit-slider-thumb{width:30px !important;height:30px !important;
+  background:radial-gradient(circle at 35% 28%,#dbeafe,#3b82f6 45%,#1e3a8a 75%,#0b1f4d) !important;
+  border:2.5px solid #fff !important;
+  box-shadow:0 0 12px 3px rgba(30,58,138,0.95),0 2px 5px rgba(0,0,0,0.5) !important;}
 .zoom-slider-v::-moz-range-thumb{width:30px;height:30px;border-radius:50%;
-  background:radial-gradient(circle at 35% 28%,#f8fafc,var(--acli) 45%,var(--ac) 75%,var(--acd));
-  border:2.5px solid #fff;cursor:pointer;}
+  background:radial-gradient(circle at 35% 28%,#dbeafe,#3b82f6 45%,#1e3a8a 75%,#0b1f4d);
+  border:2.5px solid #fff;cursor:pointer;
+  box-shadow:0 0 12px 3px rgba(30,58,138,0.95),0 2px 5px rgba(0,0,0,0.5);}
 .zoom-col{width:34px !important;}
+/* کارنر پلس/مائنس زوم بٹن — سائیڈ سلائیڈر کی جگہ */
+.zoom-corner-btns{position:absolute;top:6px;left:6px;z-index:5;display:flex;flex-direction:column;gap:4px;}
+#arabicPanel .zoom-corner-btns{position:fixed;left:0;top:42%;z-index:940;}
+/* پلے بٹن — اب عربی پینل کے اندر نیچے دائیں کونے میں (قاری باکس کے بالکل اوپر) */
+#arabicPanel .panel-body-row #playBtn{position:absolute;bottom:8px;right:8px;z-index:15;}
+.zoom-corner-btn{width:28px;height:28px;border-radius:9px;border:1.5px solid rgba(255,255,255,0.55);
+  background:linear-gradient(160deg,#ffffff,#e2e8f0 55%,#cbd5e1);color:var(--acd);font-size:17px;font-weight:900;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;touch-action:manipulation;
+  box-shadow:0 3px 0 rgba(0,0,0,0.35),0 4px 6px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.9);}
+.zoom-corner-btn:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,0.35),0 1px 2px rgba(0,0,0,0.25),inset 0 1px 0 rgba(255,255,255,0.9);}
+#arabicPanel .panel-body-row,#urduPanel .panel-body-row{position:relative;}
 
 /* پارہ/سورہ نام+نمبر باکس میں فٹ ہونے کے لیے فونٹ تھوڑا چھوٹا اور لپیٹ */
 #infoParaNo,#infoSuraNo{font-size:13px !important;white-space:normal !important;
@@ -1197,16 +1243,6 @@ html,body{height:100vh;height:100svh;overflow:hidden;
 .aib-prog-lbl{font-size:9px !important;white-space:nowrap;}
 #infoProgVal{font-size:16px !important;}
 
-/* پلے کنٹرول ٹوگل بٹن — بائیں جانب، شیئر بٹن سے اوپر/الگ (z-index بڑھایا) */
-#ctrlToggleBtn{position:fixed;left:0;top:40%;transform:translateY(-50%);z-index:950;
-  background:linear-gradient(145deg,#16a34a,#0d6b38);color:#fde68a;border:none;
-  border:1.5px solid rgba(253,230,138,0.7);border-left:none;border-radius:0 14px 14px 0;
-  padding:12px 6px;display:flex;flex-direction:column;align-items:center;gap:3px;
-  box-shadow:2px 3px 12px rgba(0,0,0,0.5);font-size:9px;line-height:1.15;cursor:pointer;
-  touch-action:manipulation;}
-#ctrlToggleBtn span:first-child{font-size:13px;}
-.ctrl-toggle-lbl{font-size:9.5px;font-weight:900;letter-spacing:.3px;}
-
 /* ══ افقی والیوم ویل (عربی/اردو پینل شیئر لائن میں) — دھات نما گھومنے والا پہیہ ══ */
 .mini-vol-widget{flex:1;min-width:80px;max-width:170px;display:flex;flex-direction:column;gap:1px;}
 .mini-vol-widget-wide{max-width:100%;}
@@ -1217,7 +1253,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
 /* ══ واحد شیئر بٹن + پاپ اپ مینو (عربی/اردو/دونوں) ══ */
 .unified-share-wrap{position:relative;flex-shrink:0;}
 .unified-share-btn{width:auto !important;}
-#shareMenuPopup{display:none;position:absolute;bottom:calc(100% + 6px);right:0;z-index:60;
+#shareMenuPopup{display:none;position:fixed;z-index:500;
   background:#0d3b2e;border:1.5px solid rgba(253,230,138,0.5);border-radius:10px;
   box-shadow:0 6px 18px rgba(0,0,0,0.5);overflow:hidden;min-width:160px;}
 #shareMenuPopup.open{display:flex;flex-direction:column;}
@@ -1226,49 +1262,24 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   touch-action:manipulation;border-bottom:1px solid rgba(255,255,255,0.08);}
 #shareMenuPopup button:last-child{border-bottom:none;}
 #shareMenuPopup button:active{background:rgba(255,255,255,0.08);}
-.mini-vol-track{position:relative;height:28px;border-radius:8px;overflow:hidden;
-  background:linear-gradient(180deg,#0a0f1a,#1c2432 45%,#0a0f1a);
-  border:1.5px solid #030712;
-  box-shadow:inset 0 3px 6px rgba(0,0,0,0.75),inset 0 -2px 4px rgba(255,255,255,0.05);
+.mini-vol-widget{flex:1;min-width:80px;max-width:170px;display:flex;flex-direction:column;gap:1px;}
+.mini-vol-widget-wide{max-width:100%;}
+.mini-vol-widget-mid{flex:0 0 auto;width:120px;margin-left:auto !important;}
+/* ══ نیا خوبصورت رنگ برنگا "پل" طرز والیوم — سلیک، گول کنارے، درمیان میں فیصد ══ */
+.mini-vol-track{position:relative;height:34px;border-radius:17px;overflow:hidden;
+  background:#111827;
+  border:1.5px solid rgba(255,255,255,0.15);
+  box-shadow:0 3px 8px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.08);
   cursor:pointer;touch-action:none;}
-/* گھومتے ہوئے پہیے کی چھوٹی چھوٹی سرخ/سبز لکیریں — سکرول ہو کر اندر جاتی/باہر نکلتی محسوس ہوں */
-.mini-vol-ridges{position:absolute;inset:0;
-  background-image:repeating-linear-gradient(90deg,
-    #22c55e 0px,#22c55e 2px,
-    transparent 2px,transparent 6px,
-    #ef4444 6px,#ef4444 8px,
-    transparent 8px,transparent 12px);
-  opacity:0.55;mix-blend-mode:screen;pointer-events:none;
-  box-shadow:inset 4px 0 6px -2px rgba(0,0,0,0.8),inset -4px 0 6px -2px rgba(0,0,0,0.8);}
-.mini-vol-fill{position:absolute;top:0;left:0;bottom:0;width:100%;
-  background:linear-gradient(90deg,rgba(21,128,61,0.4),rgba(74,222,128,0.55));
-  border-right:2px solid #4ade80;pointer-events:none;
-  box-shadow:inset 0 2px 3px rgba(255,255,255,0.15);}
+.mini-vol-fill{position:absolute;top:0;left:0;bottom:0;width:100%;border-radius:17px;
+  background:linear-gradient(90deg,#22d3ee,#4ade80 35%,#facc15 65%,#f97316,#ef4444);
+  box-shadow:inset 0 2px 4px rgba(255,255,255,0.35),inset 0 -2px 4px rgba(0,0,0,0.25);
+  pointer-events:none;}
 .mini-vol-pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  font-size:11px;font-weight:900;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,0.95);
-  pointer-events:none;letter-spacing:.3px;}
+  font-size:12px;font-weight:900;color:#fff;text-shadow:0 1px 5px rgba(0,0,0,0.9),0 0 3px rgba(0,0,0,0.7);
+  pointer-events:none;letter-spacing:.4px;}
 .mini-vol-marks{display:flex;justify-content:space-between;font-size:7px;color:rgba(255,255,255,0.55);
   padding:0 2px;}
-
-#ctrlDrawerOverlay{position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:998;
-  display:none;}
-#ctrlDrawerOverlay.show{display:block;}
-
-/* ═══ کنٹرول پاپ اپ اب نیچے سے کھلنے والا bottom-sheet ہے — صرف اپنے مواد جتنی اونچائی،
-   تاکہ اوپر کا (پارہ/سورہ/آیت) گرڈ نظر آتا رہے ═══ */
-#ctrlDrawer{position:fixed;left:0;right:0;bottom:0;top:auto;width:100%;max-width:100%;
-  max-height:78vh;background:#0d3b2e;z-index:999;
-  transform:translateY(105%);transition:transform .25s ease;overflow-y:auto;
-  box-shadow:0 -3px 14px rgba(0,0,0,0.4);border-radius:16px 16px 0 0;padding-bottom:10px;}
-#ctrlDrawer.open{transform:translateY(0);}
-#ctrlDrawerHead{display:flex;justify-content:space-between;align-items:center;
-  padding:10px 12px;color:#fff;font-weight:700;font-size:13px;
-  border-bottom:1px solid rgba(255,255,255,0.15);position:sticky;top:0;
-  background:inherit;z-index:2;border-radius:16px 16px 0 0;}
-#ctrlDrawerClose{background:rgba(255,255,255,0.15);color:#fff;border:none;
-  border-radius:6px;width:26px;height:26px;font-size:14px;cursor:pointer;}
-#ctrlDrawer #playerBar{padding:6px 8px;}
-#ctrlDrawer .vol-row2{flex-wrap:wrap;}
 
 /* آیت نمبر خود سے ٹائپ کرنے کا خانہ — وہیل کے اوپر */
 .ayat-manual-input{width:100%;box-sizing:border-box;text-align:center;font-size:14px;font-weight:900;
@@ -1279,6 +1290,118 @@ html,body{height:100vh;height:100svh;overflow:hidden;
 
 /* عربی پینل — شیئر بٹن کے ساتھ بڑے، فاصلے والے پلے/پاز/سٹاپ بٹن */
 .panel-share-row{gap:6px;align-items:center;flex-wrap:wrap;}
+.tr-share-qari-row{justify-content:space-between !important;}
+.tr-sel-compact{flex:1;min-width:0;max-width:33%;font-size:10.5px !important;padding:4px 4px !important;}
+
+/* ══ فرنٹ پیج پر آیت وہیل + خانہ (دونوں سائیڈ) اور سورہ ڈراپ ڈاؤن — کمپیکٹ سائز ══ */
+.front-wheel-row{align-items:center !important;gap:3px !important;flex-wrap:nowrap !important;
+  background:linear-gradient(180deg,rgba(15,23,42,0.62),rgba(15,23,42,0.4)) !important;
+  border:1px solid rgba(255,255,255,0.1) !important;border-radius:16px !important;
+  padding:6px 8px !important;margin:2px 6px 4px !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.07),inset 0 -3px 8px rgba(0,0,0,0.4),0 3px 8px rgba(0,0,0,0.28) !important;}
+.front-wheel-row .fw-block.awheel-block{width:auto !important;flex-shrink:0;display:flex !important;
+  flex-direction:row !important;align-items:center !important;gap:1px !important;}
+.front-wheel-row .fw-block .awheel-row{width:32px !important;flex-shrink:0;}
+.front-wheel-row .fw-block .awheel-outer{height:26px !important;width:32px !important;}
+.front-wheel-row .fw-block .wi-ar{font-size:11px !important;letter-spacing:-0.5px !important;}
+.front-wheel-row .fw-block .wheel-tick-strip{display:none !important;}
+.front-wheel-row .fw-block .awheel-outer{background:#08201a !important;border-radius:8px !important;
+  border:1.5px solid #052e1e !important;box-shadow:inset 0 0 8px rgba(34,197,94,0.2) !important;}
+.front-wheel-row .fw-block .ayat-manual-input{font-size:9px !important;padding:1px 0 !important;
+  margin:0 !important;width:22px !important;height:24px !important;flex-shrink:0;}
+.fw-surah-sel{flex:1 1 auto !important;min-width:90px !important;height:30px;font-size:11.5px;font-weight:900;
+  border-radius:8px;border:1.5px solid #2563eb;
+  background:linear-gradient(160deg,#16316e,#0b1f4d 55%,#081638) !important;
+  -webkit-appearance:none !important;appearance:none !important;
+  box-shadow:0 2px 0 #06122e,0 3px 6px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.1) !important;
+  color:#facc15 !important;padding:0 8px;font-family:'JN',serif;text-overflow:ellipsis;
+  text-shadow:0 0 6px rgba(250,204,21,0.9),0 0 14px rgba(250,204,21,0.55) !important;}
+.fw-surah-sel option{background:#0b1f4d;color:#facc15;font-size:16px;padding:10px;text-shadow:none !important;}
+.qari-push-right{flex-shrink:0;}
+.qari-narrow{max-width:150px !important;min-width:0 !important;}
+/* قاری باکس کو بائیں والے Sura/Para گرڈ جیسا ہی ڈارک ابھرا ہوا بیک گراؤنڈ دیا — یکساں خوبصورت لُک */
+.qari-narrow{background:#08201a !important;border:1.5px solid #052e1e !important;color:#4ade80 !important;
+  text-shadow:0 0 3px rgba(74,222,128,0.9) !important;
+  box-shadow:inset 0 0 8px rgba(34,197,94,0.22),0 3px 0 rgba(0,0,0,0.5),0 4px 6px rgba(0,0,0,0.35) !important;}
+.qari-narrow#qariDropdown,.qari-narrow #qariDropdown{color:#4ade80 !important;}
+.qari-narrow.playing{animation:qariGlowPulseDark 1.1s ease-in-out infinite !important;}
+@keyframes qariGlowPulseDark{
+  0%,100%{color:#4ade80;box-shadow:inset 0 0 8px rgba(34,197,94,0.22),0 3px 0 rgba(0,0,0,0.5),0 4px 6px rgba(0,0,0,0.35);}
+  50%{color:#86efac;box-shadow:inset 0 0 16px rgba(74,222,128,0.6),0 3px 0 rgba(0,0,0,0.5),0 0 14px rgba(74,222,128,0.65);}
+}
+.quick-mini-btn{width:20px !important;height:24px !important;flex-shrink:0;font-size:11px !important;}
+/* ══ اردو پینل کی نچلی لائن — رکوع/پارہ/START ایک ساتھ قریب قریب بائیں طرف،
+   والیوم الگ، لمبی اور دائیں کنارے پر ══ */
+.urdu-bottom-row{justify-content:flex-start !important;gap:5px !important;flex-wrap:nowrap !important;
+  background:linear-gradient(180deg,rgba(15,23,42,0.62),rgba(15,23,42,0.4)) !important;
+  border:1px solid rgba(255,255,255,0.1) !important;border-radius:16px !important;
+  padding:7px 8px !important;margin:2px 6px 4px !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.07),inset 0 -3px 8px rgba(0,0,0,0.4),0 3px 8px rgba(0,0,0,0.28) !important;}
+.fw-pr-block{flex:1 1 0 !important;width:auto !important;min-width:0;overflow:hidden;}
+.wcol-ruku.fw-pr-block{flex:0.4 1 26px !important;width:auto !important;max-width:46px !important;min-width:18px !important;}
+.fw-pr-wide{flex:2 1 70px !important;width:auto !important;max-width:132px !important;min-width:44px !important;}
+.fw-pr-block .wi-ar{color:#4ade80 !important;text-shadow:0 0 3px rgba(74,222,128,0.95) !important;
+  font-weight:900 !important;font-size:11px !important;white-space:nowrap;}
+.wcol-ruku .wi-ar{font-size:15px !important;font-weight:900 !important;}
+.fw-pr-wide .wi-ar{font-size:13px !important;}
+.fw-pr-block .sw-label{display:none !important;}
+/* رکوع/پارہ ویل کے اندر نمبر نظر نہیں آ رہے تھے (تاریک رنگ تاریک بیک گراونڈ پر) — روشن سبز رنگ سے درست کیا (Hfz) */
+#rukuSelWheel .wi-ar,#paraSelWheel .wi-ar{color:#4ade80 !important;text-shadow:0 0 3px rgba(74,222,128,0.9) !important;}
+#rukuSelWheel .wheel-item.center .wi-ar,#paraSelWheel .wheel-item.center .wi-ar{
+  color:#86efac !important;font-weight:900 !important;text-shadow:0 0 5px rgba(134,239,172,0.95) !important;}
+.fw-pr-block .awheel-outer,.fw-pr-block .wheel-outer{height:34px !important;border-radius:17px !important;
+  border:1.5px solid rgba(255,255,255,0.18) !important;background:#111827 !important;
+  box-shadow:0 3px 8px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.1) !important;}
+/* پارہ (سپارہ) کا نام/نمبر پورا نظر آئے — گول ونڈو کی فکسڈ 88px چوڑائی کو بلاک کی پوری چوڑائی تک بڑھایا */
+.fw-pr-wide .awheel-row{width:100% !important;}
+.fw-pr-wide .awheel-outer,.fw-pr-wide .wheel-outer{width:100% !important;max-width:132px !important;}
+.urdu-row-pill-btn{flex:0.7 1 26px;min-width:26px;height:34px;border-radius:17px;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;margin-right:6px;margin-left:2px;
+  background:linear-gradient(160deg,#4ade80,#16a34a 55%,#0d6b38);color:#fff;
+  touch-action:manipulation;
+  box-shadow:0 3px 8px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.25);}
+.urdu-row-pill-btn svg{width:18px !important;height:18px !important;display:block;}
+.urdu-row-pill-btn.playing{background:linear-gradient(160deg,#fbbf24,#d97706 55%,#92400e);}
+.mini-vol-widget-mid .mini-vol-track{border-radius:17px !important;}
+/* From/To وہیل کے اندر آیت نمبر — صاف سرخ رنگ میں */
+.front-wheel-row .fw-block .wi-ar{color:#4ade80 !important;text-shadow:0 0 3px rgba(74,222,128,0.95),0 0 1px #86efac !important;font-weight:900 !important;}
+.front-wheel-row .fw-block .wheel-item.center .wi-ar{color:#86efac !important;}
+/* ══ مین پیج پر چھوٹے سورہ/فرام/ٹو/ریپیٹ کنٹرول — قاری کے نام جتنے سائز کے ══ */
+.quick-sel-row{gap:4px !important;flex-wrap:wrap !important;}
+.quick-mini-sel{flex:1;min-width:0;max-width:90px;height:24px;font-size:10px;font-weight:800;
+  border-radius:14px;border:1.5px solid #10b981;background:linear-gradient(145deg,#ecfdf5,#d1fae5);
+  color:#065f46;padding:0 6px;font-family:'JN',serif;}
+.quick-fromto{display:flex;gap:2px;flex-shrink:0;}
+.quick-mini-input{width:34px;height:24px;font-size:10px;font-weight:800;text-align:center;
+  border-radius:14px;border:1.5px solid #10b981;background:#fff;color:#065f46;
+  padding:0;-moz-appearance:textfield;}
+.quick-mini-input::-webkit-outer-spin-button,.quick-mini-input::-webkit-inner-spin-button{
+  -webkit-appearance:none;margin:0;}
+.quick-mini-btn{flex-shrink:0;width:26px;height:24px;border-radius:14px;border:1.5px solid #10b981;
+  background:linear-gradient(145deg,#ecfdf5,#d1fae5);color:#065f46;font-size:13px;font-weight:900;
+  cursor:pointer;touch-action:manipulation;}
+.quick-mini-btn.active{background:linear-gradient(145deg,#22c55e,#15803d);color:#fff;
+  box-shadow:0 0 6px 2px rgba(34,197,94,0.7);}
+/* ══ ٹاپ بار — شیئر نارمل/چھوٹا، سیٹنگز بڑا/نمایاں/گلوئنگ ══ */
+.tb-share-wrap{position:relative;flex-shrink:0;margin-inline-start:6px !important;margin-right:0 !important;z-index:12;}
+.tb-share-btn-lg{width:26px;height:26px;border-radius:8px;border:none;cursor:pointer;
+  background:linear-gradient(160deg,#fbbf24,#d97706 60%,#b45309);color:#3f1d00;
+  display:flex;align-items:center;justify-content:center;touch-action:manipulation;
+  box-shadow:0 2px 0 #92400e,0 3px 6px rgba(0,0,0,0.35),inset 0 1px 0 rgba(255,255,255,0.5);}
+.tb-share-btn-lg svg{width:13px !important;height:13px !important;}
+.tb-share-btn-lg:active{transform:translateY(1px);box-shadow:0 1px 0 #92400e,0 1px 3px rgba(0,0,0,0.3);}
+.tb-share-wrap #shareMenuPopup{right:auto;left:0;}
+.btn-settings.sm{width:42px !important;height:42px !important;border-radius:12px !important;
+  position:absolute !important;left:6px !important;top:50% !important;transform:translateY(-50%) !important;z-index:20;
+  background:linear-gradient(160deg,#4ade80,#16a34a 55%,#0d6b38) !important;
+  border:1.5px solid rgba(253,230,138,0.7) !important;
+  box-shadow:0 3px 0 #0a4d29,0 6px 10px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.5) !important;
+  animation:settingsBtnGlow 2s ease-in-out infinite;}
+.btn-settings.sm svg{width:22px !important;height:22px !important;stroke:#fff !important;}
+@keyframes settingsBtnGlow{
+  0%,100%{box-shadow:0 3px 0 #0a4d29,0 6px 10px rgba(0,0,0,0.5),0 0 0 2px rgba(74,222,128,0.25),inset 0 1px 0 rgba(255,255,255,0.5);}
+  50%{box-shadow:0 3px 0 #0a4d29,0 6px 10px rgba(0,0,0,0.5),0 0 14px 5px rgba(74,222,128,0.95),inset 0 1px 0 rgba(255,255,255,0.5);}
+}
 .mini-play-controls{display:flex;gap:5px;}
 .mini-play-controls-lg{gap:12px;}
 .mini-pbtn{width:26px;height:26px;border:none;border-radius:50%;
@@ -1306,6 +1429,25 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   border-radius:8px;border:1px solid rgba(var(--acR),0.4);background:rgba(255,255,255,0.06);
   color:inherit;font-family:inherit;}
 .tr-sel:disabled{opacity:0.5;}
+/* ══ پیج زوم ویجیٹ — ڈریگ ایبل، جہاں چھوڑیں وہیں فکس ہو جائے ══ */
+#pageZoomWidget{position:fixed;left:6px;top:50%;transform:translateY(-50%);z-index:99999;
+  display:flex;flex-direction:column;align-items:center;gap:0;touch-action:none;}
+#pzOpenBtn{width:34px;height:34px;border-radius:50%;border:1.5px solid rgba(253,230,138,0.7);cursor:grab;
+  background:linear-gradient(160deg,#4ade80,#16a34a 55%,#0d6b38);color:#fff;font-size:15px;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 3px 0 #0a4d29,0 6px 10px rgba(0,0,0,0.45),inset 0 1px 0 rgba(255,255,255,0.5);}
+#pzOpenBtn:active{transform:translateY(1px);}
+#pzControls{display:none;flex-direction:column;align-items:center;gap:4px;margin-top:6px;
+  background:linear-gradient(180deg,rgba(15,23,42,0.85),rgba(15,23,42,0.72));
+  border:1px solid rgba(255,255,255,0.15);border-radius:14px;padding:8px 6px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.4);}
+#pageZoomWidget.open #pzControls{display:flex;}
+/* + / − کو ہلکا رکھا گیا ہے، زیادہ ہائی لائٹ/چمکدار نہیں */
+.pz-btn{width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,255,255,0.18);cursor:pointer;
+  font-size:14px;font-weight:700;background:rgba(255,255,255,0.10);color:rgba(255,255,255,0.75);
+  box-shadow:none;display:flex;align-items:center;justify-content:center;}
+.pz-btn:active{background:rgba(255,255,255,0.2);}
+#pzPct{font-family:Arial,sans-serif;font-size:11px;font-weight:900;color:#fff;text-align:center;min-width:34px;}
 </style>
 </head>
 <body>
@@ -1313,7 +1455,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
 <div id="welcomeOverlay">
   <div class="wlc-bismillah">﷽</div>
   <div class="wlc-quran-title" onclick="secretVideoLinkTap()">Hifz Pro</div>
-  <div class="wlc-by-ahg">By ahgujjar</div>
+  <div class="wlc-by-ahg">By ARJ-MBR-MSB</div>
   <div class="wlc-card">
     <button class="wlc-video-btn" onclick="openIntroVideo()">
       <span class="wvb-ic">▶️</span>
@@ -1343,7 +1485,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
     </button>
   </div>
   <button class="wlc-start-btn" onclick="startApp()">▶ شروع کریں</button>
-  <div class="wlc-ver-tag" id="wlcVerTag">1308th1005am</div>
+  <div class="wlc-ver-tag" id="wlcVerTag">1508sa0220pm</div>
 </div>
 
 <div id="splash">
@@ -1355,7 +1497,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">1308th1005am</span>
+    <span class="ver-code" id="splashVerCode">1508sa0220pm</span>
   </div>
 </div>
 
@@ -1363,13 +1505,9 @@ html,body{height:100vh;height:100svh;overflow:hidden;
 
   <!-- TOP BAR — سب کچھ ایک ہی باریک لائن میں، اوپر جگہ بچانے کے لیے -->
   <div id="topBar">
-    <div class="tb-info-mini">
-      <span class="tb-surah" id="tbSurah">الفاتحة</span>
-      <span class="tb-ayah" id="tbAyah">۱/۷</span>
-    </div>
     <div class="status-block-mini">
       <span class="ver-pill" id="tbVerPill">Online</span>
-      <span class="ver-code" id="tbVerCode">1308th1005am</span>
+      <span class="ver-code" id="tbVerCode">1508sa0220pm</span>
       <button class="icon-btn btn-refresh sm" onclick="forceRefresh()" title="تازہ ترین ورژن لوڈ کریں">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/></svg>
       </button>
@@ -1379,10 +1517,17 @@ html,body{height:100vh;height:100svh;overflow:hidden;
       <span id="timerCountdown">--:--</span>
     </div>
     <span class="pdot" id="pdot"></span>
-    <div class="tb-title-big">Hifz Pro</div>
-    <button class="icon-btn btn-share sm" id="shareBtn">
-      <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
-    </button>
+    <div class="unified-share-wrap tb-share-wrap">
+      <button class="tb-share-btn-lg" onclick="toggleShareMenu()">
+        <svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
+      </button>
+      <div id="shareMenuPopup">
+        <button onclick="shareArabicAyat();closeShareMenu();">📄 عربی متن</button>
+        <button onclick="shareUrduAyat();closeShareMenu();">📄 اردو متن</button>
+        <button onclick="shareCombinedAyat();closeShareMenu();">📑 عربی + اردو دونوں</button>
+      </div>
+    </div>
+    <button class="ur-font-toggle tb-urfont" id="urFontBtn" onclick="toggleUrFont()" title="نستعلیق فونٹ بدلیں">🖋</button>
     <button class="icon-btn btn-settings sm" onclick="openSettings()" title="سیٹنگز">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
     </button>
@@ -1415,27 +1560,47 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   <!-- ARABIC PANEL -->
   <div id="arabicPanel">
     <div class="panel-body-row">
-      <div class="zoom-col">
-        <span class="zoom-lbl">A+</span>
-        <input class="zoom-slider-v" id="arZoomSlider" type="range" min="18" max="350" value="18" oninput="setArZoom(this.value)">
-        <span class="zoom-lbl">A-</span>
+      <div class="zoom-corner-btns">
+        <button class="zoom-corner-btn" onclick="bumpArZoom(4)" title="بڑا کریں">+</button>
+        <button class="zoom-corner-btn" onclick="bumpArZoom(-4)" title="چھوٹا کریں">−</button>
       </div>
+      <button id="playBtn" onclick="togPlay()">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </button>
       <div id="arabicScroll">
         <div id="arabicText">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
       </div>
     </div>
-    <div class="panel-share-row">
-      <div class="ar-left-controls">
-        <div class="mini-play-controls mini-play-controls-lg">
-          <button class="mini-pbtn mini-play-icon" id="miniPlayBtn" onclick="togPlay()" title="پلے/پاز">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          </button>
-          <button class="mini-pbtn stopbtn" onclick="stopPlayback()" title="بند کریں">
-            <svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="1.5"/></svg>
-          </button>
+    <div class="panel-share-row front-wheel-row" dir="ltr">
+      <div class="awheel-block rr-block fw-block">
+        <div class="awheel-row">
+          <div class="wheel-outer awheel-outer">
+            <div class="wheel-fade-top"></div>
+            <div class="wheel-selector"></div>
+            <div class="wheel-fade-bot"></div>
+            <div class="wheel-tick-strip wts-l"></div>
+            <div class="wheel-tick-strip wts-r"></div>
+            <div class="wheel-scroll" id="fromWheel"></div>
+          </div>
         </div>
+        <input type="number" class="ayat-manual-input" id="fromManualInput" min="1" oninput="onManualAyatInput('fromWheel',this.value)" placeholder="سے">
       </div>
-      <span id="qariNowName">
+      <select id="quickSurahSel" class="quick-mini-sel fw-surah-sel" onchange="quickSelSurah(this.value)"></select>
+      <div class="awheel-block rr-block fw-block">
+        <div class="awheel-row">
+          <div class="wheel-outer awheel-outer">
+            <div class="wheel-fade-top"></div>
+            <div class="wheel-selector"></div>
+            <div class="wheel-fade-bot"></div>
+            <div class="wheel-tick-strip wts-l"></div>
+            <div class="wheel-tick-strip wts-r"></div>
+            <div class="wheel-scroll" id="toWheel"></div>
+          </div>
+        </div>
+        <input type="number" class="ayat-manual-input" id="toManualInput" min="1" oninput="onManualAyatInput('toWheel',this.value)" placeholder="تک">
+      </div>
+      <button class="quick-mini-btn" id="quickRepBtn" onclick="togRR()" title="ریپیٹ">↺</button>
+      <span id="qariNowName" class="qari-narrow qari-push-right" dir="rtl">
         <span class="qn-ic">🎙️</span>
         <select id="qariDropdown" onchange="setQari(this.value)"></select>
       </span>
@@ -1445,11 +1610,9 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   <!-- TRANSLATION LANGUAGE + TRANSLATOR ROW -->
   <div id="trSelectRow">
     <div class="tr-sel-col">
-      <label class="tr-sel-lbl">🌐 زبان ترجمہ (Language)</label>
       <select id="zabanSelect" class="tr-sel" onchange="onZabanChange(this.value)"></select>
     </div>
     <div class="tr-sel-col">
-      <label class="tr-sel-lbl">👤 مترجم (Translator)</label>
       <select id="mutarjimSelect" class="tr-sel" onchange="onMutarjimChange(this.value)"></select>
     </div>
   </div>
@@ -1458,33 +1621,36 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   <div id="urduPanel">
     <div class="tr-tag-row">
       <div class="tr-tag" id="trTag">ترجمہ: فتح محمد جالندھری ● قرآن متن آف لائن</div>
-      <button class="ur-font-toggle" id="urFontBtn" onclick="toggleUrFont()" title="نستعلیق فونٹ بدلیں">🖋</button>
     </div>
     <div class="panel-body-row">
-      <div class="zoom-col">
-        <span class="zoom-lbl">A+</span>
-        <input class="zoom-slider-v" id="urZoomSlider" type="range" min="18" max="350" value="18" oninput="setUrZoom(this.value)">
-        <span class="zoom-lbl">A-</span>
+      <div class="zoom-corner-btns">
+        <button class="zoom-corner-btn" onclick="bumpUrZoom(4)" title="بڑا کریں">+</button>
+        <button class="zoom-corner-btn" onclick="bumpUrZoom(-4)" title="چھوٹا کریں">−</button>
       </div>
       <div id="urduScroll">
         <div id="urduText">شروع اللہ کے نام سے جو بڑا مہربان، نہایت رحم والا ہے</div>
       </div>
     </div>
-    <div class="panel-share-row">
-      <div class="unified-share-wrap">
-        <button class="panel-share-btn unified-share-btn" onclick="toggleShareMenu()">
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
-          <span>شیئر</span>
-        </button>
-        <div id="shareMenuPopup">
-          <button onclick="shareArabicAyat();closeShareMenu();">📄 عربی متن</button>
-          <button onclick="shareUrduAyat();closeShareMenu();">📄 اردو متن</button>
-          <button onclick="shareCombinedAyat();closeShareMenu();">📑 عربی + اردو دونوں</button>
+    <div class="panel-share-row urdu-bottom-row" dir="ltr">
+      <div class="awheel-block wcol-ruku fw-pr-block">
+        <div class="wheel-outer awheel-outer sel-wheel-outer">
+          <div class="wheel-fade-top"></div>
+          <div class="wheel-selector"></div>
+          <div class="wheel-fade-bot"></div>
+          <div class="wheel-scroll" id="rukuSelWheel"></div>
         </div>
       </div>
+      <div class="awheel-block wcol-para fw-pr-block fw-pr-wide">
+        <div class="wheel-outer awheel-outer sel-wheel-outer">
+          <div class="wheel-fade-top"></div>
+          <div class="wheel-selector"></div>
+          <div class="wheel-fade-bot"></div>
+          <div class="wheel-scroll" id="paraSelWheel"></div>
+        </div>
+      </div>
+      <button id="applyBtn2" class="urdu-row-pill-btn" onclick="applySel()"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
       <div class="mini-vol-widget mini-vol-widget-mid">
         <div class="mini-vol-track" onpointerdown="volWheelStart(event,this)">
-          <div class="mini-vol-ridges"></div>
           <div class="mini-vol-fill"></div>
           <span class="mini-vol-pct">100%</span>
         </div>
@@ -1496,113 +1662,11 @@ html,body{height:100vh;height:100svh;overflow:hidden;
 
   </div><!-- /midRow -->
 
-  <!-- CONTROLS DRAWER TOGGLE (left side) -->
-  <button id="ctrlToggleBtn" onclick="toggleCtrlDrawer()">
-    <span>▶</span><span class="ctrl-toggle-lbl">کنٹرولز</span>
-  </button>
-  <div id="ctrlDrawerOverlay" onclick="toggleCtrlDrawer()"></div>
-
-  <!-- CONTROLS DRAWER (slides in from left) -->
-  <div id="ctrlDrawer">
-    <div id="ctrlDrawerHead">
-      <span>پلے کنٹرول / Controls</span>
-      <button id="ctrlDrawerClose" onclick="toggleCtrlDrawer()">✕</button>
-    </div>
-  <!-- PLAYER BAR -->
-  <div id="playerBar">
-    <div class="prog-wrap">
-      <input type="range" id="scrubber" min="0" max="100" value="0" oninput="onScrub(this.value)">
-      <div class="time-row"><span id="posTime">00:00</span><span id="durTime">00:00</span></div>
-    </div>
-    <div class="ctrl-row">
-      <button class="pbtn" id="rangeRepBtn" onclick="togRR()">↺<span class="cbtn-lbl">ریپیٹ<br>Repeat</span></button>
-      <button class="ibtn" onclick="prevA()" aria-label="پچھلی">
-        <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M6 6h2.5v12H6zM19 6L9 12l10 6z"/></svg>
-        <span class="cbtn-lbl">پچھلی<br>Prev</span>
-      </button>
-      <button id="playBtn" onclick="togPlay()">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-      </button>
-      <button class="ibtn" onclick="nextA()" aria-label="اگلی">
-        <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M5 6l10 6-10 6zM15.5 6H18v12h-2.5z"/></svg>
-        <span class="cbtn-lbl">اگلی<br>Next</span>
-      </button>
-      <button class="spdbtn" id="spdBtn" onclick="chgSpd()"><span id="spdVal">1x</span><span class="cbtn-lbl">اسپیڈ<br>Speed</span></button>
-    </div>
-    <div class="vol-row">
-      <div class="awheel-block rr-block">
-        <span class="sw-label">تک (To)</span>
-        <input type="number" class="ayat-manual-input" id="toManualInput" min="1" oninput="onManualAyatInput('toWheel',this.value)">
-        <div class="awheel-row">
-          <div class="wheel-outer awheel-outer">
-            <div class="wheel-fade-top"></div>
-            <div class="wheel-selector"></div>
-            <div class="wheel-fade-bot"></div>
-            <div class="wheel-tick-strip wts-l"></div>
-            <div class="wheel-tick-strip wts-r"></div>
-            <div class="wheel-scroll" id="toWheel"></div>
-          </div>
-          <div class="wheel-updown">▲<span>▼</span></div>
-        </div>
-      </div>
-      <div class="awheel-block rr-block">
-        <span class="sw-label">سے (From)</span>
-        <input type="number" class="ayat-manual-input" id="fromManualInput" min="1" oninput="onManualAyatInput('fromWheel',this.value)">
-        <div class="awheel-row">
-          <div class="wheel-updown">▲<span>▼</span></div>
-          <div class="wheel-outer awheel-outer">
-            <div class="wheel-fade-top"></div>
-            <div class="wheel-selector"></div>
-            <div class="wheel-fade-bot"></div>
-            <div class="wheel-tick-strip wts-l"></div>
-            <div class="wheel-tick-strip wts-r"></div>
-            <div class="wheel-scroll" id="fromWheel"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="vol-row2">
-      <div class="awheel-block wide-wheel wcol-surah">
-        <span class="sw-label">سورہ</span>
-        <div class="wheel-outer awheel-outer wide-wheel-outer sel-wheel-outer">
-          <div class="wheel-fade-top"></div>
-          <div class="wheel-selector"></div>
-          <div class="wheel-fade-bot"></div>
-          <div class="wheel-tick-strip wts-l"></div>
-          <div class="wheel-tick-strip wts-r"></div>
-          <div class="wheel-scroll" id="surahSelWheel"></div>
-        </div>
-      </div>
-      <div class="awheel-block wcol-para">
-        <span class="sw-label">پارہ</span>
-        <div class="wheel-outer awheel-outer sel-wheel-outer">
-          <div class="wheel-fade-top"></div>
-          <div class="wheel-selector"></div>
-          <div class="wheel-fade-bot"></div>
-          <div class="wheel-tick-strip wts-l"></div>
-          <div class="wheel-tick-strip wts-r"></div>
-          <div class="wheel-scroll" id="paraSelWheel"></div>
-        </div>
-      </div>
-      <div class="awheel-block wcol-ruku">
-        <span class="sw-label">رکوع</span>
-        <div class="wheel-outer awheel-outer sel-wheel-outer">
-          <div class="wheel-fade-top"></div>
-          <div class="wheel-selector"></div>
-          <div class="wheel-fade-bot"></div>
-          <div class="wheel-tick-strip wts-l"></div>
-          <div class="wheel-tick-strip wts-r"></div>
-          <div class="wheel-scroll" id="rukuSelWheel"></div>
-        </div>
-      </div>
-    </div>
-    <div id="wheelCurName" class="cur-surah-big"></div>
-  </div>
-  </div><!-- /ctrlDrawer -->
+  <!-- کنٹرول ڈراور مکمل ختم — پلے بٹن اب اوپر عربی پینل کے نیچے دائیں کونے میں ہے -->
 
   <!-- START BUTTON -->
   <div id="applyBtnWrap" class="show">
-    <button id="applyBtn" onclick="applySel()">▶ START</button>
+    <button id="applyBtn" onclick="applySel()"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
   </div>
 
 </div>
@@ -1828,6 +1892,16 @@ html,body{height:100vh;height:100svh;overflow:hidden;
 <div id="toast"></div>
 <audio id="aud" x-webkit-airplay="allow" playsinline webkit-playsinline preload="auto" preload="none"></audio>
 
+<!-- ══ پوری ایپ کا پیج زوم — ہمیشہ اوپر نظر آنے والا فلوٹنگ کنٹرول (ہر پیج/سیٹنگز پر ایک ہی جگہ) ══ -->
+<div id="pageZoomWidget">
+  <button id="pzOpenBtn" onclick="togglePageZoom()" title="پیج زوم">🔍</button>
+  <div id="pzControls">
+    <button class="pz-btn" onclick="bumpPageZoom(10)">+</button>
+    <span id="pzPct">100%</span>
+    <button class="pz-btn" onclick="bumpPageZoom(-10)">−</button>
+  </div>
+</div>
+
 <script>
 'use strict';
 
@@ -2035,14 +2109,15 @@ const JUNAGARHI_FATIHA={
   "1_6":"ہمیں سیدھی (اور سچی) راہ دکھا۔",
   "1_7":"ان لوگوں کی راہ جن پر تو نے انعام کیا، ان کی نہیں جن پر غضب کیا گیا اور نہ گمراہوں کی۔"
 };
-const TAQIUSMANI_EN_FATIHA={
-  "1_1":"With the name of Allah, the All-Merciful, the Very-Merciful",
-  "1_2":"Praise belongs to Allah, the Lord of all the worlds",
-  "1_3":"the All-Merciful, the Very Merciful",
-  "1_4":"the Master of the Day of Requital",
-  "1_5":"You alone do we worship, and from You alone do we seek help",
-  "1_6":"Take us on the straight path",
-  "1_7":"the path of those on whom You have bestowed Your Grace, not of those who have incurred Your wrath, nor of those who have gone astray"
+// Sahih International (انگریزی) — ماخذ: Tanzil Project (Creative Commons Attribution 3.0، مکمل فری)
+const SAHIH_EN_FATIHA={
+  "1_1":"In the name of Allah, the Entirely Merciful, the Especially Merciful.",
+  "1_2":"[All] praise is [due] to Allah, Lord of the worlds -",
+  "1_3":"The Entirely Merciful, the Especially Merciful,",
+  "1_4":"Sovereign of the Day of Recompense.",
+  "1_5":"It is You we worship and You we ask for help.",
+  "1_6":"Guide us to the straight path -",
+  "1_7":"The path of those upon whom You have bestowed favor, not of those who have evoked [Your] anger or of those who are astray."
 };
 const TRANSLATORS=[
   {id:'jalandhari', name:'فتح محمد جالندھری', lang:'ur', data:QUR},
@@ -2050,19 +2125,16 @@ const TRANSLATORS=[
   {id:'maududi', name:'مولانا ابوالاعلیٰ مودودی', lang:'ur', data:{}, apiId:'ur.maududi'},
   {id:'ahmedraza', name:'احمد رضا خان (کنزالایمان)', lang:'ur', data:{}, apiId:'ur.kanzuliman'},
   {id:'mahmoodhassan', name:'محمود الحسن (شیخ الہند)', lang:'ur', data:MAHMOODHASSAN_FATIHA},
-  {id:'taqiusmani_en', name:'Mufti Taqi Usmani', lang:'en', data:TAQIUSMANI_EN_FATIHA},
+  {id:'sahih_en', name:'Saheeh International', lang:'en', data:SAHIH_EN_FATIHA, apiId:'en.sahih'},
   {id:'arabic_self', name:'عربی متن', lang:'ar', data:QAR}
-  // جوناگڑھی، مودودی اور احمد رضا خان (کنزالایمان) کے مکمل اردو تراجم آن لائن ہونے پر
+  // جوناگڑھی، مودودی، احمد رضا خان (کنزالایمان)، اور Saheeh International کے مکمل تراجم آن لائن ہونے پر
   // alquran.cloud API سے لائیو حاصل کیے جاتے ہیں (apiId والے مترجمین) اور موبائل پر ہی
   // offline کیش (localStorage) میں محفوظ ہو جاتے ہیں (Hfz082)
 ];
 // دستیاب زبانیں
 const LANGUAGES=[
   {code:'ur', name:'اردو (Urdu)'},
-  {code:'en', name:'English'},
-  {code:'ar', name:'العربية (Arabic)'},
-  {code:'fr', name:'Français (French)'},
-  {code:'zh', name:'中文 (Chinese)'}
+  {code:'en', name:'English'}
 ];
 let curLang='ur', curTranslatorId='jalandhari';
 try{
@@ -2140,43 +2212,27 @@ async function refreshCurrentAyahText(){
   }
 }
 
-function toggleCtrlDrawer(){
-  const d=document.getElementById('ctrlDrawer');
-  const o=document.getElementById('ctrlDrawerOverlay');
-  if(!d||!o)return;
-  const opening=!d.classList.contains('open');
-  if(opening&&isOtherOverlayOpen())return; // ہوم پیج کے علاوہ کسی اور پیج پر کنٹرول ڈرار نہیں کھلنا چاہیے
-  d.classList.toggle('open',opening);
-  o.classList.toggle('show',opening);
-}
-
-// ═══ پلے کنٹرول ٹوگل بٹن صرف ہوم پیج پر نظر آئے — سیٹنگز/اشتہار/ڈاؤن لوڈ وغیرہ کھلے ہوں تو چھپا رہے ═══
-const CTRL_HIDE_OVERLAY_IDS=['settingsOverlay','adOverlay','dlOverlay','specialQOverlay','shareEditOverlay','timerOverlay','cardPreviewOverlay'];
-function isOtherOverlayOpen(){
-  return CTRL_HIDE_OVERLAY_IDS.some(function(id){
+// ═══ زوم پلس/مائنس بٹن (فکسڈ پوزیشن) — سیٹنگز/ڈاؤن لوڈ/اشتہار وغیرہ اوورلے کھلے ہوں تو چھپا دیں،
+// ورنہ یہ ہر صفحے پر اوپر تیرتے نظر آتے ہیں (فکسڈ پوزیشننگ کی وجہ سے) ═══
+const ZOOM_HIDE_OVERLAY_IDS=['settingsOverlay','adOverlay','dlOverlay','specialQOverlay','shareEditOverlay','timerOverlay','cardPreviewOverlay'];
+function isAnyOverlayOpen(){
+  return ZOOM_HIDE_OVERLAY_IDS.some(function(id){
     const el=document.getElementById(id);
     return el&&el.classList.contains('open');
   });
 }
-function updateCtrlToggleVisibility(){
-  const btn=document.getElementById('ctrlToggleBtn');
-  if(!btn)return;
-  if(isOtherOverlayOpen()){
-    btn.style.display='none';
-    const d=document.getElementById('ctrlDrawer');
-    const o=document.getElementById('ctrlDrawerOverlay');
-    if(d&&d.classList.contains('open')){d.classList.remove('open');o&&o.classList.remove('show');}
-  }else{
-    btn.style.display='';
-  }
+function updateZoomCornerVisibility(){
+  const z=document.querySelector('#arabicPanel .zoom-corner-btns');
+  if(!z)return;
+  z.style.display=isAnyOverlayOpen()?'none':'';
 }
-(function initCtrlToggleVisibilityWatcher(){
-  CTRL_HIDE_OVERLAY_IDS.forEach(function(id){
+(function initZoomCornerVisibilityWatcher(){
+  ZOOM_HIDE_OVERLAY_IDS.forEach(function(id){
     const el=document.getElementById(id);
     if(!el)return;
-    new MutationObserver(updateCtrlToggleVisibility).observe(el,{attributes:true,attributeFilter:['class']});
+    new MutationObserver(updateZoomCornerVisibility).observe(el,{attributes:true,attributeFilter:['class']});
   });
-  updateCtrlToggleVisibility();
+  updateZoomCornerVisibility();
 })();
 
 // ══ STATE ══
@@ -2200,9 +2256,9 @@ aud.addEventListener('timeupdate',()=>{
   if(!aud.duration)return;
   const p=(aud.currentTime/aud.duration)*100;
   const sc=document.getElementById('scrubber');
-  sc.value=p;sc.style.setProperty('--p',p+'%');
-  document.getElementById('posTime').textContent=fmt(aud.currentTime);
-  document.getElementById('durTime').textContent=fmt(aud.duration);
+  if(sc){sc.value=p;sc.style.setProperty('--p',p+'%');}
+  const _pt=document.getElementById('posTime');if(_pt)_pt.textContent=fmt(aud.currentTime);
+  const _dt=document.getElementById('durTime');if(_dt)_dt.textContent=fmt(aud.duration);
 });
 aud.addEventListener('ended',()=>{if(St.ar){aud.currentTime=0;aud.play().catch(()=>{});}else nextA(true);});
 aud.addEventListener('play',()=>{
@@ -2216,9 +2272,12 @@ aud.addEventListener('play',()=>{
   document.getElementById('pdot').classList.add('on');
   document.getElementById('arabicText').classList.add('playing');
   document.getElementById('qariNowName')?.classList.add('playing');
+  document.getElementById('infoAayatNo')?.classList.add('now-playing');
   document.querySelectorAll('.mini-play-icon').forEach(_mp=>{_mp.innerHTML='<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4.5" height="14" rx="1.2"/><rect x="13.5" y="5" width="4.5" height="14" rx="1.2"/></svg>';});
   const _ab=document.getElementById('applyBtn');
-  if(_ab){_ab.innerHTML='<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><rect x="6" y="5" width="4.5" height="14" rx="1.2"/><rect x="13.5" y="5" width="4.5" height="14" rx="1.2"/></svg> پاز کریں';_ab.classList.add('playing');}
+  if(_ab){_ab.innerHTML='<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><rect x="6" y="5" width="4.5" height="14" rx="1.2"/><rect x="13.5" y="5" width="4.5" height="14" rx="1.2"/></svg>';_ab.classList.add('playing');}
+  const _ab3=document.getElementById('applyBtn2');
+  if(_ab3){_ab3.innerHTML='<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><rect x="6" y="5" width="4.5" height="14" rx="1.2"/><rect x="13.5" y="5" width="4.5" height="14" rx="1.2"/></svg>';_ab3.classList.add('playing');}
 });
 aud.addEventListener('pause',()=>{
   if(document.hidden&&St.pl){return;}
@@ -2229,9 +2288,12 @@ aud.addEventListener('pause',()=>{
   document.getElementById('pdot').classList.remove('on');
   document.getElementById('arabicText').classList.remove('playing');
   document.getElementById('qariNowName')?.classList.remove('playing');
+  document.getElementById('infoAayatNo')?.classList.remove('now-playing');
   document.querySelectorAll('.mini-play-icon').forEach(_mp=>{_mp.innerHTML='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';});
   const _ab2=document.getElementById('applyBtn');
-  if(_ab2){_ab2.innerHTML='▶ START';_ab2.classList.remove('playing');}
+  if(_ab2){_ab2.innerHTML='<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';_ab2.classList.remove('playing');}
+  const _ab4=document.getElementById('applyBtn2');
+  if(_ab4){_ab4.innerHTML='<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';_ab4.classList.remove('playing');}
 });
 
 function fmt(t){const m=Math.floor(t/60),s=Math.floor(t%60);return`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;}
@@ -2271,11 +2333,11 @@ async function getAyah(s,a){
 async function loadA(s,a,play=false){
   St.s=s;St.a=a;
   const sh=SH[s-1];
-  document.getElementById('tbSurah').textContent=sh.ar;
-  document.getElementById('tbAyah').textContent=`${a}/${sh.a}`;
+  const _tbS=document.getElementById('tbSurah');if(_tbS)_tbS.textContent=sh.ar;
+  const _tbA=document.getElementById('tbAyah');if(_tbA)_tbA.textContent=`${a}/${sh.a}`;
   const _bdgS=document.getElementById('bdgSurah');if(_bdgS)_bdgS.textContent=sh.ar;
   const _bdgA=document.getElementById('bdgAyah');if(_bdgA)_bdgA.textContent='آیت '+toUN(a);
-  document.getElementById('wheelCurName').textContent=sh.ar;
+  const _wcn=document.getElementById('wheelCurName');if(_wcn)_wcn.textContent=sh.ar;
   const _ipn=document.getElementById('infoParaNo');if(_ipn)_ipn.textContent=getJuz(s,a)+' — '+(PARA_NAMES[getJuz(s,a)-1]||'');
   updateInfoRukuNo();
   const _isn=document.getElementById('infoSuraNo');if(_isn)_isn.textContent=s+' — '+sh.ar;
@@ -2316,7 +2378,22 @@ async function loadA(s,a,play=false){
 
 // ══ CONTROLS ══
 function toggleShareMenu(){
-  document.getElementById('shareMenuPopup')?.classList.toggle('open');
+  const pop=document.getElementById('shareMenuPopup');
+  if(!pop)return;
+  const willOpen=!pop.classList.contains('open');
+  if(willOpen){
+    const btn=document.querySelector('.tb-share-btn-lg');
+    if(btn){
+      const r=btn.getBoundingClientRect();
+      pop.style.top=(r.bottom+6)+'px';
+      let left=r.right-160;
+      if(left<6)left=6;
+      pop.style.left=left+'px';
+      pop.style.right='auto';
+      pop.style.bottom='auto';
+    }
+  }
+  pop.classList.toggle('open');
 }
 function closeShareMenu(){
   document.getElementById('shareMenuPopup')?.classList.remove('open');
@@ -2333,10 +2410,11 @@ function nextA(auto=false){
   else{if(St.a<St.to)loadA(St.s,St.a+1,auto||St.pl);else{showToast('آخری آیت ✓');if(auto)aud.pause();}}
 }
 function togRR(){St.rr=!St.rr;
-  document.getElementById('rangeRepBtn').classList.toggle('active',St.rr);}
+  document.getElementById('rangeRepBtn')?.classList.toggle('active',St.rr);
+  syncQuickRepBtn();}
 const SPEEDS=[1,1.25,1.5,2,0.75];let sIdx=0;
 function chgSpd(){sIdx=(sIdx+1)%SPEEDS.length;St.spd=SPEEDS[sIdx];aud.playbackRate=St.spd;
-  document.getElementById('spdVal').textContent=St.spd+'x';}
+  const _sv=document.getElementById('spdVal');if(_sv)_sv.textContent=St.spd+'x';}
 
 // ══ VOLUME KNOB — انگلی سے گھما کر آواز کم/زیادہ کریں (فون کے والیوم بٹن کے بغیر) ══
 const VOL_MIN_ANG=-135,VOL_MAX_ANG=135;
@@ -2530,7 +2608,7 @@ function onWheelChange(n){
   wSelected=n;
   St.s=n;const mx=SH[n-1].a;
   St.fr=1;St.to=mx;
-  document.getElementById('wheelCurName').textContent=SH[n-1].ar;
+  const _wcn2=document.getElementById('wheelCurName');if(_wcn2)_wcn2.textContent=SH[n-1].ar;
   buildAyahWheels(mx);
 }
 
@@ -2540,17 +2618,63 @@ function buildAyahWheels(mx){
   buildOneAyahWheel('fromWheel',mx,1,n=>{
     St.fr=n;
     const fi=document.getElementById('fromManualInput');if(fi)fi.value=n;
-    if(St.to<St.fr){St.to=St.fr;scrollAyahWheel('toWheel',St.to,true);const ti=document.getElementById('toManualInput');if(ti)ti.value=St.to;}
+    const qfi=document.getElementById('quickFromInput');if(qfi)qfi.value=n;
+    if(St.to<St.fr){St.to=St.fr;scrollAyahWheel('toWheel',St.to,true);const ti=document.getElementById('toManualInput');if(ti)ti.value=St.to;const qti=document.getElementById('quickToInput');if(qti)qti.value=St.to;}
     loadA(St.s,n,false); // سے (From) بدلتے ہی فوراً اسی آیت پر چلے جائیں تاکہ ڈسپلے ہم آہنگ رہے
   });
   buildOneAyahWheel('toWheel',mx,mx,n=>{
     if(n<St.fr){scrollAyahWheel('toWheel',St.fr,true);n=St.fr;}
     St.to=n;
     const ti=document.getElementById('toManualInput');if(ti)ti.value=n;
+    const qti=document.getElementById('quickToInput');if(qti)qti.value=n;
   });
   const fi=document.getElementById('fromManualInput'),ti=document.getElementById('toManualInput');
   if(fi){fi.max=mx;fi.value=St.fr;}
   if(ti){ti.max=mx;ti.value=mx;}
+  const qfi=document.getElementById('quickFromInput'),qti=document.getElementById('quickToInput');
+  if(qfi)qfi.max=mx; // خانہ خالی ہی رکھیں — عدد خودکار نہ بھریں
+  if(qti)qti.max=mx;
+}
+// ══ مین پیج پر چھوٹے کنٹرول — سورہ ڈراپ ڈاؤن، فرام/ٹو خانے، ریپیٹ ══
+function populateQuickSurahSel(){
+  const sel=document.getElementById('quickSurahSel');
+  if(!sel||sel.options.length)return;
+  SH.forEach(s=>{
+    const o=document.createElement('option');
+    o.value=s.n;o.textContent=s.n+'. '+s.ar;
+    sel.appendChild(o);
+  });
+}
+function syncQuickSurahSel(){
+  const sel=document.getElementById('quickSurahSel');
+  if(sel)sel.value=St.s;
+}
+function quickSelSurah(n){selSurah(parseInt(n));}
+let _quickFromToTimer;
+function quickFromToChange(){
+  clearTimeout(_quickFromToTimer);
+  _quickFromToTimer=setTimeout(()=>{
+    const mx=SH[St.s-1].a;
+    const frEl=document.getElementById('quickFromInput'),toEl=document.getElementById('quickToInput');
+    let fr=parseInt(frEl.value)||1;
+    let to=parseInt(toEl.value)||mx;
+    fr=Math.max(1,Math.min(mx,fr));
+    to=Math.max(fr,Math.min(mx,to));
+    St.fr=fr;St.to=to;
+    // صرف وہ خانہ اپڈیٹ کریں جس پر اس وقت فوکس نہیں ہے، تاکہ ٹائپ کرتے وقت خلل نہ پڑے
+    if(document.activeElement!==frEl)frEl.value=fr;
+    if(document.activeElement!==toEl)toEl.value=to;
+    const fi=document.getElementById('fromManualInput');if(fi)fi.value=fr;
+    const ti=document.getElementById('toManualInput');if(ti)ti.value=to;
+    if(fi&&fi._max){/* ڈراور کا ویل صرف اندرونی اعداد اپڈیٹ کرے، اسکرول/جمپ نہ کرے */
+      const whF=document.getElementById('fromWheel'),whT=document.getElementById('toWheel');
+      if(whF)whF._cur=fr-1;
+      if(whT)whT._cur=to-1;
+    }
+  },400);
+}
+function syncQuickRepBtn(){
+  document.getElementById('quickRepBtn')?.classList.toggle('active',St.rr);
 }
 // خود سے آیت نمبر ٹائپ کر کے سلیکشن — ویل گھمانے کی بجائے
 let _manualInputTimer;
@@ -2714,7 +2838,7 @@ function buildParaSelWheel(){
   buildOneNamedWheel('paraSelWheel',labels,curPara-1,i=>selPara(i+1));
   lastBuiltRukuPara=curPara;
   buildRukuSelWheel(curPara);
-  requestAnimationFrame(()=>requestAnimationFrame(()=>fitWheelLabels('paraSelWheel',12,8)));
+  requestAnimationFrame(()=>requestAnimationFrame(()=>fitWheelLabels('paraSelWheel',15,8)));
 }
 function selPara(p){
   const idx=Math.max(0,Math.min(29,p-1));
@@ -2862,6 +2986,7 @@ function selSurah(n){
   const sel=document.querySelector(`#surahCol .s-item[data-n="${n}"]`);
   if(sel)sel.scrollIntoView({block:'center',behavior:'smooth'});
   syncSurahWheel(n);
+  syncQuickSurahSel();
   loadA(n,1,false);
 }
 
@@ -3110,37 +3235,14 @@ function updateQariBadges(){Object.keys(QARIS).forEach(k=>{const done=Object.key
 let tto;
 function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(tto);tto=setTimeout(()=>t.classList.remove('show'),2600);}
 
-// ══ SHARE LINK — سیدھا گٹ ہب کی share-link.txt فائل سے پڑھا جاتا ہے (بالکل welcome.txt کی طرح)۔
-// بدلنے کے لیے: گٹ ہب پر share-link.txt کھولیں → ایڈٹ (پنسل) → نیا لنک لکھیں (پہلی لائن میں) → Commit۔
-// نہ ایپ کھولنی، نہ کوئی اور قدم، نہ ہر صارف کو کچھ کرنا — خودکار سب صارفین تک پہنچ جائے گا۔
-// جب پلے اسٹور پر لائیو ہو جائے تو بس اسی فائل میں پلے اسٹور کا لنک لکھ دیں — سب کو خودکار مل جائے گا۔
-let remoteShareLink=null;
-async function loadRemoteShareLink(){
-  try{
-    const res=await fetch('./share-link.txt?t='+Date.now(),{cache:'no-store'});
-    if(res.ok){
-      const txt=(await res.text()).trim();
-      if(txt){
-        remoteShareLink=txt;
-        try{localStorage.setItem('remoteShareLinkCache',txt);}catch{}
-      }
-    }
-  }catch(e){/* آف لائن — پہلے سے محفوظ (کیش شدہ) لنک ہی استعمال ہوگا */}
-}
-document.addEventListener('DOMContentLoaded',loadRemoteShareLink);
+// ══ SHARE ══
+function getShareLink(){try{return localStorage.getItem('shareLink')||'https://pbtcodelabs-pbt.github.io/hafiz-musab-app/';}catch{return'https://pbtcodelabs-pbt.github.io/hafiz-musab-app/';}}
+function getShareText(){try{return localStorage.getItem('shareText')||'Hifz Pro — حفظ کی آسانی کے لیے بہترین قراء کی تلاوت اور اردو ترجمے والی ایپ، ابھی ڈاؤن لوڈ کریں:';}catch{return'Hifz Pro ایپ ڈاؤن لوڈ کریں:';}}
 
-// SHARE ══ ترجیح: (1) گٹ ہب کی share-link.txt (تازہ ترین)، (2) اسی فائل کی آف لائن کیش،
-// (3) لانگ پریس سے مقامی طور پر سیٹ کردہ لنک (صرف اسی ڈیوائس کے لیے)، (4) آخری چارہ ڈیفالٹ۔
-function getShareLink(){
-  if(remoteShareLink)return remoteShareLink;
-  try{const c=localStorage.getItem('remoteShareLinkCache');if(c)return c;}catch{}
-  try{return localStorage.getItem('shareLink')||'https://drive.google.com/YOUR-LINK';}catch{return'https://drive.google.com/YOUR-LINK';}
-}
-function getShareText(){try{return localStorage.getItem('shareText')||'حافظ قرآن اسسٹنٹ — قرآن پاک ایپ ڈاؤنلوڈ کریں:';}catch{return'یہ ایپ ڈاؤنلوڈ کریں';}}
-
-// Long-press (developer/testing mode only) — press & hold ~600ms on a share button opens a
-// manual link editor. This is now just a LOCAL fallback for testing on your own device; it
-// does NOT affect other users — the real, app-wide link comes from share-link.txt above.
+// Long-press (developer mode) — press & hold ~600ms on a share button opens the link editor.
+// A normal short tap/click just shares. Both share buttons use this same setup, so the
+// saved link/text (in localStorage) applies to BOTH buttons automatically — you only need
+// to set it once, from either the welcome page or the home page button.
 const SHARE_LONGPRESS_MS=600;
 const DEFAULT_CHATDEV_MSG='Assalamu Alaikum, I am using the Hafiz Quran app and would like to get in touch.';
 function getChatDevMsg(){
@@ -3210,12 +3312,17 @@ function setupShareLongPress(btnId){
   el.addEventListener('contextmenu',(e)=>e.preventDefault());
 }
 document.addEventListener('DOMContentLoaded',()=>{
+  // اگر پہلے کبھی غلط/پرانا لنک محفوظ ہو چکا ہو تو خودکار درست لنک سے بدل دیں
+  try{
+    const savedLink=localStorage.getItem('shareLink');
+    if(savedLink&&(savedLink.includes('drive.google.com')||savedLink.includes('YOUR-LINK'))){
+      localStorage.removeItem('shareLink');
+    }
+  }catch{}
   setupShareLongPress('wlcShareBtn');
   setupShareLongPress('shareBtn');
 });
-async function doShare(){
-  // شیئر سے پہلے تازہ ترین لنک منگوانے کی کوشش (زیادہ سے زیادہ 1.2 سیکنڈ انتظار، ورنہ موجودہ/کیش شدہ لنک استعمال ہوگا)
-  await Promise.race([loadRemoteShareLink(),new Promise(r=>setTimeout(r,1200))]).catch(()=>{});
+function doShare(){
   const url=getShareLink(),text=getShareText()+'\n\n'+url;
   if(navigator.share){navigator.share({title:'حافظ قرآن',text,url}).catch(()=>{});}
   else if(navigator.clipboard){navigator.clipboard.writeText(text).then(()=>showToast('لنک کاپی ✓')).catch(()=>showToast(url));}
@@ -3315,7 +3422,7 @@ async function buildAyatCard(text,refLine,fontPx,isArabic,themeIdx,opts){
   ctx.font='700 30px "JN",serif';ctx.fillStyle=th.ref;
   ctx.fillText(refLine,W/2,H-pad-70);
   ctx.font='600 22px Arial,sans-serif';ctx.fillStyle='rgba(255,255,255,0.75)';
-  ctx.fillText('Hifz Pro by AHG',W/2,H-pad-28);
+  ctx.fillText('Hifz Pro by ARJ-MBR-MSB',W/2,H-pad-28);
   return new Promise(res=>c.toBlob(b=>res(b),'image/png',0.95));
 }
 async function shareCardImage(blob,fileNamePrefix){
@@ -3401,7 +3508,7 @@ async function buildCombinedAyatCard(arTxt,urTxt,refLine,arFontPx,urFontPx,theme
   ctx.font='700 30px "JN",serif';ctx.fillStyle=th.ref;
   ctx.fillText(refLine,W/2,H-pad-70);
   ctx.font='600 22px Arial,sans-serif';ctx.fillStyle='rgba(255,255,255,0.75)';
-  ctx.fillText('Hifz Pro by AHG',W/2,H-pad-28);
+  ctx.fillText('Hifz Pro by ARJ-MBR-MSB',W/2,H-pad-28);
   return new Promise(res=>c.toBlob(b=>res(b),'image/png',0.95));
 }
 async function shareCombinedAyat(){
@@ -3594,6 +3701,8 @@ function initApp(){
   renderSurahList();
   buildAyahWheels(SH[0].a);
   buildSurahSelWheel();
+  populateQuickSurahSel();
+  syncQuickSurahSel();
   buildParaSelWheel();
   initVolumeKnob();
   populateZabanSelect();
@@ -3732,6 +3841,8 @@ function setUrZoom(v){
   document.getElementById('urduText').style.fontSize=urFontSize+'px';
   try{localStorage.setItem('qfontsize_ur_'+APP_VERSION,urFontSize);}catch{}
 }
+function bumpArZoom(delta){setArZoom(curFontSize+delta);}
+function bumpUrZoom(delta){setUrZoom(urFontSize+delta);}
 // ══ اردو فونٹ — نوری نستعلیق ریگولر ⇄ کشیدہ (CDN سے، ایپ کے سائز میں اضافہ نہیں) ══
 const UR_FONTS=["Jameel-Noori.N","Jameel-Noori.K"];
 function toggleUrFont(){
@@ -3750,7 +3861,7 @@ function applyUrFont(idx){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='1308th1005am';
+const APP_VERSION='1508sa0220pm';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
@@ -3797,6 +3908,80 @@ async function forceRefresh(){
     location.href=location.pathname+'?v='+Date.now();
   },350);
 }
+// ══ پیج زوم ویجیٹ — پوری ایپ (ہر پیج/سیٹنگز اوورلے سمیت) کو زوم کرنے کے لیے ══
+(function(){
+  var MIN_Z=80,MAX_Z=160,STEP=10;
+  var cur=parseInt(localStorage.getItem('pageZoomPct')||'100',10);
+  if(isNaN(cur))cur=100;
+  function apply(){
+    document.documentElement.style.zoom=cur+'%';
+    var pct=document.getElementById('pzPct');
+    if(pct)pct.textContent=cur+'%';
+    localStorage.setItem('pageZoomPct',cur);
+  }
+  window.bumpPageZoom=function(delta){
+    cur=Math.max(MIN_Z,Math.min(MAX_Z,cur+delta));
+    apply();
+  };
+  window.togglePageZoom=function(){
+    var w=document.getElementById('pageZoomWidget');
+    if(w)w.classList.toggle('open');
+  };
+  document.addEventListener('DOMContentLoaded',apply);
+  if(document.readyState==='complete'||document.readyState==='interactive')apply();
+
+  // ── ڈریگ اینڈ ڈراپ: مِرر (🔍 بٹن) کو پکڑ کے جہاں چھوڑیں وہیں فکس ہو جائے ──
+  function initDrag(){
+    var wrap=document.getElementById('pageZoomWidget');
+    var handle=document.getElementById('pzOpenBtn');
+    if(!wrap||!handle)return;
+    var savedPos=null;
+    try{savedPos=JSON.parse(localStorage.getItem('pageZoomPos')||'null');}catch(e){}
+    if(savedPos&&typeof savedPos.left==='number'&&typeof savedPos.top==='number'){
+      wrap.style.transform='none';
+      wrap.style.left=savedPos.left+'px';
+      wrap.style.top=savedPos.top+'px';
+    }
+    var startX=0,startY=0,startLeft=0,startTop=0,dragging=false,moved=false;
+    handle.addEventListener('pointerdown',function(ev){
+      dragging=true;moved=false;
+      var r=wrap.getBoundingClientRect();
+      startLeft=r.left;startTop=r.top;
+      startX=ev.clientX;startY=ev.clientY;
+      handle.setPointerCapture(ev.pointerId);
+    });
+    handle.addEventListener('pointermove',function(ev){
+      if(!dragging)return;
+      var dx=ev.clientX-startX,dy=ev.clientY-startY;
+      if(Math.abs(dx)>6||Math.abs(dy)>6)moved=true;
+      if(!moved)return;
+      wrap.style.transform='none';
+      var vw=window.innerWidth,vh=window.innerHeight;
+      var w=wrap.offsetWidth,h=wrap.offsetHeight;
+      var nl=Math.max(2,Math.min(vw-w-2,startLeft+dx));
+      var nt=Math.max(2,Math.min(vh-h-2,startTop+dy));
+      wrap.style.left=nl+'px';
+      wrap.style.top=nt+'px';
+    });
+    function endDrag(ev){
+      if(!dragging)return;
+      dragging=false;
+      if(moved){
+        var r=wrap.getBoundingClientRect();
+        localStorage.setItem('pageZoomPos',JSON.stringify({left:r.left,top:r.top}));
+      }
+    }
+    handle.addEventListener('pointerup',endDrag);
+    handle.addEventListener('pointercancel',endDrag);
+    var origToggle=window.togglePageZoom;
+    window.togglePageZoom=function(){
+      if(moved){moved=false;return;} // ڈریگ کے بعد کھلنے سے روکیں
+      origToggle();
+    };
+  }
+  document.addEventListener('DOMContentLoaded',initDrag);
+  if(document.readyState==='complete'||document.readyState==='interactive')initDrag();
+})();
 
 </script>
 <script>
