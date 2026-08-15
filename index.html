@@ -269,7 +269,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   box-shadow:0 0 0 3px rgba(255,255,255,0.32),0 4px 14px rgba(0,0,0,0.6);}
 
 /* THEME DROPDOWN — top-bar quick picker, next to settings button */
-.theme-dd-wrap{position:relative;flex-shrink:0;}
+.theme-dd-wrap{position:relative;flex-shrink:0;margin-inline-start:-3px;}
 .theme-dd-btn{width:26px;height:26px;border-radius:50%;flex-shrink:0;cursor:pointer;
   border:2px solid rgba(255,255,255,0.5);padding:0;touch-action:manipulation;
   background:rgba(0,0,0,0.15);display:flex;align-items:center;justify-content:center;
@@ -277,12 +277,12 @@ html,body{height:100vh;height:100svh;overflow:hidden;
 .theme-dd-btn:active{transform:scale(0.9);}
 .theme-dd-dot{width:16px;height:16px;border-radius:50%;background:#16a34a;
   box-shadow:inset 0 1px 0 rgba(255,255,255,0.4);transition:background .2s;}
-.theme-dd-list{display:none;position:absolute;top:32px;left:0;z-index:60;
-  background:rgba(15,23,42,0.96);border:1px solid rgba(255,255,255,0.18);
-  border-radius:14px;padding:9px;gap:7px;flex-wrap:wrap;width:130px;
+.theme-dd-list{display:none;position:fixed;z-index:500;
+  background:rgba(15,23,42,0.97);border:1px solid rgba(255,255,255,0.18);
+  border-radius:14px;padding:9px;gap:7px;flex-wrap:wrap;width:132px;
   box-shadow:0 8px 24px rgba(0,0,0,0.55);}
 .theme-dd-list.open{display:flex;}
-.theme-dd-item{flex-shrink:0;width:22px;height:22px;border-radius:50%;cursor:pointer;
+.theme-dd-item{flex-shrink:0;width:24px;height:24px;border-radius:50%;cursor:pointer;
   border:2px solid rgba(255,255,255,0.3);padding:0;touch-action:manipulation;
   box-shadow:0 2px 0 rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.25);}
 .theme-dd-item:active{transform:scale(0.85);}
@@ -1529,7 +1529,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
     </button>
   </div>
   <button class="wlc-start-btn" onclick="startApp()">▶ شروع کریں</button>
-  <div class="wlc-ver-tag" id="wlcVerTag">1508sa0305pm</div>
+  <div class="wlc-ver-tag" id="wlcVerTag">1508sa0315pm</div>
 </div>
 
 <div id="splash">
@@ -1541,7 +1541,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">1508sa0305pm</span>
+    <span class="ver-code" id="splashVerCode">1508sa0315pm</span>
   </div>
 </div>
 
@@ -1551,7 +1551,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   <div id="topBar">
     <div class="status-block-mini">
       <span class="ver-pill" id="tbVerPill">Online</span>
-      <span class="ver-code" id="tbVerCode">1508sa0305pm</span>
+      <span class="ver-code" id="tbVerCode">1508sa0315pm</span>
       <button class="icon-btn btn-refresh sm" onclick="forceRefresh()" title="تازہ ترین ورژن لوڈ کریں">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/></svg>
       </button>
@@ -3736,7 +3736,24 @@ function setTheme(t){
 }
 function toggleThemeDropdown(ev){
   if(ev)ev.stopPropagation();
-  document.getElementById('themeDDList')?.classList.toggle('open');
+  const list=document.getElementById('themeDDList');
+  if(!list)return;
+  const willOpen=!list.classList.contains('open');
+  if(willOpen){
+    const btn=document.getElementById('themeDDBtn');
+    if(btn){
+      const r=btn.getBoundingClientRect();
+      list.style.top=(r.bottom+6)+'px';
+      let left=r.left-52;
+      const maxLeft=window.innerWidth-138;
+      if(left<6)left=6;
+      if(left>maxLeft)left=Math.max(6,maxLeft);
+      list.style.left=left+'px';
+      list.style.right='auto';
+      list.style.bottom='auto';
+    }
+  }
+  list.classList.toggle('open');
 }
 function closeThemeDropdown(){
   document.getElementById('themeDDList')?.classList.remove('open');
@@ -3950,7 +3967,7 @@ function applyUrFont(idx){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='1508sa0305pm';
+const APP_VERSION='1508sa0315pm';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
