@@ -107,6 +107,30 @@
   --txt:#eef2ff;--txt2:#c7d2fe;
   --apbg:rgba(245,158,11,0.08);--upbg:rgba(49,46,129,0.08);
   --apbr:rgba(245,158,11,0.4);--upbr:rgba(99,102,241,0.35);}
+[data-theme="blush"]{
+  --b1:#fff5f7;--b2:#ffe4ec;--b3:#ffd0dc;--b2R:255,228,236;--b3R:255,208,220;--lightTheme:1;
+  --ac:#db2777;--acd:#be185d;--acdd:#9d174d;--acl:#ec4899;--acli:#f472b6;--achi:#f9a8d4;
+  --hi:#9d174d;--hiR:157,23,77;--acR:219,39,119;
+  --gd:#b45309;--gdd:#92400e;--gddd:#78350f;--gdi:#d97706;--ghi:#1c1917;--gdR:180,83,9;
+  --txt:#1c0a12;--txt2:#831843;
+  --apbg:rgba(180,83,9,0.08);--upbg:rgba(219,39,119,0.07);
+  --apbr:rgba(180,83,9,0.4);--upbr:rgba(236,72,153,0.35);}
+[data-theme="mist"]{
+  --b1:#f8fafc;--b2:#eef2f6;--b3:#e2e8f0;--b2R:238,242,246;--b3R:226,232,240;--lightTheme:1;
+  --ac:#475569;--acd:#334155;--acdd:#1e293b;--acl:#64748b;--acli:#94a3b8;--achi:#cbd5e1;
+  --hi:#334155;--hiR:51,65,85;--acR:71,85,105;
+  --gd:#b45309;--gdd:#92400e;--gddd:#78350f;--gdi:#d97706;--ghi:#1c1917;--gdR:180,83,9;
+  --txt:#0f172a;--txt2:#334155;
+  --apbg:rgba(180,83,9,0.08);--upbg:rgba(71,85,105,0.07);
+  --apbr:rgba(180,83,9,0.4);--upbr:rgba(100,116,139,0.35);}
+[data-theme="sand"]{
+  --b1:#fdf8f0;--b2:#faf0dd;--b3:#f5e5c8;--b2R:250,240,221;--b3R:245,229,200;--lightTheme:1;
+  --ac:#a16207;--acd:#854d0e;--acdd:#713f12;--acl:#ca8a04;--acli:#eab308;--achi:#fde047;
+  --hi:#854d0e;--hiR:133,77,14;--acR:161,98,7;
+  --gd:#7f1d1d;--gdd:#991b1b;--gddd:#450a0a;--gdi:#b91c1c;--ghi:#1c0000;--gdR:127,29,29;
+  --txt:#1c1509;--txt2:#713f12;
+  --apbg:rgba(127,29,29,0.08);--upbg:rgba(161,98,7,0.07);
+  --apbr:rgba(127,29,29,0.4);--upbr:rgba(202,138,4,0.35);}
 
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{height:100vh;height:100svh;overflow:hidden;
@@ -243,6 +267,26 @@ html,body{height:100vh;height:100svh;overflow:hidden;
 .thm-btn:active{transform:scale(0.85);}
 .thm-btn.active{border:3px solid rgba(255,255,255,1);transform:scale(1.25);
   box-shadow:0 0 0 3px rgba(255,255,255,0.32),0 4px 14px rgba(0,0,0,0.6);}
+
+/* THEME DROPDOWN — top-bar quick picker, next to settings button */
+.theme-dd-wrap{position:relative;flex-shrink:0;}
+.theme-dd-btn{width:26px;height:26px;border-radius:50%;flex-shrink:0;cursor:pointer;
+  border:2px solid rgba(255,255,255,0.5);padding:0;touch-action:manipulation;
+  background:rgba(0,0,0,0.15);display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 0 rgba(0,0,0,0.55),inset 0 1px 0 rgba(255,255,255,0.25);}
+.theme-dd-btn:active{transform:scale(0.9);}
+.theme-dd-dot{width:16px;height:16px;border-radius:50%;background:#16a34a;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.4);transition:background .2s;}
+.theme-dd-list{display:none;position:absolute;top:32px;left:0;z-index:60;
+  background:rgba(15,23,42,0.96);border:1px solid rgba(255,255,255,0.18);
+  border-radius:14px;padding:9px;gap:7px;flex-wrap:wrap;width:130px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.55);}
+.theme-dd-list.open{display:flex;}
+.theme-dd-item{flex-shrink:0;width:22px;height:22px;border-radius:50%;cursor:pointer;
+  border:2px solid rgba(255,255,255,0.3);padding:0;touch-action:manipulation;
+  box-shadow:0 2px 0 rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.25);}
+.theme-dd-item:active{transform:scale(0.85);}
+.theme-dd-item.active{border:3px solid #fff;box-shadow:0 0 0 2px rgba(255,255,255,0.35),0 3px 10px rgba(0,0,0,0.6);}
 
 /* SHAKIR BANNER */
 #shakirBanner{flex-shrink:0;display:none;align-items:center;justify-content:center;position:relative;
@@ -1485,7 +1529,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
     </button>
   </div>
   <button class="wlc-start-btn" onclick="startApp()">▶ شروع کریں</button>
-  <div class="wlc-ver-tag" id="wlcVerTag">1508sa0220pm</div>
+  <div class="wlc-ver-tag" id="wlcVerTag">1508sa0305pm</div>
 </div>
 
 <div id="splash">
@@ -1497,7 +1541,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">1508sa0220pm</span>
+    <span class="ver-code" id="splashVerCode">1508sa0305pm</span>
   </div>
 </div>
 
@@ -1507,7 +1551,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   <div id="topBar">
     <div class="status-block-mini">
       <span class="ver-pill" id="tbVerPill">Online</span>
-      <span class="ver-code" id="tbVerCode">1508sa0220pm</span>
+      <span class="ver-code" id="tbVerCode">1508sa0305pm</span>
       <button class="icon-btn btn-refresh sm" onclick="forceRefresh()" title="تازہ ترین ورژن لوڈ کریں">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/></svg>
       </button>
@@ -1528,6 +1572,26 @@ html,body{height:100vh;height:100svh;overflow:hidden;
       </div>
     </div>
     <button class="ur-font-toggle tb-urfont" id="urFontBtn" onclick="toggleUrFont()" title="نستعلیق فونٹ بدلیں">🖋</button>
+    <div class="theme-dd-wrap" id="themeDDWrap">
+      <button class="theme-dd-btn" id="themeDDBtn" onclick="toggleThemeDropdown(event)" title="تھیم منتخب کریں">
+        <span class="theme-dd-dot" id="themeDDDot"></span>
+      </button>
+      <div class="theme-dd-list" id="themeDDList">
+        <button class="theme-dd-item" id="thdd-emerald"   onclick="selectThemeFromDD('emerald')"   style="background:#16a34a"></button>
+        <button class="theme-dd-item" id="thdd-sapphire"  onclick="selectThemeFromDD('sapphire')"  style="background:#2563eb"></button>
+        <button class="theme-dd-item" id="thdd-amethyst"  onclick="selectThemeFromDD('amethyst')"  style="background:#8b5cf6"></button>
+        <button class="theme-dd-item" id="thdd-crimson"   onclick="selectThemeFromDD('crimson')"   style="background:#dc2626"></button>
+        <button class="theme-dd-item" id="thdd-teal"      onclick="selectThemeFromDD('teal')"      style="background:#0d9488"></button>
+        <button class="theme-dd-item" id="thdd-pearl"     onclick="selectThemeFromDD('pearl')"     style="background:#10b981"></button>
+        <button class="theme-dd-item" id="thdd-sky"       onclick="selectThemeFromDD('sky')"       style="background:#0ea5e9"></button>
+        <button class="theme-dd-item" id="thdd-parchment" onclick="selectThemeFromDD('parchment')" style="background:#b45309"></button>
+        <button class="theme-dd-item" id="thdd-rose"      onclick="selectThemeFromDD('rose')"      style="background:#db2777"></button>
+        <button class="theme-dd-item" id="thdd-midnight"  onclick="selectThemeFromDD('midnight')"  style="background:#4338ca"></button>
+        <button class="theme-dd-item" id="thdd-blush"     onclick="selectThemeFromDD('blush')"     style="background:#f472b6"></button>
+        <button class="theme-dd-item" id="thdd-mist"      onclick="selectThemeFromDD('mist')"      style="background:#64748b"></button>
+        <button class="theme-dd-item" id="thdd-sand"      onclick="selectThemeFromDD('sand')"      style="background:#ca8a04"></button>
+      </div>
+    </div>
     <button class="icon-btn btn-settings sm" onclick="openSettings()" title="سیٹنگز">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
     </button>
@@ -1861,6 +1925,9 @@ html,body{height:100vh;height:100svh;overflow:hidden;
     <button class="thm-btn"        id="th-parchment" onclick="setTheme('parchment')" style="background:#b45309"></button>
     <button class="thm-btn"        id="th-rose"      onclick="setTheme('rose')"      style="background:#db2777"></button>
     <button class="thm-btn"        id="th-midnight"  onclick="setTheme('midnight')"  style="background:#4338ca"></button>
+    <button class="thm-btn"        id="th-blush"     onclick="setTheme('blush')"     style="background:#f472b6"></button>
+    <button class="thm-btn"        id="th-mist"      onclick="setTheme('mist')"      style="background:#64748b"></button>
+    <button class="thm-btn"        id="th-sand"      onclick="setTheme('sand')"      style="background:#ca8a04"></button>
   </div>
   <div class="settings-sec-title">🎙 ڈیفالٹ قاری</div>
   <div id="defQariBox" style="padding:2px 16px 12px;">
@@ -3654,12 +3721,34 @@ function saveShareSettings(){
 }
 
 // ══ THEME ══
+const THEME_COLORS={emerald:'#16a34a',sapphire:'#2563eb',amethyst:'#8b5cf6',crimson:'#dc2626',
+  teal:'#0d9488',pearl:'#10b981',sky:'#0ea5e9',parchment:'#b45309',rose:'#db2777',
+  midnight:'#4338ca',blush:'#f472b6',mist:'#64748b',sand:'#ca8a04'};
 function setTheme(t){
   document.documentElement.setAttribute('data-theme',t);
   document.querySelectorAll('.thm-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('th-'+t)?.classList.add('active');
+  document.querySelectorAll('.theme-dd-item').forEach(b=>b.classList.remove('active'));
+  document.getElementById('thdd-'+t)?.classList.add('active');
+  const dot=document.getElementById('themeDDDot');
+  if(dot)dot.style.background=THEME_COLORS[t]||'#16a34a';
   try{localStorage.setItem('qtheme',t);}catch{}
 }
+function toggleThemeDropdown(ev){
+  if(ev)ev.stopPropagation();
+  document.getElementById('themeDDList')?.classList.toggle('open');
+}
+function closeThemeDropdown(){
+  document.getElementById('themeDDList')?.classList.remove('open');
+}
+function selectThemeFromDD(t){
+  setTheme(t);
+  closeThemeDropdown();
+}
+document.addEventListener('click',function(e){
+  const wrap=document.getElementById('themeDDWrap');
+  if(wrap && !wrap.contains(e.target))closeThemeDropdown();
+});
 
 // ══ INIT ══
 // ══ WELCOME → SPLASH → APP ══
@@ -3861,7 +3950,7 @@ function applyUrFont(idx){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='1508sa0220pm';
+const APP_VERSION='1508sa0305pm';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
