@@ -143,7 +143,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
 #ayatInfoBar{flex-shrink:0;display:flex;align-items:stretch;justify-content:space-between;gap:8px;
   padding:8px 10px;background:rgba(var(--b3R),0.55);border-bottom:1px solid rgba(255,255,255,0.08);}
 .aib-item{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1 1 0;
-  min-width:0;padding:6px 8px;border-radius:12px;
+  min-width:0;padding:4px 8px;border-radius:12px;
   background:var(--b3);
   border:1px solid rgba(var(--acR),0.35);box-shadow:none;}
 .aib-lbl{font-family:Arial,sans-serif;font-size:10.5px;color:var(--txt2);opacity:.9;letter-spacing:.2px;margin-bottom:2px;}
@@ -1473,25 +1473,24 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   border-radius:8px;border:1px solid rgba(var(--acR),0.4);background:rgba(255,255,255,0.06);
   color:inherit;font-family:inherit;}
 .tr-sel:disabled{opacity:0.5;}
-/* ══ پیج زوم ویجیٹ — ڈریگ ایبل، جہاں چھوڑیں وہیں فکس ہو جائے ══ */
-#pageZoomWidget{position:fixed;left:6px;top:50%;transform:translateY(-50%);z-index:99999;
-  display:flex;flex-direction:column;align-items:center;gap:0;touch-action:none;}
-#pzOpenBtn{width:34px;height:34px;border-radius:50%;border:1.5px solid rgba(253,230,138,0.7);cursor:grab;
-  background:linear-gradient(160deg,#4ade80,#16a34a 55%,#0d6b38);color:#fff;font-size:15px;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 3px 0 #0a4d29,0 6px 10px rgba(0,0,0,0.45),inset 0 1px 0 rgba(255,255,255,0.5);}
-#pzOpenBtn:active{transform:translateY(1px);}
-#pzControls{display:none;flex-direction:column;align-items:center;gap:4px;margin-top:6px;
-  background:linear-gradient(180deg,rgba(15,23,42,0.85),rgba(15,23,42,0.72));
-  border:1px solid rgba(255,255,255,0.15);border-radius:14px;padding:8px 6px;
-  box-shadow:0 4px 10px rgba(0,0,0,0.4);}
-#pageZoomWidget.open #pzControls{display:flex;}
-/* + / − کو ہلکا رکھا گیا ہے، زیادہ ہائی لائٹ/چمکدار نہیں */
-.pz-btn{width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,255,255,0.18);cursor:pointer;
-  font-size:14px;font-weight:700;background:rgba(255,255,255,0.10);color:rgba(255,255,255,0.75);
-  box-shadow:none;display:flex;align-items:center;justify-content:center;}
-.pz-btn:active{background:rgba(255,255,255,0.2);}
-#pzPct{font-family:Arial,sans-serif;font-size:11px;font-weight:900;color:#fff;text-align:center;min-width:34px;}
+/* ══ پیج زوم سلائیڈر — فکس، بٹنوں کے نیچے، عربی باکس کے اوپر، پوری چوڑائی ══ */
+#pageZoomBar{display:flex;align-items:center;gap:10px;flex-shrink:0;
+  padding:7px 12px;margin:0 6px 4px;
+  background:linear-gradient(180deg,rgba(15,23,42,0.62),rgba(15,23,42,0.4));
+  border:1px solid rgba(255,255,255,0.1);border-radius:14px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.07),inset 0 -3px 8px rgba(0,0,0,0.4),0 3px 8px rgba(0,0,0,0.28);}
+#pageZoomBar input[type=range]{flex:1 1 auto;-webkit-appearance:none;appearance:none;
+  height:6px;border-radius:4px;background:linear-gradient(90deg,#0d6b38,#4ade80);outline:none;margin:0;}
+#pageZoomBar input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;
+  background:linear-gradient(160deg,#4ade80,#16a34a 55%,#0d6b38);border:1.5px solid rgba(253,230,138,0.7);
+  box-shadow:0 3px 0 #0a4d29,0 4px 8px rgba(0,0,0,0.45),inset 0 1px 0 rgba(255,255,255,0.5);cursor:pointer;}
+#pageZoomBar input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;
+  background:linear-gradient(160deg,#4ade80,#16a34a 55%,#0d6b38);border:1.5px solid rgba(253,230,138,0.7);
+  box-shadow:0 3px 0 #0a4d29,0 4px 8px rgba(0,0,0,0.45);cursor:pointer;}
+#pageZoomBar input[type=range]::-moz-range-track{height:6px;border-radius:4px;background:linear-gradient(90deg,#0d6b38,#4ade80);}
+#pzBarIcon{font-size:14px;flex-shrink:0;opacity:0.85;}
+#pageZoomPct{font-family:Arial,sans-serif;font-size:12px;font-weight:900;color:#4ade80;
+  min-width:38px;text-align:center;flex-shrink:0;}
 </style>
 </head>
 <body>
@@ -1529,7 +1528,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
     </button>
   </div>
   <button class="wlc-start-btn" onclick="startApp()">▶ شروع کریں</button>
-  <div class="wlc-ver-tag" id="wlcVerTag">1508sa0325pm</div>
+  <div class="wlc-ver-tag" id="wlcVerTag">1508sa0352pm</div>
 </div>
 
 <div id="splash">
@@ -1541,7 +1540,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">1508sa0325pm</span>
+    <span class="ver-code" id="splashVerCode">1508sa0352pm</span>
   </div>
 </div>
 
@@ -1551,7 +1550,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   <div id="topBar">
     <div class="status-block-mini">
       <span class="ver-pill" id="tbVerPill">Online</span>
-      <span class="ver-code" id="tbVerCode">1508sa0325pm</span>
+      <span class="ver-code" id="tbVerCode">1508sa0352pm</span>
       <button class="icon-btn btn-refresh sm" onclick="forceRefresh()" title="تازہ ترین ورژن لوڈ کریں">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/></svg>
       </button>
@@ -1603,6 +1602,13 @@ html,body{height:100vh;height:100svh;overflow:hidden;
     <div class="aib-item"><span class="aib-lbl">Sura No.</span><span class="aib-val" id="infoSuraNo">1</span></div>
     <div class="aib-item"><span class="aib-lbl">Ruku No.</span><span class="aib-val" id="infoRukuNo">—</span></div>
     <div class="aib-item"><span class="aib-lbl">Para No.</span><span class="aib-val" id="infoParaNo">1</span></div>
+  </div>
+
+  <!-- ══ پیج زوم سلائیڈر — پورے ایپ انٹرفیس کا سائز کم/زیادہ کرنے کے لیے، بٹنوں کے بالکل نیچے، عربی باکس کے اوپر ══ -->
+  <div id="pageZoomBar">
+    <span id="pzBarIcon">🔍</span>
+    <input type="range" id="pageZoomSlider" min="50" max="200" step="5" value="100" oninput="setPageZoom(this.value)">
+    <span id="pageZoomPct">100%</span>
   </div>
 
   <!-- QARI BUTTONS اب دائیں کالم (qariCol) میں نیچے موجود ہیں -->
@@ -1958,16 +1964,6 @@ html,body{height:100vh;height:100svh;overflow:hidden;
 
 <div id="toast"></div>
 <audio id="aud" x-webkit-airplay="allow" playsinline webkit-playsinline preload="auto" preload="none"></audio>
-
-<!-- ══ پوری ایپ کا پیج زوم — ہمیشہ اوپر نظر آنے والا فلوٹنگ کنٹرول (ہر پیج/سیٹنگز پر ایک ہی جگہ) ══ -->
-<div id="pageZoomWidget">
-  <button id="pzOpenBtn" onclick="togglePageZoom()" title="پیج زوم">🔍</button>
-  <div id="pzControls">
-    <button class="pz-btn" onclick="bumpPageZoom(10)">+</button>
-    <span id="pzPct">100%</span>
-    <button class="pz-btn" onclick="bumpPageZoom(-10)">−</button>
-  </div>
-</div>
 
 <script>
 'use strict';
@@ -3967,7 +3963,7 @@ function applyUrFont(idx){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='1508sa0325pm';
+const APP_VERSION='1508sa0352pm';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
@@ -4014,99 +4010,33 @@ async function forceRefresh(){
     location.href=location.pathname+'?v='+Date.now();
   },350);
 }
-// ══ پیج زوم ویجیٹ — پوری ایپ (ہر پیج/سیٹنگز اوورلے سمیت) کو زوم کرنے کے لیے ══
+// ══ پیج زوم سلائیڈر — پوری ایپ (ہر پیج/سیٹنگز اوورلے سمیت) کو زوم کرنے کے لیے، فکس بار، بغیر ڈریگ کے ══
 (function(){
-  var MIN_Z=80,MAX_Z=160,STEP=10;
+  var MIN_Z=50,MAX_Z=200;
   var cur=parseInt(localStorage.getItem('pageZoomPct')||'100',10);
   if(isNaN(cur))cur=100;
+  cur=Math.max(MIN_Z,Math.min(MAX_Z,cur));
   function apply(){
     document.documentElement.style.zoom=cur+'%';
-    var pct=document.getElementById('pzPct');
+    var pct=document.getElementById('pageZoomPct');
     if(pct)pct.textContent=cur+'%';
-    localStorage.setItem('pageZoomPct',cur);
+    var sl=document.getElementById('pageZoomSlider');
+    if(sl&&parseInt(sl.value,10)!==cur)sl.value=cur;
+    try{localStorage.setItem('pageZoomPct',cur);}catch(e){}
   }
-  window.bumpPageZoom=function(delta){
-    cur=Math.max(MIN_Z,Math.min(MAX_Z,cur+delta));
+  window.setPageZoom=function(v){
+    var n=parseInt(v,10);
+    if(isNaN(n))return;
+    cur=Math.max(MIN_Z,Math.min(MAX_Z,n));
     apply();
   };
-  window.togglePageZoom=function(){
-    var w=document.getElementById('pageZoomWidget');
-    if(w)w.classList.toggle('open');
-  };
-  document.addEventListener('DOMContentLoaded',apply);
-  if(document.readyState==='complete'||document.readyState==='interactive')apply();
-
-  // ── ڈریگ اینڈ ڈراپ: مِرر (🔍 بٹن) کو پکڑ کے جہاں چھوڑیں وہیں فکس ہو جائے ──
-  function clampToViewport(wrap){
-    var vw=window.innerWidth,vh=window.innerHeight;
-    var w=wrap.offsetWidth||40,h=wrap.offsetHeight||40;
-    var r=wrap.getBoundingClientRect();
-    var nl=Math.max(2,Math.min(vw-w-2,r.left));
-    var nt=Math.max(2,Math.min(vh-h-2,r.top));
-    if(nl!==r.left||nt!==r.top){
-      wrap.style.transform='none';
-      wrap.style.left=nl+'px';
-      wrap.style.top=nt+'px';
-      try{localStorage.setItem('pageZoomPos',JSON.stringify({left:nl,top:nt}));}catch(e){}
-    }
+  function init(){
+    var sl=document.getElementById('pageZoomSlider');
+    if(sl)sl.value=cur;
+    apply();
   }
-  function initDrag(){
-    var wrap=document.getElementById('pageZoomWidget');
-    var handle=document.getElementById('pzOpenBtn');
-    if(!wrap||!handle)return;
-    var savedPos=null;
-    try{savedPos=JSON.parse(localStorage.getItem('pageZoomPos')||'null');}catch(e){}
-    if(savedPos&&typeof savedPos.left==='number'&&typeof savedPos.top==='number'
-      &&isFinite(savedPos.left)&&isFinite(savedPos.top)){
-      wrap.style.transform='none';
-      wrap.style.left=savedPos.left+'px';
-      wrap.style.top=savedPos.top+'px';
-    }else{
-      try{localStorage.removeItem('pageZoomPos');}catch(e){}
-    }
-    // ہر بار لوڈ پر اور اسکرین گھمانے/سائز بدلنے پر یقینی بنائیں کہ ویجیٹ سکرین کے اندر ہی رہے
-    setTimeout(function(){clampToViewport(wrap);},60);
-    window.addEventListener('resize',function(){clampToViewport(wrap);});
-    window.addEventListener('orientationchange',function(){setTimeout(function(){clampToViewport(wrap);},150);});
-    var startX=0,startY=0,startLeft=0,startTop=0,dragging=false,moved=false;
-    handle.addEventListener('pointerdown',function(ev){
-      dragging=true;moved=false;
-      var r=wrap.getBoundingClientRect();
-      startLeft=r.left;startTop=r.top;
-      startX=ev.clientX;startY=ev.clientY;
-      handle.setPointerCapture(ev.pointerId);
-    });
-    handle.addEventListener('pointermove',function(ev){
-      if(!dragging)return;
-      var dx=ev.clientX-startX,dy=ev.clientY-startY;
-      if(Math.abs(dx)>6||Math.abs(dy)>6)moved=true;
-      if(!moved)return;
-      wrap.style.transform='none';
-      var vw=window.innerWidth,vh=window.innerHeight;
-      var w=wrap.offsetWidth,h=wrap.offsetHeight;
-      var nl=Math.max(2,Math.min(vw-w-2,startLeft+dx));
-      var nt=Math.max(2,Math.min(vh-h-2,startTop+dy));
-      wrap.style.left=nl+'px';
-      wrap.style.top=nt+'px';
-    });
-    function endDrag(ev){
-      if(!dragging)return;
-      dragging=false;
-      if(moved){
-        var r=wrap.getBoundingClientRect();
-        localStorage.setItem('pageZoomPos',JSON.stringify({left:r.left,top:r.top}));
-      }
-    }
-    handle.addEventListener('pointerup',endDrag);
-    handle.addEventListener('pointercancel',endDrag);
-    var origToggle=window.togglePageZoom;
-    window.togglePageZoom=function(){
-      if(moved){moved=false;return;} // ڈریگ کے بعد کھلنے سے روکیں
-      origToggle();
-    };
-  }
-  document.addEventListener('DOMContentLoaded',initDrag);
-  if(document.readyState==='complete'||document.readyState==='interactive')initDrag();
+  document.addEventListener('DOMContentLoaded',init);
+  if(document.readyState==='complete'||document.readyState==='interactive')init();
 })();
 
 </script>
