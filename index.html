@@ -1529,7 +1529,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
     </button>
   </div>
   <button class="wlc-start-btn" onclick="startApp()">▶ شروع کریں</button>
-  <div class="wlc-ver-tag" id="wlcVerTag">1508sa0315pm</div>
+  <div class="wlc-ver-tag" id="wlcVerTag">1508sa0325pm</div>
 </div>
 
 <div id="splash">
@@ -1541,7 +1541,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">1508sa0315pm</span>
+    <span class="ver-code" id="splashVerCode">1508sa0325pm</span>
   </div>
 </div>
 
@@ -1551,7 +1551,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   <div id="topBar">
     <div class="status-block-mini">
       <span class="ver-pill" id="tbVerPill">Online</span>
-      <span class="ver-code" id="tbVerCode">1508sa0315pm</span>
+      <span class="ver-code" id="tbVerCode">1508sa0325pm</span>
       <button class="icon-btn btn-refresh sm" onclick="forceRefresh()" title="تازہ ترین ورژن لوڈ کریں">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/></svg>
       </button>
@@ -3967,7 +3967,7 @@ function applyUrFont(idx){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='1508sa0315pm';
+const APP_VERSION='1508sa0325pm';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
@@ -4037,17 +4037,37 @@ async function forceRefresh(){
   if(document.readyState==='complete'||document.readyState==='interactive')apply();
 
   // ── ڈریگ اینڈ ڈراپ: مِرر (🔍 بٹن) کو پکڑ کے جہاں چھوڑیں وہیں فکس ہو جائے ──
+  function clampToViewport(wrap){
+    var vw=window.innerWidth,vh=window.innerHeight;
+    var w=wrap.offsetWidth||40,h=wrap.offsetHeight||40;
+    var r=wrap.getBoundingClientRect();
+    var nl=Math.max(2,Math.min(vw-w-2,r.left));
+    var nt=Math.max(2,Math.min(vh-h-2,r.top));
+    if(nl!==r.left||nt!==r.top){
+      wrap.style.transform='none';
+      wrap.style.left=nl+'px';
+      wrap.style.top=nt+'px';
+      try{localStorage.setItem('pageZoomPos',JSON.stringify({left:nl,top:nt}));}catch(e){}
+    }
+  }
   function initDrag(){
     var wrap=document.getElementById('pageZoomWidget');
     var handle=document.getElementById('pzOpenBtn');
     if(!wrap||!handle)return;
     var savedPos=null;
     try{savedPos=JSON.parse(localStorage.getItem('pageZoomPos')||'null');}catch(e){}
-    if(savedPos&&typeof savedPos.left==='number'&&typeof savedPos.top==='number'){
+    if(savedPos&&typeof savedPos.left==='number'&&typeof savedPos.top==='number'
+      &&isFinite(savedPos.left)&&isFinite(savedPos.top)){
       wrap.style.transform='none';
       wrap.style.left=savedPos.left+'px';
       wrap.style.top=savedPos.top+'px';
+    }else{
+      try{localStorage.removeItem('pageZoomPos');}catch(e){}
     }
+    // ہر بار لوڈ پر اور اسکرین گھمانے/سائز بدلنے پر یقینی بنائیں کہ ویجیٹ سکرین کے اندر ہی رہے
+    setTimeout(function(){clampToViewport(wrap);},60);
+    window.addEventListener('resize',function(){clampToViewport(wrap);});
+    window.addEventListener('orientationchange',function(){setTimeout(function(){clampToViewport(wrap);},150);});
     var startX=0,startY=0,startLeft=0,startTop=0,dragging=false,moved=false;
     handle.addEventListener('pointerdown',function(ev){
       dragging=true;moved=false;
