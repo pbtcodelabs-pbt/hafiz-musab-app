@@ -1,11 +1,10 @@
-// 1508sa0831pm — Service Worker
-const CACHE_NAME = 'hafiz-musab-shell-1508sa0831pm';
+//  — Service Worker
+const CACHE_NAME = 'hafiz-musab-shell-';
 const SHELL_FILES = ['./', './index.html', './manifest.json'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) =>
-      // ہر فائل الگ الگ کیش کریں — ایک فائل ناکام ہونے سے باقی سب کا کیشنگ ناکام نہ ہو
       Promise.all(SHELL_FILES.map((f) => cache.add(f).catch(() => {})))
     )
   );
@@ -38,7 +37,6 @@ self.addEventListener('fetch', (event) => {
       .catch(() =>
         caches.match(req).then((cached) => {
           if (cached) return cached;
-          // آف لائن اور کیش میں بھی نہیں — نیویگیشن کی صورت میں کم از کم index.html دکھائیں
           if (req.mode === 'navigate') return caches.match('./index.html');
           return new Response('', { status: 408, statusText: 'Offline' });
         })

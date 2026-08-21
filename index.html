@@ -915,6 +915,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   text-shadow:0 0 8px rgba(74,222,128,0.7);
   background:rgba(74,222,128,0.12);border:1px solid rgba(74,222,128,0.4);
   border-radius:8px;padding:3px 12px;display:inline-block;}
+.wlc-ver-tag-top{margin-top:2px;margin-bottom:12px;}
 
 
 /* ══ SLEEP TIMER OVERLAY ══ */
@@ -1504,6 +1505,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   <div class="wlc-bismillah">﷽</div>
   <div class="wlc-quran-title" onclick="secretVideoLinkTap()">Hifz Pro</div>
   <div class="wlc-by-ahg">By ARJ-MBR-MSB</div>
+  <div class="wlc-ver-tag wlc-ver-tag-top" id="wlcVerTag2"></div>
   <div class="wlc-card">
     <button class="wlc-video-btn" onclick="openIntroVideo()">
       <span class="wvb-ic">▶️</span>
@@ -1533,7 +1535,6 @@ html,body{height:100vh;height:100svh;overflow:hidden;
     </button>
   </div>
   <button class="wlc-start-btn" onclick="startApp()">▶ شروع کریں</button>
-  <div class="wlc-ver-tag" id="wlcVerTag">1508sa0831pm</div>
 </div>
 
 <div id="splash">
@@ -1546,7 +1547,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">1508sa0831pm</span>
+    <span class="ver-code" id="splashVerCode">2108fr0606am</span>
   </div>
 </div>
 
@@ -3977,7 +3978,7 @@ function applyUrFont(idx){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='1508sa0831pm';
+const APP_VERSION='2108fr0606am';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
@@ -3990,7 +3991,7 @@ function updateNetStatus(){
   if(slbl){slbl.textContent=on?'آن لائن':'آف لائن';}
 
   const pills=[document.getElementById('splashVerPill'),document.getElementById('tbVerPill')];
-  const codes=[document.getElementById('splashVerCode'),document.getElementById('tbVerCode'),document.getElementById('wlcVerTag')];
+  const codes=[document.getElementById('splashVerCode'),document.getElementById('tbVerCode'),document.getElementById('wlcVerTag2')];
   pills.forEach(p=>{
     if(!p)return;
     p.textContent=on?'Online':'Offline';
