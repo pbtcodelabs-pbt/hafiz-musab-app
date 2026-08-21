@@ -3071,7 +3071,21 @@ function applySel(){
 let dlQari=CQ;
 // ══ یوٹیوب تعارفی ویڈیو — لنک صرف سیٹنگز میں 5-ٹچ کے خفیہ طریقے سے تبدیل ہو سکتا ہے،
 // عام صارف کو یہ آپشن نظر ہی نہیں آتا ══
+// ══ یوٹیوب ویڈیو لنک — ایک الگ فائل video-link.txt سے پڑھا جاتا ہے (welcome.txt جیسا نظام)
+// تاکہ ہر صارف کے فون پر خودکار اپڈیٹ ہو، نہ کہ صرف ایک ڈیوائس پر ══
+let _remoteIntroVideoLink='';
+async function loadRemoteIntroVideoLink(){
+  try{
+    const res=await fetch('./video-link.txt?t='+Date.now(),{cache:'no-store'});
+    if(res.ok){
+      const txt=(await res.text()).trim();
+      if(txt)_remoteIntroVideoLink=txt;
+    }
+  }catch(e){/* آف لائن — پرانا/خالی لنک ہی رہے گا */}
+}
+document.addEventListener('DOMContentLoaded',loadRemoteIntroVideoLink);
 function getIntroVideoLink(){
+  if(_remoteIntroVideoLink)return _remoteIntroVideoLink;
   try{return localStorage.getItem('introVideoLink')||'';}catch{return '';}
 }
 function openIntroVideo(){
@@ -3086,13 +3100,8 @@ function secretVideoLinkTap(){
   _videoTapTimer=setTimeout(()=>{_videoTapCount=0;},1200);
   if(_videoTapCount>=5){
     _videoTapCount=0;
-    const cur=getIntroVideoLink();
-    const nl=window.prompt('یوٹیوب ویڈیو کا لنک درج کریں:',cur);
-    if(nl!==null){
-      try{localStorage.setItem('introVideoLink',nl.trim());}catch{}
-      showToast('✓ ویڈیو لنک محفوظ ہو گیا');
-    }
-    return true; // خفیہ ٹچ مکمل ہوئی
+    showToast('یوٹیوب لنک بدلنے کے لیے: گٹ ہب پر video-link.txt فائل ایڈٹ کریں');
+    return true;
   }
   return false;
 }
