@@ -967,31 +967,34 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   align-items:flex-end;justify-content:center;}
 #pickerOverlay.open{display:flex;}
 .picker-card{width:fit-content;max-width:92vw;min-width:240px;max-height:82vh;max-height:82svh;
-  background:linear-gradient(160deg,#0a1a0e,#061209,#030a05);
-  border:2px solid rgba(var(--acR),0.7);border-radius:22px;
-  box-shadow:0 8px 40px rgba(0,0,0,0.8);display:flex;flex-direction:column;overflow:hidden;
+  background:linear-gradient(160deg,#ffffff,#f8fafc,#f1f5f9);
+  border:2px solid rgba(var(--acR),0.5);border-radius:22px;
+  box-shadow:0 8px 40px rgba(0,0,0,0.35);display:flex;flex-direction:column;overflow:hidden;
   padding-bottom:env(safe-area-inset-bottom);margin-bottom:calc(14px + env(safe-area-inset-bottom));}
 .picker-head{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;
-  padding:14px 16px 10px;border-bottom:1px solid rgba(var(--acR),0.35);}
-.picker-title{font-family:'Jameel-Noori.N','JN',serif;font-size:17px;font-weight:900;color:#fbbf24;}
+  padding:14px 16px 10px;border-bottom:1px solid rgba(var(--acR),0.25);}
+.picker-title{font-family:'Jameel-Noori.N','JN',serif;font-size:17px;font-weight:900;color:#166534;}
 .picker-close{width:30px;height:30px;border-radius:10px;border:none;cursor:pointer;
-  background:rgba(255,255,255,0.12);color:#fff;font-size:15px;font-weight:900;touch-action:manipulation;}
+  background:rgba(0,0,0,0.08);color:#334155;font-size:15px;font-weight:900;touch-action:manipulation;}
 .picker-fontrow{flex-shrink:0;display:flex;align-items:center;justify-content:center;gap:10px;
-  padding:8px 16px;border-bottom:1px solid rgba(var(--acR),0.25);}
-.picker-fontlbl{font-family:'Jameel-Noori.N','JN',serif;font-size:11px;color:rgba(248,250,252,0.65);}
-.picker-fontbtn{width:30px;height:30px;border-radius:9px;border:1.5px solid rgba(var(--acR),0.6);
-  background:linear-gradient(145deg,rgba(var(--acR),0.42),rgba(0,0,0,0.72));color:#fff;
+  padding:8px 16px;border-bottom:1px solid rgba(var(--acR),0.18);}
+.picker-fontlbl{font-family:'Jameel-Noori.N','JN',serif;font-size:11px;color:#475569;}
+.picker-fontbtn{width:30px;height:30px;border-radius:9px;border:1.5px solid rgba(var(--acR),0.5);
+  background:linear-gradient(145deg,rgba(var(--acR),0.22),rgba(255,255,255,0.6));color:#166534;
   font-size:16px;font-weight:900;cursor:pointer;touch-action:manipulation;}
 .picker-fontbtn:active{transform:translateY(1px);}
-.picker-fontval{font-family:'Courier New',monospace;font-size:12px;font-weight:900;color:#4ade80;min-width:38px;text-align:center;}
+.picker-fontval{font-family:'Courier New',monospace;font-size:12px;font-weight:900;color:#15803d;min-width:38px;text-align:center;}
 .picker-list{flex:1;overflow-y:auto;padding:6px 10px 16px;}
-.picker-item{display:block;width:100%;box-sizing:border-box;text-align:right;direction:rtl;
-  font-family:'Jameel-Noori.N','JN',serif;font-weight:700;font-size:19px;color:#f0fdf4;
-  background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.1);
+.picker-item{display:flex;align-items:center;gap:10px;width:100%;box-sizing:border-box;text-align:right;direction:rtl;
+  font-family:'Jameel-Noori.N','JN',serif;font-weight:700;font-size:19px;color:#0f172a;
+  background:#ffffff;border:1.5px solid rgba(0,0,0,0.1);
   border-radius:12px;padding:12px 16px;margin-bottom:7px;cursor:pointer;touch-action:manipulation;}
-.picker-item:active{background:rgba(255,255,255,0.14);}
-.picker-item.active{background:linear-gradient(145deg,rgba(var(--acR),0.5),rgba(var(--acR),0.25));
+.picker-item:active{background:#f1f5f9;}
+.picker-item.active{background:linear-gradient(145deg,rgba(var(--acR),0.28),rgba(var(--acR),0.12));
   border-color:var(--achi);color:var(--achi);}
+.picker-item.has-icon{justify-content:space-between;}
+.pk-item-label{flex:1;text-align:right;}
+.pk-item-icon{flex-shrink:0;font-size:17px;line-height:1;padding:4px 6px;border-radius:8px;touch-action:manipulation;}
 
 #timerOverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:800;
   flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;}
@@ -1455,7 +1458,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   box-shadow:0 2px 0 #06122e,0 3px 6px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.1) !important;
   color:#facc15 !important;padding:0 8px;font-family:'Jameel-Noori.N','JN',serif;text-overflow:ellipsis;
   text-shadow:0 0 6px rgba(250,204,21,0.9),0 0 14px rgba(250,204,21,0.55) !important;}
-.fw-surah-sel option{background:#0b1f4d;color:#facc15;font-size:16px;padding:10px;text-shadow:none !important;}
+.fw-surah-sel option{background:#ffffff;color:#166534;font-size:16px;padding:10px;text-shadow:none !important;}
 .qari-push-right{flex-shrink:0;}
 .qari-narrow{max-width:150px !important;min-width:0 !important;}
 /* قاری باکس کو بائیں والے Sura/Para گرڈ جیسا ہی ڈارک ابھرا ہوا بیک گراؤنڈ دیا — یکساں خوبصورت لُک */
@@ -1669,7 +1672,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">سوموار 14 ستمبر 04:05PM</span>
+    <span class="ver-code" id="splashVerCode">سوموار 14 ستمبر 05:05PM</span>
   </div>
 </div>
 
@@ -2434,8 +2437,23 @@ function openPicker(items,currentValue,title,onSelect){
   list.innerHTML='';
   items.forEach(it=>{
     const b=document.createElement('button');
-    b.className='picker-item'+(String(it.value)===String(currentValue)?' active':'');
-    b.textContent=it.label;
+    b.className='picker-item'+(String(it.value)===String(currentValue)?' active':'')+(it.icon?' has-icon':'');
+    if(it.icon){
+      const lblSpan=document.createElement('span');
+      lblSpan.className='pk-item-label';
+      lblSpan.textContent=it.label;
+      const iconSpan=document.createElement('span');
+      iconSpan.className='pk-item-icon';
+      if(it.iconId)iconSpan.id=it.iconId;
+      iconSpan.textContent=it.icon;
+      if(it.dlFn){
+        iconSpan.onclick=(e)=>{ e.stopPropagation(); it.dlFn(); };
+      }
+      b.appendChild(iconSpan);
+      b.appendChild(lblSpan);
+    } else {
+      b.textContent=it.label;
+    }
     b.onclick=()=>{ if(_pickerOnSelect)_pickerOnSelect(it.value); closePicker(); };
     list.appendChild(b);
   });
@@ -2506,7 +2524,10 @@ function blockNativeSelectAndOpenPicker(selId,getItemsFn,getTitleFn,existingWrap
 function initCustomPickers(){
   blockNativeSelectAndOpenPicker('qariDropdown',qariItemsSorted,()=>'🎙 قاری منتخب کریں','qariNowName');
   blockNativeSelectAndOpenPicker('quickSurahSel',
-    ()=>SH.map(s=>({value:s.n,label:s.n+'. '+s.ar})),
+    ()=>SH.map(s=>{
+      const done=isSurahDL(CQ,s.n);
+      return {value:s.n,label:s.n+'. '+s.ar,icon:done?'✅':'☁️',iconId:'pkdl-'+s.n,dlFn:()=>pickerDlSurah(s.n)};
+    }),
     ()=>'📖 سورہ منتخب کریں');
   blockNativeSelectAndOpenPicker('zabanSelect',
     ()=>LANGUAGES.map(l=>({value:l.code,label:l.name+(translatorsForLang(l.code).length>0?'':' — (جلد دستیاب ہوگا)')})),
@@ -3352,6 +3373,17 @@ async function mainListDlSurah(sn){
   await downloadSurah(CQ,sn,()=>{},(ok)=>{
     if(b){b.textContent=ok?'✅':'☁️';b.classList.toggle('done',ok);}
     if(ok){showToast('✅ '+SH[sn-1].ar+' ڈاؤن لوڈ مکمل');updateQariBadges();}
+    else showToast('❌ '+SH[sn-1].ar+' ڈاؤن لوڈ ناکام');
+  });
+}
+// ══ سورہ پکر (ڈراپ ڈاؤن لسٹ) کے اندر سے براہ راست ڈاؤن لوڈ ══
+async function pickerDlSurah(sn){
+  if(isSurahDL(CQ,sn)){showToast('✅ '+SH[sn-1].ar+' پہلے سے ڈاؤن لوڈ ہے');return;}
+  const b=document.getElementById('pkdl-'+sn);
+  if(b)b.textContent='⏳';
+  await downloadSurah(CQ,sn,()=>{},(ok)=>{
+    if(b)b.textContent=ok?'✅':'☁️';
+    if(ok){showToast('✅ '+SH[sn-1].ar+' ڈاؤن لوڈ مکمل');updateQariBadges();updateSurahListDLBadges();}
     else showToast('❌ '+SH[sn-1].ar+' ڈاؤن لوڈ ناکام');
   });
 }
@@ -4363,7 +4395,7 @@ function applyUrFont(idx){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='HFZ149MO0435PM';
+const APP_VERSION='HFZ149MO0505PM';
 const APP_VERSION_DISPLAY='سوموار 14 ستمبر 04:35PM';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
