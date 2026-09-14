@@ -1165,7 +1165,13 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   background:linear-gradient(145deg,#ffffff,#dbeafe);
   border:1.5px solid #3b82f6;
   box-shadow:0 3px 0 #1d4ed8,inset 0 1px 0 rgba(255,255,255,0.9);
-  transition:all .12s;}
+  transition:all .12s;position:relative;}
+/* ══ ہر سورہ کے سامنے ڈاؤن لوڈ بیج — کلاؤڈ (نہیں ہوئی) / ✅ (ہو چکی) / ⏳ (ہو رہی ہے)،
+   منتخب قاری (CQ) کے مطابق، مین پیج کی اسی فہرست میں ہی ڈاؤن لوڈ کرنے کے لیے ══ */
+.s-dl-badge{position:absolute;top:2px;left:2px;width:15px;height:15px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:8.5px;line-height:1;
+  background:rgba(255,255,255,0.92);box-shadow:0 1px 2px rgba(0,0,0,0.35);z-index:2;}
+.s-dl-badge.done{background:linear-gradient(145deg,#86efac,#4ade80);}
 .s-item:nth-child(even){background:linear-gradient(145deg,#eef6ff,#bfdbfe);}
 .s-item:nth-child(3n){background:linear-gradient(145deg,#f0f9ff,#a5d8ff);}
 .s-item:active{transform:translateY(2px);box-shadow:0 1px 0 #1d4ed8;}
@@ -1471,11 +1477,16 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   padding:7px 8px !important;margin:2px 6px 4px !important;
   box-shadow:inset 0 1px 0 rgba(255,255,255,0.07),inset 0 -3px 8px rgba(0,0,0,0.4),0 3px 8px rgba(0,0,0,0.28) !important;}
 .fw-pr-block{flex:1 1 0 !important;width:auto !important;min-width:0;overflow:hidden;}
-.wcol-ruku.fw-pr-block{flex:0.4 1 26px !important;width:auto !important;max-width:46px !important;min-width:18px !important;}
-.fw-pr-wide{flex:2 1 70px !important;width:auto !important;max-width:132px !important;min-width:44px !important;}
+/* رکوع باکس چوڑا کیا گیا — پہلے max-width صرف 46px تھی جبکہ اندر کا گول ویل 88px فکسڈ چوڑا تھا،
+   اسی لیے overflow:hidden سے آدھا نمبر (دوسرا ڈیجٹ) کٹ جاتا تھا۔ اب باکس اور اندر کا ویل دونوں
+   ہم آہنگ کیے تاکہ دو ہندسوں والا رکوع نمبر (مثلاً 12) مکمل اور صاف نظر آئے (Hfz) */
+.wcol-ruku.fw-pr-block{flex:0.62 1 40px !important;width:auto !important;max-width:62px !important;min-width:36px !important;}
+.fw-pr-wide{flex:1.7 1 58px !important;width:auto !important;max-width:118px !important;min-width:44px !important;}
 .fw-pr-block .wi-ar{color:#4ade80 !important;text-shadow:0 0 3px rgba(74,222,128,0.95) !important;
   font-weight:900 !important;font-size:11px !important;white-space:nowrap;}
-.wcol-ruku .wi-ar{font-size:15px !important;font-weight:900 !important;}
+.wcol-ruku .wi-ar{font-size:14px !important;font-weight:900 !important;}
+.wcol-ruku .wheel-item{padding:0 3px !important;}
+.wcol-ruku .wheel-item.center .wi-ar{font-size:18px !important;}
 .fw-pr-wide .wi-ar{font-size:13px !important;}
 .fw-pr-block .sw-label{display:none !important;}
 /* رکوع/پارہ ویل کے اندر نمبر نظر نہیں آ رہے تھے (تاریک رنگ تاریک بیک گراونڈ پر) — روشن سبز رنگ سے درست کیا (Hfz) */
@@ -1485,9 +1496,12 @@ html,body{height:100vh;height:100svh;overflow:hidden;
 .fw-pr-block .awheel-outer,.fw-pr-block .wheel-outer{height:34px !important;border-radius:17px !important;
   border:1.5px solid rgba(255,255,255,0.18) !important;background:#111827 !important;
   box-shadow:0 3px 8px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.1) !important;}
+/* رکوع کے گول ویل کو بھی اس کے باکس کی پوری چوڑائی تک بڑھایا (پہلے فکسڈ 88px تھی جو کٹ جاتی تھی) */
+.wcol-ruku.fw-pr-block .awheel-row{width:100% !important;}
+.wcol-ruku.fw-pr-block .awheel-outer,.wcol-ruku.fw-pr-block .wheel-outer{width:100% !important;max-width:62px !important;}
 /* پارہ (سپارہ) کا نام/نمبر پورا نظر آئے — گول ونڈو کی فکسڈ 88px چوڑائی کو بلاک کی پوری چوڑائی تک بڑھایا */
 .fw-pr-wide .awheel-row{width:100% !important;}
-.fw-pr-wide .awheel-outer,.fw-pr-wide .wheel-outer{width:100% !important;max-width:132px !important;}
+.fw-pr-wide .awheel-outer,.fw-pr-wide .wheel-outer{width:100% !important;max-width:118px !important;}
 .urdu-row-pill-btn{flex:0.7 1 26px;min-width:26px;height:34px;border-radius:17px;border:none;cursor:pointer;
   display:flex;align-items:center;justify-content:center;margin-right:6px;margin-left:2px;
   background:linear-gradient(160deg,#4ade80,#16a34a 55%,#0d6b38);color:#fff;
@@ -2850,6 +2864,7 @@ function setQari(k){
     loadA(St.s,St.a,false);
   }
   {const _b=document.getElementById('tbQariName');if(_b)_b.textContent=q.name;}
+  updateSurahListDLBadges();
   showToast('✓ '+q.name);
 }
 function shNext(){if(!SHAKIR)return;const ns=Math.min(114,St.s+1);
@@ -3311,11 +3326,34 @@ function ayahWheelClick(id,n){
 function renderSurahList(){
   const col=document.getElementById('surahCol');
   if(!col)return;
-  col.innerHTML=SH.map(s=>
-    `<div class="s-item" data-n="${s.n}" onclick="selSurah(${s.n})">
+  col.innerHTML=SH.map(s=>{
+    const done=isSurahDL(CQ,s.n);
+    return `<div class="s-item" data-n="${s.n}" onclick="selSurah(${s.n})">
+      <span class="s-dl-badge${done?' done':''}" id="sdlb-${s.n}" onclick="event.stopPropagation();mainListDlSurah(${s.n})">${done?'✅':'☁️'}</span>
       <span class="sn">${s.n}</span><span class="sa">${s.ar}</span>
-    </div>`
-  ).join('');
+    </div>`;
+  }).join('');
+}
+// ══ منتخب قاری کے مطابق مین پیج کی سورہ فہرست کے بیجز تازہ کریں (قاری بدلنے پر) ══
+function updateSurahListDLBadges(){
+  SH.forEach(s=>{
+    const b=document.getElementById('sdlb-'+s.n);
+    if(!b)return;
+    const done=isSurahDL(CQ,s.n);
+    b.classList.toggle('done',done);
+    b.textContent=done?'✅':'☁️';
+  });
+}
+// ══ مین پیج کی سورہ لسٹ سے براہ راست ڈاؤن لوڈ — ڈاؤن لوڈ مینجر میں جائے بغیر ══
+async function mainListDlSurah(sn){
+  if(isSurahDL(CQ,sn)){showToast('✅ '+SH[sn-1].ar+' پہلے سے ڈاؤن لوڈ ہے');return;}
+  const b=document.getElementById('sdlb-'+sn);
+  if(b)b.textContent='⏳';
+  await downloadSurah(CQ,sn,()=>{},(ok)=>{
+    if(b){b.textContent=ok?'✅':'☁️';b.classList.toggle('done',ok);}
+    if(ok){showToast('✅ '+SH[sn-1].ar+' ڈاؤن لوڈ مکمل');updateQariBadges();}
+    else showToast('❌ '+SH[sn-1].ar+' ڈاؤن لوڈ ناکام');
+  });
 }
 function selSurah(n){
   wSelected=n;
@@ -4325,8 +4363,8 @@ function applyUrFont(idx){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='HFZ149MO0405PM';
-const APP_VERSION_DISPLAY='سوموار 14 ستمبر 04:05PM';
+const APP_VERSION='HFZ149MO0435PM';
+const APP_VERSION_DISPLAY='سوموار 14 ستمبر 04:35PM';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
