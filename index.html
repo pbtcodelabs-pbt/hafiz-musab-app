@@ -819,7 +819,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
 
 /* ══ WELCOME OVERLAY ══ */
 #welcomeOverlay{position:fixed;inset:0;z-index:1100;display:flex;flex-direction:column;
-  align-items:center;overflow-y:auto;padding:clamp(10px,3svh,24px) 18px calc(clamp(14px,3.5svh,28px) + env(safe-area-inset-bottom));
+  align-items:center;overflow-y:auto;padding:clamp(6px,2svh,16px) 18px calc(clamp(10px,2.5svh,20px) + env(safe-area-inset-bottom));
   background:linear-gradient(160deg,#020d07 0%,#051a0e 40%,#081f10 70%,#030f08 100%);}
 #welcomeOverlay::before{content:'';position:absolute;inset:0;
   background:radial-gradient(ellipse at 50% 30%,rgba(21,128,61,0.22) 0%,transparent 65%),
@@ -829,12 +829,12 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   text-shadow:0 0 30px rgba(74,222,128,0.7),0 0 60px rgba(74,222,128,0.3);
   margin-bottom:clamp(2px,0.8svh,8px);animation:wglow 2.5s ease-in-out infinite alternate;}
 @keyframes wglow{from{text-shadow:0 0 20px rgba(74,222,128,0.5);}to{text-shadow:0 0 50px rgba(74,222,128,0.9),0 0 80px rgba(74,222,128,0.4);}}
-.wlc-quran-title{font-family:'Playfair Display',serif;font-size:clamp(24px,6svh,38px);font-weight:900;font-style:italic;
+.wlc-quran-title{font-family:'Playfair Display',serif;font-size:clamp(22px,5.5svh,34px);font-weight:900;font-style:italic;
   color:#fde68a;background:linear-gradient(90deg,#fde68a,#4ade80,#38bdf8,#f472b6,#facc15,#fde68a);
   background-size:400% auto;
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
   animation:wlcTitleColorShift 6s linear infinite,wlcTitleGlowPulse 2.4s ease-in-out infinite;
-  margin-bottom:clamp(6px,2svh,20px);letter-spacing:2px;direction:ltr;}
+  margin-bottom:clamp(2px,0.8svh,8px);letter-spacing:2px;direction:ltr;}
 @keyframes wlcTitleColorShift{
   0%{background-position:0% 50%;}
   100%{background-position:400% 50%;}
@@ -843,34 +843,36 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   0%,100%{filter:drop-shadow(0 0 14px rgba(250,204,21,0.55)) drop-shadow(0 2px 10px rgba(0,0,0,0.6));}
   50%{filter:drop-shadow(0 0 30px rgba(74,222,128,0.85)) drop-shadow(0 2px 10px rgba(0,0,0,0.6));}
 }
-.wlc-by-ahg{font-family:'Playfair Display',serif;font-size:clamp(11px,2.2svh,15px);font-weight:900;font-style:italic;
+.wlc-by-ahg{font-family:'Playfair Display',serif;font-size:clamp(10px,2svh,13px);font-weight:900;font-style:italic;
   color:#fde68a;background:linear-gradient(135deg,#fde68a,#facc15 45%,#ca8a04);
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
   text-shadow:0 0 16px rgba(250,204,21,0.45),0 2px 8px rgba(0,0,0,0.6);
-  margin-top:clamp(-14px,-1.6svh,-6px);margin-bottom:clamp(6px,1.8svh,16px);letter-spacing:1.5px;direction:ltr;}
+  margin-top:clamp(-10px,-1.2svh,-4px);margin-bottom:clamp(4px,1svh,10px);letter-spacing:1.5px;direction:ltr;}
+.wlc-top-row{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;
+  gap:8px;margin-bottom:clamp(6px,1.4svh,14px);}
 .wlc-card{position:relative;width:100%;max-width:420px;
   background:linear-gradient(145deg,rgba(21,128,61,0.18),rgba(0,0,0,0.75));
   border:2px solid rgba(74,222,128,0.35);border-radius:22px;
-  padding:clamp(12px,2.6svh,20px) 18px clamp(10px,2svh,16px);
+  padding:clamp(8px,1.8svh,14px) 16px clamp(8px,1.6svh,12px);
   box-shadow:0 0 0 1px rgba(74,222,128,0.08),0 8px 40px rgba(0,0,0,0.6),
              inset 0 1px 0 rgba(74,222,128,0.15);}
 .wlc-card::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
   width:60%;height:2px;border-radius:2px;
   background:linear-gradient(90deg,transparent,#4ade80,transparent);}
 .wlc-text{font-family:'Jameel-Noori.N','JN',serif;font-size:clamp(12px,2.4svh,18px);font-weight:400;color:#f0fdf4;
-  direction:rtl;text-align:center;line-height:1.7;
+  direction:rtl;text-align:center;line-height:1.55;
   text-shadow:0 1px 6px rgba(0,0,0,0.4);}
-.wlc-text-sm{font-size:clamp(11px,2.1svh,15px);line-height:1.6;}
+.wlc-text-sm{font-size:clamp(11px,2.1svh,14px);line-height:1.5;}
 /* ══ یوٹیوب تعارفی ویڈیو بٹن ══ */
 .wlc-video-btn{width:100%;display:flex;align-items:center;gap:10px;
   background:linear-gradient(145deg,#16a34a,#0d6b38);border:1.5px solid rgba(253,230,138,0.6);
-  border-radius:12px;padding:clamp(7px,1.3svh,10px) 12px;margin-bottom:clamp(8px,1.6svh,14px);cursor:pointer;touch-action:manipulation;
+  border-radius:12px;padding:clamp(6px,1.1svh,9px) 12px;margin-bottom:clamp(5px,1svh,10px);cursor:pointer;touch-action:manipulation;
   box-shadow:0 3px 10px rgba(0,0,0,0.35);}
 .wvb-ic{font-size:clamp(17px,2.8svh,22px);flex-shrink:0;}
 .wvb-txt{display:flex;flex-direction:column;gap:2px;text-align:right;flex:1;}
 .wvb-title{font-family:'Jameel-Noori.N','JN',serif;font-size:clamp(11px,2svh,13px);font-weight:900;color:#fde68a;}
 .wvb-sub{font-family:'Jameel-Noori.N','JN',serif;font-size:clamp(9px,1.7svh,10.5px);font-weight:700;color:#dcfce7;}
-.wlc-divider{width:80%;height:1.5px;margin:clamp(8px,1.5svh,14px) auto;
+.wlc-divider{width:80%;height:1.5px;margin:clamp(5px,1svh,10px) auto;
   background:linear-gradient(90deg,transparent,rgba(202,138,4,0.55),transparent);}
 .wlc-from{font-family:'Jameel-Noori.N','JN',serif;font-size:28px;font-weight:900;
   color:#fde68a;direction:rtl;text-align:center;line-height:1.8;
@@ -885,7 +887,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
 .wlc-dots-btn:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,0.5);
   background:rgba(0,0,0,0.55);}
 .wlc-playstore-btn{display:flex;align-items:center;justify-content:center;gap:8px;
-  margin:clamp(6px,1.2svh,12px) auto 0;padding:clamp(6px,1.2svh,8px) 18px;border-radius:10px;width:fit-content;
+  margin:clamp(4px,0.8svh,8px) auto 0;padding:clamp(6px,1.2svh,8px) 18px;border-radius:10px;width:fit-content;
   background:#000;border:1px solid rgba(255,255,255,0.25);
   text-decoration:none;cursor:pointer;touch-action:manipulation;
   box-shadow:0 3px 0 rgba(0,0,0,0.5);transition:all .12s;}
@@ -914,10 +916,10 @@ html,body{height:100vh;height:100svh;overflow:hidden;
 .cd-edit-btn{padding:7px 10px;border-radius:10px;border:1.5px dashed rgba(253,230,138,0.6);
   background:transparent;color:#fde68a;font-family:'Jameel-Noori.N','JN',serif;font-size:11px;font-weight:900;
   cursor:pointer;touch-action:manipulation;}
-.wlc-manzil-btn{display:block;margin:10px auto 0;padding:clamp(8px,1.5svh,11px) 22px;border-radius:14px;
+.wlc-manzil-btn{display:inline-flex;align-items:center;justify-content:center;margin:0;padding:6px 16px;border-radius:12px;
   border:1.5px solid rgba(253,230,138,0.65);cursor:pointer;width:fit-content;
   background:linear-gradient(145deg,#7c2d12,#431407);
-  color:#fde68a;font-family:'Jameel-Noori.N','JN',serif;font-size:clamp(13px,2.3svh,16px);font-weight:900;
+  color:#fde68a;font-family:'Jameel-Noori.N','JN',serif;font-size:clamp(11px,2svh,14px);font-weight:900;
   box-shadow:0 3px 0 #2b0a02,0 0 14px rgba(124,45,18,0.6);touch-action:manipulation;}
 .wlc-manzil-btn:active{transform:translateY(2px);box-shadow:0 1px 0 #2b0a02;}
 /* ══ منزل اوورلے ══ */
@@ -947,7 +949,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   direction:rtl;text-align:right;line-height:1.9;}
 .mz-ur .mz-unum{font-family:'Jameel-Noori.N','JN',serif;font-size:12px;color:#fde68a;font-weight:900;}
 
-.wlc-start-btn{margin-top:clamp(10px,2.2svh,22px);padding:clamp(10px,2svh,14px) 40px;border-radius:16px;border:none;cursor:pointer;
+.wlc-start-btn{margin-top:clamp(6px,1.4svh,14px);padding:clamp(9px,1.8svh,13px) 38px;border-radius:16px;border:none;cursor:pointer;
   font-family:'Jameel-Noori.N','JN',serif;font-size:clamp(15px,2.8svh,20px);font-weight:900;color:#fff;
   background:radial-gradient(ellipse at 40% 30%,#4ade80,#22c55e,#15803d,#166534);
   box-shadow:0 6px 0 #14532d,0 10px 30px rgba(21,128,61,0.65),inset 0 2px 0 rgba(255,255,255,0.35);
@@ -958,7 +960,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   text-shadow:0 0 8px rgba(74,222,128,0.7);
   background:rgba(74,222,128,0.12);border:1px solid rgba(74,222,128,0.4);
   border-radius:8px;padding:3px 12px;display:inline-block;}
-.wlc-ver-tag-top{margin-top:2px;margin-bottom:clamp(6px,1.5svh,12px);}
+.wlc-ver-tag-top{margin-top:0;margin-bottom:0;}
 
 
 /* ══ SLEEP TIMER OVERLAY ══ */
@@ -1602,10 +1604,12 @@ html,body{height:100vh;height:100svh;overflow:hidden;
 <body>
 
 <div id="welcomeOverlay">
-  <div class="wlc-bismillah">﷽</div>
   <div class="wlc-quran-title">Hifz Pro</div>
   <div class="wlc-by-ahg">By ARJ-MBR-MSB</div>
-  <div class="wlc-ver-tag wlc-ver-tag-top" id="wlcVerTag2"></div>
+  <div class="wlc-top-row">
+    <div class="wlc-ver-tag wlc-ver-tag-top" id="wlcVerTag2"></div>
+    <button class="wlc-manzil-btn" onclick="openManzil()">🛡️ منزل پڑھیں</button>
+  </div>
   <div class="wlc-card">
     <button class="wlc-video-btn" onpointerdown="wvbPressStart(event)" onpointerup="wvbPressEnd(event)" onpointerleave="wvbPressCancel(event)" onpointercancel="wvbPressCancel(event)" oncontextmenu="return false;">
       <span class="wvb-ic">▶️</span>
@@ -1646,7 +1650,6 @@ html,body{height:100vh;height:100svh;overflow:hidden;
       <svg viewBox="0 0 24 24" width="26" height="26"><path fill="#00d9ff" d="M3.6 2.4c-.3.3-.5.7-.5 1.2v16.8c0 .5.2.9.5 1.2l.1.1L13 12l-9.3-9.5-.1-.1z"/><path fill="#00f076" d="M16.1 15.1 13 12l3.1-3.1 3.9 2.2c1.1.6 1.1 1.6 0 2.2l-3.9 2.2z"/><path fill="#ff3a44" d="M16.1 15.1 13 12 3.6 21.6c.4.4 1 .5 1.7.1l10.8-6.6z"/><path fill="#ffcf00" d="M16.1 8.9 5.3 2.3c-.7-.4-1.3-.3-1.7.1L13 12l3.1-3.1z"/></svg>
       <span class="wlc-ps-txt"><span class="wlc-ps-top">GET IT ON</span><span class="wlc-ps-main">Google Play</span></span>
     </a>
-    <button class="wlc-manzil-btn" onclick="openManzil()">🛡️ منزل پڑھیں</button>
   </div>
   <button class="wlc-start-btn" onclick="startApp()">▶ شروع کریں</button>
 </div>
@@ -1672,7 +1675,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">سوموار 14 ستمبر 05:05PM</span>
+    <span class="ver-code" id="splashVerCode">سوموار 14 ستمبر 05:25PM</span>
   </div>
 </div>
 
@@ -4395,7 +4398,7 @@ function applyUrFont(idx){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='HFZ149MO0505PM';
+const APP_VERSION='HFZ149MO0525PM';
 const APP_VERSION_DISPLAY='سوموار 14 ستمبر 04:35PM';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
