@@ -184,7 +184,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   border:1.5px solid #fde047;border-radius:999px;padding:5px 16px;margin:0 4px;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px;
   box-shadow:0 2px 8px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.15);}
-.net-status{display:flex;align-items:center;gap:4px;font-size:8px;font-family:'Courier New',monospace;margin-top:2px;color:rgba(var(--hiR),0.7);}
+.net-status{display:flex;align-items:center;gap:4px;font-size:9px;font-family:'Jameel-Noori.N','JN',serif;margin-top:2px;color:rgba(var(--hiR),0.7);}
 .net-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;transition:background .2s;}
 .net-dot.online{background:#4ade80;box-shadow:0 0 6px #4ade80;}
 .net-dot.offline{background:#f87171;box-shadow:0 0 6px #f87171;}
@@ -604,7 +604,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   box-shadow:inset 0 1px 2px rgba(0,0,0,0.25);}
 .wi-ar{font-family:'Amiri Quran','Noto Naskh Arabic','JN',serif;font-size:15px;font-weight:900;color:var(--hi);flex:1;text-align:center;
   text-shadow:0 0 10px rgba(var(--hiR),0.65),0 1px 2px rgba(0,0,0,0.5);}
-.wi-tr{font-size:9px;color:var(--hi);opacity:0.9;flex:1;text-align:center;font-family:sans-serif;font-weight:900;text-shadow:0 0 6px rgba(var(--hiR),0.4);}
+.wi-tr{font-size:9px;color:var(--hi);opacity:0.9;flex:1;text-align:center;font-family:'Jameel-Noori.N','JN',serif;font-weight:900;text-shadow:0 0 6px rgba(var(--hiR),0.4);}
 .wheel-item.near{opacity:0.75;}
 .wheel-item.center{opacity:1;}
 .wheel-item.center .wi-ar{color:var(--hi);font-size:23px;font-weight:900;
@@ -742,7 +742,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   display:flex;align-items:center;justify-content:center;font-family:'Courier New',monospace;
   border:1.5px solid #38bdf8;}
 .ds-name{font-family:'Jameel-Noori.N','JN',serif;font-size:17px;font-weight:900;color:#111827;text-shadow:none;}
-.ds-sub{font-size:9px;color:#475569;font-family:sans-serif;font-weight:600;}
+.ds-sub{font-size:10px;color:#475569;font-family:'Jameel-Noori.N','JN',serif;font-weight:600;}
 .ds-status{flex-shrink:0;display:flex;align-items:center;gap:5px;}
 .ds-icon{font-size:14px;}
 .ds-btn{width:28px;height:28px;border-radius:50%;border:none;cursor:pointer;
@@ -819,7 +819,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
 
 /* ══ WELCOME OVERLAY ══ */
 #welcomeOverlay{position:fixed;inset:0;z-index:1100;display:flex;flex-direction:column;
-  align-items:center;overflow-y:auto;padding:28px 22px 28px;
+  align-items:center;overflow-y:auto;padding:28px 22px calc(40px + env(safe-area-inset-bottom));
   background:linear-gradient(160deg,#020d07 0%,#051a0e 40%,#081f10 70%,#030f08 100%);}
 #welcomeOverlay::before{content:'';position:absolute;inset:0;
   background:radial-gradient(ellipse at 50% 30%,rgba(21,128,61,0.22) 0%,transparent 65%),
@@ -920,8 +920,8 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   box-shadow:0 6px 0 #14532d,0 10px 30px rgba(21,128,61,0.65),inset 0 2px 0 rgba(255,255,255,0.35);
   touch-action:manipulation;transition:all .14s;position:relative;z-index:1;}
 .wlc-start-btn:active{transform:translateY(4px);box-shadow:0 2px 0 #14532d;}
-.wlc-ver-tag{margin-top:8px;font-family:'Courier New',monospace;font-size:13px;font-weight:900;
-  color:#4ade80;text-align:center;letter-spacing:2px;
+.wlc-ver-tag{margin-top:8px;font-family:'Jameel-Noori.N','JN',serif;font-size:15px;font-weight:900;
+  color:#4ade80;text-align:center;letter-spacing:0;
   text-shadow:0 0 8px rgba(74,222,128,0.7);
   background:rgba(74,222,128,0.12);border:1px solid rgba(74,222,128,0.4);
   border-radius:8px;padding:3px 12px;display:inline-block;}
@@ -929,6 +929,37 @@ html,body{height:100vh;height:100svh;overflow:hidden;
 
 
 /* ══ SLEEP TIMER OVERLAY ══ */
+/* ══ CUSTOM PICKER OVERLAY — قاری/سورہ/زبان/مترجم کی اپنی بڑی، صاف، نستعلیق کشیدہ لسٹ (نیٹو ڈراپ ڈاؤن کی بجائے) ══ */
+#pickerOverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:1300;
+  align-items:flex-end;justify-content:center;}
+#pickerOverlay.open{display:flex;}
+.picker-card{width:100%;max-width:500px;max-height:82vh;max-height:82svh;
+  background:linear-gradient(160deg,#0a1a0e,#061209,#030a05);
+  border:2px solid rgba(var(--acR),0.7);border-top-left-radius:22px;border-top-right-radius:22px;
+  box-shadow:0 -8px 40px rgba(0,0,0,0.8);display:flex;flex-direction:column;overflow:hidden;
+  padding-bottom:env(safe-area-inset-bottom);}
+.picker-head{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;
+  padding:14px 16px 10px;border-bottom:1px solid rgba(var(--acR),0.35);}
+.picker-title{font-family:'Jameel-Noori.N','JN',serif;font-size:17px;font-weight:900;color:#fbbf24;}
+.picker-close{width:30px;height:30px;border-radius:10px;border:none;cursor:pointer;
+  background:rgba(255,255,255,0.12);color:#fff;font-size:15px;font-weight:900;touch-action:manipulation;}
+.picker-fontrow{flex-shrink:0;display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:8px 16px;border-bottom:1px solid rgba(var(--acR),0.25);}
+.picker-fontlbl{font-family:'Jameel-Noori.N','JN',serif;font-size:11px;color:rgba(248,250,252,0.65);}
+.picker-fontbtn{width:30px;height:30px;border-radius:9px;border:1.5px solid rgba(var(--acR),0.6);
+  background:linear-gradient(145deg,rgba(var(--acR),0.42),rgba(0,0,0,0.72));color:#fff;
+  font-size:16px;font-weight:900;cursor:pointer;touch-action:manipulation;}
+.picker-fontbtn:active{transform:translateY(1px);}
+.picker-fontval{font-family:'Courier New',monospace;font-size:12px;font-weight:900;color:#4ade80;min-width:38px;text-align:center;}
+.picker-list{flex:1;overflow-y:auto;padding:6px 10px 16px;}
+.picker-item{display:block;width:100%;box-sizing:border-box;text-align:right;direction:rtl;
+  font-family:'Jameel-Noori.N','JN',serif;font-weight:700;font-size:19px;color:#f0fdf4;
+  background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.1);
+  border-radius:12px;padding:12px 16px;margin-bottom:7px;cursor:pointer;touch-action:manipulation;}
+.picker-item:active{background:rgba(255,255,255,0.14);}
+.picker-item.active{background:linear-gradient(145deg,rgba(var(--acR),0.5),rgba(var(--acR),0.25));
+  border-color:var(--achi);color:var(--achi);}
+
 #timerOverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:800;
   flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;}
 #timerOverlay.open{display:flex;}
@@ -1080,9 +1111,9 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   font-family:'Courier New',monospace;box-shadow:0 2px 6px rgba(0,0,0,0.35);
   background:#16a34a;color:#ffffff;border:1.5px solid rgba(255,255,255,0.4);transition:all .2s;}
 .ver-pill.offline{background:#dc2626;}
-.ver-code{font-family:'Jameel-Noori.N','JN',serif;font-size:11px;font-weight:900;
+.ver-code{font-family:'Jameel-Noori.N','JN',serif;font-size:12px;font-weight:900;
   color:#111827;background:#fef9c3;border:1px solid #d97706;
-  padding:1px 9px;border-radius:6px;letter-spacing:1px;box-shadow:0 1px 3px rgba(0,0,0,0.3);}
+  padding:1px 9px;border-radius:6px;letter-spacing:0;box-shadow:0 1px 3px rgba(0,0,0,0.3);}
 
 /* ══ MIDDLE ROW — سورہ کالم (بائیں) + عربی/اردو (درمیان) + قاری کالم (دائیں) ══
    direction:ltr جان بوجھ کر لگایا ہے تاکہ سورہ ہمیشہ بائیں اور قاری ہمیشہ دائیں رہے */
@@ -1578,7 +1609,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">سوموار 14 ستمبر 10:34AM</span>
+    <span class="ver-code" id="splashVerCode">سوموار 14 ستمبر 10:53AM</span>
   </div>
 </div>
 
@@ -1690,7 +1721,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
         </div>
         <input type="number" class="ayat-manual-input" id="fromManualInput" min="1" oninput="onManualAyatInput('fromWheel',this.value)" placeholder="سے">
       </div>
-      <select id="quickSurahSel" class="quick-mini-sel fw-surah-sel" onchange="quickSelSurah(this.value)"></select>
+      <select id="quickSurahSel" class="quick-mini-sel fw-surah-sel" dir="rtl" onchange="quickSelSurah(this.value)"></select>
       <div class="awheel-block rr-block fw-block">
         <div class="awheel-row">
           <div class="wheel-outer awheel-outer">
@@ -1707,7 +1738,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
       <button class="quick-mini-btn" id="quickRepBtn" onclick="togRR()" title="ریپیٹ">↺</button>
       <span id="qariNowName" class="qari-narrow qari-push-right" dir="rtl">
         <span class="qn-ic">🎙️</span>
-        <select id="qariDropdown" onchange="setQari(this.value)"></select>
+        <select id="qariDropdown" dir="rtl" onchange="setQari(this.value)"></select>
       </span>
     </div>
   </div>
@@ -1715,10 +1746,10 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   <!-- TRANSLATION LANGUAGE + TRANSLATOR ROW -->
   <div id="trSelectRow">
     <div class="tr-sel-col">
-      <select id="zabanSelect" class="tr-sel" onchange="onZabanChange(this.value)"></select>
+      <select id="zabanSelect" class="tr-sel" dir="rtl" onchange="onZabanChange(this.value)"></select>
     </div>
     <div class="tr-sel-col">
-      <select id="mutarjimSelect" class="tr-sel" onchange="onMutarjimChange(this.value)"></select>
+      <select id="mutarjimSelect" class="tr-sel" dir="rtl" onchange="onMutarjimChange(this.value)"></select>
     </div>
   </div>
 
@@ -1905,6 +1936,23 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   </div>
 </div>
 
+<!-- CUSTOM PICKER OVERLAY (replaces native dropdown popups — big Nastaleeq font, RTL, adjustable size) -->
+<div id="pickerOverlay" onclick="if(event.target===this)closePicker();">
+  <div class="picker-card">
+    <div class="picker-head">
+      <div class="picker-title" id="pickerTitle"></div>
+      <button class="picker-close" onclick="closePicker()">✕</button>
+    </div>
+    <div class="picker-fontrow">
+      <span class="picker-fontlbl">فونٹ سائز</span>
+      <button class="picker-fontbtn" onclick="pickerFontBump(-10)">−</button>
+      <span class="picker-fontval" id="pickerFontPct">100%</span>
+      <button class="picker-fontbtn" onclick="pickerFontBump(10)">+</button>
+    </div>
+    <div class="picker-list" id="pickerList"></div>
+  </div>
+</div>
+
 <!-- SLEEP TIMER OVERLAY -->
 <div id="timerOverlay" onclick="timerBgClick(event)">
   <div class="timer-card" id="timerCard">
@@ -1973,7 +2021,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   <div class="settings-sec-title">🎙 ڈیفالٹ قاری</div>
   <div id="defQariBox" style="padding:2px 16px 12px;">
     <div id="defQariCurrent" style="font-family:'Jameel-Noori.N','JN',serif;font-size:12px;color:#065f46;font-weight:800;margin-bottom:7px;text-align:center;background:#ecfdf5;border:1.5px solid #10b981;border-radius:10px;padding:5px 8px;">موجودہ ڈیفالٹ: —</div>
-    <select id="defQariSelect" class="tr-sel" style="width:100%;margin-bottom:8px;box-sizing:border-box;"></select>
+    <select id="defQariSelect" class="tr-sel" dir="rtl" style="width:100%;margin-bottom:8px;box-sizing:border-box;"></select>
     <button class="sq-btn" onclick="setDefaultQari()" style="width:100%;box-sizing:border-box;background:linear-gradient(145deg,#16a34a,#15803d);color:#fff;border:none;">✓ اس قاری کو ڈیفالٹ مقرر کریں</button>
     <div style="font-family:'Jameel-Noori.N','JN',serif;font-size:9.5px;color:#64748b;text-align:center;margin-top:5px;">ڈیفالٹ قاری ہر بار ایپ کھلنے پر خودبخود سب سے پہلے چلے گا، جب تک آپ خود تبدیل نہ کریں</div>
   </div>
@@ -2308,6 +2356,74 @@ async function refreshCurrentAyahText(){
     const onlineTag=tr&&tr.apiId?' ● آن لائن':' ● قرآن متن آف لائن';
     tag.textContent=tr?('ترجمہ: '+tr.name+onlineTag):'ترجمہ دستیاب نہیں';
   }
+}
+
+// ══ CUSTOM PICKER — قاری/سورہ/زبان/مترجم کی نیٹو ڈراپ ڈاؤن کی جگہ اپنی بڑی نستعلیق لسٹ ══
+// (فون کا نیٹو سلیکٹ پاپ اپ فونٹ کبھی کوڈ سے تبدیل نہیں ہوتا — اسی لیے یہ اپنی لسٹ بنائی گئی ہے)
+let pickerFontPct=100;
+try{const v=parseInt(localStorage.getItem('pickerFontPct'));if(v>=70&&v<=200)pickerFontPct=v;}catch{}
+let _pickerOnSelect=null;
+function qariItemsSorted(){
+  return Object.keys(QARIS).map(k=>({value:k,label:QARIS[k].name}))
+    .sort((a,b)=>a.label.localeCompare(b.label,'ur'));
+}
+function openPicker(items,currentValue,title,onSelect){
+  _pickerOnSelect=onSelect;
+  document.getElementById('pickerTitle').textContent=title;
+  const list=document.getElementById('pickerList');
+  list.innerHTML='';
+  items.forEach(it=>{
+    const b=document.createElement('button');
+    b.className='picker-item'+(String(it.value)===String(currentValue)?' active':'');
+    b.textContent=it.label;
+    b.onclick=()=>{ if(_pickerOnSelect)_pickerOnSelect(it.value); closePicker(); };
+    list.appendChild(b);
+  });
+  applyPickerFontPct();
+  document.getElementById('pickerOverlay').classList.add('open');
+}
+function closePicker(){
+  document.getElementById('pickerOverlay').classList.remove('open');
+  _pickerOnSelect=null;
+}
+function applyPickerFontPct(){
+  const fs=(19*pickerFontPct/100).toFixed(1)+'px';
+  document.querySelectorAll('.picker-item').forEach(b=>b.style.fontSize=fs);
+  const el=document.getElementById('pickerFontPct');if(el)el.textContent=pickerFontPct+'%';
+}
+function pickerFontBump(d){
+  pickerFontPct=Math.max(70,Math.min(200,pickerFontPct+d));
+  try{localStorage.setItem('pickerFontPct',pickerFontPct);}catch{}
+  applyPickerFontPct();
+}
+function fireSelectChange(sel,val){
+  sel.value=val;
+  sel.dispatchEvent(new Event('change'));
+}
+function blockNativeSelectAndOpenPicker(selId,getItemsFn,getTitleFn){
+  const sel=document.getElementById(selId);
+  if(!sel)return;
+  const openFn=()=>{
+    const items=getItemsFn();
+    if(!items||!items.length){try{showToast('ابھی کوئی مترجم دستیاب نہیں');}catch{}return;}
+    openPicker(items,sel.value,getTitleFn(),(v)=>fireSelectChange(sel,v));
+  };
+  sel.addEventListener('mousedown',function(e){e.preventDefault();sel.blur();});
+  sel.addEventListener('touchstart',function(e){e.preventDefault();},{passive:false});
+  sel.addEventListener('click',function(e){e.preventDefault();openFn();});
+}
+function initCustomPickers(){
+  blockNativeSelectAndOpenPicker('qariDropdown',qariItemsSorted,()=>'🎙 قاری منتخب کریں');
+  blockNativeSelectAndOpenPicker('quickSurahSel',
+    ()=>SH.map(s=>({value:s.n,label:s.n+'. '+s.ar})),
+    ()=>'📖 سورہ منتخب کریں');
+  blockNativeSelectAndOpenPicker('zabanSelect',
+    ()=>LANGUAGES.map(l=>({value:l.code,label:l.name+(translatorsForLang(l.code).length>0?'':' — (جلد دستیاب ہوگا)')})),
+    ()=>'🌐 زبان منتخب کریں');
+  blockNativeSelectAndOpenPicker('mutarjimSelect',
+    ()=>translatorsForLang(curLang).map(t=>({value:t.id,label:t.name})),
+    ()=>'✍️ مترجم منتخب کریں');
+  blockNativeSelectAndOpenPicker('defQariSelect',qariItemsSorted,()=>'🎙 ڈیفالٹ قاری منتخب کریں');
 }
 
 // ═══ زوم پلس/مائنس بٹن (فکسڈ پوزیشن) — سیٹنگز/ڈاؤن لوڈ/اشتہار وغیرہ اوورلے کھلے ہوں تو چھپا دیں،
@@ -3929,6 +4045,7 @@ function initApp(){
   initVolumeKnob();
   populateZabanSelect();
   populateMutarjimSelect();
+  initCustomPickers();
   setTimeout(()=>{
     const sel=document.querySelector('#surahCol .s-item[data-n="1"]');
     if(sel){sel.classList.add('selected');sel.scrollIntoView({block:'center'});}
@@ -4083,8 +4200,8 @@ function applyUrFont(idx){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='HFZ149MO1034AM';
-const APP_VERSION_DISPLAY='سوموار 14 ستمبر 10:34AM';
+const APP_VERSION='HFZ149MO1053AM';
+const APP_VERSION_DISPLAY='سوموار 14 ستمبر 10:53AM';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
