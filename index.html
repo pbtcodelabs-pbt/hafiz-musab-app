@@ -1609,7 +1609,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">سوموار 14 ستمبر 10:53AM</span>
+    <span class="ver-code" id="splashVerCode">سوموار 14 ستمبر 03:15PM</span>
   </div>
 </div>
 
@@ -2400,7 +2400,7 @@ function fireSelectChange(sel,val){
   sel.value=val;
   sel.dispatchEvent(new Event('change'));
 }
-function blockNativeSelectAndOpenPicker(selId,getItemsFn,getTitleFn){
+function blockNativeSelectAndOpenPicker(selId,getItemsFn,getTitleFn,existingWrapId){
   const sel=document.getElementById(selId);
   if(!sel)return;
   const openFn=()=>{
@@ -2408,12 +2408,36 @@ function blockNativeSelectAndOpenPicker(selId,getItemsFn,getTitleFn){
     if(!items||!items.length){try{showToast('ابھی کوئی مترجم دستیاب نہیں');}catch{}return;}
     openPicker(items,sel.value,getTitleFn(),(v)=>fireSelectChange(sel,v));
   };
-  sel.addEventListener('mousedown',function(e){e.preventDefault();sel.blur();});
-  sel.addEventListener('touchstart',function(e){e.preventDefault();},{passive:false});
-  sel.addEventListener('click',function(e){e.preventDefault();openFn();});
+  // مکمل طور پر ٹچ روکنا (نیٹو پاپ اپ کبھی نہ کھلے) — یہی سب سے قابلِ بھروسہ طریقہ ہے
+  sel.style.pointerEvents='none';
+  let wrap;
+  if(existingWrapId){
+    // پہلے سے موجود ریپر استعمال کریں (پورا آئیکن+نام ٹیپ ایبل بن جائے گا)
+    wrap=document.getElementById(existingWrapId);
+  } else {
+    // کوئی ریپر موجود نہیں — خود بخود ایک بنا کر سلیکٹ کو اس کے اندر منتقل کریں،
+    // تاکہ ٹیپ ایبل حصہ بالکل وہی ہو جہاں نام نظر آتا ہے
+    wrap=document.createElement('span');
+    wrap.id=selId+'_wrap';
+    wrap.className=sel.className;
+    const cs=getComputedStyle(sel);
+    wrap.style.display='inline-flex';
+    wrap.style.alignItems='center';
+    if(cs.flex && cs.flex!=='0 1 auto')wrap.style.flex=cs.flex;
+    sel.parentNode.insertBefore(wrap, sel);
+    wrap.appendChild(sel);
+    sel.style.flex='1';
+    sel.style.width='100%';
+    sel.style.minWidth='0';
+  }
+  if(!wrap)return;
+  wrap.style.cursor='pointer';
+  wrap.style.touchAction='manipulation';
+  wrap.style.webkitTapHighlightColor='transparent';
+  wrap.addEventListener('click', function(e){ e.preventDefault(); openFn(); });
 }
 function initCustomPickers(){
-  blockNativeSelectAndOpenPicker('qariDropdown',qariItemsSorted,()=>'🎙 قاری منتخب کریں');
+  blockNativeSelectAndOpenPicker('qariDropdown',qariItemsSorted,()=>'🎙 قاری منتخب کریں','qariNowName');
   blockNativeSelectAndOpenPicker('quickSurahSel',
     ()=>SH.map(s=>({value:s.n,label:s.n+'. '+s.ar})),
     ()=>'📖 سورہ منتخب کریں');
@@ -4200,8 +4224,8 @@ function applyUrFont(idx){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='HFZ149MO1053AM';
-const APP_VERSION_DISPLAY='سوموار 14 ستمبر 10:53AM';
+const APP_VERSION='HFZ149MO0315PM';
+const APP_VERSION_DISPLAY='سوموار 14 ستمبر 03:15PM';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
