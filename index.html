@@ -2,7 +2,7 @@
 <html lang="ur" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Hifz Pro">
@@ -914,6 +914,39 @@ html,body{height:100vh;height:100svh;overflow:hidden;
 .cd-edit-btn{padding:7px 10px;border-radius:10px;border:1.5px dashed rgba(253,230,138,0.6);
   background:transparent;color:#fde68a;font-family:'Jameel-Noori.N','JN',serif;font-size:11px;font-weight:900;
   cursor:pointer;touch-action:manipulation;}
+.wlc-manzil-btn{display:block;margin:10px auto 0;padding:clamp(8px,1.5svh,11px) 22px;border-radius:14px;
+  border:1.5px solid rgba(253,230,138,0.65);cursor:pointer;width:fit-content;
+  background:linear-gradient(145deg,#7c2d12,#431407);
+  color:#fde68a;font-family:'Jameel-Noori.N','JN',serif;font-size:clamp(13px,2.3svh,16px);font-weight:900;
+  box-shadow:0 3px 0 #2b0a02,0 0 14px rgba(124,45,18,0.6);touch-action:manipulation;}
+.wlc-manzil-btn:active{transform:translateY(2px);box-shadow:0 1px 0 #2b0a02;}
+/* ══ منزل اوورلے ══ */
+#manzilOverlay{display:none;position:fixed;inset:0;z-index:1400;flex-direction:column;
+  background:linear-gradient(160deg,#1a0f05 0%,#0d0803 60%,#050301 100%);}
+#manzilOverlay.open{display:flex;}
+.mz-head{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;
+  padding:14px 16px;padding-top:calc(14px + env(safe-area-inset-top));
+  border-bottom:1.5px solid rgba(253,230,138,0.3);
+  background:rgba(0,0,0,0.35);}
+.mz-title{font-family:'Jameel-Noori.N','JN',serif;font-size:19px;font-weight:900;color:#fde68a;}
+.mz-close{width:32px;height:32px;border-radius:10px;border:1.5px solid rgba(253,230,138,0.5);
+  background:rgba(255,255,255,0.08);color:#fde68a;font-size:16px;font-weight:900;
+  cursor:pointer;touch-action:manipulation;}
+.mz-body{flex:1;overflow-y:auto;padding:16px 16px calc(24px + env(safe-area-inset-bottom));}
+.mz-loading{font-family:'Jameel-Noori.N','JN',serif;font-size:15px;color:#fde68a;text-align:center;margin-top:40px;}
+.mz-sec{background:rgba(253,230,138,0.06);border:1.5px solid rgba(253,230,138,0.25);
+  border-radius:16px;padding:14px 14px 12px;margin-bottom:14px;}
+.mz-sec-title{font-family:'Jameel-Noori.N','JN',serif;font-size:14px;font-weight:900;color:#fde68a;
+  text-align:center;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid rgba(253,230,138,0.2);}
+.mz-ar{font-family:'Amiri Quran','Noto Naskh Arabic','JN',serif;font-size:24px;font-weight:700;
+  color:#fff7ed;direction:rtl;text-align:center;line-height:2.1;margin-bottom:12px;
+  text-shadow:0 0 14px rgba(253,230,138,0.25);}
+.mz-ar .mz-num{font-family:'Jameel-Noori.N','JN',serif;font-size:14px;color:#fde68a;
+  display:inline-block;margin:0 3px;vertical-align:middle;}
+.mz-ur{font-family:'Jameel-Noori.N','JN',serif;font-size:16px;font-weight:400;color:#e7dfd3;
+  direction:rtl;text-align:right;line-height:1.9;}
+.mz-ur .mz-unum{font-family:'Jameel-Noori.N','JN',serif;font-size:12px;color:#fde68a;font-weight:900;}
+
 .wlc-start-btn{margin-top:clamp(10px,2.2svh,22px);padding:clamp(10px,2svh,14px) 40px;border-radius:16px;border:none;cursor:pointer;
   font-family:'Jameel-Noori.N','JN',serif;font-size:clamp(15px,2.8svh,20px);font-weight:900;color:#fff;
   background:radial-gradient(ellipse at 40% 30%,#4ade80,#22c55e,#15803d,#166534);
@@ -933,11 +966,11 @@ html,body{height:100vh;height:100svh;overflow:hidden;
 #pickerOverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:1300;
   align-items:flex-end;justify-content:center;}
 #pickerOverlay.open{display:flex;}
-.picker-card{width:100%;max-width:500px;max-height:82vh;max-height:82svh;
+.picker-card{width:fit-content;max-width:92vw;min-width:240px;max-height:82vh;max-height:82svh;
   background:linear-gradient(160deg,#0a1a0e,#061209,#030a05);
-  border:2px solid rgba(var(--acR),0.7);border-top-left-radius:22px;border-top-right-radius:22px;
-  box-shadow:0 -8px 40px rgba(0,0,0,0.8);display:flex;flex-direction:column;overflow:hidden;
-  padding-bottom:env(safe-area-inset-bottom);}
+  border:2px solid rgba(var(--acR),0.7);border-radius:22px;
+  box-shadow:0 8px 40px rgba(0,0,0,0.8);display:flex;flex-direction:column;overflow:hidden;
+  padding-bottom:env(safe-area-inset-bottom);margin-bottom:calc(14px + env(safe-area-inset-bottom));}
 .picker-head{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;
   padding:14px 16px 10px;border-bottom:1px solid rgba(var(--acR),0.35);}
 .picker-title{font-family:'Jameel-Noori.N','JN',serif;font-size:17px;font-weight:900;color:#fbbf24;}
@@ -1595,8 +1628,20 @@ html,body{height:100vh;height:100svh;overflow:hidden;
       <svg viewBox="0 0 24 24" width="26" height="26"><path fill="#00d9ff" d="M3.6 2.4c-.3.3-.5.7-.5 1.2v16.8c0 .5.2.9.5 1.2l.1.1L13 12l-9.3-9.5-.1-.1z"/><path fill="#00f076" d="M16.1 15.1 13 12l3.1-3.1 3.9 2.2c1.1.6 1.1 1.6 0 2.2l-3.9 2.2z"/><path fill="#ff3a44" d="M16.1 15.1 13 12 3.6 21.6c.4.4 1 .5 1.7.1l10.8-6.6z"/><path fill="#ffcf00" d="M16.1 8.9 5.3 2.3c-.7-.4-1.3-.3-1.7.1L13 12l3.1-3.1z"/></svg>
       <span class="wlc-ps-txt"><span class="wlc-ps-top">GET IT ON</span><span class="wlc-ps-main">Google Play</span></span>
     </a>
+    <button class="wlc-manzil-btn" onclick="openManzil()">🛡️ منزل پڑھیں</button>
   </div>
   <button class="wlc-start-btn" onclick="startApp()">▶ شروع کریں</button>
+</div>
+
+<!-- منزل اوورلے — مخصوص حفاظتی آیات (شیخ الحدیث محمد زکریا رحمہ اللہ کی معروف ترتیب) -->
+<div id="manzilOverlay">
+  <div class="mz-head">
+    <div class="mz-title">🛡️ منزل</div>
+    <button class="mz-close" onclick="closeManzil()">✕</button>
+  </div>
+  <div class="mz-body" id="manzilBody">
+    <div class="mz-loading" id="manzilLoading">⏳ آیات لوڈ ہو رہی ہیں…</div>
+  </div>
 </div>
 
 <div id="splash">
@@ -1609,7 +1654,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">سوموار 14 ستمبر 03:21PM</span>
+    <span class="ver-code" id="splashVerCode">سوموار 14 ستمبر 03:38PM</span>
   </div>
 </div>
 
@@ -2419,11 +2464,18 @@ function blockNativeSelectAndOpenPicker(selId,getItemsFn,getTitleFn,existingWrap
     // تاکہ ٹیپ ایبل حصہ بالکل وہی ہو جہاں نام نظر آتا ہے
     wrap=document.createElement('span');
     wrap.id=selId+'_wrap';
-    wrap.className=sel.className;
     const cs=getComputedStyle(sel);
+    // صرف سائز/جگہ کاپی کریں — بارڈر/بیک گراؤنڈ ہرگز نہیں (ورنہ ڈبل باکس بن جاتا ہے)
     wrap.style.display='inline-flex';
     wrap.style.alignItems='center';
-    if(cs.flex && cs.flex!=='0 1 auto')wrap.style.flex=cs.flex;
+    wrap.style.background='transparent';
+    wrap.style.border='none';
+    if(cs.flexGrow)wrap.style.flexGrow=cs.flexGrow;
+    if(cs.flexShrink)wrap.style.flexShrink=cs.flexShrink;
+    if(cs.flexBasis)wrap.style.flexBasis=cs.flexBasis;
+    if(cs.maxWidth && cs.maxWidth!=='none')wrap.style.maxWidth=cs.maxWidth;
+    if(cs.minWidth)wrap.style.minWidth=cs.minWidth;
+    if(cs.width && cs.width!=='auto')wrap.style.width=cs.width;
     sel.parentNode.insertBefore(wrap, sel);
     wrap.appendChild(sel);
     sel.style.flex='1';
@@ -2448,6 +2500,54 @@ function initCustomPickers(){
     ()=>translatorsForLang(curLang).map(t=>({value:t.id,label:t.name})),
     ()=>'✍️ مترجم منتخب کریں');
   blockNativeSelectAndOpenPicker('defQariSelect',qariItemsSorted,()=>'🎙 ڈیفالٹ قاری منتخب کریں');
+}
+
+// ══ منزل — شیخ الحدیث حضرت مولانا محمد زکریا رحمہ اللہ کی معروف مرتب شدہ حفاظتی آیات ══
+const MANZIL=[
+  {s:1, ranges:[[1,7]]},
+  {s:2, ranges:[[1,5],[163,163],[255,257],[284,286]]},
+  {s:3, ranges:[[18,18],[26,27]]},
+  {s:7, ranges:[[54,56]]},
+  {s:17, ranges:[[110,111]]},
+  {s:23, ranges:[[115,118]]},
+  {s:37, ranges:[[1,11]]},
+  {s:55, ranges:[[33,40]]},
+  {s:59, ranges:[[21,24]]},
+  {s:72, ranges:[[1,4]]},
+  {s:109, ranges:[[1,6]]},
+  {s:112, ranges:[[1,4]]},
+  {s:113, ranges:[[1,5]]},
+  {s:114, ranges:[[1,6]]},
+];
+let _manzilLoaded=false;
+async function openManzil(){
+  document.getElementById('manzilOverlay').classList.add('open');
+  if(_manzilLoaded)return;
+  const body=document.getElementById('manzilBody');
+  try{
+    const secs=[];
+    for(const grp of MANZIL){
+      const sh=SH[grp.s-1];
+      let arHtml='',urHtml='';
+      for(const [f,t] of grp.ranges){
+        for(let a=f;a<=t;a++){
+          const d=await getAyah(grp.s,a);
+          arHtml+=(arHtml?' ':'')+d.ar+' <span class="mz-num">﴿'+toUN(a)+'﴾</span>';
+          urHtml+='<div style="margin-bottom:6px;"><span class="mz-unum">('+toUN(a)+')</span> '+d.ur+'</div>';
+        }
+      }
+      const rangeTxt=grp.ranges.map(r=>r[0]===r[1]?toUN(r[0]):toUN(r[0])+'-'+toUN(r[1])).join('، ');
+      secs.push('<div class="mz-sec"><div class="mz-sec-title">'+sh.ar+' — آیت '+rangeTxt+'</div>'+
+        '<div class="mz-ar">'+arHtml+'</div><div class="mz-ur">'+urHtml+'</div></div>');
+    }
+    body.innerHTML=secs.join('');
+    _manzilLoaded=true;
+  }catch(e){
+    body.innerHTML='<div class="mz-loading">آیات لوڈ نہیں ہو سکیں — دوبارہ کوشش کریں</div>';
+  }
+}
+function closeManzil(){
+  document.getElementById('manzilOverlay').classList.remove('open');
 }
 
 // ═══ زوم پلس/مائنس بٹن (فکسڈ پوزیشن) — سیٹنگز/ڈاؤن لوڈ/اشتہار وغیرہ اوورلے کھلے ہوں تو چھپا دیں،
@@ -4224,8 +4324,8 @@ function applyUrFont(idx){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='HFZ149MO0321PM';
-const APP_VERSION_DISPLAY='سوموار 14 ستمبر 03:21PM';
+const APP_VERSION='HFZ149MO0338PM';
+const APP_VERSION_DISPLAY='سوموار 14 ستمبر 03:38PM';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
