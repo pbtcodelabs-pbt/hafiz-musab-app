@@ -1,45 +1,93 @@
-//  — Service Worker
-const CACHE_NAME = 'hafiz-musab-shell-HFZ149MO0615PM';
-const SHELL_FILES = ['./', './index.html', './manifest.json'];
+// ---------- 🏷️ صدام فروٹ منڈی — Service Worker ----------
+// یہ نمبر HTML فائل کے APP_BUILD_VERSION جیسا نہیں ہوتا (وہ اردو میں ہے، یہ ہمیشہ انگریزی/ASCII میں رہے گا) —
+// صرف کیش کا نام بدلنے کے لیے استعمال ہوتا ہے تاکہ پرانی فائلیں خودکار صاف ہو کر نئی لوڈ ہو جائیں۔
+// ہر نئی ڈیلیوری پر یہ نمبر لازمی بدلیں (فائل کے نام جیسا ہی رکھیں) ----------
+const CACHE_VERSION = 'FM15SEPTU0214PM';
+const CACHE_NAME = 'saddam-fruit-mandi-' + CACHE_VERSION;
 
+const PRECACHE_URLS = [
+  './',
+  './index.html',
+  './manifest.json',
+  './favicon-32.png',
+  './icon-180.png',
+  './icon-192.png',
+  './icon-512.png',
+  './JameelNooriNastaleeq-Regular.ttf',
+  './JameelNooriNastaleeq-Kasheeda.ttf',
+  // ---------- 🆕 صدام کی ہدایت (FM8SEPTU4): 3 نئے فونٹ — fonts/ فولڈر میں ---------- -->
+  './fonts/PTSimpleBoldRuled.ttf',
+  './fonts/ThuluthAlsmt.ttf',
+  './fonts/JameelKhushkhati.ttf',
+  // ---------- 🗑️ صدام کی ہدایت (FM13SEPSU): 4 فونٹ (Gandhara Suls, Akram Unicode, AlQalam Khawar, AlFars Aban)
+  // فہرست سے ہٹا دیے گئے، اس لیے یہ precache انٹریز بھی ہٹا دی گئیں ---------- -->
+  'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'
+];
+
+// ---------- انسٹال — نیا ورژن آتے ہی سب ضروری فائلیں پیشگی کیش کر لیں ----------
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) =>
-      Promise.all(SHELL_FILES.map((f) => cache.add(f).catch(() => {})))
-    )
+    caches.open(CACHE_NAME).then((cache) => {
+      return Promise.all(
+        PRECACHE_URLS.map((url) =>
+          cache.add(url).catch((err) => {
+            console.warn('Precache failed for', url, err);
+          })
+        )
+      );
+    }).then(() => self.skipWaiting())
   );
-  self.skipWaiting();
 });
 
+// ---------- ایکٹیویٹ — پرانے ورژن کے کیش خودکار صاف کر دیں ----------
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((names) =>
+    caches.keys().then((keys) =>
       Promise.all(
-        names
-          .filter((n) => n.startsWith('hafiz-musab-shell-') && n !== CACHE_NAME)
-          .map((n) => caches.delete(n))
+        keys.map((key) => {
+          if (key !== CACHE_NAME) return caches.delete(key);
+        })
       )
-    )
+    ).then(() => self.clients.claim())
   );
-  self.clients.claim();
 });
 
+// ---------- فیچ — اسی اوریجن کی فائلیں: پہلے کیش، نہ ملے تو نیٹ ورک (اور نیٹ ورک سے ملنے پر خودکار کیش اپڈیٹ) ----------
 self.addEventListener('fetch', (event) => {
   const req = event.request;
   if (req.method !== 'GET') return;
-  event.respondWith(
-    fetch(req)
-      .then((res) => {
-        const copy = res.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(req, copy));
-        return res;
-      })
-      .catch(() =>
+
+  const url = new URL(req.url);
+
+  // ---------- 🐛 صدام کی ہدایت: مخصوص، محفوظ CDN فائلیں (jsPDF، گوگل فونٹس) بھی کیش ہوں —
+  // باقی سب (Firestore کالز وغیرہ) ہمیشہ کی طرح براہ راست نیٹ ورک پر ہی رہیں ---------- -->
+  const CACHEABLE_CROSS_ORIGIN_HOSTS = ['cdnjs.cloudflare.com', 'fonts.googleapis.com', 'fonts.gstatic.com'];
+  if (url.origin !== self.location.origin) {
+    if (CACHEABLE_CROSS_ORIGIN_HOSTS.includes(url.hostname)) {
+      event.respondWith(
         caches.match(req).then((cached) => {
           if (cached) return cached;
-          if (req.mode === 'navigate') return caches.match('./index.html');
-          return new Response('', { status: 408, statusText: 'Offline' });
+          return fetch(req).then((res) => {
+            const resClone = res.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(req, resClone));
+            return res;
+          }).catch(() => cached);
         })
-      )
+      );
+    }
+    return;
+  }
+
+  event.respondWith(
+    caches.match(req).then((cached) => {
+      const networkFetch = fetch(req).then((res) => {
+        if (res && res.status === 200) {
+          const resClone = res.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(req, resClone));
+        }
+        return res;
+      }).catch(() => cached);
+      return cached || networkFetch;
+    })
   );
 });
