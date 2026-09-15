@@ -2,7 +2,7 @@
 // یہ نمبر HTML فائل کے APP_BUILD_VERSION جیسا نہیں ہوتا (وہ اردو میں ہے، یہ ہمیشہ انگریزی/ASCII میں رہے گا) —
 // صرف کیش کا نام بدلنے کے لیے استعمال ہوتا ہے تاکہ پرانی فائلیں خودکار صاف ہو کر نئی لوڈ ہو جائیں۔
 // ہر نئی ڈیلیوری پر یہ نمبر لازمی بدلیں (فائل کے نام جیسا ہی رکھیں) ----------
-const CACHE_VERSION = 'FM15SEPTU0214PM';
+const CACHE_VERSION = 'FM16SEPWE0345AM';
 const CACHE_NAME = 'saddam-fruit-mandi-' + CACHE_VERSION;
 
 const PRECACHE_URLS = [

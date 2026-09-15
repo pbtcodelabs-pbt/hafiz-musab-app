@@ -2894,7 +2894,9 @@
     <div class="navItem" data-screen="returnRequest" data-navkey="returnRequest" data-navlabel="Return Request" onclick="goTo('returnRequest')" style="background:#DC2626; color:#fff;">↩️ واپسی کی درخواست<span class="navDragHandle">⠿</span></div>
     <div class="navItem admin-only" data-screen="returnReview" data-navkey="returnReview" data-navlabel="Return Requests Review" onclick="goTo('returnReview')" style="background:#9F1239; color:#fff;">📋 واپسی کا جائزہ<span class="navDragHandle">⠿</span></div>
     <div class="navItem admin-only" data-screen="payments" data-navkey="payments" data-navlabel="Payments" onclick="goTo('payments')" style="background:#0E7490; color:#fff;">💳 ادائیگیاں<span class="navDragHandle">⠿</span></div>
-    <div class="navItem admin-only" data-screen="products" data-navkey="products" data-navlabel="Products" onclick="goTo('products')" style="background:#EA580C; color:#fff;">📦 پراڈکٹس<span class="navDragHandle">⠿</span></div>
+    <!-- ---------- 🔒 صدام کی ہدایت (FM15SEPTU3): "پراڈکٹس" مینیو آئٹم چھپا دیا (سٹاک مینجمنٹ اب یہی کام کرتی
+         ہے) — کوڈ محفوظ ہے، مستقبل میں ضرورت پڑنے پر واپس دکھایا جا سکتا ہے ---------- -->
+    <div class="navItem admin-only" data-screen="products" data-navkey="products" data-navlabel="Products" onclick="goTo('products')" style="display:none; background:#EA580C; color:#fff;">📦 پراڈکٹس<span class="navDragHandle">⠿</span></div>
     <!-- ---------- 🔄 صدام کی ہدایت (FM3SEPTH10): "پرچیز آرڈر" ٹیب دوبارہ فعال — سپلائر سے خرید و اسٹاک وصولی ---------- -->
     <div class="navItem admin-only" data-screen="purchaseorders" data-navkey="purchaseorders" data-navlabel="Purchase Orders" onclick="goTo('purchaseorders')" style="background:#C026D3; color:#fff;">📦 پرچیز آرڈر<span class="navDragHandle">⠿</span></div>
     <div class="navItem admin-hide-only" data-screen="recoveryList" data-navkey="recoveryList" data-navlabel="Recovery List" onclick="goTo('recoveryList')" style="background:#16A34A; color:#fff;">💰 ریکوری لسٹ<span class="navDragHandle">⠿</span></div>
@@ -3600,11 +3602,14 @@
     <!-- 🧮 STOCK ADJUSTMENT — manual stock/price/low-stock editing for every variant, no Purchase Order needed -->
     <div class="screen admin-only" id="screen-stockadjustment" dir="rtl" style="font-family:'JameelNooriNastaleeqKasheeda','JameelNooriNastaleeq','PDMSMultan','Noto Nastaliq Urdu',serif;">
 
-      <!-- ---------- 🧵 صدام کی ہدایت (FM10SEPTH0445PM): عنوان + Undo/Redo + رپورٹس ڈراپ ڈاؤن + حاضر/غیر حاضر
+      <!-- ---------- 🔠 صدام کی ہدایت (FM15SEPTU0413PM): عنوان اب اپنی الگ، موٹی (bold) لائن میں سب سے اوپر —
+           پہلے یہ دوسرے بٹنوں کے ساتھ تنگ ہو کر ایک ہی افقی لائن میں سکڑا ہوتا تھا ---------- -->
+      <div class="pageTitle" style="margin:0 0 6px; font-size:19px; font-weight:900;">🧮 سٹاک ایڈجسٹمنٹ / سٹاک ڈیٹا</div>
+
+      <!-- ---------- 🧵 صدام کی ہدایت (FM10SEPTH0445PM): Undo/Redo + رپورٹس ڈراپ ڈاؤن + حاضر/غیر حاضر
            سب ایک ہی لائن میں، چاہے سکرین کتنی ہی تنگ ہو — پہلے flex-wrap:wrap کی وجہ سے چھوٹی سکرین پر یہ
            2-3 قطاروں میں ٹوٹ جاتے تھے۔ اب nowrap + ضرورت پڑنے پر افقی سکرول، سب بٹن تھوڑے چھوٹے ---------- -->
       <div style="display:flex; align-items:center; gap:4px; margin-bottom:6px; flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:2px;">
-        <div class="pageTitle" style="margin:0; flex:0 1 auto; min-width:30px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:14px;">🧮 سٹاک ایڈجسٹمنٹ</div>
         <div class="categoryDropdownWrap" id="stockAdjReportsDropdownWrap" style="margin:0; flex:0 0 auto;">
           <button type="button" class="categoryDropdownBtn" onclick="toggleStockAdjReportsDropdown(event)" style="padding:5px 7px; font-size:10.5px; max-width:none; white-space:nowrap;">
             <span>📊 رپورٹس</span>
@@ -3650,7 +3655,10 @@
           </div>
         </div>
 
-        <div class="categoryRail" id="saCategoryRail">
+        <!-- ---------- 🗑️ صدام کی ہدایت (FM15SEPTU0413PM): یہ کیٹگری پٹی (سبزیاں/Uncategorized/All) سٹاک
+             مینجمنٹ میں فضول جگہ گھیر رہی تھی — تقریباً سب آئٹمز ایک ہی کیٹگری میں ہیں، اس لیے کوئی فائدہ نہیں
+             تھا۔ مکمل طور پر چھپا دی گئی (کوڈ/فنکشن محفوظ ہے، صرف display:none) ---------- -->
+        <div class="categoryRail" id="saCategoryRail" style="display:none;">
           <!-- JS سے کیٹگریز یہاں بنیں گی -->
         </div>
       </div>
@@ -8082,7 +8090,7 @@ function getDeveloperContact(){
 //      اور بیک اپ فائل کے نام میں تینوں جگہ ایک ساتھ لگائیں — نہ چھوٹا کریں نہ فارمیٹ بدلیں۔
 //   2) یہ ورژن سکرین پر (topbarVersionBadge/loginVersionBadge/appBuildVersionText) بھی بعینہٖ اسی طرح
 //      نظر آنا چاہیے — بیک گراؤنڈ باکس کو لمبا/چوڑا کر کے تاکہ پورا متن کٹے بغیر نظر آئے۔
-const APP_BUILD_VERSION = 'منگل15ستمبر2:14pm';
+const APP_BUILD_VERSION = 'بدھ16ستمبر3:45am';
 
 // ---------- ⏱️ صدام کی ہدایت (4 ستمبر): جب بھی نیا ورژن لوڈ ہو، اوپر چلنے والی مووِنگ پٹی (marquee) کے
 // اندر یہ بتانا ہے کہ تازہ ترین ورژن کتنے منٹ پہلے لوڈ ہوا — یہ نیچے والے "اپڈیٹ دستیاب ہے" ڈبے سے بالکل
@@ -8604,6 +8612,9 @@ function renderHomeIconGrid(){
   const currentUser = usersData.find(x => x.name === AppState.currentUser?.name && x.role === AppState.currentRole);
   const assignedKeys = (currentUser && Array.isArray(currentUser.screens)) ? currentUser.screens : [];
   const myTiles = assignedKeys.map(key => {
+    // ---------- 🔒 صدام کی ہدایت (FM15SEPTU3): "پراڈکٹس" کا ہوم آئیکن مکمل چھپا دیا (سٹاک مینجمنٹ اب وہی کام
+    // کرتی ہے) — کوڈ/فنکشن/ASSIGNABLE_SCREENS اندراج بالکل محفوظ ہے، صرف یہاں سے فلٹر کیا گیا ---------- -->
+    if(key === 'products') return null;
     const def = ASSIGNABLE_SCREENS.find(s => s.key === key);
     if(!def) return null;
     const spaceIdx = def.label.indexOf(' ');
@@ -10318,14 +10329,12 @@ function toggleProductPresenceInSheet(productId, checkboxEl){
     p.isDormant = !p.isDormant;
     persistAllData();
     pushProductsToCloud();
-    const scrollEl = document.getElementById('stockAdjSheetScrollWrap');
-    const savedTop = scrollEl ? scrollEl.scrollTop : 0;
-    const savedLeft = scrollEl ? scrollEl.scrollLeft : 0;
+    pauseCloudPolling(20000); // ---------- 🔒 صدام کی ہدایت (FM15SEPTU3): تھوڑی دیر کے لیے خودکار کلاؤڈ pull روک دیں،
+    // ورنہ ابھی کی گئی تبدیلی 12 سیکنڈ کی پولنگ سے واپس پرانی حالت میں پلٹ سکتی ہے ---------- -->
+    // ---------- 🔧 renderProductSpreadsheet خود ہی اپنی سکرول پوزیشن محفوظ/بحال کرتا ہے (ہر سکرین کی اپنی الگ id) ---------- -->
     if(document.getElementById('stockAdjustmentListWrap')) renderStockAdjustmentScreen(document.getElementById('stockAdjSearchInput')?.value || '');
     if(document.getElementById('productListWrap')) renderProductList(document.getElementById('productSearchInput')?.value || '');
-    const newScrollEl = document.getElementById('stockAdjSheetScrollWrap');
-    if(newScrollEl){ newScrollEl.scrollTop = savedTop; newScrollEl.scrollLeft = savedLeft; }
-  }, 220);
+  }, 100);
 }
 
 // ---------- 👉👈 صدام کی ہدایت (FM15SEPTU2): پراڈکٹس/سٹاک مینجمنٹ کی قطار بھی اب چیک باکس کی بجائے سوائپ سے
@@ -10335,47 +10344,133 @@ function wireProductSwipeRows(tableId){
   const table = document.getElementById(tableId);
   if(!table || table.dataset.swipeWired) return;
   table.dataset.swipeWired = '1';
-  let activeRow = null, startX = 0, dx = 0, dragging = false, origBg = '';
+  let activeRow = null, startX = 0, startY = 0, dx = 0, dragging = false, lockedHorizontal = false, origBg = '', frozenTds = [];
   const threshold = 70;
 
-  table.addEventListener('pointerdown', e => {
+  // ---------- 🔴🟢 صدام کی ہدایت (FM15SEPTU0556PM): سرکاتے وقت قطار کے پیچھے خالی رہ جانے والی جگہ میں
+  // سرخ/سبز میسج بار — بتاتا ہے کہ یہ سبزی غیر حاضر سبزیوں میں منتقل ہو رہی ہے یا حاضر سبزیوں میں۔ چونکہ
+  // <tr> کے اندر آزاد <div> اوورلے درست HTML نہیں بنتا، اس لیے ایک ہی مشترکہ fixed میسج بار body میں بنا کر
+  // قطار کی اصل جگہ (getBoundingClientRect) پر رکھ دیتے ہیں — قطار خود اس کے اوپر سے سرک کر ہٹتی ہے ---------- -->
+  let hintBar = document.getElementById('prodPresenceSwipeHint');
+  if(!hintBar){
+    hintBar = document.createElement('div');
+    hintBar.id = 'prodPresenceSwipeHint';
+    hintBar.style.cssText = 'position:fixed; display:none; align-items:center; justify-content:center; font-weight:900; font-size:13px; color:#fff; z-index:3; pointer-events:none; border-radius:6px;';
+    document.body.appendChild(hintBar);
+  }
+
+  // ---------- 🔒🔒 صدام کی ہدایت (FM15SEPTU0413PM): اصل خرابی یہاں نکلی! صرف Pointer Events (pointerdown/move/up)
+  // پر انحصار Android WebView/TWA (Sunmi، iMin، PAX ایسے پرنٹر/POS ڈیوائسز پر) میں بھروسہ مند نہیں — بہت سی
+  // پرانی/کسٹم WebView بلڈز میں یہ ایونٹس یا تو فائر نہیں ہوتیں یا ادھورے/غلط clientX دیتی ہیں، اس لیے سوائپ
+  // بالکل کام نہیں کر رہا تھا چاہے کوڈ کا باقی منطق درست تھی۔ اب اصل touchstart/touchmove/touchend استعمال
+  // ہوتے ہیں (ہر موبائل براؤزر/WebView میں قابلِ بھروسہ)، اور پوائنٹر ایونٹس صرف mouse/pen کے لیے fallback
+  // کے طور پر ساتھ رکھے گئے ہیں (ڈیسک ٹاپ ٹیسٹنگ کے لیے) ---------- -->
+  const getX = e => (e.touches && e.touches[0]) ? e.touches[0].clientX : e.clientX;
+  const getY = e => (e.touches && e.touches[0]) ? e.touches[0].clientY : e.clientY;
+
+  const resetDragState = () => {
+    dragging = false; activeRow = null; dx = 0; lockedHorizontal = false;
+    frozenTds.forEach(td => { td.style.position = td.dataset.origPosition || ''; });
+    frozenTds = [];
+    // ---------- 🔴🟢 FM15SEPTU0556PM: میسج بار چھپا دیں ---------- -->
+    hintBar.style.opacity = '0';
+    hintBar.style.display = 'none';
+  };
+
+  const onStart = e => {
     if(AppState.currentRole !== 'admin') return;
-    if(e.target.closest('input,select,button,a,textarea')) return; // ---------- خانوں میں لکھتے وقت سوائپ شروع نہ ہو ----------
+    // ---------- 🔒🔒 صدام کی ہدایت (FM15SEPTU5): اصل خرابی یہاں تھی! سٹاک مینجمنٹ کے تقریباً ہر خانے میں
+    // input (خرید/مزدوری/ریٹ/سٹاک) ہے، تو یہ exclusion پوری قطار پر سوائپ ہی شروع نہیں ہونے دیتا تھا —
+    // چھونے کے لیے کوئی خالی جگہ بچتی ہی نہیں تھی۔ اب صرف بٹن/لنک پر روکیں (➕/✏️/پیکنگ/سیریل) — نمبر لکھنے
+    // والے خانوں پر بھی انگلی رکھ کر سرکایا جا سکے گا، صرف ٹیپ کرنے سے اب بھی نمبر لکھنے کے لیے فوکس ہو گا ---------- -->
+    if(e.target.closest('button,a')) return;
     const row = e.target.closest('.prodSwipeRow');
     if(!row) return;
-    activeRow = row; startX = e.clientX; dx = 0; dragging = true;
+    activeRow = row; startX = getX(e); startY = getY(e); dx = 0; dragging = true; lockedHorizontal = false;
     row.style.transition = '';
     origBg = row.style.background;
-  });
-  table.addEventListener('pointermove', e => {
+    // ---------- 🔴🟢 FM15SEPTU0556PM: قطار ابھی سرکی نہیں — اصل جگہ ناپ کر میسج بار وہیں فٹ کر دیں ---------- -->
+    const rowRect0 = row.getBoundingClientRect();
+    hintBar.style.left = rowRect0.left + 'px';
+    hintBar.style.top = rowRect0.top + 'px';
+    hintBar.style.width = rowRect0.width + 'px';
+    hintBar.style.height = rowRect0.height + 'px';
+    hintBar.style.display = 'flex';
+    hintBar.style.opacity = '0';
+    // ---------- 🔒🔒 صدام کی ہدایت (FM15SEPTU4): اصل خرابی یہیں تھی! نام اور پیکنگ والے خانے position:sticky
+    // ہیں (لاک/فکسڈ رہتے ہیں) — سوائپ کرتے وقت پوری قطار translate ہوتی تھی مگر یہ دو "چپکے ہوئے" خانے
+    // اپنی جگہ سے نہیں ہلتے تھے، اس لیے سلائیڈ بالکل نظر ہی نہیں آتی تھی۔ اب سوائپ کے دوران عارضی طور پر
+    // انہیں بھی عام (position:static) کر دیتے ہیں، چھوڑنے پر واپس sticky ہو جاتے ہیں ---------- -->
+    frozenTds = Array.from(row.querySelectorAll('td')).slice(0, 4); // ---------- 🔒 صدام کی ہدایت (FM15SEPTU6): اب 4 کالم منجمد ہیں (#/➕/نام/پیکنگ) ----------
+    frozenTds.forEach(td => { td.dataset.origPosition = td.style.position; td.style.position = 'static'; });
+  };
+
+  const onMove = e => {
     if(!dragging || !activeRow) return;
-    dx = e.clientX - startX;
-    if(Math.abs(dx) < 6) return;
+    const x = getX(e), y = getY(e);
+    dx = x - startX;
+    const dy = y - startY;
+    // ---------- 👆↕️ صدام کی ہدایت (FM15SEPTU0413PM): پہلی چند پکسل حرکت سے فیصلہ کریں کہ یہ افقی سوائپ ہے یا
+    // عمودی سکرول — اگر عمودی حرکت زیادہ ہو تو فہرست کو عام طریقے سے سکرول ہونے دیں (سوائپ منسوخ)، صرف افقی
+    // حرکت واضح ہونے پر ہی preventDefault کر کے قطار کو سرکائیں — ورنہ اوپر نیچے سکرول کرنا مشکل ہو جاتا ---------- -->
+    if(!lockedHorizontal){
+      if(Math.abs(dx) < 6 && Math.abs(dy) < 6) return;
+      if(Math.abs(dy) > Math.abs(dx)){ resetDragState(); return; }
+      lockedHorizontal = true;
+    }
+    if(e.cancelable) e.preventDefault();
+    activeRow.style.position = 'relative';
+    activeRow.style.zIndex = '4';
     activeRow.style.transform = `translateX(${dx}px)`;
     const productId = parseInt(activeRow.dataset.swipeId, 10);
     const p = productsData.find(x => x.product_id === productId);
     const willBeDormant = !(p && p.isDormant);
-    activeRow.style.background = willBeDormant ? 'rgba(185,28,28,.25)' : 'rgba(21,128,61,.25)';
-  });
+    activeRow.style.background = willBeDormant ? '#fecaca' : '#bbf7d0';
+    // ---------- 🔴🟢 FM15SEPTU0556PM: میسج بار کا رنگ/متن — کتنی دور سرکایا اس کے حساب سے نمایاں ہو ---------- -->
+    hintBar.style.background = willBeDormant ? '#b91c1c' : '#15803d';
+    hintBar.textContent = willBeDormant ? '🔴 غیر حاضر سبزیوں میں منتقل ہو رہی ہے' : '🟢 حاضر سبزیوں میں منتقل ہو رہی ہے';
+    hintBar.style.opacity = String(Math.min(1, Math.abs(dx) / threshold));
+  };
+
   const endSwipe = () => {
-    if(!dragging || !activeRow) return;
-    dragging = false;
+    if(!dragging || !activeRow){ resetDragState(); return; }
     const row = activeRow;
     const productId = parseInt(row.dataset.swipeId, 10);
-    row.style.transition = 'transform .2s, opacity .2s';
-    if(Math.abs(dx) > threshold){
-      row.style.transform = `translateX(${dx > 0 ? '120%' : '-120%'})`;
+    const wasLocked = lockedHorizontal, finalDx = dx;
+    row.style.transition = 'transform .12s, opacity .12s';
+    if(wasLocked && Math.abs(finalDx) > threshold){
+      row.style.transform = `translateX(${finalDx > 0 ? '120%' : '-120%'})`;
       row.style.opacity = '0';
-      setTimeout(() => toggleProductPresenceInSheet(productId, null), 180);
+      // ---------- 🔴🟢 FM15SEPTU0556PM: میسج بار قطار کے مکمل غائب ہونے تک نظر رہے، پھر ساتھ ہی ہٹے ---------- -->
+      hintBar.style.transition = 'opacity .12s';
+      hintBar.style.opacity = '1';
+      const hintToClear = hintBar;
+      setTimeout(() => {
+        toggleProductPresenceInSheet(productId, null);
+        hintToClear.style.opacity = '0';
+        hintToClear.style.display = 'none';
+      }, 130);
     } else {
       row.style.transform = 'translateX(0)';
       row.style.background = origBg;
+      hintBar.style.opacity = '0';
+      hintBar.style.display = 'none';
     }
-    activeRow = null; dx = 0;
+    frozenTds.forEach(td => { td.style.position = td.dataset.origPosition || ''; });
+    frozenTds = [];
+    dragging = false; activeRow = null; dx = 0; lockedHorizontal = false;
   };
-  table.addEventListener('pointerup', endSwipe);
-  table.addEventListener('pointercancel', endSwipe);
-  table.addEventListener('pointerleave', e => { if(dragging && e.buttons === 0) endSwipe(); });
+
+  table.addEventListener('touchstart', onStart, {passive:true});
+  table.addEventListener('touchmove', onMove, {passive:false});
+  table.addEventListener('touchend', endSwipe);
+  table.addEventListener('touchcancel', endSwipe);
+  // ---------- 🖱️ mouse/pen کے لیے fallback — ٹچ ایونٹس نظرانداز کریں تاکہ ڈبل فائر نہ ہو ---------- -->
+  table.addEventListener('pointerdown', e => { if(e.pointerType === 'touch') return; onStart(e); });
+  table.addEventListener('pointermove', e => { if(e.pointerType === 'touch') return; onMove(e); });
+  table.addEventListener('pointerup', e => { if(e.pointerType === 'touch') return; endSwipe(); });
+  table.addEventListener('pointercancel', e => { if(e.pointerType === 'touch') return; endSwipe(); });
+  table.addEventListener('pointerleave', e => { if(e.pointerType === 'touch') return; if(dragging && e.buttons === 0) endSwipe(); });
 }
 
 function renderProductSpreadsheet(filtered, wrap){
@@ -10397,58 +10492,45 @@ function renderProductSpreadsheet(filtered, wrap){
   const measUrduFont = "800 12.5px 'JameelNooriNastaleeqKasheeda','Noto Nastaliq Urdu',serif";
   const measPackFont = "700 11px 'JameelNooriNastaleeqKasheeda','Noto Nastaliq Urdu',serif";
   const measNumFont = "900 12px Arial,Helvetica,sans-serif";
-  // ---------- 👉👈 صدام کی ہدایت (FM15SEPTU2): چیک باکس کالم مکمل ہٹا دیا — اب پوری قطار کو سوائپ (سرکا) کر کے
-  // حاضر⟷غیر حاضر بدلا جاتا ہے (بالکل کسٹمر لسٹ جیسا نظام)۔ اس کالم کی جگہ باقی کالموں کو مل گئی ---------- -->
+  // ---------- 🔒🔒 صدام کی ہدایت (FM15SEPTU6): بڑی تبدیلی — خرید/مزدوری/حتمی خرید/ریٹ کالم اب جدول سے مکمل
+  // ہٹا دیے (صرف ڈسپلے، فنکشن پورا محفوظ ہے، updateVariantField ویسے ہی چلتا ہے) — سیریل اور ➕/✏️ بٹن اب
+  // سب سے دائیں (منجمد) طرف، تاکہ صرف نام/پیکنگ/سٹاک نظر آئیں اور جدول بہت کمپیکٹ ہو جائے۔ خالی ہونے والی
+  // جگہ میں اب ایک ہمیشہ کھلا رہنے والا ایڈٹ پینل ہے (نیچے دیکھیں) — پاپ اپ کی ضرورت نہیں ---------- -->
+  const serialW = 38;
+  const actionW = 34;
   const nameW = autoColWidth('نام', filtered.map(p => p.name), measUrduFont, {min:70, max:190, pad:24});
   const packingW = autoColWidth('پیکنگ', filtered.map(p => { const v = p.variants[0]||{}; return v.label || '— منتخب —'; }), measPackFont, {min:52, max:110, pad:14});
-  const actionW = 40; // ➕/✏️ آئیکن — فکسڈ (سرکل بٹن، ٹیکسٹ نہیں)
-  const serialW = autoColWidth('#', filtered.map(p => p.serial_no ?? '?'), measNumFont, {min:32, max:46, pad:12});
-  const purchaseW = autoColWidth('💰 خرید', filtered.map(p => p.variants[0]?.purchase||0), measNumFont, {min:40, max:80, pad:16});
-  const laborW = autoColWidth('💪 م.خرید', filtered.map(p => p.variants[0]?.labor||0), measNumFont, {min:40, max:80, pad:16});
-  const sellLaborW = autoColWidth('💪 م.فروخت', filtered.map(p => p.variants[0]?.sellLabor||0), measNumFont, {min:40, max:80, pad:16});
-  const totalW = autoColWidth('🧮 حتمی خرید', filtered.map(p => (p.variants[0]?.purchase||0)+(p.variants[0]?.labor||0)), measNumFont, {min:44, max:90, pad:16});
-  const retailW = autoColWidth('🔴 اسلام آباد', filtered.map(p => p.variants[0]?.retail||0), measNumFont, {min:44, max:90, pad:16});
-  const wholesaleW = autoColWidth('🟢 راولپنڈی', filtered.map(p => p.variants[0]?.wholesale||0), measNumFont, {min:44, max:90, pad:16});
   const stockW = autoColWidth('📦 سٹاک', filtered.map(p => p.variants[0]?.stock||0), measNumFont, {min:40, max:80, pad:16});
-  // ---------- 🔒 صدام کی ہدایت (FM13SEPSU): ڈیلیٹ بٹن پہلے ہی چھپا دیا گیا تھا، مگر اس کا خالی کالم/جگہ
-  // اب بھی موجود تھی (خالی خانہ نظر آ رہا تھا) — وہ کالم مکمل ہٹا دیا، جگہ باقی کالموں کو مل گئی ---------- -->
-  const colWidths = [nameW, packingW, actionW, serialW, purchaseW, laborW, sellLaborW, totalW, retailW, wholesaleW, stockW];
-  const rightOffsets = [0, colWidths[0]];
+  const colWidths = [serialW, actionW, nameW, packingW, stockW];
+  const rightOffsets = [0, colWidths[0], colWidths[0]+colWidths[1], colWidths[0]+colWidths[1]+colWidths[2]];
   const isAdmin = AppState.currentRole === 'admin';
   const rows = filtered.map((p, idx) => {
     const v = p.variants[0] || {};
-    const totalPurchase = (v.purchase||0) + (v.labor||0);
-    // ---------- 🦓 صدام کی ہدایت (FM10SEPTH0530PM): زیبرا رنگ — ایک قطار گہری، ایک ہلکی — اب پوری قطار
-    // (ہر کالم/خانے) پر لاگو ہوتا ہے، پہلے صرف نام/پیکنگ پر تھا اور باقی سفید رہتا تھا جس سے قطار کا رنگ
-    // آخر تک نہ پہنچتا تھا اور لکھتے وقت لائن گم ہو جاتی تھی ---------- -->
-    const rowBg = idx % 2 === 0 ? '#ffffff' : '#dbe6da';
+    // ---------- 🦓 صدام کی ہدایت (FM10SEPTH0530PM): زیبرا رنگ — ایک قطار گہری، ایک ہلکی؛ منتخب شدہ قطار کا
+    // رنگ الگ (نیلا) — پتا چلے یہ ابھی ایڈٹ پینل میں کھلی ہوئی ہے (FM15SEPTU6) ---------- -->
+    const isSelected = vcInlineSelectedId === p.product_id;
+    const rowBg = isSelected ? '#dbeafe' : (idx % 2 === 0 ? '#ffffff' : '#dbe6da');
     const rowTd = `background:${rowBg};`;
     const frozenTd = (i) => `position:-webkit-sticky;position:sticky;right:${rightOffsets[i]}px;background:${rowBg};z-index:3;`;
     const packingBtnStyle = "width:100%;min-width:0;box-sizing:border-box;padding:6px 2px;border:1.5px solid #d3d8de;border-radius:11px;font-size:11.5px;text-align:center;background:#fff;cursor:pointer;" + urduFont;
     const packingSelectHtml = `<button type="button" style="${packingBtnStyle}" onclick="openPackingPicker(${p.product_id}, ${v.variant_id}, '${(v.label||'').replace(/'/g,"\\'")}', '${wrap.id}')">${v.label || '❓'}</button>`;
     return `
       <tr data-product-id="${p.product_id}" data-swipe-id="${p.product_id}" class="prodSwipeRow" style="position:relative; touch-action:pan-y;">
-        <td style="${tdBase}${frozenTd(0)}"><input type="text" style="${nameInputStyle}" value="${p.name}" onchange="updateProductName(${p.product_id}, this.value, this)"></td>
-        <td style="${tdBase}${frozenTd(1)}">${packingSelectHtml}</td>
-        <td style="${tdBase}${rowTd}padding:3px;"><div style="display:flex; flex-direction:column; gap:3px; align-items:center;">
-          <button type="button" style="width:26px;height:26px;border-radius:50%;border:none;background:#dcfce7;color:#15803d;font-size:13px;font-weight:900;cursor:pointer;box-shadow:0 2px 4px rgba(0,0,0,.15);" title="اس کے بعد نئی خالی قطار شامل کریں" onclick="insertProductRowAfter(${p.product_id})">➕</button>
-          <!-- ---------- ✏️ صدام کی ہدایت (FM15SEPTU): مکمل ایڈٹ کرنے کے لیے خوبصورت پاپ اپ باکس کھولیں —
-               مگر غیر حاضر (dormant) سبزی پر یہ بٹن نظر نہیں آئے گا، پہلے اسے حاضر کریں تبھی ایڈٹ ممکن ہو ---------- -->
-          ${!p.isDormant ? `<button type="button" style="width:26px;height:26px;border-radius:50%;border:none;background:#eef2ff;color:var(--primary-dark);font-size:12px;font-weight:900;cursor:pointer;box-shadow:0 2px 4px rgba(0,0,0,.15);" title="مکمل ایڈٹ باکس کھولیں" onclick="openVcEditPopup(${p.product_id}, ${v.variant_id}, '${wrap.id}')">✏️</button>` : ''}
+        <td style="${tdBase}${frozenTd(0)}"><button type="button" class="serialBadgeBtn" style="${SERIAL_BADGE_INLINE_STYLE} width:30px !important; height:30px !important; min-width:30px !important; min-height:30px !important; font-size:12px !important;" onclick="openSerialPicker('product', ${p.product_id}, ${p.serial_no ?? 'null'}, '${(p.name||'').replace(/'/g,"\\'")} کا سیریل نمبر')">${p.serial_no ?? '?'}</button></td>
+        <td style="${tdBase}${frozenTd(1)}padding:3px;"><div style="display:flex; flex-direction:column; gap:3px; align-items:center;">
+          <button type="button" style="width:24px;height:24px;border-radius:50%;border:none;background:#dcfce7;color:#15803d;font-size:12px;font-weight:900;cursor:pointer;box-shadow:0 2px 4px rgba(0,0,0,.15);" title="اس کے بعد نئی خالی قطار شامل کریں" onclick="insertProductRowAfter(${p.product_id})">➕</button>
+          <!-- ---------- ✏️ صدام کی ہدایت (FM15SEPTU6): اب پاپ اپ نہیں کھلتا — نیچے ہمیشہ کھلے رہنے والے ایڈٹ
+               پینل میں اسی سبزی کی تفصیل لوڈ ہو جاتی ہے (قطار بھی نیلی ہو کر منتخب نظر آتی ہے) ---------- -->
+          ${!p.isDormant ? `<button type="button" style="width:24px;height:24px;border-radius:50%;border:none;background:#eef2ff;color:var(--primary-dark);font-size:11px;font-weight:900;cursor:pointer;box-shadow:0 2px 4px rgba(0,0,0,.15);" title="ایڈٹ پینل میں کھولیں" onclick="selectVcInlineRow(${p.product_id}, ${v.variant_id}, '${wrap.id}')">✏️</button>` : ''}
         </div></td>
-        <td style="${tdBase}${rowTd}"><button type="button" class="serialBadgeBtn" style="${SERIAL_BADGE_INLINE_STYLE} width:32px !important; height:32px !important; min-width:32px !important; min-height:32px !important; font-size:13px !important;" onclick="openSerialPicker('product', ${p.product_id}, ${p.serial_no ?? 'null'}, '${(p.name||'').replace(/'/g,"\\'")} کا سیریل نمبر')">${p.serial_no ?? '?'}</button></td>
-        <td style="${tdBase}${rowTd}"><input type="number" style="${inputStyle}" value="${v.purchase||0}" onfocus="this.select()" onchange="updateVariantField(${p.product_id},${v.variant_id},'purchase',this.value,this); this.closest('tr').querySelector('.shTotalPurchase').textContent=(parseFloat(this.value)||0)+(${v.labor||0});"></td>
-        <td style="${tdBase}${rowTd}"><input type="number" style="${inputStyle}" value="${v.labor||0}" onfocus="this.select()" onchange="updateVariantField(${p.product_id},${v.variant_id},'labor',this.value,this); this.closest('tr').querySelector('.shTotalPurchase').textContent=(${v.purchase||0})+(parseFloat(this.value)||0);"></td>
-        <td style="${tdBase}${rowTd}"><input type="number" style="${inputStyle}" value="${v.sellLabor||0}" onfocus="this.select()" onchange="updateVariantField(${p.product_id},${v.variant_id},'sellLabor',this.value,this)"></td>
-        <td style="${tdBase}${rowTd}"><div class="shTotalPurchase" style="background:#e3ebe5;border:1.5px solid #c7d3c9;border-radius:11px;padding:6px 2px;font-weight:900;color:#134e2c;${numFont}">${totalPurchase}</div></td>
-        <td style="${tdBase}${rowTd}"><input type="number" style="${redInputStyle}" value="${v.retail||0}" onfocus="this.select()" onchange="updateVariantField(${p.product_id},${v.variant_id},'retail',this.value,this)"></td>
-        <td style="${tdBase}${rowTd}"><input type="number" style="${greenInputStyle}" value="${v.wholesale||0}" onfocus="this.select()" onchange="updateVariantField(${p.product_id},${v.variant_id},'wholesale',this.value,this)"></td>
+        <td style="${tdBase}${frozenTd(2)}"><input type="text" style="${nameInputStyle}" value="${p.name}" onchange="updateProductName(${p.product_id}, this.value, this)"></td>
+        <td style="${tdBase}${frozenTd(3)}">${packingSelectHtml}</td>
         <td style="${tdBase}${rowTd}"><input type="number" style="${inputStyle}" value="${v.stock||0}" onfocus="this.select()" onchange="updateVariantField(${p.product_id},${v.variant_id},'stock',this.value,this)"></td>
       </tr>`;
   }).join('');
-  const headers = ['نام','پیکنگ','➕','#','💰 خرید','💪 م.خرید','💪 م.فروخت','🧮 حتمی خرید','🔴 اسلام آباد','🟢 راولپنڈی','📦 سٹاک'];
+  const headers = ['#','➕','نام','پیکنگ','📦 سٹاک'];
   const theadHtml = '<tr>' + headers.map((h,i) => {
-    const frozen = i < 2 ? `position:-webkit-sticky;position:sticky;right:${rightOffsets[i]}px;z-index:12;` : '';
+    const frozen = i < 4 ? `position:-webkit-sticky;position:sticky;right:${rightOffsets[i]}px;z-index:12;` : '';
     return `<th style="${thBase}width:${colWidths[i]}px;${frozen}">${h}</th>`;
   }).join('') + '</tr>';
   const colgroupHtml = '<colgroup>' + colWidths.map(w => `<col style="width:${w}px;">`).join('') + '</colgroup>';
@@ -10456,11 +10538,14 @@ function renderProductSpreadsheet(filtered, wrap){
   // ---------- 🧭 صدام کی ہدایت (FM10SEPTH0530PM) فکس: پہلے ہر بار innerHTML بدلتے ہی سکرول واپس شروع
   // (دائیں/اوپر) پر چلا جاتا تھا — لکھتے ہوئے ایسا لگتا تھا کہ صفحہ "بھاگ کر" پہلے نمبر پر آ گیا۔ اب پرانا
   // سکرول پوزیشن یاد رکھ کر دوبارہ لاگو کرتے ہیں ---------- -->
-  const oldScrollEl = document.getElementById('stockAdjSheetScrollWrap');
+  const scrollWrapId = 'stockAdjSheetScrollWrap_' + wrap.id; // ---------- 🔒 صدام کی ہدایت (FM15SEPTU3): Products اور Stock Adjustment دونوں پہلے ایک ہی id شیئر کرتے تھے —
+  // اسی لیے جو سکرین پہلے رینڈر ہوئی ہو، سوائپ ہمیشہ صرف اسی پر جڑتا (یا کبھی کسی پر بھی نہیں) — اب ہر سکرین کی اپنی الگ id ---------- -->
+  const oldScrollEl = document.getElementById(scrollWrapId);
   const savedScrollTop = oldScrollEl ? oldScrollEl.scrollTop : 0;
   const savedScrollLeft = oldScrollEl ? oldScrollEl.scrollLeft : 0;
   wrap.innerHTML = `
-    <div id="stockAdjSheetScrollWrap" style="width:100%;max-height:74vh;overflow:auto;-webkit-overflow-scrolling:touch;border-radius:10px;border:1px solid #dbe1ea;">
+    ${buildVcInlinePanelHtml(wrap.id)}
+    <div id="${scrollWrapId}" style="width:100%;max-height:60vh;overflow:auto;-webkit-overflow-scrolling:touch;border-radius:10px;border:1px solid #dbe1ea;">
       <table dir="rtl" style="border-collapse:separate;border-spacing:0;width:${totalTableW}px;table-layout:fixed;font-size:12.5px;">
         ${colgroupHtml}
         <thead>${theadHtml}</thead>
@@ -10470,9 +10555,10 @@ function renderProductSpreadsheet(filtered, wrap){
     <div style="display:none;"></div>
     ${draftNewProductId !== null ? `<div style="margin-top:8px; background:#fef3c7; color:#92400e; border:1.5px solid #fde68a; border-radius:9px; padding:9px 12px; font-size:12.5px; font-weight:800; text-align:center;">⚠️ نئی قطار محفوظ نہیں ہوئی — سیو ہونے کے لیے نام اور پیکنگ دونوں ضروری ہیں</div>` : ''}
   `;
-  const scrollWrap = document.getElementById('stockAdjSheetScrollWrap');
+  const scrollWrap = document.getElementById(scrollWrapId);
   if(scrollWrap){ scrollWrap.scrollTop = savedScrollTop; scrollWrap.scrollLeft = savedScrollLeft; }
-  wireProductSwipeRows('stockAdjSheetScrollWrap'); // ---------- 👉👈 صدام کی ہدایت (FM15SEPTU2): سوائپ ہینڈلرز جوڑیں ---------- -->
+  wireProductSwipeRows(scrollWrapId); // ---------- 👉👈 صدام کی ہدایت (FM15SEPTU2): سوائپ ہینڈلرز جوڑیں ---------- -->
+  if(vcInlineSelectedId !== null) vcInlinePopulate(); // ---------- ری رینڈر کے بعد بھی منتخب سبزی کی تفصیل پینل میں برقرار رہے ---------- -->
 }
 // ---------- ➕ صدام کی ہدایت (FM10SEPTH0844AM): فہرست کے کسی بھی درمیانی مقام پر نئی خالی قطار — آخر تک جانے
 // کی ضرورت نہیں۔ نیچے کے سب سیریل نمبر خودکار ایک ایک آگے کھسک جاتے ہیں تاکہ نئی قطار بالکل صحیح جگہ (اسی کے
@@ -15500,7 +15586,7 @@ function animateAndTogglePresence(cardId, productId){
     const p = productsData.find(x => x.product_id === productId);
     if(!p) return;
     toggleProductPresence(productId, !!p.isDormant); // ---------- موجودہ حالت الٹ دیں ----------
-  }, 280);
+  }, 100);
 }
 
 // ---------- 🟩🟥 صدام کی ہدایت (FM4SEPFR25): راولپنڈی/اسلام آباد ریٹ + سٹاک ہمیشہ اسی رنگ سکیم میں دکھائیں —
@@ -16792,103 +16878,117 @@ function updateVariantField(productId, variantId, field, value, inputEl){
 }
 
 /* =====================================================================
-   ✏️ صدام کی ہدایت (FM15SEPTU): سبزی ایڈٹ کرنے کا خوبصورت پاپ اپ باکس — خرید→خرید مزدوری→فروخت مزدوری→
-   (حتمی خرید خودکار، کرسر وہاں نہیں جاتا)→راولپنڈی→اسلام آباد→سٹاک۔ ہر خانے میں لکھنے کے بعد کرسر خودکار
-   اگلے خانے میں چلا جاتا ہے (رفتار قابلِ ترتیب، ہمیشہ کے لیے محفوظ)۔ سٹاک پر پہنچ کر رک جاتا ہے۔
-   ◀▶ سے کارڈ بند کیے بغیر اگلی/پچھلی سبزی پر سوئچ کر سکتے ہیں ---------- */
-let vcEditState = null; // {productId, variantId, sourceWrapId, listIds:[{productId,variantId},...], listIdx}
-let vcEditAdvanceTimer = null;
-let vcEditSpeedMs = loadFromStorage('vcEditSpeedMs', 600);
-const VC_EDIT_FIELD_ORDER = ['purchase', 'labor', 'sellLabor', 'wholesale', 'retail', 'stock'];
+   ✏️ صدام کی ہدایت (FM15SEPTU6): بڑی تبدیلی — اب پاپ اپ نہیں، ایک ہمیشہ کھلا رہنے والا ایڈٹ پینل جدول کے
+   بالکل اوپر — جس سبزی کا ✏️ دبائیں اسی کی تفصیل فوراً پینل میں آ جاتی ہے (قطار بھی نیلی ہو کر نمایاں ہوتی
+   ہے)۔ خرید→خرید مزدوری→فروخت مزدوری→(حتمی خرید خودکار)→راولپنڈی→اسلام آباد→سٹاک، ہر خانے کے بعد کرسر
+   خودکار اگلے میں (رفتار قابلِ ترتیب)۔ بند کرنے کی ضرورت نہیں — اگلی سبزی کا ✏️ دبانے سے پینل خودکار اپڈیٹ ---------- */
+let vcInlineSelectedId = null;
+let vcInlineSelectedVariantId = null;
+let vcInlineSourceWrapId = null;
+let vcInlineAdvanceTimer = null;
+let vcInlineSpeedMs = loadFromStorage('vcEditSpeedMs', 600);
+const VC_INLINE_FIELD_ORDER = ['purchase', 'labor', 'sellLabor', 'wholesale', 'retail', 'stock'];
+const VC_INLINE_ID_MAP = {purchase:'vcInlinePurchase', labor:'vcInlineLabor', sellLabor:'vcInlineSellLabor', wholesale:'vcInlineWholesale', retail:'vcInlineRetail', stock:'vcInlineStock'};
 
-function vcEditBuildList(){
-  // ---------- تمام پراڈکٹس، سیریل نمبر کی ترتیب سے — ◀▶ اسی ترتیب میں چلیں گے ---------- -->
-  return [...productsData].sort((a, b) => (a.serial_no || a.product_id || 0) - (b.serial_no || b.product_id || 0))
-    .map(p => ({productId: p.product_id, variantId: (p.variants[0] || {}).variant_id}))
-    .filter(x => x.variantId != null);
+function buildVcInlinePanelHtml(){
+  const fieldBox = (id, label, bg, border, shadow, color) => `
+    <div style="background:${bg}; border:1px solid ${border}; border-radius:8px; padding:3px 3px; box-shadow:0 1.5px 0 ${shadow};">
+      <div style="font-size:8.5px; font-weight:800; color:${color}; margin-bottom:1px;">${label}</div>
+      <input id="${id}" type="number" onfocus="clearTimeout(vcInlineAdvanceTimer);" oninput="vcInlineScheduleAdvance('${id.replace('vcInline','').charAt(0).toLowerCase() + id.replace('vcInline','').slice(1)}')" style="width:100%; box-sizing:border-box; text-align:center; border:1px solid ${border}; border-radius:5px; padding:3px 2px; font-family:'Arial Black',Arial,sans-serif; font-weight:900; font-size:13px; color:${color}; background:#fff;">
+    </div>`;
+  return `
+    <div id="vcInlinePanel" style="background:linear-gradient(155deg,#1d4ed8,#1e3a8a); border-radius:14px; padding:10px; margin-bottom:8px;">
+      <div id="vcInlinePanelEmpty" style="text-align:center; font-weight:800; font-size:12.5px; color:#dbeafe; padding:8px;">☝️ کسی بھی سبزی کا ✏️ دبائیں — اسی کی تفصیل یہاں کھلے گی</div>
+      <div id="vcInlinePanelBody" style="display:none;">
+        <div id="vcInlinePanelName" style="font-family:'JameelNooriNastaleeqKasheeda','JameelNooriNastaleeq','PDMSMultan','Noto Nastaliq Urdu',serif; font-size:15px; font-weight:900; color:#1e3a8a; background:#fff; border-radius:9px; padding:3px 8px; margin-bottom:3px; text-align:center; box-shadow:0 2px 0 rgba(0,0,0,.15);"></div>
+        <div id="vcInlinePanelPacking" style="font-family:'JameelNooriNastaleeqKasheeda','JameelNooriNastaleeq','PDMSMultan','Noto Nastaliq Urdu',serif; font-size:12px; font-weight:800; color:#1e3a8a; background:#dbeafe; border-radius:8px; padding:2px 8px; margin-bottom:6px; display:inline-block; box-shadow:0 2px 0 rgba(0,0,0,.1);"></div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:3px;">
+          ${fieldBox('vcInlinePurchase', '💰 خرید قیمت', 'linear-gradient(155deg,#fef9e7,#fef3c7)', '#fde68a', '#f9d976', '#92400e')}
+          ${fieldBox('vcInlineLabor', '💪 خرید مزدوری', 'linear-gradient(155deg,#fff1eb,#ffe4d5)', '#fdba95', '#fbb08a', '#9a3412')}
+          ${fieldBox('vcInlineSellLabor', '💪 فروخت مزدوری', 'linear-gradient(155deg,#fff1eb,#ffe4d5)', '#fdba95', '#fbb08a', '#9a3412')}
+          <div style="background:linear-gradient(155deg,#e3ebe5,#d3e0d6); border:1px solid #c7d3c9; border-radius:8px; padding:3px 3px;">
+            <div style="font-size:8.5px; font-weight:800; color:#134e2c; margin-bottom:1px;">🧮 حتمی خرید</div>
+            <div id="vcInlineTotalPurchase" style="font-family:'Arial Black',Arial,sans-serif; font-weight:900; font-size:13px; color:#134e2c; padding:3px 2px;">0</div>
+          </div>
+          ${fieldBox('vcInlineWholesale', '🟢 راولپنڈی ریٹ', 'linear-gradient(155deg,#eafbf0,#d5f5e0)', '#86efac', '#6fd696', '#15803d')}
+          ${fieldBox('vcInlineRetail', '🔴 اسلام آباد ریٹ', 'linear-gradient(155deg,#fdecec,#fad2d0)', '#fca5a5', '#f28b87', '#b91c1c')}
+        </div>
+        <div style="margin-top:3px; background:linear-gradient(155deg,#eef2ff,#e0e7ff); border:1px solid #c7d2fe; border-radius:8px; padding:3px 3px; box-shadow:0 1.5px 0 #a5b4fc;">
+          <div style="font-size:8.5px; font-weight:800; color:#3730a3; margin-bottom:1px;">📦 سٹاک</div>
+          <input id="vcInlineStock" type="number" onfocus="clearTimeout(vcInlineAdvanceTimer);" oninput="vcInlineScheduleAdvance('stock')" style="width:100%; box-sizing:border-box; text-align:center; border:1px solid #a5b4fc; border-radius:5px; padding:3px 2px; font-family:'Arial Black',Arial,sans-serif; font-weight:900; font-size:13px; color:#3730a3; background:#fff;">
+        </div>
+        <div style="display:flex; align-items:center; justify-content:center; gap:5px; margin-top:5px; background:rgba(255,255,255,.12); border-radius:8px; padding:3px 6px;">
+          <span style="font-size:9.5px; color:#dbeafe; font-weight:800;">⏱️ رفتار:</span>
+          <button type="button" onclick="adjustVcInlineSpeed(150)" style="width:20px; height:20px; border-radius:5px; border:none; background:#fff; cursor:pointer; font-weight:900; font-size:12px;">−</button>
+          <span id="vcInlineSpeedVal" style="width:38px; text-align:center; font-weight:900; color:#fff; font-size:10px;">${(vcInlineSpeedMs/1000).toFixed(1)} س</span>
+          <button type="button" onclick="adjustVcInlineSpeed(-150)" style="width:20px; height:20px; border-radius:5px; border:none; background:#fff; cursor:pointer; font-weight:900; font-size:12px;">+</button>
+        </div>
+      </div>
+    </div>`;
 }
 
-function openVcEditPopup(productId, variantId, sourceWrapId){
-  const list = vcEditBuildList();
-  const listIdx = list.findIndex(x => x.productId === productId && x.variantId === variantId);
-  vcEditState = { sourceWrapId, list, listIdx: listIdx > -1 ? listIdx : 0 };
-  document.getElementById('vcEditSpeedVal').textContent = (vcEditSpeedMs / 1000).toFixed(1) + ' س';
-  document.getElementById('vcEditPopupModal').classList.add('show');
-  vcEditPopulate();
+function selectVcInlineRow(productId, variantId, sourceWrapId){
+  vcInlineSelectedId = productId;
+  vcInlineSelectedVariantId = variantId;
+  vcInlineSourceWrapId = sourceWrapId;
+  // ---------- منتخب قطار کو نیلا کرنے کے لیے صرف اسی سکرین کو دوبارہ رینڈر (اسکرول محفوظ رہتا ہے) ---------- -->
+  if(sourceWrapId === 'productListWrap') renderProductList(document.getElementById('productSearchInput')?.value || '');
+  else renderStockAdjustmentScreen(document.getElementById('stockAdjSearchInput')?.value || '');
 }
 
-function vcEditPopulate(){
-  if(!vcEditState) return;
-  clearTimeout(vcEditAdvanceTimer);
-  const { productId, variantId } = vcEditState.list[vcEditState.listIdx];
-  const product = productsData.find(p => p.product_id === productId);
-  const variant = product?.variants.find(v => v.variant_id === variantId);
-  if(!product || !variant){ closeVcEditPopup(); return; }
-  document.getElementById('vcEditPopupName').textContent = product.name;
-  document.getElementById('vcEditPopupPacking').textContent = variant.label || '';
-  document.getElementById('vcEditPurchase').value = variant.purchase || 0;
-  document.getElementById('vcEditLabor').value = variant.labor || 0;
-  document.getElementById('vcEditSellLabor').value = variant.sellLabor || 0;
-  document.getElementById('vcEditWholesale').value = variant.wholesale || 0;
-  document.getElementById('vcEditRetail').value = variant.retail || 0;
-  document.getElementById('vcEditStock').value = variant.stock || 0;
-  document.getElementById('vcEditTotalPurchase').textContent = ((variant.purchase||0) + (variant.labor||0)).toLocaleString();
-}
-
-// ---------- ✍️ ہر خانے میں لکھتے ہی حتمی خرید فوراً اپڈیٹ (لائیو) + اگلے خانے میں جانے کا ٹائمر شروع ---------- -->
-function vcEditScheduleAdvance(field){
-  if(field === 'purchase' || field === 'labor'){
-    const p = parseFloat(document.getElementById('vcEditPurchase').value) || 0;
-    const l = parseFloat(document.getElementById('vcEditLabor').value) || 0;
-    document.getElementById('vcEditTotalPurchase').textContent = (p + l).toLocaleString();
+function vcInlinePopulate(){
+  const emptyEl = document.getElementById('vcInlinePanelEmpty');
+  const bodyEl = document.getElementById('vcInlinePanelBody');
+  if(!emptyEl || !bodyEl) return;
+  const product = productsData.find(p => p.product_id === vcInlineSelectedId);
+  const variant = product?.variants.find(v => v.variant_id === vcInlineSelectedVariantId);
+  if(!product || !variant){
+    emptyEl.style.display = 'block'; bodyEl.style.display = 'none';
+    return;
   }
-  clearTimeout(vcEditAdvanceTimer);
-  vcEditAdvanceTimer = setTimeout(() => vcEditMoveToNextField(field), vcEditSpeedMs);
+  emptyEl.style.display = 'none'; bodyEl.style.display = 'block';
+  document.getElementById('vcInlinePanelName').textContent = product.name;
+  document.getElementById('vcInlinePanelPacking').textContent = variant.label || '';
+  document.getElementById('vcInlinePurchase').value = variant.purchase || 0;
+  document.getElementById('vcInlineLabor').value = variant.labor || 0;
+  document.getElementById('vcInlineSellLabor').value = variant.sellLabor || 0;
+  document.getElementById('vcInlineWholesale').value = variant.wholesale || 0;
+  document.getElementById('vcInlineRetail').value = variant.retail || 0;
+  document.getElementById('vcInlineStock').value = variant.stock || 0;
+  document.getElementById('vcInlineTotalPurchase').textContent = ((variant.purchase||0) + (variant.labor||0)).toLocaleString();
 }
 
-function vcEditMoveToNextField(currentField){
-  const idx = VC_EDIT_FIELD_ORDER.indexOf(currentField);
-  if(idx === -1 || idx === VC_EDIT_FIELD_ORDER.length - 1) return; // ---------- سٹاک کے بعد کرسر رک جاتا ہے — آگے نہیں جاتا ----------
-  const nextField = VC_EDIT_FIELD_ORDER[idx + 1];
-  const idMap = {purchase:'vcEditPurchase', labor:'vcEditLabor', sellLabor:'vcEditSellLabor', wholesale:'vcEditWholesale', retail:'vcEditRetail', stock:'vcEditStock'};
-  const nextEl = document.getElementById(idMap[nextField]);
+function vcInlineScheduleAdvance(field){
+  vcInlineCommit(field, document.getElementById(VC_INLINE_ID_MAP[field]).value);
+  if(field === 'purchase' || field === 'labor'){
+    const p = parseFloat(document.getElementById('vcInlinePurchase').value) || 0;
+    const l = parseFloat(document.getElementById('vcInlineLabor').value) || 0;
+    document.getElementById('vcInlineTotalPurchase').textContent = (p + l).toLocaleString();
+  }
+  clearTimeout(vcInlineAdvanceTimer);
+  vcInlineAdvanceTimer = setTimeout(() => vcInlineMoveToNextField(field), vcInlineSpeedMs);
+}
+
+function vcInlineMoveToNextField(currentField){
+  const idx = VC_INLINE_FIELD_ORDER.indexOf(currentField);
+  if(idx === -1 || idx === VC_INLINE_FIELD_ORDER.length - 1) return; // ---------- سٹاک کے بعد کرسر رک جاتا ہے ----------
+  const nextEl = document.getElementById(VC_INLINE_ID_MAP[VC_INLINE_FIELD_ORDER[idx + 1]]);
   if(nextEl){ nextEl.focus(); nextEl.select(); }
 }
 
-function vcEditCommit(field, value){
-  if(!vcEditState) return;
-  const { productId, variantId } = vcEditState.list[vcEditState.listIdx];
-  updateVariantField(productId, variantId, field, value, document.getElementById(
-    {purchase:'vcEditPurchase', labor:'vcEditLabor', sellLabor:'vcEditSellLabor', wholesale:'vcEditWholesale', retail:'vcEditRetail', stock:'vcEditStock'}[field]
-  ));
-  // ---------- 🔒 اسی سکرین کو بھی خاموشی سے پس منظر میں تازہ رکھیں (بغیر پاپ اپ بند کیے) ---------- -->
-  if(vcEditState.sourceWrapId === 'productListWrap') crossRefreshProductList?.();
-  else crossRefreshStockAdjustment?.();
+function vcInlineCommit(field, value){
+  if(vcInlineSelectedId === null) return;
+  updateVariantField(vcInlineSelectedId, vcInlineSelectedVariantId, field, value, document.getElementById(VC_INLINE_ID_MAP[field]));
+  // ---------- 🔒 دوسری سکرین کو بھی خاموشی سے پس منظر میں تازہ رکھیں ---------- -->
+  if(vcInlineSourceWrapId === 'productListWrap') crossRefreshStockAdjustment?.();
+  else crossRefreshProductList?.();
 }
 
-function adjustVcEditSpeed(deltaMs){
-  vcEditSpeedMs = Math.max(200, Math.min(3000, vcEditSpeedMs + deltaMs));
-  saveToStorage('vcEditSpeedMs', vcEditSpeedMs);
-  document.getElementById('vcEditSpeedVal').textContent = (vcEditSpeedMs / 1000).toFixed(1) + ' س';
-}
-
-function vcEditPopupNav(direction){
-  if(!vcEditState) return;
-  const newIdx = vcEditState.listIdx + direction; // ---------- ▶ (اگلی) = +1، ◀ (پچھلی) = -1 ----------
-  if(newIdx < 0 || newIdx >= vcEditState.list.length) return;
-  vcEditState.listIdx = newIdx;
-  vcEditPopulate();
-}
-
-function closeVcEditPopup(){
-  clearTimeout(vcEditAdvanceTimer);
-  document.getElementById('vcEditPopupModal').classList.remove('show');
-  // ---------- بند کرتے وقت اصل سکرین کو ایک بار مکمل تازہ کر دیں تاکہ سب کچھ بالکل صحیح دکھے ---------- -->
-  if(vcEditState){
-    if(vcEditState.sourceWrapId === 'productListWrap') renderProductList(document.getElementById('productSearchInput')?.value || '');
-    else renderStockAdjustmentScreen(document.getElementById('stockAdjSearchInput')?.value || '');
-  }
-  vcEditState = null;
+function adjustVcInlineSpeed(deltaMs){
+  vcInlineSpeedMs = Math.max(200, Math.min(3000, vcInlineSpeedMs + deltaMs));
+  saveToStorage('vcEditSpeedMs', vcInlineSpeedMs);
+  const el = document.getElementById('vcInlineSpeedVal');
+  if(el) el.textContent = (vcInlineSpeedMs / 1000).toFixed(1) + ' س';
 }
 
 // ---------- جب واقعی پوری Product لسٹ دوبارہ بنانا ضروری ہو (نیا/حذف شدہ variant, نیا Product) —
@@ -20020,6 +20120,12 @@ function toggleCustomerActiveStatus(customerId, makeActive){
   if(!c) return;
   c.isDormant = !makeActive;
   persistAllData();
+  // ---------- 🔒🔒 صدام کی ہدایت (FM15SEPTU3): اصل جڑ ملی! یہاں کبھی کلاؤڈ پر push نہیں ہوتا تھا —
+  // صرف مقامی طور پر محفوظ ہوتا تھا۔ اگلی خودکار پولنگ (12 سیکنڈ بعد) کلاؤڈ سے پرانی (غیر حاضر نہ ہونے
+  // والی) حالت واپس کھینچ کر تبدیلی مٹا دیتی تھی — یہی وہ اصل وجہ تھی جس سے چند سبزیاں/کسٹمر غیر حاضر کرنے
+  // کے بعد سب خودکار واپس آ جاتے تھے ---------- -->
+  pushCustomersToCloud();
+  pauseCloudPolling(20000);
   renderPartyList(document.getElementById('partySearchInput')?.value || '');
 }
 
@@ -20030,6 +20136,8 @@ function toggleSupplierActiveStatus(supplierId, makeActive){
   if(!s) return;
   s.isDormant = !makeActive;
   persistAllData();
+  pushSuppliersToCloud(); // ---------- 🔒🔒 اسی خرابی کا فکس، سپلائرز کے لیے بھی ---------- -->
+  pauseCloudPolling(20000);
   renderPartyList(document.getElementById('partySearchInput')?.value || '');
 }
 function animateAndToggleSupplier(supplierId){
@@ -20039,7 +20147,7 @@ function animateAndToggleSupplier(supplierId){
     const s = suppliersData.find(x => x.supplier_id === supplierId);
     if(!s) return;
     toggleSupplierActiveStatus(supplierId, !!s.isDormant);
-  }, 280);
+  }, 100);
 }
 function wireSupplierSwipeRows(){
   document.querySelectorAll('.supSwipeRow[data-swipe-id]').forEach(row => {
@@ -20048,9 +20156,10 @@ function wireSupplierSwipeRows(){
     const supplierId = parseInt(row.dataset.swipeId, 10);
     const s = suppliersData.find(x => x.supplier_id === supplierId);
     const willBeDormant = !(s && s.isDormant);
-    const hint = document.createElement('div');
-    hint.style.cssText = 'position:absolute; inset:0; display:none; align-items:center; justify-content:center; border-radius:13px; font-weight:900; font-size:13px; z-index:2; pointer-events:none;';
-    row.appendChild(hint);
+    // ---------- 🔒 صدام کی ہدایت (FM15SEPTU4): اشارہ اب کارڈ کے اوپر نہیں لکھا جاتا — کارڈ کے پیچھے موجود
+    // خانے (swipeBgHint) میں، جو کارڈ سرکنے سے خالی ہونے والی جگہ میں نظر آتا ہے ---------- -->
+    const hint = row.parentElement && row.parentElement.classList.contains('swipeOuterWrap')
+      ? row.parentElement.querySelector('.swipeBgHint') : null;
 
     let startX = 0, dx = 0, dragging = false;
     const threshold = 70;
@@ -20063,23 +20172,23 @@ function wireSupplierSwipeRows(){
       dx = e.clientX - startX;
       if(Math.abs(dx) < 6) return;
       row.style.transform = `translateX(${dx}px)`;
-      hint.style.display = 'flex';
-      hint.style.background = willBeDormant ? 'rgba(185,28,28,.9)' : 'rgba(21,128,61,.9)';
-      hint.style.color = '#fff';
-      hint.textContent = willBeDormant ? '🪦 غیر فعال کریں' : '✅ حاضر کریں';
-      hint.style.opacity = Math.min(1, Math.abs(dx) / threshold);
+      if(hint){
+        hint.style.background = willBeDormant ? '#b91c1c' : '#15803d';
+        hint.textContent = willBeDormant ? '🪦 غیر فعال کریں' : '✅ حاضر کریں';
+        hint.style.opacity = Math.min(1, Math.abs(dx) / threshold);
+      }
     });
     const endSwipe = e => {
       if(!dragging) return;
       dragging = false;
-      row.style.transition = 'transform .2s, opacity .2s';
+      row.style.transition = 'transform .12s, opacity .12s';
       if(Math.abs(dx) > threshold){
         row.style.transform = `translateX(${dx > 0 ? '120%' : '-120%'})`;
         row.style.opacity = '0';
-        setTimeout(() => animateAndToggleSupplier(supplierId), 180);
+        setTimeout(() => animateAndToggleSupplier(supplierId), 130);
       } else {
         row.style.transform = 'translateX(0)';
-        hint.style.display = 'none';
+        if(hint) hint.style.opacity = '0';
       }
       dx = 0;
     };
@@ -20098,7 +20207,7 @@ function animateAndToggleCustomer(customerId){
     const c = customersData.find(x => x.customer_id === customerId);
     if(!c) return;
     toggleCustomerActiveStatus(customerId, !!c.isDormant); // ---------- موجودہ حالت الٹ دیں ----------
-  }, 280);
+  }, 100);
 }
 
 // ---------- 👆 صدام کی ہدایت (FM15SEPTU): چیک باکس کی جگہ سوائپ (سلائیڈ) — کسٹمر کارڈ کو بائیں یا دائیں
@@ -20111,9 +20220,10 @@ function wireCustomerSwipeRows(){
     const customerId = parseInt(row.dataset.swipeId, 10);
     const c = customersData.find(x => x.customer_id === customerId);
     const willBeDormant = !(c && c.isDormant);
-    const hint = document.createElement('div');
-    hint.style.cssText = 'position:absolute; inset:0; display:none; align-items:center; justify-content:center; border-radius:13px; font-weight:900; font-size:13px; z-index:2; pointer-events:none;';
-    row.appendChild(hint);
+    // ---------- 🔒 صدام کی ہدایت (FM15SEPTU4): اشارہ اب کارڈ کے اوپر نہیں لکھا جاتا — کارڈ کے پیچھے موجود
+    // خانے (swipeBgHint) میں، جو کارڈ سرکنے سے خالی ہونے والی جگہ میں نظر آتا ہے ---------- -->
+    const hint = row.parentElement && row.parentElement.classList.contains('swipeOuterWrap')
+      ? row.parentElement.querySelector('.swipeBgHint') : null;
 
     let startX = 0, dx = 0, dragging = false;
     const threshold = 70;
@@ -20126,23 +20236,23 @@ function wireCustomerSwipeRows(){
       dx = e.clientX - startX;
       if(Math.abs(dx) < 6) return; // ---------- ذرا سی حرکت پر کارڈ نہ کھینچے (عام ٹیپ متاثر نہ ہو) ----------
       row.style.transform = `translateX(${dx}px)`;
-      hint.style.display = 'flex';
-      hint.style.background = willBeDormant ? 'rgba(185,28,28,.9)' : 'rgba(21,128,61,.9)';
-      hint.style.color = '#fff';
-      hint.textContent = willBeDormant ? '🪦 کھوہ کھاتے میں بھیجیں' : '✅ حاضر کریں';
-      hint.style.opacity = Math.min(1, Math.abs(dx) / threshold);
+      if(hint){
+        hint.style.background = willBeDormant ? '#b91c1c' : '#15803d';
+        hint.textContent = willBeDormant ? '🪦 کھوہ کھاتے میں بھیجیں' : '✅ حاضر کریں';
+        hint.style.opacity = Math.min(1, Math.abs(dx) / threshold);
+      }
     });
     const endSwipe = e => {
       if(!dragging) return;
       dragging = false;
-      row.style.transition = 'transform .2s, opacity .2s';
+      row.style.transition = 'transform .12s, opacity .12s';
       if(Math.abs(dx) > threshold){
         row.style.transform = `translateX(${dx > 0 ? '120%' : '-120%'})`;
         row.style.opacity = '0';
-        setTimeout(() => animateAndToggleCustomer(customerId), 180);
+        setTimeout(() => animateAndToggleCustomer(customerId), 130);
       } else {
         row.style.transform = 'translateX(0)';
-        hint.style.display = 'none';
+        if(hint) hint.style.opacity = '0';
       }
       dx = 0;
     };
@@ -20179,8 +20289,8 @@ function buildCompactPartyRow(opts){
   const balHtml = `<div style="flex:0 0 74px; font-size:12.5px; font-weight:900; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; text-align:center; border-radius:9px; padding:6px 4px; background:${balBg}; color:${balColor}; box-shadow:0 2px 0 rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.6);">${hasBal ? 'Rs.' + balance.toLocaleString() : '—'}</div>`;
   const keywordHtml = keywords ? `<span style="flex:0 0 auto; font-size:9px; font-weight:600; color:var(--primary-dark); background:#eef2ff; border-radius:6px; padding:1px 5px;">${keywords}</span>` : '';
   const serialHtml = `<button type="button" onclick="event.stopPropagation(); ${serialClickJs}" style="flex:0 0 auto; ${SERIAL_BADGE_INLINE_STYLE} width:20px !important; height:20px !important; min-width:20px !important; min-height:20px !important; font-size:9.5px !important; box-shadow:none !important; border-width:1.5px !important;">${serial ?? '?'}</button>`;
-  return `
-    <div dir="rtl" data-swipe-id="${dormantJs ? id : ''}" class="${dormantJs ? (swipeClass || 'custSwipeRow') : ''}" onclick="${rowClickJs}" style="position:relative; display:flex; align-items:center; gap:4px; flex-wrap:nowrap; border-radius:13px; border:1.5px solid ${rowBorder}; padding:7px 8px; margin-bottom:6px; cursor:pointer; width:100%; box-sizing:border-box; background:${rowBg}; box-shadow:${rowShadow}; touch-action:pan-y;">
+  const cardHtml = `
+    <div dir="rtl" data-swipe-id="${dormantJs ? id : ''}" class="${dormantJs ? (swipeClass || 'custSwipeRow') : ''}" onclick="${rowClickJs}" style="position:relative; z-index:1; display:flex; align-items:center; gap:4px; flex-wrap:nowrap; border-radius:13px; border:1.5px solid ${rowBorder}; padding:7px 8px; margin-bottom:${dormantJs ? '0' : '6px'}; cursor:pointer; width:100%; box-sizing:border-box; background:${rowBg}; box-shadow:${rowShadow}; touch-action:pan-y;">
       ${serialHtml}
       <div style="flex:1 1 auto; min-width:0;">
         <div style="font-weight:900; font-size:14px; color:#0f172a; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display:flex; align-items:center; gap:4px;">${name} ${keywordHtml}</div>
@@ -20194,6 +20304,15 @@ function buildCompactPartyRow(opts){
       <!-- ---------- 🔒 صدام کی ہدایت (FM13SEPSU): کسٹمر/سپلائر کو غلطی سے حذف ہونے سے بچانے کے لیے یہ بٹن
            فی الحال مکمل چھپا دیا گیا ہے (کوڈ/فنکشن محفوظ ہے، مستقبل میں ضرورت پڑنے پر واپس دکھایا جا سکتا ہے) ---------- -->
       <button type="button" onclick="event.stopPropagation(); ${deleteJs}" title="حذف کریں" style="display:none; flex:0 0 auto; width:20px; height:20px; border:none; border-radius:50%; background:rgba(0,0,0,.06); color:#94a3b8; font-size:10px; cursor:pointer; align-items:center; justify-content:center;">🗑️</button>
+    </div>`;
+  // ---------- 🔒 صدام کی ہدایت (FM15SEPTU4): سوائپ کا اشارہ اب کارڈ کے اوپر لکھا ہوا نہیں آتا — کارڈ کے
+  // بالکل پیچھے (نیچے) ایک رنگین خانہ چھپا رہتا ہے، جو کارڈ سرکنے سے پیچھے خالی ہونے والی جگہ میں نظر آنا
+  // شروع ہوتا ہے (بالکل عام سوائپ ایپس جیسا) ---------- -->
+  if(!dormantJs) return cardHtml;
+  return `
+    <div class="swipeOuterWrap" style="position:relative; margin-bottom:6px;">
+      <div class="swipeBgHint" style="position:absolute; inset:0; border-radius:13px; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:13px; color:#fff; opacity:0; z-index:0;"></div>
+      ${cardHtml}
     </div>`;
 }
 
@@ -24596,10 +24715,16 @@ function renderAdminPendingOrdersScreen(){
         ? (matchedCust.rateArea === 'wholesale' ? `<span style="font-size:10.5px; font-weight:800; background:#ede9fe; color:#5b21b6; padding:2px 7px; border-radius:8px; margin-inline-start:5px;">📦 Rawalpindi</span>` : `<span style="font-size:10.5px; font-weight:800; background:#d1fae5; color:#065f46; padding:2px 7px; border-radius:8px; margin-inline-start:5px;">🏷️ Islamabad</span>`)
         : '';
       return `
-        <div class="billCard" onclick="fulfillAdvanceOrder(${o.id})" style="cursor:pointer; padding:8px 12px; margin-bottom:5px;">
-          <div>
+        <div class="billCard" style="cursor:default; padding:8px 12px; margin-bottom:5px; flex-wrap:wrap; align-items:flex-start;">
+          <div onclick="fulfillAdvanceOrder(${o.id})" style="cursor:pointer; flex:1 1 100%;">
             <div class="bNo" style="font-size:13.5px;">🧑 ${o.customerName}${areaBadge} ${statusTag}</div>
             <div class="bMeta" style="font-size:11.5px;">${when} — ${itemCount} item(s)${hasRate ? ' — Rs. ' + advOrderTotal(o).toLocaleString() : ''}</div>
+          </div>
+          <!-- ---------- 👁️ صدام کی ہدایت (FM15SEPTU5): کوئی ایکشن (OK/ریٹ) لیے بغیر پورا بل دیکھنے کا موقع —
+               پریویو کے اندر سے ہی ایڈٹ اور ڈیلیٹ بھی ممکن (وہاں پہلے سے موجود بٹن) ---------- -->
+          <div class="billActions" style="margin-top:6px; flex:1 1 100%;" onclick="event.stopPropagation();">
+            <button class="btnPrint" onclick="openAdvOrderPreview(${o.id})" style="padding:6px 12px; font-size:11.5px;">👁️ پریویو</button>
+            <button class="removeBtn" onclick="deleteAdvanceOrder(${o.id})" style="padding:6px 12px; font-size:11.5px;">🗑️ ڈیلیٹ</button>
           </div>
         </div>`;
     }).join('');
@@ -24643,19 +24768,12 @@ async function openAdvOrderPreview(orderId){
   currentPreviewAdvOrderId = orderId;
   document.getElementById('advOrderPreviewModal').classList.add('show');
   syncAdvOrderStyleControls();
-  // ---------- 🚀 صدام کی ہدایت (FM3SEPTH23): بل کھلتے ہی زیرو زیرو دکھانے اور بٹن دبانے کا انتظار کرنے کے بجائے —
-  // اگر یہ آرڈر کسی ایسے محفوظ شدہ کسٹمر کا ہے جس کا ریٹ ایریا (اسلام آباد/راولپنڈی) پہلے سے سیٹ ہے، تو وہ ریٹ
-  // یہیں خودکار لگا دیں — بل پہلی ہی نظر میں صحیح قیمتوں کے ساتھ کھلے گا، اور غلطی سے زیرو پرنٹ نہیں ہوگا۔
-  // نیا/انجان کسٹمر ہو (رٹ ایریا محفوظ نہ ہو) تو پہلے کی طرح دونوں بٹن نظر آتے رہیں گے تاکہ ایڈمن خود چن سکے ---------- -->
-  if(!order.items.some(i => i.unitPrice > 0) && order.status !== 'fulfilled'){
-    const orderPhoneDigits = normalizeDigits(order.customerPhone || '');
-    const matchedCustomer = (orderPhoneDigits && customersData.find(c => normalizeDigits(c.phone) === orderPhoneDigits))
-      || customersData.find(c => (c.name || '').trim().toLowerCase() === (order.customerName || '').trim().toLowerCase());
-    if(matchedCustomer && (matchedCustomer.rateArea === 'retail' || matchedCustomer.rateArea === 'wholesale')){
-      applyRateToAdvanceOrder(orderId, matchedCustomer.rateArea);
-      setTimeout(() => { persistAllData(); pushAdvanceOrdersToCloud(); }, 0); // ---------- بھاری سیو بیک گراؤنڈ میں، بل دکھنے میں تاخیر نہ ہو ----------
-    }
-  }
+  // ---------- 🛑 صدام کی ہدایت (FM15SEPTU0413PM): پہلے یہاں محفوظ شدہ کسٹمر کے ریٹ ایریا (اسلام آباد/راولپنڈی)
+  // کی بنیاد پر خودکار ریٹ لگ جاتا تھا (FM3SEPTH23 والا فیچر) — یہی وجہ تھی کہ پریویو کھولتے ہی جس پراڈکٹ کا
+  // Stock Management میں ریٹ پہلے سے بھرا ہوتا (مثلاً بھنڈی=350) اس کی قیمت خودکار نظر آنے لگتی، جبکہ باقی
+  // آئٹمز جن کا ریٹ ابھی 0 ہے وہ 0 ہی رہتے — یہ کوئی غلط فارمولا/آئٹمز کا ٹکراؤ نہیں تھا، بلکہ یہی خودکار
+  // فیچر تھا۔ صدام کی ہدایت پر اب یہ خودکار اطلاق مکمل بند — قیمت اب صرف اسی وقت لگے گی جب ایڈمن خود
+  // "Rate لگائیں" کے دونوں بٹنوں میں سے کسی ایک کو دبائے گا (کوڈ نیچے applyRateToAdvanceOrder میں محفوظ ہے) ---------- -->
   syncAdvOrderRateRow(order);
   await new Promise(r => setTimeout(r, 100)); // ---------- modal کے نظر آنے کے بعد canvas ڈرائنگ (کچھ WebViews کے لیے ضروری) ----------
   await renderAdvOrderToCanvas(order);
@@ -24670,8 +24788,11 @@ function closeAdvOrderPreview(){
 function syncAdvOrderRateRow(order){
   const row = document.getElementById('aopRateApplyRow');
   if(row){
+    // ---------- 🛑 صدام کی ہدایت (FM15SEPTU0451PM): یہ ریٹ لگانے والے بٹن پہلے صرف hasRate/status پر
+    // منحصر تھے، رول چیک نہیں تھا — اسی وجہ سے آرڈر لینے والے ملازم کو بھی اپنے ہی ڈرافٹ کے پریویو میں یہ
+    // بٹن نظر آ جاتے، اور غلطی سے دبانے پر پوری قیمت/ٹوٹل بن جاتی۔ اب یہ بٹن صرف ایڈمن کو نظر آئیں گے ---------- -->
     const hasRate = order.items.some(i => i.unitPrice > 0);
-    row.style.display = (!hasRate && order.status !== 'fulfilled') ? 'flex' : 'none';
+    row.style.display = (AppState.currentRole === 'admin' && !hasRate && order.status !== 'fulfilled') ? 'flex' : 'none';
   }
   renderAdvOrderExtraCharges(order);
 }
@@ -24930,7 +25051,12 @@ async function _renderAdvOrderToCanvasInner(order, canvasEl){
   // دائیں سے بائیں: نمبر → نام اشیاء (سب سے چوڑا) → تعداد → نرخ → ٹوٹل۔ ہر تنگ کالم اپنے اندر موجود
   // سب سے لمبے ہندسے جتنا ہی چوڑا ہے، باقی جگہ نام اشیاء کو مل جاتی ہے ---------- -->
   const tableLeft = useA4 ? 40 : 8, tableRight = pxWidth - (useA4 ? 40 : 8);
-  const hasRate = order.items.some(i => i.unitPrice > 0); // ---------- ریٹ لگ چکا ہو تو یہ اصل بل ہے — "ADVANCE ORDER" بینر کی ضرورت نہیں ----------
+  // ---------- 🛑 صدام کی ہدایت (FM15SEPTU0451PM): پہلے یہاں hasRate صرف ڈیٹا پر (کوئی آئٹم ریٹ > 0) منحصر تھا —
+  // یعنی ایڈمن رقم/ریٹ لگا چکا ہو تو یہی آرڈر جب ملازم (آرڈر لینے والا) اپنے ڈرافٹ یا بھیجے گئے آرڈرز میں دیکھتا
+  // تو اسے بھی مکمل قیمت اور ٹوٹل نظر آ جاتا۔ صدام کی صاف ہدایت: آرڈر لینے والے ملازم کو ہمیشہ صرف تعداد نظر
+  // آنی چاہیے — نہ ڈرافٹ میں نہ بھیجے گئے آرڈر میں — چاہے ایڈمن بل مکمل ہی کیوں نہ کر چکا ہو۔ اب قیمت/ٹوٹل صرف
+  // ایڈمن کے لیے ہی دکھائے جائیں گے، باقی سب کو ہمیشہ صرف تعداد ---------- -->
+  const hasRate = (AppState.currentRole === 'admin') && order.items.some(i => i.unitPrice > 0); // ---------- ریٹ لگ چکا ہو تو یہ اصل بل ہے — "ADVANCE ORDER" بینر کی ضرورت نہیں (صرف ایڈمن کے لیے) ----------
   let maxQtyStr = '0', maxPriceStr = '0', maxTotalStr = '0';
   order.items.forEach(it => {
     const qS = String(it.qty), pS = (it.unitPrice||0).toFixed(decimals), tS = ((it.qty||0)*(it.unitPrice||0)).toFixed(decimals);
@@ -24991,6 +25117,7 @@ async function _renderAdvOrderToCanvasInner(order, canvasEl){
   const tableH = headerH + rowHeights.reduce((a,b) => a+b, 0);
 
   let estimatedHeight = (30 + 26 + 22 + 22 + (hasRate ? 20 : 58) + 26 + 40 + 32 + 50) * scale + tableH + (charges.length * 20 * scale);
+  if(!hasRate) estimatedHeight -= (charges.length * 20 * scale); // ---------- FM15SEPTU0451PM: قیمت نہ دکھنے کی صورت میں اضافی خرچے بھی نہیں دکھتے، خالی جگہ نہ بچے ----------
   if(useA4) estimatedHeight += 80;
   if(AppState.settings.businessAddress) estimatedHeight += 16 * scale;
   if(AppState.settings.businessPhone) estimatedHeight += 16 * scale;
@@ -25116,7 +25243,7 @@ async function _renderAdvOrderToCanvasInner(order, canvasEl){
   y = tableTop + tableH + 20 * scale;
 
   // ---------- اضافی خرچے (فریٹ/شپنگ/لیبر وغیرہ) — آئٹمز ٹیبل کے بعد، گرینڈ ٹوٹل سے پہلے ----------
-  if(charges.length > 0){
+  if(hasRate && charges.length > 0){
     ctx.font = F('13px');
     charges.forEach(c => {
       ctx.textAlign = 'left';
@@ -28313,7 +28440,20 @@ async function pushCustomersToCloud(){
   }
 }
 
+// ---------- ⏸️ صدام کی ہدایت (FM15SEPTU3): اصل جڑ ملی — حاضر/غیر حاضر ٹوگل کرتے وقت بھی وہی 12 سیکنڈ کی
+// خودکار پولنگ چلتی رہتی تھی۔ اگر ابھی ابھی کی گئی مقامی تبدیلی کلاؤڈ پر پہنچنے سے پہلے ہی اگلی پولنگ چل جائے
+// (کلاؤڈ ابھی پرانا ڈیٹا واپس دے) تو مقامی تبدیلی الٹ جاتی — یہی وہ وجہ تھی جس سے 9-11 سبزیاں غیر حاضر کرنے
+// کے بعد اچانک سب واپس زیرو پر آ جاتی تھیں۔ اب ہر تبدیلی کے بعد کچھ دیر کے لیے خودکار pull روک دیتے ہیں ---------- -->
+let cloudPollingPausedUntil = 0;
+function pauseCloudPolling(ms){
+  cloudPollingPausedUntil = Date.now() + ms;
+}
+function isCloudPollingPaused(){
+  return Date.now() < cloudPollingPausedUntil;
+}
+
 async function fetchCustomersFromCloud(silent){
+  if(!silent && isCloudPollingPaused()) return false; // ---------- خاموش (پس منظر) پولنگ ہی روکیں — دستی ری فریش کو نہ روکیں ----------
   // ---------- 🔒 صدام کی ہدایت (FM13SEPSU): اصل خطرناک خرابی یہیں ملی! پرانا کوڈ اگر customersPendingSync
   // فلیگ کہیں پہلے (مثلاً براؤزر ڈیٹا صاف ہونے کے بعد پہلی بار آفلائن ناکامی پر) true پھنس جاتا تو یہ فنکشن
   // ہمیشہ کے لیے صرف "push" کرتا رہتا — یعنی خالی/ڈیفالٹ (seed) ڈیٹا بار بار کلاؤڈ پر بھیج کر اصل محفوظ شدہ
@@ -28416,6 +28556,7 @@ async function pushSuppliersToCloud(){
 }
 
 async function fetchSuppliersFromCloud(silent){
+  if(!silent && isCloudPollingPaused()) return false;
   // ---------- 🔒 صدام کی ہدایت (FM13SEPSU): کسٹمر والی خرابی یہاں بھی — اگر مقامی seed جیسا (خالی) ڈیٹا ہو
   // تو کبھی push نہ کریں، سیدھا pull کی کوشش کریں (ورنہ سٹک فلیگ خالی ڈیٹا سے کلاؤڈ کا اصل ڈیٹا اوور رائٹ کر دیتا) ---------- -->
   const localSuppliersLookSeed = suppliersData.length <= SUPPLIERS_SEED_DATA.length &&
@@ -28512,6 +28653,7 @@ async function pushProductsToCloud(){
 }
 
 async function fetchProductsFromCloud(silent){
+  if(!silent && isCloudPollingPaused()) return false;
   // ---------- اگر اسی فون پر کوئی پراڈکٹ/سٹاک تبدیلی (نیا آئٹم، ریٹ، سٹاک ایڈجسٹمنٹ، فروخت وغیرہ) ابھی کلاؤڈ میں نہیں گئی
   // تو پہلے وہی بھیجیں — ورنہ کلاؤڈ سے پرانا ڈیٹا کھینچ کر اسی فون کی نئی تبدیلی (مثلاً ابھی کٹا ہوا سٹاک) مٹ جانے کا خطرہ ہوگا ----------
   if(AppState.settings.productsPendingSync){
