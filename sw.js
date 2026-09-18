@@ -5,7 +5,7 @@
 // اور آف لائن میں ایپ کھلتی ہی نہ تھی۔ اب ہر شیل فائل کو الگ الگ await کے ساتھ کیش کیا جاتا ہے، اور "صفحہ کھولنے"
 // (navigation) کی درخواست کو ہمیشہ پہلے کیش سے جواب دیا جاتا ہے (فوری + بھروسہ مند آف لائن آغاز)، پس منظر میں
 // نیٹ سے تازہ کاپی بھی لے لی جاتی ہے تاکہ اگلی بار اپڈیٹ شدہ نظر آئے ---------- -->
-const CACHE_NAME = 'hafiz-musab-shell-HFZ189FR1248PM';
+const CACHE_NAME = 'hafiz-musab-shell-HFZ189FR0553PM';
 const SHELL_FILES = ['./', './index.html', './manifest.json'];
 
 self.addEventListener('install', (event) => {
