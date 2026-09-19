@@ -1666,6 +1666,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
     </div>
   </div>
   <div class="wlc-auto-hint" id="wlcAutoHint">⏳ خود بخود چند سیکنڈ میں شروع ہو رہا ہے…</div>
+  <button class="wlc-start-btn" onclick="startApp()">▶ شروع کریں</button>
 </div>
 
 <!-- منزل اوورلے — مخصوص حفاظتی آیات (شیخ الحدیث محمد زکریا رحمہ اللہ کی معروف ترتیب) -->
@@ -1689,7 +1690,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">جمعہ 18 ستمبر 01:04PM</span>
+    <span class="ver-code" id="splashVerCode">ہفتہ 19 ستمبر 09:50AM</span>
   </div>
 </div>
 
@@ -4213,6 +4214,7 @@ document.addEventListener('click',function(e){
 // ══ INIT ══
 // ══ WELCOME → SPLASH → APP ══
 function startApp(){
+  if(typeof cancelWlcAutoStart==='function')cancelWlcAutoStart();
   const wl=document.getElementById('welcomeOverlay');
   wl.style.transition='opacity .5s';wl.style.opacity='0';
   setTimeout(()=>{wl.style.display='none';runSplash();},500);
@@ -4412,8 +4414,8 @@ function applyUrFont(idx){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='HFZ189FR0553PM';
-const APP_VERSION_DISPLAY='جمعہ 18 ستمبر 05:53PM';
+const APP_VERSION='HFZ199SA0950AM';
+const APP_VERSION_DISPLAY='ہفتہ 19 ستمبر 09:50AM';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
