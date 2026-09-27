@@ -5,22 +5,30 @@
 // اور آف لائن میں ایپ کھلتی ہی نہ تھی۔ اب ہر شیل فائل کو الگ الگ await کے ساتھ کیش کیا جاتا ہے، اور "صفحہ کھولنے"
 // (navigation) کی درخواست کو ہمیشہ پہلے کیش سے جواب دیا جاتا ہے (فوری + بھروسہ مند آف لائن آغاز)، پس منظر میں
 // نیٹ سے تازہ کاپی بھی لے لی جاتی ہے تاکہ اگلی بار اپڈیٹ شدہ نظر آئے ---------- -->
-const CACHE_NAME = 'hafiz-musab-shell-HFZ199SA0950AM';
+const CACHE_NAME = 'hafiz-musab-shell-HFZ279SU0215PM';
 const SHELL_FILES = ['./', './index.html', './manifest.json'];
 
+async function warmShellCache(){
+  const cache = await caches.open(CACHE_NAME);
+  await Promise.all(SHELL_FILES.map(async (f) => {
+    try {
+      const res = await fetch(f, { cache: 'reload' });
+      if (res && res.ok) await cache.put(f, res.clone());
+    } catch (e) { /* آف لائن — بعد میں کوشش ہو گی */ }
+  }));
+}
+
 self.addEventListener('install', (event) => {
-  event.waitUntil(
-    (async () => {
-      const cache = await caches.open(CACHE_NAME);
-      await Promise.all(SHELL_FILES.map(async (f) => {
-        try {
-          const res = await fetch(f, { cache: 'reload' });
-          if (res && res.ok) await cache.put(f, res.clone());
-        } catch (e) { /* یہ فائل ابھی کیش نہ ہو سکی — عام استعمال کے دوران fetch ہینڈلر خود بخود کیش کر لے گا */ }
-      }));
-    })()
-  );
+  event.waitUntil(warmShellCache());
   self.skipWaiting();
+});
+
+// ---------- 🔄 موبائل کبھی کبھار (کم استعمال یا کم جگہ کی وجہ سے) پرانی کیش خود بخود ختم کر دیتا ہے —
+// اس لیے ہر بار ایپ نیٹ پر کھلنے پر index.html کو نئے سرے سے کیش کیا جاتا ہے، تاکہ آف لائن ہمیشہ بھروسہ مند رہے ---------- -->
+self.addEventListener('message', (event) => {
+  if (event.data === 'REWARM_SHELL_CACHE') {
+    event.waitUntil(warmShellCache());
+  }
 });
 
 self.addEventListener('activate', (event) => {
@@ -45,17 +53,21 @@ self.addEventListener('fetch', (event) => {
   if (req.mode === 'navigate') {
     event.respondWith(
       (async () => {
-        const cached = await caches.match('./index.html');
-        const networkUpdate = fetch(req)
-          .then((res) => {
-            if (res && res.ok) {
-              caches.open(CACHE_NAME).then((c) => c.put('./index.html', res.clone()));
-            }
-            return res;
-          })
-          .catch(() => null);
-        return cached || (await networkUpdate) || caches.match(req) ||
-          new Response('', { status: 408, statusText: 'Offline' });
+        const cached = await caches.match('./index.html', { ignoreSearch: true });
+        if (cached) {
+          fetch(req).then((res) => {
+            if (res && res.ok) caches.open(CACHE_NAME).then((c) => c.put('./index.html', res.clone()));
+          }).catch(() => {});
+          return cached;
+        }
+        try {
+          const res = await fetch(req);
+          if (res && res.ok) caches.open(CACHE_NAME).then((c) => c.put('./index.html', res.clone()));
+          return res;
+        } catch (e) {
+          return (await caches.match(req, { ignoreSearch: true })) ||
+            new Response('', { status: 408, statusText: 'Offline' });
+        }
       })()
     );
     return;

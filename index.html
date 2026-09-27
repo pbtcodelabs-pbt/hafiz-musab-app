@@ -1690,7 +1690,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">ہفتہ 19 ستمبر 09:50AM</span>
+    <span class="ver-code" id="splashVerCode">اتوار 27 ستمبر 02:15PM</span>
   </div>
 </div>
 
@@ -4414,8 +4414,8 @@ function applyUrFont(idx){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='HFZ199SA0950AM';
-const APP_VERSION_DISPLAY='ہفتہ 19 ستمبر 09:50AM';
+const APP_VERSION='HFZ279SU0215PM';
+const APP_VERSION_DISPLAY='اتوار 27 ستمبر 02:15PM';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
@@ -4514,8 +4514,25 @@ async function forceRefresh(){
 </script>
 <script>
 if('serviceWorker' in navigator){
-  window.addEventListener('load',()=>{
-    navigator.serviceWorker.register('sw.js').catch(()=>{});
+  window.addEventListener('load',async ()=>{
+    try{
+      const reg=await navigator.serviceWorker.register('./sw.js',{scope:'./',updateViaCache:'none'});
+      if(navigator.storage && navigator.storage.persist){
+        try{ await navigator.storage.persist(); }catch(e){}
+      }
+      function rewarm(){
+        try{
+          if(navigator.serviceWorker.controller){
+            navigator.serviceWorker.controller.postMessage('REWARM_SHELL_CACHE');
+          }else if(reg.active){
+            reg.active.postMessage('REWARM_SHELL_CACHE');
+          }
+        }catch(e){}
+      }
+      rewarm();
+      window.addEventListener('online',rewarm);
+      setInterval(rewarm,6*60*60*1000);
+    }catch(e){}
   });
 }
 </script>
