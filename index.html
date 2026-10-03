@@ -1628,11 +1628,26 @@ html,body{height:100vh;height:100svh;overflow:hidden;
 .hfz-rs-btns button{flex:1;padding:12px 0;border-radius:14px;font-size:18px;font-weight:700;font-family:inherit;cursor:pointer;border:none}
 .hfz-rs-yes{background:linear-gradient(135deg,var(--gd),var(--gdi));color:#fff}
 .hfz-rs-no{background:transparent;color:var(--txt);border:1.5px solid var(--apbr)!important}
+
+/* ══ ورژن کوڈ — ہر پیج پر صاف، پکا نظر آئے (HFZ310SA003) ══ */
+.ver-code,.wlc-ver-tag{font-family:'Courier New',monospace!important;direction:ltr;unicode-bidi:isolate;white-space:nowrap;letter-spacing:.3px}
+#wlcVerTag2{background:#111827!important;color:#fde047!important;border:2px solid #fde047!important;text-shadow:none!important;font-size:15px!important;padding:3px 14px!important;box-shadow:0 2px 8px rgba(0,0,0,.5)}
+#tbVerCode{display:inline-block!important;visibility:visible!important;opacity:1!important}
+
+/* ══ ایپ بند کرنے کا بٹن ══ */
+.hfz-exit-btn{flex-shrink:0;border:1.5px solid rgba(255,255,255,.5);background:#dc2626;color:#fff;font-family:'Jameel-Noori.N','JN',serif;font-weight:900;font-size:12px;line-height:1;padding:4px 8px;border-radius:999px;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.4);white-space:nowrap}
+.hfz-exit-btn:active{transform:scale(.94)}
+.hfz-exit-wlc{position:absolute;top:8px;right:8px;z-index:20;font-size:14px;padding:6px 12px}
+#topBar .ver-code{font-size:10px!important;padding:2px 5px!important}
+#topBar .ver-pill{padding:3px 6px!important;font-size:10px!important}
+#hfzClosedBox{position:fixed;inset:0;z-index:100000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;text-align:center;direction:rtl;background:#0f2c1a;color:#f0fdf4;font-size:20px;line-height:2;font-family:'Jameel-Noori.N','JN',serif}
+#hfzClosedBox button{padding:12px 28px;border-radius:14px;border:none;background:#ca8a04;color:#fff;font-size:18px;font-weight:700;font-family:inherit}
 </style>
 </head>
 <body>
 
 <div id="welcomeOverlay">
+  <button class="hfz-exit-btn hfz-exit-wlc" onclick="hfzExitApp()" title="ایپ بند کریں">✖ بند کریں</button>
   <div class="wlc-quran-title">Hifz Pro</div>
   <div class="wlc-by-ahg">By ARJ-MBR-MSB</div>
   <div class="wlc-ver-tag wlc-ver-tag-top" id="wlcVerTag2"></div>
@@ -1707,7 +1722,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">اتوار 27 ستمبر 02:15PM</span>
+    <span class="ver-code" id="splashVerCode">HFZ310SA003</span>
   </div>
 </div>
 
@@ -1715,8 +1730,10 @@ html,body{height:100vh;height:100svh;overflow:hidden;
 
   <!-- TOP BAR — سب کچھ ایک ہی باریک لائن میں، اوپر جگہ بچانے کے لیے -->
   <div id="topBar">
+    <button class="hfz-exit-btn" onclick="hfzExitApp()" title="ایپ بند کریں">✖ بند</button>
     <div class="status-block-mini">
       <span class="ver-pill" id="tbVerPill">Online</span>
+      <span class="ver-code" id="tbVerCode">HFZ310SA003</span>
     </div>
     <div id="timerBadge" onclick="openTimer()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4"/><path d="M12 14l3-3"/><circle cx="12" cy="14" r="8"/></svg>
@@ -4431,7 +4448,7 @@ function applyUrFont(idx){
 }
 
 
-// ══ 🕌 آخری تلاوت (Last Seen) — مالک کی ہدایت (HFZ310SA001): جہاں تلاوت روکی وہ جگہ خود بخود محفوظ ہوتی ہے،
+// ══ 🕌 آخری تلاوت (Last Seen) — مالک کی ہدایت (HFZ310SA003): جہاں تلاوت روکی وہ جگہ خود بخود محفوظ ہوتی ہے،
 // اگلی بار ایپ کھولنے پر خوبصورت ڈبے میں پوچھا جاتا ہے: "جی ہاں" = وہیں سے شروع، "جی نہیں" = ڈبہ بند، نئی سلیکشن آزاد ══
 const HFZ_LAST_KEY='hfz_last_tilawat';
 let _hfzArmed=false,_hfzLastSave=0;
@@ -4526,10 +4543,25 @@ async function hfzResumeYes(){
 }
 function sh_name(n){return SH[n-1].ar;}
 
+
+// ══ ایپ بند کریں (ایگزٹ) — آڈیو روک کر جگہ محفوظ کرے، پھر ایپ بند؛ اگر براؤزر بند نہ ہونے دے تو ہدایت دکھائے ══
+function hfzExitApp(){
+  try{St.pl=false;aud.pause();}catch(e){}
+  try{hfzSaveLast(true);}catch(e){}
+  try{window.close();}catch(e){}
+  setTimeout(()=>{
+    if(document.getElementById('hfzClosedBox'))return;
+    const d=document.createElement('div');
+    d.id='hfzClosedBox';
+    d.innerHTML='<div style="font-size:48px">🕌</div><div>تلاوت محفوظ ہو گئی ہے۔<br>ایپ بند کرنے کے لیے فون کا <b>ہوم</b> یا <b>ریسنٹ</b> بٹن دبا کر ایپ کو سوائپ کر دیں۔</div><button onclick="location.reload()">دوبارہ کھولیں</button>';
+    document.body.appendChild(d);
+  },400);
+}
+
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='HFZ310SA001';
-const APP_VERSION_DISPLAY='HFZ310SA001';
+const APP_VERSION='HFZ310SA003';
+const APP_VERSION_DISPLAY='HFZ310SA003';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
