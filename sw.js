@@ -1,7 +1,7 @@
-// Hafiz Musab / Hifz Pro — Service Worker (HFZ310SA003)
+// Hafiz Musab / Hifz Pro — Service Worker (HFZ310SA004)
 // حکمتِ عملی: شیل فائلیں (index، manifest، آئیکن) انسٹال پر الگ الگ کیش؛ صفحہ کھلنے پر پہلے کیش (آف لائن فوری)،
 // پس منظر میں نیٹ سے تازہ کاپی؛ آڈیو/بیرونی درخواستیں شیل کیش میں نہیں رکھی جاتیں (ایپ کا اپنا ڈاؤن لوڈ کیش استعمال ہوتا ہے)
-const VERSION = 'HFZ310SA003';
+const VERSION = 'HFZ310SA004';
 const CACHE_NAME = 'hafiz-musab-shell-' + VERSION;
 const SHELL_FILES = ['./', './index.html', './manifest.json', './icon-32.png', './icon-180.png', './icon-192.png', './icon-512.png'];
 
