@@ -727,7 +727,7 @@ html,body{height:100vh;height:100svh;height:calc(100svh / var(--pz,1));overflow:
 #dlOverallWrap.show{display:block;}
 #dlOverallLabel{font-size:9.5px;font-weight:900;color:#78350f;font-family:'Jameel-Noori.N','JN',serif;
   display:flex;justify-content:space-between;margin-bottom:3px;}
-#dlOverallTrack{width:100%;height:8px;background:#fde68a;border-radius:6px;overflow:hidden;}
+#dlOverallTrack{width:100%;height:10px;background:#fde68a;border-radius:6px;overflow:hidden;}
 #dlOverallFill{height:100%;width:0%;border-radius:6px;
   background:linear-gradient(90deg,#f59e0b,#ea580c);transition:width .25s;}
 #dlList{flex:1;overflow-y:auto;padding:6px 10px 16px;
@@ -735,7 +735,7 @@ html,body{height:100vh;height:100svh;height:calc(100svh / var(--pz,1));overflow:
   scrollbar-width:thin;scrollbar-color:#38bdf8 transparent;}
 #dlList::-webkit-scrollbar{width:3px;}
 #dlList::-webkit-scrollbar-thumb{background:#38bdf8;border-radius:3px;}
-.dl-surah-row{display:flex;align-items:center;gap:6px;padding:7px 10px;border-radius:10px;
+.dl-surah-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:7px 10px;border-radius:10px;
   margin-bottom:4px;background:#ffffff;border:1.5px solid #cbd5e1;box-shadow:0 2px 4px rgba(0,0,0,0.08);}
 .ds-num{width:26px;height:26px;border-radius:50%;background:#e0f2fe;
   color:#0c4a6e;font-size:9px;flex-shrink:0;font-weight:900;
@@ -750,8 +750,9 @@ html,body{height:100vh;height:100svh;height:calc(100svh / var(--pz,1));overflow:
 .ds-btn.dl{background:linear-gradient(145deg,#38bdf8,#0369a1);color:#fff;box-shadow:0 2px 0 #0c4a6e;}
 .ds-btn.del{background:linear-gradient(145deg,#ef4444,#b91c1c);color:#fff;box-shadow:0 2px 0 #7f1d1d;}
 .ds-btn:active{transform:scale(0.9);}
-.ds-prog{width:50px;height:5px;background:#e2e8f0;border-radius:4px;overflow:hidden;display:none;}
-.ds-prog-fill{height:100%;background:linear-gradient(90deg,#f59e0b,#ea580c);border-radius:4px;width:0%;transition:width .2s;}
+.ds-prog{order:9;flex:0 0 100%;width:100%;height:10px;margin-top:4px;background:#e2e8f0;border-radius:6px;overflow:hidden;display:none;box-shadow:inset 0 1px 2px rgba(0,0,0,.15);}
+.ds-prog-fill{height:100%;background:linear-gradient(90deg,#f59e0b,#ea580c);border-radius:6px;width:0%;transition:width .3s;}
+.dl-stopb{flex:none!important;padding:2px 12px!important;margin-inline-start:8px;font-size:11px!important;}
 .ds-prog.show{display:block;}
 
 /* MY ADS / POSTER OVERLAY */
@@ -1629,7 +1630,7 @@ html,body{height:100vh;height:100svh;height:calc(100svh / var(--pz,1));overflow:
 .hfz-rs-yes{background:linear-gradient(135deg,var(--gd),var(--gdi));color:#fff}
 .hfz-rs-no{background:transparent;color:var(--txt);border:1.5px solid var(--apbr)!important}
 
-/* ══ ورژن کوڈ — ہر پیج پر صاف، پکا نظر آئے (HFZ310SA006) ══ */
+/* ══ ورژن کوڈ — ہر پیج پر صاف، پکا نظر آئے (HFZ310SA007) ══ */
 .ver-code,.wlc-ver-tag{font-family:'Courier New',monospace!important;direction:ltr;unicode-bidi:isolate;white-space:nowrap;letter-spacing:.3px}
 #wlcVerTag2{background:#111827!important;color:#fde047!important;border:2px solid #fde047!important;text-shadow:none!important;font-size:15px!important;padding:3px 14px!important;box-shadow:0 2px 8px rgba(0,0,0,.5)}
 #tbVerCode{display:inline-block!important;visibility:visible!important;opacity:1!important}
@@ -1643,7 +1644,7 @@ html,body{height:100vh;height:100svh;height:calc(100svh / var(--pz,1));overflow:
 #hfzClosedBox{position:fixed;inset:0;z-index:100000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;text-align:center;direction:rtl;background:#0f2c1a;color:#f0fdf4;font-size:20px;line-height:2;font-family:'Jameel-Noori.N','JN',serif}
 #hfzClosedBox button{padding:12px 28px;border-radius:14px;border:none;background:#ca8a04;color:#fff;font-size:18px;font-weight:700;font-family:inherit}
 
-/* ══ ورژن — لاگ اِن اور اسپلیش پر بڑا، صاف، نمایاں (HFZ310SA006) ══ */
+/* ══ ورژن — لاگ اِن اور اسپلیش پر بڑا، صاف، نمایاں (HFZ310SA007) ══ */
 #wlcVerTag2{font-size:22px!important;padding:6px 20px!important;background:#000!important;color:#fff!important;border:3px solid #fde047!important;border-radius:14px!important;letter-spacing:1.5px!important;font-weight:900!important;box-shadow:0 0 0 3px rgba(0,0,0,.35),0 4px 14px rgba(0,0,0,.6)!important}
 #splashVerCode{font-size:24px!important;padding:6px 22px!important;background:#000!important;color:#fde047!important;border:3px solid #fde047!important;border-radius:14px!important;letter-spacing:1.5px!important;box-shadow:0 0 18px rgba(253,224,71,.55)!important}
 #splashVerPill{font-size:15px!important;padding:5px 18px!important}
@@ -1748,7 +1749,7 @@ html,body{height:100vh;height:100svh;height:calc(100svh / var(--pz,1));overflow:
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">HFZ310SA006</span>
+    <span class="ver-code" id="splashVerCode">HFZ310SA007</span>
   </div>
 </div>
 
@@ -1967,7 +1968,7 @@ html,body{height:100vh;height:100svh;height:calc(100svh / var(--pz,1));overflow:
       <button class="dla-btn red" onclick="clearAll()">🗑 حذف</button>
     </div>
     <div id="dlOverallWrap">
-      <div id="dlOverallLabel"><span id="dlOverallText">⏳ ڈاؤن لوڈ ہو رہا ہے...</span><span id="dlOverallPct">0%</span></div>
+      <div id="dlOverallLabel"><span id="dlOverallText">⏳ ڈاؤن لوڈ ہو رہا ہے...</span><span><span id="dlOverallPct">0%</span><button class="dla-btn red dl-stopb" onclick="dlStopAll()">⏹ روکیں</button></span></div>
       <div id="dlOverallTrack"><div id="dlOverallFill"></div></div>
     </div>
   </div>
@@ -2327,7 +2328,16 @@ let CQ='afasy',SHAKIR=false;
 const CACHE='quran-audio-v2';
 let dlSt={};
 try{dlSt=JSON.parse(localStorage.getItem('dlSt')||'{}');}catch{}
-function saveDlSt(){try{localStorage.setItem('dlSt',JSON.stringify(dlSt));}catch{}}
+function saveDlSt(){try{localStorage.setItem('dlSt',JSON.stringify(dlSt));}catch{} idbSet('dlSt',dlSt);}
+// ══ 💾 پکا محفوظ نظام: IndexedDB آئینہ (سروس ورکر بھی یہیں لکھتا ہے) ══
+function idbOpen(){return new Promise((res,rej)=>{try{const r=indexedDB.open('hfz-dl',1);r.onupgradeneeded=()=>r.result.createObjectStore('kv');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);}catch(e){rej(e);}});}
+async function idbGet(k){try{const db=await idbOpen();return await new Promise(r=>{const q=db.transaction('kv').objectStore('kv').get(k);q.onsuccess=()=>r(q.result);q.onerror=()=>r(undefined);});}catch{return undefined;}}
+async function idbSet(k,v){try{const db=await idbOpen();return await new Promise(r=>{const t=db.transaction('kv','readwrite');t.objectStore('kv').put(v,k);t.oncomplete=()=>r(true);t.onerror=()=>r(false);});}catch{return false;}}
+async function syncFromIDB(){
+  const st=await idbGet('dlSt');if(!st)return;let ch=false;
+  for(const k in st){if(st[k]&&st[k].done&&!(dlSt[k]&&dlSt[k].done)){dlSt[k]=st[k];ch=true;}}
+  if(ch){try{localStorage.setItem('dlSt',JSON.stringify(dlSt));}catch{}try{updateDLStats();updateQariBadges();}catch{}}
+}
 function dlKey(q,s){return `${q}_${s}`;}
 function isSurahDL(q,s){return !!(dlSt[dlKey(q,s)]?.done);}
 function markDL(q,s,sz=0){dlSt[dlKey(q,s)]={done:true,size:sz};saveDlSt();}
@@ -3737,8 +3747,8 @@ function pickSpecialQari(k){
   setQari(k);
   closeSpecialQaris();
 }
-function openDL(){document.getElementById('dlOverlay').classList.add('open');buildDLQsel();buildDLList();updateDLStats();}
-function closeDL(){dlStop=true;document.getElementById('dlOverlay').classList.remove('open');document.getElementById('dlOverallWrap')?.classList.remove('show');}
+function openDL(){document.getElementById('dlOverlay').classList.add('open');buildDLQsel();buildDLList();updateDLStats();hfzStorageNote();if(!dlRunning)resumeDL();}
+function closeDL(){document.getElementById('dlOverlay').classList.remove('open');}
 
 // ══ MY ADS / POSTER ══
 function openAds(){document.getElementById('adOverlay').classList.add('open');renderAdPoster();}
@@ -3816,12 +3826,12 @@ function buildDLList(){
     return `<div class="dl-surah-row" id="dlrow-${s.n}">
       <div class="ds-num">${s.n}</div>
       <div style="flex:1"><div class="ds-name">${s.ar}</div>
-      <div class="ds-sub">${s.tr} · ${s.a} آیات</div>
-      <div class="ds-prog" id="dpp-${s.n}"><div class="ds-prog-fill" id="dpf-${s.n}"></div></div></div>
+      <div class="ds-sub">${s.tr} · ${s.a} آیات</div></div>
       <div class="ds-status" id="dst-${s.n}">
         ${done?'<span class="ds-icon">✅</span>':'<span class="ds-icon">☁️</span>'}
         ${done?`<button class="ds-btn del" onclick="delSurah(${s.n})">🗑</button>`:`<button class="ds-btn dl" onclick="dlSurah(${s.n})">⬇</button>`}
-      </div></div>`;
+      </div>
+      <div class="ds-prog" id="dpp-${s.n}"><div class="ds-prog-fill" id="dpf-${s.n}"></div></div></div>`;
   }).join('');
 }
 function updateDLStats(){
@@ -3829,16 +3839,170 @@ function updateDLStats(){
   document.getElementById('dlStatDone').textContent=done+' سورتیں محفوظ';
   document.getElementById('dlStatSize').textContent='قاری: '+QARIS[dlQari].name;
 }
+// ══ 📥 قطار (queue) — IndexedDB میں محفوظ؛ ایپ بند ہو تب بھی Background Fetch جاری رکھتا ہے ══
+const BF_OK=()=>('serviceWorker' in navigator)&&('BackgroundFetchManager' in window);
+let dlRunning=false;
+const lenCache={};
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+function mkItem(qk,sn){const q=QARIS[qk];
+  const urls=q.mode==='surah'?[q.url(sn)]:Array.from({length:SH[sn-1].a},(_,i)=>q.url(sn,i+1));
+  return{qk,sn,urls,tries:0,title:'حفظ پرو — '+SH[sn-1].ar};}
+async function enqueue(sns,qk,label,doneLabel){
+  const q=(await idbGet('dlQueue'))||{items:[],total:0};
+  let add=0;
+  for(const sn of sns){if(isSurahDL(qk,sn)||q.items.some(i=>i.qk===qk&&i.sn===sn))continue;q.items.push(mkItem(qk,sn));add++;}
+  q.total=(q.items.length?q.total:0)+add;
+  if(!q.items.length)q.total=0;
+  q.label=label||q.label||'⏳ ڈاؤن لوڈ ہو رہا ہے...';q.doneLabel=doneLabel||q.doneLabel||'ڈاؤن لوڈ مکمل';
+  await idbSet('dlQueue',q);return q;
+}
+function rowProg(qk,sn,pc,txt){
+  if(qk!==dlQari)return;
+  const prog=document.getElementById('dpp-'+sn),fill=document.getElementById('dpf-'+sn),stat=document.getElementById('dst-'+sn);
+  if(!prog||!stat)return;
+  prog.classList.add('show');
+  if(pc!=null)fill.style.width=pc+'%';
+  let pt=document.getElementById('dpt-'+sn);
+  if(!pt){stat.innerHTML='<span class="ds-pct" id="dpt-'+sn+'">0%</span>';pt=document.getElementById('dpt-'+sn);}
+  pt.textContent=txt!=null?txt:(pc+'%');
+}
+function rowDone(qk,sn,ok){
+  if(qk!==dlQari)return;
+  const prog=document.getElementById('dpp-'+sn),stat=document.getElementById('dst-'+sn);
+  if(prog)prog.classList.remove('show');
+  if(!stat)return;
+  stat.innerHTML=ok?`<span class="ds-icon">✅</span><button class="ds-btn del" onclick="delSurah(${sn})">🗑</button>`
+                   :`<span class="ds-icon">❌</span><button class="ds-btn dl" onclick="dlSurah(${sn})">⬇</button>`;
+}
+async function probeLen(url){
+  if(lenCache[url]!==undefined)return lenCache[url];
+  lenCache[url]=0;
+  try{const r=await fetch(url,{method:'HEAD',mode:'cors'});lenCache[url]=parseInt(r.headers.get('content-length')||'0',10)||0;}catch{}
+  return lenCache[url];
+}
+async function bgStart(reg,it){
+  const c=await caches.open(CACHE);
+  const urls=[];for(const u of it.urls){if(!(await c.match(u)))urls.push(u);}
+  if(!urls.length){markDL(it.qk,it.sn,0);return false;}
+  await reg.backgroundFetch.fetch(`hfz|${it.qk}|${it.sn}|${Date.now()}`,urls,
+    {title:it.title,icons:[{src:'./icon-192.png',sizes:'192x192',type:'image/png'}],downloadTotal:0});
+  return true;
+}
+async function pumpBG(){
+  const reg=await navigator.serviceWorker.ready;
+  let lastKey='';
+  for(;;){
+    await syncFromIDB();
+    const q=await idbGet('dlQueue');
+    if(!q||!q.items.length||dlStop)break;
+    const it=q.items[0];
+    if(isSurahDL(it.qk,it.sn)){q.items.shift();await idbSet('dlQueue',q);rowDone(it.qk,it.sn,true);continue;}
+    let ids=await reg.backgroundFetch.getIds();
+    let bf=null;
+    for(const id of ids){const b=await reg.backgroundFetch.get(id);if(b&&b.id.startsWith(`hfz|${it.qk}|${it.sn}|`)){bf=b;break;}}
+    if(!bf&&!ids.length){
+      try{const started=await bgStart(reg,it);if(!started){q.items.shift();await idbSet('dlQueue',q);continue;}}
+      catch(e){it.tries++;if(it.tries>=2){q.items.shift();rowDone(it.qk,it.sn,false);}await idbSet('dlQueue',q);await sleep(1500);continue;}
+    }else if(bf){
+      let pc=null,txt=null;
+      if(it.urls.length>1){
+        const recs=await bf.matchAll();let n=0;
+        await Promise.all(recs.map(async r=>{const x=await Promise.race([r.responseReady.then(()=>1,()=>0),sleep(0).then(()=>0)]);n+=x;}));
+        pc=Math.min(99,Math.round(n/it.urls.length*100));
+      }else{
+        const len=await probeLen(it.urls[0]);
+        if(len>0)pc=Math.min(99,Math.round(bf.downloaded/len*100));
+        else txt=(bf.downloaded/1048576).toFixed(1)+' MB';
+      }
+      rowProg(it.qk,it.sn,pc==null?50:pc,txt);
+      const done=q.total-q.items.length+(pc||0)/100;
+      updateOverallProg(done,q.total);
+      if(bf.failureReason&&bf.result==='failure'){it.tries++;if(it.tries>=2){q.items.shift();rowDone(it.qk,it.sn,false);}await idbSet('dlQueue',q);}
+    }
+    const key=it.qk+it.sn;
+    if(key!==lastKey){lastKey=key;}
+    await sleep(800);
+  }
+}
+async function pumpLocal(){
+  for(;;){
+    const q=await idbGet('dlQueue');
+    if(!q||!q.items.length||dlStop)break;
+    const it=q.items[0];
+    if(!isSurahDL(it.qk,it.sn))await dlSurahLocal(it.sn,it.qk);
+    if(dlStop)break;
+    const q2=(await idbGet('dlQueue'))||q;q2.items=q2.items.filter(i=>!(i.qk===it.qk&&i.sn===it.sn));
+    await idbSet('dlQueue',q2);updateOverallProg(q2.total-q2.items.length,q2.total);
+  }
+}
+async function runQueue(){
+  if(dlRunning)return;dlRunning=true;
+  try{
+    const q=await idbGet('dlQueue');
+    if(q&&q.items.length){showOverallProg(q.label||'⏳ ڈاؤن لوڈ ہو رہا ہے...');updateOverallProg(q.total-q.items.length,q.total);}
+    if(BF_OK()){try{await pumpBG();}catch(e){await pumpLocal();}}else await pumpLocal();
+    const f=await idbGet('dlQueue');
+    if(!dlStop&&(!f||!f.items.length)){
+      await idbSet('dlQueue',{items:[],total:0});
+      if(q&&q.items.length)showToast('✅ '+(q.doneLabel||'ڈاؤن لوڈ مکمل'));
+    }
+  }finally{dlRunning=false;hideOverallProg();updateDLStats();updateQariBadges();}
+}
+async function dlStopAll(){
+  dlStop=true;
+  await idbSet('dlQueue',{items:[],total:0});
+  try{if(BF_OK()){const reg=await navigator.serviceWorker.ready;for(const id of await reg.backgroundFetch.getIds()){const b=await reg.backgroundFetch.get(id);if(b)await b.abort();}}}catch{}
+  hideOverallProg();buildDLList();showToast('⏹ روک دیا گیا');
+}
+async function resumeDL(){
+  await syncFromIDB();
+  const q=await idbGet('dlQueue');
+  if(q&&q.items.length&&navigator.onLine!==false){dlStop=false;runQueue();}
+}
+// ══ 🔍 کیش کی تصدیق: اگر براؤزنگ ڈیٹا صاف ہونے سے آڈیو غائب ہو تو خودکار بحالی ══
+async function verifyAndRestore(){
+  await syncFromIDB();
+  let lost={};
+  try{
+    const c=await caches.open(CACHE);
+    for(const k of Object.keys(dlSt)){
+      if(!dlSt[k]||!dlSt[k].done)continue;
+      const i=k.lastIndexOf('_');const qk=k.slice(0,i),sn=parseInt(k.slice(i+1),10);
+      const q=QARIS[qk];if(!q||!SH[sn-1])continue;
+      const u=q.mode==='surah'?q.url(sn):q.url(sn,1);
+      const u2=q.mode==='surah'?u:q.url(sn,SH[sn-1].a);
+      if(!(await c.match(u))||!(await c.match(u2))){(lost[qk]=lost[qk]||[]).push(sn);delete dlSt[k];}
+    }
+  }catch{return;}
+  const qks=Object.keys(lost);if(!qks.length)return;
+  saveDlSt();
+  if(navigator.onLine===false)return;
+  for(const qk of qks)await enqueue(lost[qk],qk,'♻️ گم شدہ ڈاؤن لوڈز بحال ہو رہے ہیں...','ڈاؤن لوڈز بحال ہو گئے');
+  showToast('♻️ گم شدہ ڈاؤن لوڈز دوبارہ بحال ہو رہے ہیں');
+  dlStop=false;runQueue();
+}
+async function hfzStorageNote(){
+  try{
+    let ok=false;
+    if(navigator.storage&&navigator.storage.persist){ok=await navigator.storage.persisted();if(!ok)ok=await navigator.storage.persist();}
+    document.getElementById('dlStorage').textContent=ok?'🔒 ڈاؤن لوڈز مستقل محفوظ ہیں (براؤزر خود صاف نہیں کرے گا)':'کیشڈ آڈیو براؤزر میں محفوظ ہے';
+  }catch{}
+}
+window.addEventListener('load',()=>setTimeout(async()=>{await hfzStorageNote();await verifyAndRestore();resumeDL();},2000));
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'){syncFromIDB();if(!dlRunning)resumeDL();}});
+
 async function dlSurah(sn){
   dlStop=false;
+  await enqueue([sn],dlQari,'⏳ ڈاؤن لوڈ ہو رہا ہے...','✅ '+SH[sn-1].ar);
+  rowProg(dlQari,sn,0);
+  runQueue();
+}
+async function dlSurahLocal(sn,qk){
+  qk=qk||dlQari;
   const prog=document.getElementById('dpp-'+sn),fill=document.getElementById('dpf-'+sn),stat=document.getElementById('dst-'+sn);
-  prog.classList.add('show');stat.innerHTML='<span class="ds-pct" id="dpt-'+sn+'">0%</span>';
-  await downloadSurah(dlQari,sn,(done,tot)=>{const pc=Math.round(done/tot*100);fill.style.width=pc+'%';const pt=document.getElementById('dpt-'+sn);if(pt)pt.textContent=pc+'%';},
-    (ok)=>{
-      prog.classList.remove('show');
-      if(ok){stat.innerHTML=`<span class="ds-icon">✅</span><button class="ds-btn del" onclick="delSurah(${sn})">🗑</button>`;updateDLStats();updateQariBadges();showToast('✅ '+SH[sn-1].ar);}
-      else{stat.innerHTML=`<span class="ds-icon">❌</span><button class="ds-btn dl" onclick="dlSurah(${sn})">⬇</button>`;showToast('❌ ناکام');}
-    }
+  rowProg(qk,sn,0);
+  await downloadSurah(qk,sn,(done,tot)=>{const pc=Math.round(done/tot*100);rowProg(qk,sn,pc);},
+    (ok)=>{rowDone(qk,sn,ok);if(ok){updateDLStats();updateQariBadges();showToast('✅ '+SH[sn-1].ar);}else showToast('❌ ناکام');}
   );
 }
 async function delSurah(sn){
@@ -3860,15 +4024,11 @@ function updateOverallProg(done,tot){
 }
 function hideOverallProg(){document.getElementById('dlOverallWrap').classList.remove('show');}
 async function dlRange(list,label,doneLabel){
-  dlStop=false;showOverallProg(label);
-  const tot=list.length;let done=0;updateOverallProg(0,tot);
-  for(const sn of list){
-    if(dlStop)break;
-    if(!isSurahDL(dlQari,sn))await dlSurah(sn);
-    done++;updateOverallProg(done,tot);
-  }
-  hideOverallProg();
-  showToast(dlStop?'⏹ روک دیا گیا':('✅ '+doneLabel));
+  dlStop=false;
+  const q=await enqueue(list,dlQari,label,doneLabel);
+  if(!q.items.length){showToast('✅ '+doneLabel);return;}
+  showOverallProg(label);updateOverallProg(q.total-q.items.length,q.total);
+  runQueue();
 }
 async function dlJuzAmma(){
   const list=[];for(let sn=78;sn<=114;sn++)list.push(sn);
@@ -3878,7 +4038,7 @@ async function dlAll(){
   const list=[];for(let sn=1;sn<=114;sn++)list.push(sn);
   await dlRange(list,'⏳ پورا قرآن پاک ڈاؤن لوڈ ہو رہا ہے...','پورا قرآن پاک ڈاؤن لوڈ مکمل');
 }
-async function clearAll(){if(!confirm('سب کیش حذف کریں؟'))return;try{await caches.delete(CACHE);}catch{}dlSt={};saveDlSt();buildDLList();updateDLStats();updateQariBadges();showToast('🗑 سب کیش صاف');}
+async function clearAll(){if(!confirm('سب کیش حذف کریں؟'))return;try{await caches.delete(CACHE);}catch{}dlSt={};saveDlSt();await idbSet('dlQueue',{items:[],total:0});buildDLList();updateDLStats();updateQariBadges();showToast('🗑 سب کیش صاف');}
 function updateQariBadges(){Object.keys(QARIS).forEach(k=>{const done=Object.keys(dlSt).filter(dk=>dk.startsWith(k+'_')&&dlSt[dk].done).length;document.getElementById('dlb-'+k)?.classList.toggle('show',done>0);});}
 
 // ══ TOAST ══
@@ -4552,7 +4712,7 @@ function applyUrFont(idx){
 }
 
 
-// ══ 🕌 آخری تلاوت (Last Seen) — مالک کی ہدایت (HFZ310SA006): جہاں تلاوت روکی وہ جگہ خود بخود محفوظ ہوتی ہے،
+// ══ 🕌 آخری تلاوت (Last Seen) — مالک کی ہدایت (HFZ310SA007): جہاں تلاوت روکی وہ جگہ خود بخود محفوظ ہوتی ہے،
 // اگلی بار ایپ کھولنے پر خوبصورت ڈبے میں پوچھا جاتا ہے: "جی ہاں" = وہیں سے شروع، "جی نہیں" = ڈبہ بند، نئی سلیکشن آزاد ══
 const HFZ_LAST_KEY='hfz_last_tilawat';
 let _hfzArmed=false,_hfzLastSave=0;
@@ -4712,8 +4872,8 @@ aud.addEventListener('pause',()=>document.getElementById('tbQariBadge')?.classLi
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='HFZ310SA006';
-const APP_VERSION_DISPLAY='HFZ310SA006';
+const APP_VERSION='HFZ310SA007';
+const APP_VERSION_DISPLAY='HFZ310SA007';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
