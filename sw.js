@@ -1,14 +1,11 @@
-//  — Service Worker
-// ---------- 🐞 مالک کی ہدایت (HFZ18SEPFR): اصل خرابی — پہلے install کے وقت SHELL_FILES کیش کرنے کی کوشش
-// ایک Promise.all چین میں تھی، اور کسی ایک فائل (خاص طور پر index.html، جو سب سے اہم ہے) کے fetch میں
-// ناکامی خاموشی سے نگل لی جاتی تھی، بغیر کسی دوبارہ کوشش کے — نتیجہ یہ کہ index.html کبھی کیش ہی نہ ہو پاتا
-// اور آف لائن میں ایپ کھلتی ہی نہ تھی۔ اب ہر شیل فائل کو الگ الگ await کے ساتھ کیش کیا جاتا ہے، اور "صفحہ کھولنے"
-// (navigation) کی درخواست کو ہمیشہ پہلے کیش سے جواب دیا جاتا ہے (فوری + بھروسہ مند آف لائن آغاز)، پس منظر میں
-// نیٹ سے تازہ کاپی بھی لے لی جاتی ہے تاکہ اگلی بار اپڈیٹ شدہ نظر آئے ---------- -->
-const CACHE_NAME = 'hafiz-musab-shell-HFZ310SA0458AM';
-const SHELL_FILES = ['./', './index.html', './manifest.json'];
+// Hafiz Musab / Hifz Pro — Service Worker (HFZ310SA001)
+// حکمتِ عملی: شیل فائلیں (index، manifest، آئیکن) انسٹال پر الگ الگ کیش؛ صفحہ کھلنے پر پہلے کیش (آف لائن فوری)،
+// پس منظر میں نیٹ سے تازہ کاپی؛ آڈیو/بیرونی درخواستیں شیل کیش میں نہیں رکھی جاتیں (ایپ کا اپنا ڈاؤن لوڈ کیش استعمال ہوتا ہے)
+const VERSION = 'HFZ310SA001';
+const CACHE_NAME = 'hafiz-musab-shell-' + VERSION;
+const SHELL_FILES = ['./', './index.html', './manifest.json', './icon-32.png', './icon-180.png', './icon-192.png', './icon-512.png'];
 
-async function warmShellCache(){
+async function warmShellCache() {
   const cache = await caches.open(CACHE_NAME);
   await Promise.all(SHELL_FILES.map(async (f) => {
     try {
@@ -23,68 +20,65 @@ self.addEventListener('install', (event) => {
   self.skipWaiting();
 });
 
-// ---------- 🔄 موبائل کبھی کبھار (کم استعمال یا کم جگہ کی وجہ سے) پرانی کیش خود بخود ختم کر دیتا ہے —
-// اس لیے ہر بار ایپ نیٹ پر کھلنے پر index.html کو نئے سرے سے کیش کیا جاتا ہے، تاکہ آف لائن ہمیشہ بھروسہ مند رہے ---------- -->
 self.addEventListener('message', (event) => {
-  if (event.data === 'REWARM_SHELL_CACHE') {
-    event.waitUntil(warmShellCache());
-  }
+  if (event.data === 'REWARM_SHELL_CACHE') event.waitUntil(warmShellCache());
+  if (event.data === 'SKIP_WAITING') self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((names) =>
-      Promise.all(
-        names
-          .filter((n) => n.startsWith('hafiz-musab-shell-') && n !== CACHE_NAME)
-          .map((n) => caches.delete(n))
-      )
-    )
-  );
-  self.clients.claim();
+  event.waitUntil((async () => {
+    const names = await caches.keys();
+    await Promise.all(names
+      .filter((n) => n.startsWith('hafiz-musab-shell-') && n !== CACHE_NAME)
+      .map((n) => caches.delete(n)));
+    await self.clients.claim();
+  })());
 });
 
 self.addEventListener('fetch', (event) => {
   const req = event.request;
   if (req.method !== 'GET') return;
+  const url = new URL(req.url);
 
-  // ---------- 🧭 صفحہ کھولنے کی درخواست ہمیشہ پہلے کیش سے دیں — آف لائن میں فوری، بھروسہ مند لوڈ کے لیے،
-  // پس منظر میں نیٹ سے تازہ کاپی بھی اپڈیٹ کر لیں ---------- -->
+  // صفحہ کھولنا: پہلے کیش، پھر پس منظر میں تازہ کاپی
   if (req.mode === 'navigate') {
+    event.respondWith((async () => {
+      const cache = await caches.open(CACHE_NAME);
+      const cached = (await cache.match('./index.html', { ignoreSearch: true })) ||
+                     (await cache.match('./', { ignoreSearch: true }));
+      const refresh = fetch('./index.html', { cache: 'no-cache' }).then(async (res) => {
+        if (res && res.ok) await cache.put('./index.html', res.clone());
+        return res;
+      });
+      if (cached) {
+        event.waitUntil(refresh.catch(() => {}));
+        return cached;
+      }
+      try { return await refresh; }
+      catch (e) { return new Response('آف لائن — پہلی بار آن لائن کھولیں', { status: 503, headers: { 'Content-Type': 'text/plain; charset=utf-8' } }); }
+    })());
+    return;
+  }
+
+  // بیرونی سائٹ (آڈیو، ترجمہ API وغیرہ): نیٹ پہلے، ناکامی پر کسی بھی محفوظ کیش (ڈاؤن لوڈ شدہ آڈیو) سے
+  if (url.origin !== self.location.origin) {
     event.respondWith(
-      (async () => {
-        const cached = await caches.match('./index.html', { ignoreSearch: true });
-        if (cached) {
-          fetch(req).then((res) => {
-            if (res && res.ok) caches.open(CACHE_NAME).then((c) => c.put('./index.html', res.clone()));
-          }).catch(() => {});
-          return cached;
-        }
-        try {
-          const res = await fetch(req);
-          if (res && res.ok) caches.open(CACHE_NAME).then((c) => c.put('./index.html', res.clone()));
-          return res;
-        } catch (e) {
-          return (await caches.match(req, { ignoreSearch: true })) ||
-            new Response('', { status: 408, statusText: 'Offline' });
-        }
-      })()
+      fetch(req).catch(async () => (await caches.match(req)) || new Response('', { status: 408, statusText: 'Offline' }))
     );
     return;
   }
 
-  event.respondWith(
-    fetch(req)
-      .then((res) => {
+  // اپنی سائٹ کی باقی فائلیں: نیٹ پہلے (صرف مکمل 200 جواب کیش)، آف لائن میں کیش
+  event.respondWith((async () => {
+    try {
+      const res = await fetch(req);
+      if (res && res.status === 200 && res.type === 'basic') {
         const copy = res.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(req, copy));
-        return res;
-      })
-      .catch(() =>
-        caches.match(req).then((cached) => {
-          if (cached) return cached;
-          return new Response('', { status: 408, statusText: 'Offline' });
-        })
-      )
-  );
+        event.waitUntil(caches.open(CACHE_NAME).then((c) => c.put(req, copy)).catch(() => {}));
+      }
+      return res;
+    } catch (e) {
+      return (await caches.match(req, { ignoreSearch: true })) || new Response('', { status: 408, statusText: 'Offline' });
+    }
+  })());
 });

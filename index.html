@@ -1613,6 +1613,21 @@ html,body{height:100vh;height:100svh;overflow:hidden;
 #pzBarIcon{font-size:14px;flex-shrink:0;opacity:0.85;}
 #pageZoomPct{font-family:Arial,sans-serif;font-size:12px;font-weight:900;color:#4ade80;
   min-width:38px;text-align:center;flex-shrink:0;}
+
+/* ══ آخری تلاوت ڈبہ ══ */
+#hfzResumeBox{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);opacity:0;transition:opacity .3s}
+#hfzResumeBox.show{opacity:1}
+.hfz-rs-card{width:100%;max-width:340px;text-align:center;direction:rtl;padding:24px 20px 20px;border-radius:22px;background:linear-gradient(160deg,var(--b1),var(--b3));border:1.5px solid var(--gd);box-shadow:0 12px 40px rgba(0,0,0,.55),0 0 0 4px rgba(var(--gdR),.15);color:var(--txt);transform:scale(.88);transition:transform .3s}
+#hfzResumeBox.show .hfz-rs-card{transform:scale(1)}
+.hfz-rs-ic{font-size:40px;line-height:1}
+.hfz-rs-ti{margin-top:6px;font-size:22px;font-weight:700;color:var(--ghi)}
+.hfz-rs-msg{margin-top:10px;font-size:16px;line-height:1.9;color:var(--txt2)}
+.hfz-rs-info{margin-top:12px;padding:10px;border-radius:14px;background:rgba(var(--gdR),.12);border:1px solid var(--apbr);font-size:18px;font-weight:700;color:var(--ghi)}
+.hfz-rs-info small{font-size:13px;font-weight:400;color:var(--txt2)}
+.hfz-rs-btns{display:flex;gap:12px;margin-top:18px}
+.hfz-rs-btns button{flex:1;padding:12px 0;border-radius:14px;font-size:18px;font-weight:700;font-family:inherit;cursor:pointer;border:none}
+.hfz-rs-yes{background:linear-gradient(135deg,var(--gd),var(--gdi));color:#fff}
+.hfz-rs-no{background:transparent;color:var(--txt);border:1.5px solid var(--apbr)!important}
 </style>
 </head>
 <body>
@@ -4274,6 +4289,7 @@ function initApp(){
   try{const fs=parseInt(localStorage.getItem('qfontsize_'+APP_VERSION));if(fs&&fs>=18&&fs<=350){curFontSize=fs;document.getElementById('arabicText').style.fontSize=fs+'px';const s=document.getElementById('arZoomSlider');if(s)s.value=fs;}}catch{}
   try{const fs=parseInt(localStorage.getItem('qfontsize_ur_'+APP_VERSION));if(fs&&fs>=18&&fs<=350){urFontSize=fs;document.getElementById('urduText').style.fontSize=fs+'px';const s=document.getElementById('urZoomSlider');if(s)s.value=fs;}}catch{}
   try{applyUrFont(parseInt(localStorage.getItem('ur_font_idx'))||0);}catch{applyUrFont(0);}
+  setTimeout(hfzCheckResume,700);
 }
 
 
@@ -4414,10 +4430,106 @@ function applyUrFont(idx){
   if(btn)btn.title=idx===0?'نوری نستعلیق ریگولر (دبائیں: کشیدہ)':'نوری نستعلیق کشیدہ (دبائیں: ریگولر)';
 }
 
+
+// ══ 🕌 آخری تلاوت (Last Seen) — مالک کی ہدایت (HFZ310SA001): جہاں تلاوت روکی وہ جگہ خود بخود محفوظ ہوتی ہے،
+// اگلی بار ایپ کھولنے پر خوبصورت ڈبے میں پوچھا جاتا ہے: "جی ہاں" = وہیں سے شروع، "جی نہیں" = ڈبہ بند، نئی سلیکشن آزاد ══
+const HFZ_LAST_KEY='hfz_last_tilawat';
+let _hfzArmed=false,_hfzLastSave=0;
+function hfzSaveLast(force){
+  if(!_hfzArmed)return;
+  const now=Date.now();
+  if(!force&&now-_hfzLastSave<2000)return;
+  _hfzLastSave=now;
+  try{
+    localStorage.setItem(HFZ_LAST_KEY,JSON.stringify({s:St.s,a:St.a,fr:St.fr,to:St.to,q:CQ,
+      t:Math.floor(aud.currentTime||0),ts:now}));
+  }catch(e){}
+}
+aud.addEventListener('play',()=>{_hfzArmed=true;hfzSaveLast(true);});
+aud.addEventListener('timeupdate',()=>{if(!aud.paused)hfzSaveLast(false);});
+aud.addEventListener('pause',()=>hfzSaveLast(true));
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')hfzSaveLast(true);});
+window.addEventListener('pagehide',()=>hfzSaveLast(true));
+
+function hfzAgo(ts){
+  const m=Math.floor((Date.now()-ts)/60000);
+  if(m<1)return 'ابھی ابھی';
+  if(m<60)return toUN(m)+' منٹ پہلے';
+  const h=Math.floor(m/60);
+  if(h<24)return toUN(h)+' گھنٹے پہلے';
+  const d=Math.floor(h/24);
+  return d===1?'کل':toUN(d)+' دن پہلے';
+}
+function hfzReadLast(){
+  try{
+    const o=JSON.parse(localStorage.getItem(HFZ_LAST_KEY)||'null');
+    if(!o||!(o.s>=1&&o.s<=114)||!QARIS[o.q])return null;
+    const mx=SH[o.s-1].a;
+    if(!(o.a>=1&&o.a<=mx))return null;
+    return o;
+  }catch(e){return null;}
+}
+function hfzCloseResume(){
+  const b=document.getElementById('hfzResumeBox');
+  if(!b)return;
+  b.classList.remove('show');
+  setTimeout(()=>b.remove(),300);
+}
+function hfzCheckResume(){
+  const o=hfzReadLast();
+  if(!o||document.getElementById('hfzResumeBox'))return;
+  const sh=SH[o.s-1];
+  const box=document.createElement('div');
+  box.id='hfzResumeBox';
+  box.innerHTML='<div class="hfz-rs-card" role="dialog" aria-modal="true">'
+    +'<div class="hfz-rs-ic">🕌</div>'
+    +'<div class="hfz-rs-ti">آخری تلاوت</div>'
+    +'<div class="hfz-rs-msg">کیا آپ '+hfzAgo(o.ts)+' جہاں پر تلاوت روکی تھی، وہیں سے شروع کرنا چاہتے ہیں؟</div>'
+    +'<div class="hfz-rs-info">'+sh.ar+(SHAKIR_OF(o.q)?'':' • آیت '+toUN(o.a))+'<br><small>قاری: '+QARIS[o.q].name+'</small></div>'
+    +'<div class="hfz-rs-btns"><button class="hfz-rs-yes" onclick="hfzResumeYes()">جی ہاں</button>'
+    +'<button class="hfz-rs-no" onclick="hfzCloseResume()">جی نہیں</button></div></div>';
+  document.body.appendChild(box);
+  requestAnimationFrame(()=>box.classList.add('show'));
+}
+function SHAKIR_OF(k){return QARIS[k]&&QARIS[k].mode==='surah';}
+async function hfzResumeYes(){
+  const o=hfzReadLast();
+  hfzCloseResume();
+  if(!o)return;
+  try{
+    // سورہ کی سلیکشن (بغیر loadA) — ویل، لسٹ اور ڈراپ ڈاؤن ہم آہنگ کریں
+    wSelected=o.s;onWheelChange(o.s);
+    document.querySelectorAll('#surahCol .s-item').forEach(el=>el.classList.toggle('selected',+el.dataset.n===o.s));
+    const it=document.querySelector('#surahCol .s-item[data-n="'+o.s+'"]');
+    if(it)it.scrollIntoView({block:'center'});
+    syncSurahWheel(o.s);syncQuickSurahSel();
+    const mx=SH[o.s-1].a;
+    St.fr=Math.max(1,Math.min(mx,o.fr||1));St.to=Math.max(St.fr,Math.min(mx,o.to||mx));
+    const sets=[['fromManualInput',St.fr],['toManualInput',St.to]];
+    sets.forEach(([id,v])=>{const e=document.getElementById(id);if(e)e.value=v;});
+    St.s=o.s;St.a=o.a;
+    if(CQ!==o.q){setQari(o.q);}
+    await loadA(o.s,SHAKIR_OF(o.q)?1:o.a,false);
+    if(o.t>2){
+      await new Promise(r=>{
+        if(aud.readyState>=1)return r();
+        const done=()=>{aud.removeEventListener('loadedmetadata',done);r();};
+        aud.addEventListener('loadedmetadata',done);
+        setTimeout(done,5000);
+      });
+      try{aud.currentTime=Math.max(0,o.t-2);}catch(e){}
+    }
+    St.pl=true;
+    await aud.play().catch(()=>{});
+    showToast('✓ '+sh_name(o.s)+' — پچھلی جگہ سے شروع');
+  }catch(e){}
+}
+function sh_name(n){return SH[n-1].ar;}
+
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='HFZ310SA0458AM';
-const APP_VERSION_DISPLAY='ہفتہ 03 اکتوبر 04:58AM';
+const APP_VERSION='HFZ310SA001';
+const APP_VERSION_DISPLAY='HFZ310SA001';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
