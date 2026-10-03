@@ -1,7 +1,7 @@
-// Hafiz Musab / Hifz Pro — Service Worker (HFZ310SA004)
+// Hafiz Musab / Hifz Pro — Service Worker (HFZ310SA006)
 // حکمتِ عملی: شیل فائلیں (index، manifest، آئیکن) انسٹال پر الگ الگ کیش؛ صفحہ کھلنے پر پہلے کیش (آف لائن فوری)،
 // پس منظر میں نیٹ سے تازہ کاپی؛ آڈیو/بیرونی درخواستیں شیل کیش میں نہیں رکھی جاتیں (ایپ کا اپنا ڈاؤن لوڈ کیش استعمال ہوتا ہے)
-const VERSION = 'HFZ310SA004';
+const VERSION = 'HFZ310SA006';
 const CACHE_NAME = 'hafiz-musab-shell-' + VERSION;
 const SHELL_FILES = ['./', './index.html', './manifest.json', './icon-32.png', './icon-180.png', './icon-192.png', './icon-512.png'];
 
@@ -39,12 +39,15 @@ self.addEventListener('fetch', (event) => {
   const req = event.request;
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
+  // اپڈیٹ چیک والی درخواست (?chk=) سروس ورکر سے براہ راست نیٹ پر جائے، کیش میں نہ جمع ہو
+  if (url.origin === self.location.origin && url.searchParams.has('chk')) return;
 
   // صفحہ کھولنا: پہلے کیش، پھر پس منظر میں تازہ کاپی
   if (req.mode === 'navigate') {
     event.respondWith((async () => {
       const cache = await caches.open(CACHE_NAME);
-      const cached = (await cache.match('./index.html', { ignoreSearch: true })) ||
+      const cached = (await cache.match('./index.html')) ||
+                     (await cache.match('./index.html', { ignoreSearch: true })) ||
                      (await cache.match('./', { ignoreSearch: true }));
       const refresh = fetch('./index.html', { cache: 'no-cache' }).then(async (res) => {
         if (res && res.ok) await cache.put('./index.html', res.clone());
