@@ -1450,22 +1450,24 @@ html,body{height:100vh;height:100svh;overflow:hidden;
 .tr-sel-compact{flex:1;min-width:0;max-width:33%;font-size:10.5px !important;padding:4px 4px !important;}
 
 /* ══ فرنٹ پیج پر آیت وہیل + خانہ (دونوں سائیڈ) اور سورہ ڈراپ ڈاؤن — کمپیکٹ سائز ══ */
-.front-wheel-row{align-items:center !important;gap:3px !important;flex-wrap:nowrap !important;
+.front-wheel-row{align-items:center !important;gap:5px !important;flex-wrap:nowrap !important;
   background:linear-gradient(180deg,rgba(15,23,42,0.62),rgba(15,23,42,0.4)) !important;
   border:1px solid rgba(255,255,255,0.1) !important;border-radius:16px !important;
-  padding:6px 8px !important;margin:2px 6px 4px !important;
+  padding:7px 8px !important;margin:2px 6px 4px !important;
   box-shadow:inset 0 1px 0 rgba(255,255,255,0.07),inset 0 -3px 8px rgba(0,0,0,0.4),0 3px 8px rgba(0,0,0,0.28) !important;}
 .front-wheel-row .fw-block.awheel-block{width:auto !important;flex-shrink:0;display:flex !important;
-  flex-direction:row !important;align-items:center !important;gap:1px !important;}
-.front-wheel-row .fw-block .awheel-row{width:32px !important;flex-shrink:0;}
-.front-wheel-row .fw-block .awheel-outer{height:26px !important;width:32px !important;}
-.front-wheel-row .fw-block .wi-ar{font-size:11px !important;letter-spacing:-0.5px !important;}
+  flex-direction:row !important;align-items:center !important;gap:2px !important;}
+.front-wheel-row .fw-block .awheel-row{width:54px !important;flex-shrink:0;}
+.front-wheel-row .fw-block .awheel-outer{height:42px !important;width:54px !important;}
+.front-wheel-row .fw-block .wi-ar{font-size:20px !important;letter-spacing:-0.5px !important;}
 .front-wheel-row .fw-block .wheel-tick-strip{display:none !important;}
-.front-wheel-row .fw-block .awheel-outer{background:#08201a !important;border-radius:8px !important;
+.front-wheel-row .fw-block .wheel-item{padding:0 2px !important;}
+.front-wheel-row .fw-block .awheel-outer{background:#08201a !important;border-radius:10px !important;
   border:1.5px solid #052e1e !important;box-shadow:inset 0 0 8px rgba(34,197,94,0.2) !important;}
-.front-wheel-row .fw-block .ayat-manual-input{font-size:9px !important;padding:1px 0 !important;
-  margin:0 !important;width:22px !important;height:24px !important;flex-shrink:0;}
-.fw-surah-sel{flex:1 1 auto !important;min-width:90px !important;height:30px;font-size:11.5px;font-weight:900;
+.front-wheel-row .fw-block .ayat-manual-input{font-size:20px !important;padding:2px 0 !important;
+  margin:0 !important;width:48px !important;height:38px !important;flex-shrink:0;font-weight:900 !important;
+  border-width:2px !important;}
+.fw-surah-sel{flex:0.85 1 auto !important;min-width:68px !important;height:34px;font-size:11px;font-weight:900;
   border-radius:8px;border:1.5px solid #2563eb;
   background:linear-gradient(160deg,#16316e,#0b1f4d 55%,#081638) !important;
   -webkit-appearance:none !important;appearance:none !important;
@@ -1474,7 +1476,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   text-shadow:0 0 6px rgba(250,204,21,0.9),0 0 14px rgba(250,204,21,0.55) !important;}
 .fw-surah-sel option{background:#ffffff;color:#166534;font-size:16px;padding:10px;text-shadow:none !important;}
 .qari-push-right{flex-shrink:0;}
-.qari-narrow{max-width:150px !important;min-width:0 !important;}
+.qari-narrow{max-width:80px !important;min-width:0 !important;overflow-x:auto !important;}
 /* قاری باکس کو بائیں والے Sura/Para گرڈ جیسا ہی ڈارک ابھرا ہوا بیک گراؤنڈ دیا — یکساں خوبصورت لُک */
 .qari-narrow{background:#08201a !important;border:1.5px solid #052e1e !important;color:#4ade80 !important;
   text-shadow:0 0 3px rgba(74,222,128,0.9) !important;
@@ -1485,7 +1487,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
   0%,100%{color:#4ade80;box-shadow:inset 0 0 8px rgba(34,197,94,0.22),0 3px 0 rgba(0,0,0,0.5),0 4px 6px rgba(0,0,0,0.35);}
   50%{color:#86efac;box-shadow:inset 0 0 16px rgba(74,222,128,0.6),0 3px 0 rgba(0,0,0,0.5),0 0 14px rgba(74,222,128,0.65);}
 }
-.quick-mini-btn{width:20px !important;height:24px !important;flex-shrink:0;font-size:11px !important;}
+.quick-mini-btn{width:34px !important;height:34px !important;flex-shrink:0;font-size:17px !important;}
 /* ══ اردو پینل کی نچلی لائن — رکوع/پارہ/START ایک ساتھ قریب قریب بائیں طرف،
    والیوم الگ، لمبی اور دائیں کنارے پر ══ */
 .urdu-bottom-row{justify-content:flex-start !important;gap:5px !important;flex-wrap:nowrap !important;
@@ -1528,7 +1530,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
 .urdu-row-pill-btn.playing{background:linear-gradient(160deg,#fbbf24,#d97706 55%,#92400e);}
 .mini-vol-widget-mid .mini-vol-track{border-radius:17px !important;}
 /* From/To وہیل کے اندر آیت نمبر — صاف سرخ رنگ میں */
-.front-wheel-row .fw-block .wi-ar{color:#4ade80 !important;text-shadow:0 0 3px rgba(74,222,128,0.95),0 0 1px #86efac !important;font-weight:900 !important;}
+.front-wheel-row .fw-block .wi-ar{color:#4ade80 !important;text-shadow:0 0 6px rgba(74,222,128,0.95),0 0 10px rgba(74,222,128,0.6),0 0 1px #86efac !important;font-weight:900 !important;}
 .front-wheel-row .fw-block .wheel-item.center .wi-ar{color:#86efac !important;}
 /* ══ مین پیج پر چھوٹے سورہ/فرام/ٹو/ریپیٹ کنٹرول — قاری کے نام جتنے سائز کے ══ */
 .quick-sel-row{gap:4px !important;flex-wrap:wrap !important;}
@@ -1800,7 +1802,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
             <div class="wheel-scroll" id="fromWheel"></div>
           </div>
         </div>
-        <input type="number" class="ayat-manual-input" id="fromManualInput" min="1" oninput="onManualAyatInput('fromWheel',this.value)" placeholder="سے">
+        <input type="number" class="ayat-manual-input" id="fromManualInput" min="1" oninput="onManualAyatInput('fromWheel',this.value)" onfocus="this.value=''" placeholder="سے">
       </div>
       <select id="quickSurahSel" class="quick-mini-sel fw-surah-sel" dir="rtl" onchange="quickSelSurah(this.value)"></select>
       <div class="awheel-block rr-block fw-block">
@@ -1814,7 +1816,7 @@ html,body{height:100vh;height:100svh;overflow:hidden;
             <div class="wheel-scroll" id="toWheel"></div>
           </div>
         </div>
-        <input type="number" class="ayat-manual-input" id="toManualInput" min="1" oninput="onManualAyatInput('toWheel',this.value)" placeholder="تک">
+        <input type="number" class="ayat-manual-input" id="toManualInput" min="1" oninput="onManualAyatInput('toWheel',this.value)" onfocus="this.value=''" placeholder="تک">
       </div>
       <button class="quick-mini-btn" id="quickRepBtn" onclick="togRR()" title="ریپیٹ">↺</button>
       <span id="qariNowName" class="qari-narrow qari-push-right" dir="rtl">
@@ -4414,8 +4416,8 @@ function applyUrFont(idx){
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='HFZ279SU0215PM';
-const APP_VERSION_DISPLAY='اتوار 27 ستمبر 02:15PM';
+const APP_VERSION='HFZ310SA0458AM';
+const APP_VERSION_DISPLAY='ہفتہ 03 اکتوبر 04:58AM';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
