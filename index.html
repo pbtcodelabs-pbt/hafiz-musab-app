@@ -1630,7 +1630,7 @@ html,body{height:100vh;height:100svh;height:calc(100svh / var(--pz,1));overflow:
 .hfz-rs-yes{background:linear-gradient(135deg,var(--gd),var(--gdi));color:#fff}
 .hfz-rs-no{background:transparent;color:var(--txt);border:1.5px solid var(--apbr)!important}
 
-/* ══ ورژن کوڈ — ہر پیج پر صاف، پکا نظر آئے (HFZ610TU014) ══ */
+/* ══ ورژن کوڈ — ہر پیج پر صاف، پکا نظر آئے (HFZ610TU016) ══ */
 .ver-code,.wlc-ver-tag{font-family:'Courier New',monospace!important;direction:ltr;unicode-bidi:isolate;white-space:nowrap;letter-spacing:.3px}
 #wlcVerTag2{background:#111827!important;color:#fde047!important;border:2px solid #fde047!important;text-shadow:none!important;font-size:15px!important;padding:3px 14px!important;box-shadow:0 2px 8px rgba(0,0,0,.5)}
 #tbVerCode{display:inline-block!important;visibility:visible!important;opacity:1!important}
@@ -1644,7 +1644,7 @@ html,body{height:100vh;height:100svh;height:calc(100svh / var(--pz,1));overflow:
 #hfzClosedBox{position:fixed;inset:0;z-index:100000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;text-align:center;direction:rtl;background:#0f2c1a;color:#f0fdf4;font-size:20px;line-height:2;font-family:'Jameel-Noori.N','JN',serif}
 #hfzClosedBox button{padding:12px 28px;border-radius:14px;border:none;background:#ca8a04;color:#fff;font-size:18px;font-weight:700;font-family:inherit}
 
-/* ══ ورژن — لاگ اِن اور اسپلیش پر بڑا، صاف، نمایاں (HFZ610TU014) ══ */
+/* ══ ورژن — لاگ اِن اور اسپلیش پر بڑا، صاف، نمایاں (HFZ610TU016) ══ */
 #wlcVerTag2{font-size:22px!important;padding:6px 20px!important;background:#000!important;color:#fff!important;border:3px solid #fde047!important;border-radius:14px!important;letter-spacing:1.5px!important;font-weight:900!important;box-shadow:0 0 0 3px rgba(0,0,0,.35),0 4px 14px rgba(0,0,0,.6)!important}
 #splashVerCode{font-size:24px!important;padding:6px 22px!important;background:#000!important;color:#fde047!important;border:3px solid #fde047!important;border-radius:14px!important;letter-spacing:1.5px!important;box-shadow:0 0 18px rgba(253,224,71,.55)!important}
 #splashVerPill{font-size:15px!important;padding:5px 18px!important}
@@ -1670,15 +1670,19 @@ html,body{height:100vh;height:100svh;height:calc(100svh / var(--pz,1));overflow:
 .pk-dl-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#16a34a,#4ade80);transition:width .2s}
 .pk-item-icon.pct{font-family:'Courier New',monospace;font-size:13px;font-weight:900;background:#fde047;color:#111827;min-width:44px;text-align:center}
 
-/* ══ 📤 حفظ پرو پوسٹر — ویلکم پیج پر شیئر بٹن + پوسٹر (HFZ610TU014) ══ */
-.wlc-poster-box{display:flex;flex-direction:column;align-items:center;gap:8px;margin:10px 0 4px;}
-.wlc-poster-share{width:100%;border:none;border-radius:16px;padding:12px 10px;cursor:pointer;
-  font-family:'Jameel-Noori.N','JN',serif;font-size:19px;font-weight:700;color:#fff;
-  background:linear-gradient(145deg,#d4a017,#a16207);box-shadow:0 4px 0 #713f12,0 6px 14px rgba(0,0,0,.3);}
+/* ══ 📤 ویلکم پیج: شروع کریں + پوسٹر شیئر ایک قطار میں، پورا پیج ایک اسکرین میں بغیر اسکرول (HFZ610TU016) ══ */
+.wlc-action-row{display:flex;gap:10px;width:100%;margin:clamp(6px,1.2svh,10px) 0 2px;}
+.wlc-action-row>button{flex:1 1 0;min-width:0;min-height:50px;}
+.wlc-start-btn.wlc-start-inrow{margin:0;padding:clamp(8px,1.5svh,11px) 8px;font-size:clamp(15px,2.6svh,19px);border-radius:14px;}
+.wlc-poster-share{border:none;border-radius:14px;padding:clamp(8px,1.5svh,11px) 8px;cursor:pointer;touch-action:manipulation;
+  font-family:'Jameel-Noori.N','JN',serif;font-size:clamp(15px,2.6svh,19px);font-weight:700;color:#fff;
+  background:linear-gradient(145deg,#d4a017,#a16207);box-shadow:0 5px 0 #713f12,0 8px 18px rgba(0,0,0,.3);}
 .wlc-poster-share:active{transform:translateY(3px);box-shadow:0 1px 0 #713f12;}
-.wlc-poster-thumb{width:62%;max-width:260px;height:auto;border-radius:14px;border:3px solid #e8bf5e;
-  box-shadow:0 10px 24px rgba(0,0,0,.4);cursor:zoom-in;display:block;}
-.wlc-poster-hint{font-family:'Jameel-Noori.N','JN',serif;font-size:12px;color:#fde68a;text-align:center;}
+/* پورا ویلکم پیج اسکرین میں: نیچے ~0.2 انچ (20px) جگہ تاکہ فون کی نیچے والی پٹی سے کچھ نہ کٹے */
+#welcomeOverlay{justify-content:safe center;padding-bottom:calc(20px + env(safe-area-inset-bottom)) !important;}
+#welcomeOverlay .wlc-hero-icon{width:min(56%,215px,25svh) !important;}
+#welcomeOverlay .wlc-card{flex-shrink:0;}
+#welcomeOverlay .wlc-auto-hint{margin-top:clamp(4px,1svh,10px);}
 #posterOverlay{display:none;position:fixed;inset:0;z-index:100000;background:rgba(2,20,14,.94);
   align-items:center;justify-content:center;padding:12px;box-sizing:border-box;}
 #posterOverlay.open{display:flex;}
@@ -1720,22 +1724,14 @@ html,body{height:100vh;height:100svh;height:calc(100svh / var(--pz,1));overflow:
         </div>
       </div>
     </div>
-    <div class="wlc-text wlc-text-sm" id="wlcTextEl">یہ ایپ حفاظ کی آسانی کے لیے عالمی شہرت یافتہ بہترین قراء کی تلاوت اور اردو ترجمے کے ساتھ بہت بہترین طریقے سے ڈیزائن کی گئی ہے — برائے مہربانی اسے دوسروں کے ساتھ بھی شیئر کریں</div>
-    <div style="font-family:'Jameel-Noori.N','JN',serif;font-size:9.5px;color:#94a3b8;text-align:center;margin:2px 0 4px;">عربی متن (پاک و ہند رسم الخط) بشکریہ Quranic Universal Library (QUL)</div>
-    <a class="wlc-playstore-btn" id="wlcShareBtn" href="https://play.google.com/store/apps/details?id=io.github.pbtcodelabs_pbt.twa" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" width="26" height="26"><path fill="#00d9ff" d="M3.6 2.4c-.3.3-.5.7-.5 1.2v16.8c0 .5.2.9.5 1.2l.1.1L13 12l-9.3-9.5-.1-.1z"/><path fill="#00f076" d="M16.1 15.1 13 12l3.1-3.1 3.9 2.2c1.1.6 1.1 1.6 0 2.2l-3.9 2.2z"/><path fill="#ff3a44" d="M16.1 15.1 13 12 3.6 21.6c.4.4 1 .5 1.7.1l10.8-6.6z"/><path fill="#ffcf00" d="M16.1 8.9 5.3 2.3c-.7-.4-1.3-.3-1.7.1L13 12l3.1-3.1z"/></svg>
-      <span class="wlc-ps-txt"><span class="wlc-ps-top">GET IT ON</span><span class="wlc-ps-main">Google Play</span></span>
-    </a>
     <div class="wlc-top-row">
       <a class="wlc-tilawat-btn" href="https://play.google.com/store/apps/details?id=com.fanzetech.holyquran" target="_blank" rel="noopener" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;">📖 تلاوت کے لیے 16 لائین قرآن پاک</a>
       <button class="wlc-manzil-btn" onclick="openManzil()">🛡️ منزل پڑھیں</button>
     </div>
-    <!-- 📤 حفظ پرو کا پوسٹر — ہر وقت ایپ میں دستیاب (فائل: hifz-pro-poster.png، index.html کے ساتھ) -->
-    <div class="wlc-poster-box" id="wlcPosterBox">
-      <button class="wlc-poster-share" onclick="hfzSharePoster()">📤 حفظ پرو کا پوسٹر شیئر کریں</button>
-      <img class="wlc-poster-thumb" id="wlcPosterImg" src="hifz-pro-poster.png" alt="حفظ پرو کا پوسٹر" loading="lazy"
-           onclick="hfzOpenPoster()" onerror="document.getElementById('wlcPosterBox').style.display='none'">
-      <div class="wlc-poster-hint">پوسٹر بڑا دیکھنے کے لیے اس پر ٹیپ کریں</div>
+    <!-- ▶ شروع کریں + 📤 پوسٹر — ایک ہی قطار میں؛ پوسٹر صرف بٹن دبانے پر کھلتا ہے (HFZ610TU016) -->
+    <div class="wlc-action-row">
+      <button class="wlc-start-btn wlc-start-inrow" onclick="startApp()">▶ شروع کریں</button>
+      <button class="wlc-poster-share" onclick="hfzOpenPoster()">📤 پوسٹر شیئر کریں</button>
     </div>
     <div class="wlc-divider"></div>
     <button class="wlc-chatdev-btn" onclick="toggleChatDev()">💬 Chat with Developer</button>
@@ -1753,7 +1749,6 @@ html,body{height:100vh;height:100svh;height:calc(100svh / var(--pz,1));overflow:
     </div>
   </div>
   <div class="wlc-auto-hint" id="wlcAutoHint">⏳ خود بخود چند سیکنڈ میں شروع ہو رہا ہے…</div>
-  <button class="wlc-start-btn" onclick="startApp()">▶ شروع کریں</button>
 </div>
 
 <div id="posterOverlay" onclick="if(event.target===this)hfzClosePoster()">
@@ -1788,7 +1783,7 @@ html,body{height:100vh;height:100svh;height:calc(100svh / var(--pz,1));overflow:
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">HFZ610TU014</span>
+    <span class="ver-code" id="splashVerCode">HFZ610TU016</span>
   </div>
 </div>
 
@@ -2211,6 +2206,13 @@ html,body{height:100vh;height:100svh;height:calc(100svh / var(--pz,1));overflow:
     <button class="sq-btn" onclick="closeSettings();openDL()">📥 ڈاؤن لوڈ مینیجر</button>
     <button class="sq-btn" onclick="closeSettings();openAds()">📣 میرے اشتہار</button>
     <a class="sq-btn" style="display:block;text-align:center;text-decoration:none;" href="https://play.google.com/store/apps/details?id=com.fanzetech.holyquran" target="_blank" rel="noopener">📖 16 لائین قرآن پاک کی تلاوت کے لیے یہاں کلک کریں</a>
+  </div>
+  <!-- 📚 ماخذ و شکریہ — ویلکم پیج سے یہاں منتقل (HFZ610TU016) -->
+  <div class="settings-sec-title">📚 ماخذ و شکریہ</div>
+  <div style="padding:2px 16px 16px;">
+    <div style="font-family:'Jameel-Noori.N','JN',serif;font-size:13px;line-height:1.8;color:#065f46;text-align:center;background:#ecfdf5;border:1.5px solid #10b981;border-radius:10px;padding:8px 10px;">
+      عربی متن (پاک و ہند رسم الخط) بشکریہ<br><span dir="ltr" style="font-family:Arial,sans-serif;font-size:12px;font-weight:700;">Quranic Universal Library (QUL)</span>
+    </div>
   </div>
 </div>
 
@@ -2882,7 +2884,7 @@ async function fetchOnlineAyahTr(tr,s,a){
   }catch{}
   return null;
 }
-// ══ 📖 مکمل ترجمہ (ایک بار ڈاؤن لوڈ، پھر ہمیشہ آف لائن) — شیخ الہند مولانا محمود الحسن صاحب (HFZ610TU014) ══
+// ══ 📖 مکمل ترجمہ (ایک بار ڈاؤن لوڈ، پھر ہمیشہ آف لائن) — شیخ الہند مولانا محمود الحسن صاحب (HFZ610TU016) ══
 // ماخذ 1: fawazahmed0/quran-api (فری اوپن سورس) — ماخذ 2 (بیک اپ): quran.com API (ترجمہ 151)
 // پورا ترجمہ (6236 آیات) ایک بار آتا ہے اور فون کی Cache Storage میں محفوظ ہو جاتا ہے
 const FULL_TR_CACHE='hfz-tr-v1';
@@ -4877,7 +4879,7 @@ function applyUrFont(idx){
 }
 
 
-// ══ 🕌 آخری تلاوت (Last Seen) — مالک کی ہدایت (HFZ610TU014): جہاں تلاوت روکی وہ جگہ خود بخود محفوظ ہوتی ہے،
+// ══ 🕌 آخری تلاوت (Last Seen) — مالک کی ہدایت (HFZ610TU016): جہاں تلاوت روکی وہ جگہ خود بخود محفوظ ہوتی ہے،
 // اگلی بار ایپ کھولنے پر خوبصورت ڈبے میں پوچھا جاتا ہے: "جی ہاں" = وہیں سے شروع، "جی نہیں" = ڈبہ بند، نئی سلیکشن آزاد ══
 const HFZ_LAST_KEY='hfz_last_tilawat';
 let _hfzArmed=false,_hfzLastSave=0;
@@ -5041,10 +5043,10 @@ aud.addEventListener('pause',()=>document.getElementById('tbQariBadge')?.classLi
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
 // ── ورژن کوڈ کا قاعدہ (مالک کی ہدایت): HFZ + تاریخ + مہینہ + دن کے دو حروف + تین ہندسوں کا سیریل ──
-//    مثال: HFZ610TU014 = 6 اکتوبر، منگل (TU)، سیریل 012 — اگلا ورژن 013، پھر 014، 015… (سیریل کبھی دوبارہ شروع نہیں ہوتا)
-//    دن: MO پیر، TU منگل، WE بدھ، TH جمعرات، FR جمعہ، SA ہفتہ، SU اتوار — زِپ کا نام بھی یہی: HFZ610TU014.zip
-const APP_VERSION='HFZ610TU014';
-const APP_VERSION_DISPLAY='HFZ610TU014';
+//    مثال: HFZ610TU016 = 6 اکتوبر، منگل (TU)، سیریل 012 — اگلا ورژن 013، پھر 014، 015… (سیریل کبھی دوبارہ شروع نہیں ہوتا)
+//    دن: MO پیر، TU منگل، WE بدھ، TH جمعرات، FR جمعہ، SA ہفتہ، SU اتوار — زِپ کا نام بھی یہی: HFZ610TU016.zip
+const APP_VERSION='HFZ610TU016';
+const APP_VERSION_DISPLAY='HFZ610TU016';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
@@ -5091,7 +5093,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 });
 
 
-// ══ 📤 حفظ پرو پوسٹر شیئر (HFZ610TU014) — پوسٹر ایپ کے ساتھ آف لائن محفوظ رہتا ہے، کبھی ڈیلیٹ نہیں ہوتا ══
+// ══ 📤 حفظ پرو پوسٹر شیئر (HFZ610TU016) — پوسٹر ایپ کے ساتھ آف لائن محفوظ رہتا ہے، کبھی ڈیلیٹ نہیں ہوتا ══
 const HFZ_POSTER_URL='hifz-pro-poster.png';
 const HFZ_PLAY_URL='https://play.google.com/store/apps/details?id=io.github.pbtcodelabs_pbt.twa';
 const HFZ_SHARE_TEXT='📖 Hifz Pro — اپنی صبح، اپنے دن کا آغاز قرآنِ پاک کی تلاوت سے کیجیے\n14 مشہور قرّاء کرام • 5 مشہور اردو تراجم • مکمل آف لائن\nابھی ڈاؤن لوڈ کریں: '+HFZ_PLAY_URL;
