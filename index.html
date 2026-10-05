@@ -1630,7 +1630,7 @@ html,body{height:100vh;height:100svh;height:calc(100svh / var(--pz,1));overflow:
 .hfz-rs-yes{background:linear-gradient(135deg,var(--gd),var(--gdi));color:#fff}
 .hfz-rs-no{background:transparent;color:var(--txt);border:1.5px solid var(--apbr)!important}
 
-/* ══ ورژن کوڈ — ہر پیج پر صاف، پکا نظر آئے (HFZ310SA007) ══ */
+/* ══ ورژن کوڈ — ہر پیج پر صاف، پکا نظر آئے (HFZ610TU014) ══ */
 .ver-code,.wlc-ver-tag{font-family:'Courier New',monospace!important;direction:ltr;unicode-bidi:isolate;white-space:nowrap;letter-spacing:.3px}
 #wlcVerTag2{background:#111827!important;color:#fde047!important;border:2px solid #fde047!important;text-shadow:none!important;font-size:15px!important;padding:3px 14px!important;box-shadow:0 2px 8px rgba(0,0,0,.5)}
 #tbVerCode{display:inline-block!important;visibility:visible!important;opacity:1!important}
@@ -1644,7 +1644,7 @@ html,body{height:100vh;height:100svh;height:calc(100svh / var(--pz,1));overflow:
 #hfzClosedBox{position:fixed;inset:0;z-index:100000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;text-align:center;direction:rtl;background:#0f2c1a;color:#f0fdf4;font-size:20px;line-height:2;font-family:'Jameel-Noori.N','JN',serif}
 #hfzClosedBox button{padding:12px 28px;border-radius:14px;border:none;background:#ca8a04;color:#fff;font-size:18px;font-weight:700;font-family:inherit}
 
-/* ══ ورژن — لاگ اِن اور اسپلیش پر بڑا، صاف، نمایاں (HFZ310SA007) ══ */
+/* ══ ورژن — لاگ اِن اور اسپلیش پر بڑا، صاف، نمایاں (HFZ610TU014) ══ */
 #wlcVerTag2{font-size:22px!important;padding:6px 20px!important;background:#000!important;color:#fff!important;border:3px solid #fde047!important;border-radius:14px!important;letter-spacing:1.5px!important;font-weight:900!important;box-shadow:0 0 0 3px rgba(0,0,0,.35),0 4px 14px rgba(0,0,0,.6)!important}
 #splashVerCode{font-size:24px!important;padding:6px 22px!important;background:#000!important;color:#fde047!important;border:3px solid #fde047!important;border-radius:14px!important;letter-spacing:1.5px!important;box-shadow:0 0 18px rgba(253,224,71,.55)!important}
 #splashVerPill{font-size:15px!important;padding:5px 18px!important}
@@ -1669,6 +1669,27 @@ html,body{height:100vh;height:100svh;height:calc(100svh / var(--pz,1));overflow:
 .pk-dl-bar.show{display:block}
 .pk-dl-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#16a34a,#4ade80);transition:width .2s}
 .pk-item-icon.pct{font-family:'Courier New',monospace;font-size:13px;font-weight:900;background:#fde047;color:#111827;min-width:44px;text-align:center}
+
+/* ══ 📤 حفظ پرو پوسٹر — ویلکم پیج پر شیئر بٹن + پوسٹر (HFZ610TU014) ══ */
+.wlc-poster-box{display:flex;flex-direction:column;align-items:center;gap:8px;margin:10px 0 4px;}
+.wlc-poster-share{width:100%;border:none;border-radius:16px;padding:12px 10px;cursor:pointer;
+  font-family:'Jameel-Noori.N','JN',serif;font-size:19px;font-weight:700;color:#fff;
+  background:linear-gradient(145deg,#d4a017,#a16207);box-shadow:0 4px 0 #713f12,0 6px 14px rgba(0,0,0,.3);}
+.wlc-poster-share:active{transform:translateY(3px);box-shadow:0 1px 0 #713f12;}
+.wlc-poster-thumb{width:62%;max-width:260px;height:auto;border-radius:14px;border:3px solid #e8bf5e;
+  box-shadow:0 10px 24px rgba(0,0,0,.4);cursor:zoom-in;display:block;}
+.wlc-poster-hint{font-family:'Jameel-Noori.N','JN',serif;font-size:12px;color:#fde68a;text-align:center;}
+#posterOverlay{display:none;position:fixed;inset:0;z-index:100000;background:rgba(2,20,14,.94);
+  align-items:center;justify-content:center;padding:12px;box-sizing:border-box;}
+#posterOverlay.open{display:flex;}
+#posterOverlay .pv-wrap{display:flex;flex-direction:column;align-items:center;gap:12px;max-height:100%;width:100%;}
+#posterBigImg{max-width:100%;max-height:calc(100vh - 110px);height:auto;border-radius:14px;border:2px solid #e8bf5e;}
+#posterOverlay .pv-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
+#posterOverlay .pv-btn{border:none;border-radius:14px;padding:10px 18px;min-height:44px;cursor:pointer;
+  font-family:'Jameel-Noori.N','JN',serif;font-size:17px;font-weight:700;color:#fff;}
+#posterOverlay .pv-share{background:linear-gradient(145deg,#16a34a,#15803d);}
+#posterOverlay .pv-save{background:linear-gradient(145deg,#2563eb,#1d4ed8);}
+#posterOverlay .pv-close{background:#7f1d1d;}
 </style>
 </head>
 <body>
@@ -1709,6 +1730,13 @@ html,body{height:100vh;height:100svh;height:calc(100svh / var(--pz,1));overflow:
       <a class="wlc-tilawat-btn" href="https://play.google.com/store/apps/details?id=com.fanzetech.holyquran" target="_blank" rel="noopener" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;">📖 تلاوت کے لیے 16 لائین قرآن پاک</a>
       <button class="wlc-manzil-btn" onclick="openManzil()">🛡️ منزل پڑھیں</button>
     </div>
+    <!-- 📤 حفظ پرو کا پوسٹر — ہر وقت ایپ میں دستیاب (فائل: hifz-pro-poster.png، index.html کے ساتھ) -->
+    <div class="wlc-poster-box" id="wlcPosterBox">
+      <button class="wlc-poster-share" onclick="hfzSharePoster()">📤 حفظ پرو کا پوسٹر شیئر کریں</button>
+      <img class="wlc-poster-thumb" id="wlcPosterImg" src="hifz-pro-poster.png" alt="حفظ پرو کا پوسٹر" loading="lazy"
+           onclick="hfzOpenPoster()" onerror="document.getElementById('wlcPosterBox').style.display='none'">
+      <div class="wlc-poster-hint">پوسٹر بڑا دیکھنے کے لیے اس پر ٹیپ کریں</div>
+    </div>
     <div class="wlc-divider"></div>
     <button class="wlc-chatdev-btn" onclick="toggleChatDev()">💬 Chat with Developer</button>
     <div class="wlc-chatdev-opts" id="chatDevOpts">
@@ -1726,6 +1754,17 @@ html,body{height:100vh;height:100svh;height:calc(100svh / var(--pz,1));overflow:
   </div>
   <div class="wlc-auto-hint" id="wlcAutoHint">⏳ خود بخود چند سیکنڈ میں شروع ہو رہا ہے…</div>
   <button class="wlc-start-btn" onclick="startApp()">▶ شروع کریں</button>
+</div>
+
+<div id="posterOverlay" onclick="if(event.target===this)hfzClosePoster()">
+  <div class="pv-wrap">
+    <img id="posterBigImg" alt="حفظ پرو کا پوسٹر">
+    <div class="pv-row">
+      <button class="pv-btn pv-share" onclick="hfzSharePoster()">📤 شیئر کریں</button>
+      <button class="pv-btn pv-save" onclick="hfzSavePoster()">⬇️ محفوظ کریں</button>
+      <button class="pv-btn pv-close" onclick="hfzClosePoster()">✕ بند</button>
+    </div>
+  </div>
 </div>
 
 <!-- منزل اوورلے — مخصوص حفاظتی آیات (شیخ الحدیث محمد زکریا رحمہ اللہ کی معروف ترتیب) -->
@@ -1749,7 +1788,7 @@ html,body{height:100vh;height:100svh;height:calc(100svh / var(--pz,1));overflow:
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">HFZ310SA007</span>
+    <span class="ver-code" id="splashVerCode">HFZ610TU014</span>
   </div>
 </div>
 
@@ -1897,7 +1936,7 @@ html,body{height:100vh;height:100svh;height:calc(100svh / var(--pz,1));overflow:
   <!-- URDU PANEL -->
   <div id="urduPanel">
     <div class="tr-tag-row">
-      <div class="tr-tag" id="trTag">ترجمہ: فتح محمد جالندھری ● قرآن متن آف لائن</div>
+      <div class="tr-tag" id="trTag">ترجمہ: مولانا فتح محمد جالندھری صاحب ● قرآن متن آف لائن</div>
     </div>
     <div class="panel-body-row">
       <div class="zoom-corner-btns">
@@ -2477,11 +2516,11 @@ const SAHIH_EN_FATIHA={
   "1_7":"The path of those upon whom You have bestowed favor, not of those who have evoked [Your] anger or of those who are astray."
 };
 const TRANSLATORS=[
-  {id:'jalandhari', name:'فتح محمد جالندھری', lang:'ur', data:QUR},
-  {id:'junagarhi', name:'محمد جوناگڑھی', lang:'ur', data:JUNAGARHI_FATIHA, apiId:'ur.junagarhi'},
-  {id:'maududi', name:'مولانا ابوالاعلیٰ مودودی', lang:'ur', data:{}, apiId:'ur.maududi'},
-  {id:'ahmedraza', name:'احمد رضا خان (کنزالایمان)', lang:'ur', data:{}, apiId:'ur.kanzuliman'},
-  {id:'mahmoodhassan', name:'محمود الحسن (شیخ الہند)', lang:'ur', data:MAHMOODHASSAN_FATIHA},
+  {id:'jalandhari', name:'مولانا فتح محمد جالندھری صاحب', lang:'ur', data:QUR},
+  {id:'junagarhi', name:'مولانا محمد جوناگڑھی صاحب', lang:'ur', data:Object.assign({},JUNAGARHI_FATIHA), apiId:'ur.junagarhi', fullSrc:'junagarhi'},
+  {id:'maududi', name:'مولانا سید ابوالاعلیٰ مودودی صاحب', lang:'ur', data:{}, apiId:'ur.maududi', fullSrc:'maududi'},
+  {id:'ahmedraza', name:'اعلیٰ حضرت مولانا احمد رضا خان بریلوی صاحب (کنزالایمان)', lang:'ur', data:{}, apiId:'ur.kanzuliman', fullSrc:'ahmedraza'},
+  {id:'mahmoodhassan', name:'شیخ الہند مولانا محمود الحسن صاحب', lang:'ur', data:Object.assign({},MAHMOODHASSAN_FATIHA), fullSrc:'mahmoodhassan'},
   {id:'sahih_en', name:'Saheeh International', lang:'en', data:SAHIH_EN_FATIHA, apiId:'en.sahih'},
   {id:'arabic_self', name:'عربی متن', lang:'ar', data:QAR}
   // جوناگڑھی، مودودی، احمد رضا خان (کنزالایمان)، اور Saheeh International کے مکمل تراجم آن لائن ہونے پر
@@ -2564,7 +2603,7 @@ async function refreshCurrentAyahText(){
   const tag=document.getElementById('trTag');
   if(tag&&!SHAKIR){
     const tr=TRANSLATORS.find(t=>t.id===curTranslatorId);
-    const onlineTag=tr&&tr.apiId?' ● آن لائن':' ● قرآن متن آف لائن';
+    const onlineTag=tr&&tr.apiId&&!tr._fullReady?' ● آن لائن':' ● آف لائن';
     tag.textContent=tr?('ترجمہ: '+tr.name+onlineTag):'ترجمہ دستیاب نہیں';
   }
 }
@@ -2843,10 +2882,136 @@ async function fetchOnlineAyahTr(tr,s,a){
   }catch{}
   return null;
 }
+// ══ 📖 مکمل ترجمہ (ایک بار ڈاؤن لوڈ، پھر ہمیشہ آف لائن) — شیخ الہند مولانا محمود الحسن صاحب (HFZ610TU014) ══
+// ماخذ 1: fawazahmed0/quran-api (فری اوپن سورس) — ماخذ 2 (بیک اپ): quran.com API (ترجمہ 151)
+// پورا ترجمہ (6236 آیات) ایک بار آتا ہے اور فون کی Cache Storage میں محفوظ ہو جاتا ہے
+const FULL_TR_CACHE='hfz-tr-v1';
+// ماخذ ترتیب: alquran.cloud (پورا ایڈیشن ایک درخواست میں) ← fawazahmed0 ← quran.com
+const FULL_TR_SOURCES={
+  mahmoodhassan:{label:'شیخ الہند مولانا محمود الحسن صاحب',
+    fawazNames:['urd-mahmoodulhassan'],fawazMatch:a=>/mahm[ou]+d/i.test(a)&&/has+an/i.test(a),qcomId:151},
+  junagarhi:{label:'مولانا محمد جوناگڑھی صاحب',acId:'ur.junagarhi',
+    fawazNames:['urd-muhammadjunagar'],fawazMatch:a=>/junag/i.test(a),qcomId:54},
+  maududi:{label:'مولانا سید ابوالاعلیٰ مودودی صاحب',acId:'ur.maududi',
+    fawazNames:['urd-abulaalamaududi'],fawazMatch:a=>/maud/i.test(a),qcomId:97},
+  ahmedraza:{label:'اعلیٰ حضرت مولانا احمد رضا خان بریلوی صاحب',acId:'ur.kanzuliman',
+    fawazNames:['urd-ahmedrazakhan'],fawazMatch:a=>/raza/i.test(a)&&/ahm/i.test(a)}
+};
+async function _loadFromAlquranCloud(src){
+  if(!src.acId)return null;
+  try{
+    const j=await _fetchJson('https://api.alquran.cloud/v1/quran/'+src.acId,60000);
+    const su=j&&j.data&&j.data.surahs;if(!Array.isArray(su))return null;
+    const m={};
+    for(const x of su){for(const ay of (x.ayahs||[])){if(ay&&ay.text)m[x.number+'_'+ay.numberInSurah]=_cleanTrText(ay.text);}}
+    return Object.keys(m).length>=6200?m:null;
+  }catch(e){return null;}
+}
+const _fullTrPromise={};
+function _fullTrKey(id){return './__hfz_tr_full__/'+id+'.json';}
+function _ayahTotal(){return SH.reduce((n,x)=>n+x.a,0);}
+function _cleanTrText(t){
+  return String(t||'').replace(/<sup[^>]*>[\s\S]*?<\/sup>/gi,'').replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim();
+}
+async function _fetchJson(url,ms){
+  const ctl=('AbortController' in window)?new AbortController():null;
+  const t=ctl?setTimeout(()=>ctl.abort(),ms||45000):null;
+  try{const r=await fetch(url,ctl?{signal:ctl.signal}:{});if(!r.ok)throw new Error('http '+r.status);return await r.json();}
+  finally{if(t)clearTimeout(t);}
+}
+function _mapFromFawaz(j){
+  const arr=j&&(j.quran||j.verses);if(!Array.isArray(arr))return null;
+  const m={};for(const v of arr){if(v&&v.chapter&&v.verse&&v.text)m[v.chapter+'_'+v.verse]=_cleanTrText(v.text);}
+  return m;
+}
+async function _loadFromFawaz(src){
+  const bases=['https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/','https://raw.githubusercontent.com/fawazahmed0/quran-api/1/editions/'];
+  const names=[...src.fawazNames];
+  // نام کی تصدیق: ایڈیشنز کی فہرست سے اردو + مترجم کا نام ملا کر صحیح ایڈیشن تلاش
+  try{
+    const ed=await _fetchJson(bases[0].replace(/editions\/$/,'editions.min.json'),20000);
+    for(const k in ed){const e=ed[k];if(e&&e.language==='Urdu'&&src.fawazMatch(e.author||'')&&!/-la(d)?$/.test(e.name)&&!names.includes(e.name))names.push(e.name);}
+  }catch(e){}
+  for(const n of names){for(const b of bases){
+    try{const m=_mapFromFawaz(await _fetchJson(b+n+'.min.json'));if(m&&Object.keys(m).length>=6200)return m;}catch(e){}
+  }}
+  return null;
+}
+async function _loadFromQuranCom(src){
+  if(!src.qcomId)return null;
+  try{
+    const j=await _fetchJson('https://api.quran.com/api/v4/quran/translations/'+src.qcomId);
+    const arr=j&&j.translations;if(!Array.isArray(arr)||arr.length<6200)return null;
+    const m={};let i=0;
+    for(let s=1;s<=SH.length;s++){for(let a=1;a<=SH[s-1].a;a++){if(arr[i])m[s+'_'+a]=_cleanTrText(arr[i].text);i++;}}
+    return m;
+  }catch(e){return null;}
+}
+function ensureFullTr(tr,quiet){
+  if(!tr||!tr.fullSrc)return Promise.resolve(false);
+  if(tr._fullReady)return Promise.resolve(true);
+  if(_fullTrPromise[tr.id])return _fullTrPromise[tr.id];
+  const src=FULL_TR_SOURCES[tr.fullSrc];
+  _fullTrPromise[tr.id]=(async()=>{
+    // 1) پہلے فون میں محفوظ کاپی
+    try{
+      if('caches' in window){const c=await caches.open(FULL_TR_CACHE);const r=await c.match(_fullTrKey(tr.id));
+        if(r){const m=await r.json();if(m&&Object.keys(m).length>=6200){Object.assign(tr.data,m);tr._fullReady=true;return true;}}}
+    }catch(e){}
+    if(!navigator.onLine)return false;
+    // 2) انٹرنیٹ سے ایک بار
+    if(!quiet)showToast('⏳ '+src.label+' کا مکمل ترجمہ ڈاؤن لوڈ ہو رہا ہے...');
+    let m=await _loadFromAlquranCloud(src);
+    if(!m)m=await _loadFromFawaz(src);
+    if(!m)m=await _loadFromQuranCom(src);
+    if(!m)return false;
+    Object.assign(tr.data,m);tr._fullReady=true;
+    try{if('caches' in window){const c=await caches.open(FULL_TR_CACHE);
+      await c.put(_fullTrKey(tr.id),new Response(JSON.stringify(m),{headers:{'Content-Type':'application/json; charset=utf-8'}}));}}catch(e){}
+    // پرانی آیت بہ آیت localStorage کاپیاں صاف (جگہ خالی ہو)
+    try{const pre='qtrc_'+tr.id+'_';const ks=[];for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith(pre))ks.push(k);}ks.forEach(k=>localStorage.removeItem(k));}catch(e){}
+    if(!quiet)showToast('✓ '+src.label+' کا مکمل ترجمہ محفوظ — اب آف لائن بھی دستیاب');
+    return true;
+  })().then(ok=>{if(!ok)delete _fullTrPromise[tr.id];return ok;},()=>{delete _fullTrPromise[tr.id];return false;});
+  return _fullTrPromise[tr.id];
+}
+// ══ تمام تراجم یک دم: ایپ کھلنے کے کچھ دیر بعد پس منظر میں سب ایک ایک کر کے محفوظ ══
+let _allTrRunning=false;
+async function downloadAllTranslations(){
+  if(_allTrRunning)return;_allTrRunning=true;
+  try{
+    const list=TRANSLATORS.filter(t=>t.fullSrc);
+    // پہلے جو فون میں محفوظ ہیں وہ خاموشی سے لوڈ
+    for(const t of list){if(!t._fullReady)await ensureFullTr(t,true).catch(()=>{});if(!navigator.onLine)break;}
+    const missing=list.filter(t=>!t._fullReady);
+    const cur=TRANSLATORS.find(t=>t.id===curTranslatorId);
+    if(cur&&cur.fullSrc&&cur._fullReady)try{refreshCurrentAyahText();}catch(e){}
+    let hadNew=false;try{hadNew=localStorage.getItem('hfzAllTrDone')!=='1';}catch(e){}
+    if(!missing.length){
+      if(hadNew){try{localStorage.setItem('hfzAllTrDone','1');}catch(e){}showToast('✓ پانچوں اردو تراجم مکمل آف لائن محفوظ ہیں');}
+    }else{try{localStorage.removeItem('hfzAllTrDone');}catch(e){}}
+  }finally{_allTrRunning=false;}
+}
+window.addEventListener('load',()=>setTimeout(downloadAllTranslations,8000));
+window.addEventListener('online',()=>setTimeout(downloadAllTranslations,2000));
+
 async function getAyah(s,a){
   const k=`${s}_${a}`;
   const tr=TRANSLATORS.find(t=>t.id===curTranslatorId);
   let urTxt=(tr&&tr.data&&tr.data[k])?tr.data[k]:null;
+  if(!urTxt&&tr&&tr.fullSrc&&!tr._fullReady){
+    // محفوظ کاپی فوراً مل جاتی ہے؛ پہلی بار ڈاؤن لوڈ میں تلاوت نہ رکے — مکمل ہوتے ہی متن خود بدل جائے گا
+    const p=ensureFullTr(tr);
+    const ok=await Promise.race([p,new Promise(r=>setTimeout(()=>r('wait'),1500))]);
+    if(ok===true)urTxt=tr.data[k]||null;
+    else{
+      if(ok==='wait')p.then(done=>{if(done&&curTranslatorId===tr.id)refreshCurrentAyahText();});
+      // مکمل ڈاؤن لوڈ ہونے تک: پہلے سے محفوظ آیت یا آن لائن صرف یہی آیت
+      if(tr.apiId)urTxt=await fetchOnlineAyahTr(tr,s,a);
+      if(!urTxt&&ok==='wait')urTxt='⏳ مکمل ترجمہ ڈاؤن لوڈ ہو رہا ہے... (صرف پہلی بار، پھر ہمیشہ آف لائن)';
+      if(!urTxt&&!navigator.onLine)urTxt='یہ ترجمہ پہلی بار ڈاؤن لوڈ کرنے کے لیے ایک دفعہ انٹرنیٹ آن کریں — پھر ہمیشہ آف لائن چلے گا';
+    }
+  }
   if(!urTxt&&tr&&tr.apiId){urTxt=await fetchOnlineAyahTr(tr,s,a);}
   if(!urTxt)urTxt='اس زبان/مترجم کا ترجمہ ابھی دستیاب نہیں — جلد شامل کیا جائے گا';
   return{ar:QAR[k]||'—',ur:urTxt};
@@ -3029,7 +3194,7 @@ function setQari(k){
     loadA(St.s,1,false);
   }else{
     sb.classList.remove('show');
-    document.getElementById('trTag').textContent='ترجمہ: فتح محمد جالندھری ● قرآن متن آف لائن';
+    document.getElementById('trTag').textContent='ترجمہ: مولانا فتح محمد جالندھری صاحب ● قرآن متن آف لائن';
     document.querySelectorAll('.rr-block').forEach(el=>el.style.display='');document.getElementById('applyBtnWrap').classList.add('show');
     loadA(St.s,St.a,false);
   }
@@ -4541,7 +4706,7 @@ function initApp(){
     document.querySelectorAll('.rr-block').forEach(el=>el.style.display='none');
   }else{
     _sb0?.classList.remove('show');
-    document.getElementById('trTag').textContent='ترجمہ: فتح محمد جالندھری ● قرآن متن آف لائن';
+    document.getElementById('trTag').textContent='ترجمہ: مولانا فتح محمد جالندھری صاحب ● قرآن متن آف لائن';
   }
   {const _b=document.getElementById('tbQariName');if(_b)_b.textContent=QARIS[CQ].name;}
   try{setTheme(localStorage.getItem('qtheme')||'emerald');}catch{setTheme('emerald');}
@@ -4712,7 +4877,7 @@ function applyUrFont(idx){
 }
 
 
-// ══ 🕌 آخری تلاوت (Last Seen) — مالک کی ہدایت (HFZ310SA007): جہاں تلاوت روکی وہ جگہ خود بخود محفوظ ہوتی ہے،
+// ══ 🕌 آخری تلاوت (Last Seen) — مالک کی ہدایت (HFZ610TU014): جہاں تلاوت روکی وہ جگہ خود بخود محفوظ ہوتی ہے،
 // اگلی بار ایپ کھولنے پر خوبصورت ڈبے میں پوچھا جاتا ہے: "جی ہاں" = وہیں سے شروع، "جی نہیں" = ڈبہ بند، نئی سلیکشن آزاد ══
 const HFZ_LAST_KEY='hfz_last_tilawat';
 let _hfzArmed=false,_hfzLastSave=0;
@@ -4827,9 +4992,12 @@ function hfzExitApp(){
 let _hfzUpdPending=false,_hfzUpdChecking=false;
 async function hfzCheckUpdate(){
   if(_hfzUpdChecking||!navigator.onLine||location.protocol==='file:')return;
+  // ڈیٹا کی بچت: 10 منٹ میں ایک بار سے زیادہ چیک نہیں
+  {const _now=Date.now();if(window._hfzLastChk&&_now-window._hfzLastChk<10*60*1000)return;window._hfzLastChk=_now;}
   _hfzUpdChecking=true;
   try{
-    const r=await fetch('./index.html?chk='+Date.now(),{cache:'no-store'});
+    // ثابت URL + no-cache: فائل نہ بدلی ہو تو سرور صرف 304 بھیجتا ہے (3MB دوبارہ ڈاؤن لوڈ نہیں ہوتی)
+    const r=await fetch('./index.html?chk=1',{cache:'no-cache'});
     if(!r.ok)return;
     const t=await r.text();
     const m=t.match(/APP_VERSION='(HFZ[0-9A-Z]+)'/);
@@ -4872,8 +5040,11 @@ aud.addEventListener('pause',()=>document.getElementById('tbQariBadge')?.classLi
 
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
-const APP_VERSION='HFZ310SA007';
-const APP_VERSION_DISPLAY='HFZ310SA007';
+// ── ورژن کوڈ کا قاعدہ (مالک کی ہدایت): HFZ + تاریخ + مہینہ + دن کے دو حروف + تین ہندسوں کا سیریل ──
+//    مثال: HFZ610TU014 = 6 اکتوبر، منگل (TU)، سیریل 012 — اگلا ورژن 013، پھر 014، 015… (سیریل کبھی دوبارہ شروع نہیں ہوتا)
+//    دن: MO پیر، TU منگل، WE بدھ، TH جمعرات، FR جمعہ، SA ہفتہ، SU اتوار — زِپ کا نام بھی یہی: HFZ610TU014.zip
+const APP_VERSION='HFZ610TU014';
+const APP_VERSION_DISPLAY='HFZ610TU014';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
@@ -4917,6 +5088,51 @@ document.addEventListener('DOMContentLoaded',()=>{
   if(!wl) return;
   scheduleWlcAutoStart();
   wl.addEventListener('click',cancelWlcAutoStart,{once:true});
+});
+
+
+// ══ 📤 حفظ پرو پوسٹر شیئر (HFZ610TU014) — پوسٹر ایپ کے ساتھ آف لائن محفوظ رہتا ہے، کبھی ڈیلیٹ نہیں ہوتا ══
+const HFZ_POSTER_URL='hifz-pro-poster.png';
+const HFZ_PLAY_URL='https://play.google.com/store/apps/details?id=io.github.pbtcodelabs_pbt.twa';
+const HFZ_SHARE_TEXT='📖 Hifz Pro — اپنی صبح، اپنے دن کا آغاز قرآنِ پاک کی تلاوت سے کیجیے\n14 مشہور قرّاء کرام • 5 مشہور اردو تراجم • مکمل آف لائن\nابھی ڈاؤن لوڈ کریں: '+HFZ_PLAY_URL;
+async function _hfzPosterFile(){
+  const r=await fetch(HFZ_POSTER_URL);if(!r.ok)throw new Error('poster missing');
+  const b=await r.blob();
+  return new File([b],'Hifz-Pro-Poster.png',{type:b.type||'image/png'});
+}
+async function hfzSharePoster(){
+  try{cancelWlcAutoStart();}catch(e){}
+  let file=null;
+  try{file=await _hfzPosterFile();}catch(e){}
+  try{
+    if(file&&navigator.canShare&&navigator.canShare({files:[file]})){
+      await navigator.share({files:[file],title:'Hifz Pro',text:HFZ_SHARE_TEXT});return;
+    }
+    if(navigator.share){await navigator.share({title:'Hifz Pro',text:HFZ_SHARE_TEXT});return;}
+  }catch(e){if(e&&e.name==='AbortError')return;}
+  // شیئر سپورٹ نہ ہو تو پوسٹر فون میں محفوظ + لنک کاپی
+  if(file)hfzSavePoster();
+  try{await navigator.clipboard.writeText(HFZ_SHARE_TEXT);showToast('📋 ایپ کا لنک کاپی ہو گیا');}catch(e){}
+}
+async function hfzSavePoster(){
+  try{
+    const f=await _hfzPosterFile();
+    const u=URL.createObjectURL(f);const a=document.createElement('a');
+    a.href=u;a.download='Hifz-Pro-Poster.png';document.body.appendChild(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(u),4000);
+    showToast('⬇️ پوسٹر فون میں محفوظ ہو گیا');
+  }catch(e){showToast('پوسٹر ابھی دستیاب نہیں — ایک بار انٹرنیٹ کے ساتھ ایپ کھولیں');}
+}
+function hfzOpenPoster(){
+  try{cancelWlcAutoStart();}catch(e){}
+  const o=document.getElementById('posterOverlay'),im=document.getElementById('posterBigImg');
+  if(!o||!im)return;im.src=HFZ_POSTER_URL;o.classList.add('open');
+}
+function hfzClosePoster(){const o=document.getElementById('posterOverlay');if(o)o.classList.remove('open');}
+// ویلکم پیج پر اسکرول/چھونے سے بھی خودکار آغاز رک جائے (تاکہ پوسٹر آرام سے دیکھا جا سکے)
+document.addEventListener('DOMContentLoaded',()=>{
+  const wl=document.getElementById('welcomeOverlay');if(!wl)return;
+  ['touchstart','scroll','wheel'].forEach(ev=>wl.addEventListener(ev,()=>{try{cancelWlcAutoStart();}catch(e){}},{once:true,passive:true}));
 });
 
 // ══ FORCE REFRESH — سروس ورکر اور پرانی کیش صاف کر کے تازہ ترین فائل لوڈ کرے ══
