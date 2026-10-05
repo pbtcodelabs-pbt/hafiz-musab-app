@@ -1,13 +1,26 @@
-# Hifz Pro — زپ فائل اپ لوڈ کریں، باقی کام یہ خود کرے گا
-# 1) ریپو میں جو بھی .zip فائل اپ لوڈ ہو گی، یہ اسے کھولے گا
-# 2) اندر کی فائلیں (index.html, sw.js وغیرہ) پرانی فائلوں کی جگہ رکھے گا
-# 3) زپ فائل ڈیلیٹ کر کے کمٹ کرے گا، اور ویب سائٹ دوبارہ بنوائے گا
-name: Auto Unzip & Deploy
+# ══════════════════════════════════════════════════════════════════
+# Hifz Pro — خودکار اَن زِپ + حفاظتی نظام
+# جگہ: ریپو میں .github/workflows/auto.yml
+#
+# 1) جو زِپ HFZ سے شروع ہو (مثلاً HFZ310SA011.zip) → خود اَن زِپ
+# 2) جو زِپ HFZ سے شروع نہ ہو → خود ڈیلیٹ (کسی اور ایپ کی فائل یہاں نہیں لگے گی)
+# 3) زِپ کے اندر صرف اجازت والی فائلیں نکلتی ہیں (index.html، sw.js، پوسٹر)
+# 4) index.html کے اندر APP_VERSION کا HFZ کوڈ زِپ کے نام سے ملنا ضروری ہے،
+# ورنہ وہ زِپ بھی ڈیلیٹ (غلطی سے کسی اور ایپ کی index.html نہ لگ جائے)
+# 5) کامیاب اَن زِپ کے بعد زِپ خود ڈیلیٹ — ریپو صاف رہتا ہے
+# 6) آخر میں GitHub Pages کو نیا ورژن پبلش کرنے کا حکم (ویب سائٹ/ایپ فوراً اپڈیٹ)
+#
+# زِپ کے نام کا قاعدہ: HFZ + تاریخ + مہینہ + دن کے دو حروف + تین ہندسوں کا سیریل
+# مثال: HFZ610TU012.zip = 6 اکتوبر، منگل، سیریل 012 (اگلا: …013، …014)
+# ══════════════════════════════════════════════════════════════════
+name: Hifz Pro Auto Unzip & Deploy
 
 on:
   push:
     branches: [main]
-    paths: ['**.zip', '**.ZIP']
+    paths:
+      - '**.zip'
+      - '**.ZIP'
   workflow_dispatch:
 
 permissions:
@@ -15,54 +28,117 @@ permissions:
   pages: write
 
 concurrency:
-  group: auto-unzip
+  group: hifz-auto-unzip
   cancel-in-progress: false
 
 jobs:
   unzip:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: ریپو حاصل کریں
+        uses: actions/checkout@v4
 
-      - name: Unzip
-        id: un
+      - name: زِپ چیک، اَن زِپ اور فالتو زِپ ڈیلیٹ
+        shell: python
         run: |
-          shopt -s nullglob globstar nocaseglob
-          zips=( **/*.zip )
-          if [ ${#zips[@]} -eq 0 ]; then echo "none=1" >> "$GITHUB_OUTPUT"; echo "کوئی زپ نہیں ملی"; exit 0; fi
-          names=""
-          for z in "${zips[@]}"; do
-            echo "📦 کھول رہا ہوں: $z"
-            tmp=$(mktemp -d)
-            unzip -o -q "$z" -d "$tmp"
-            rm -rf "$tmp/__MACOSX"
-            # اگر زپ کے اندر ایک ہی فولڈر ہو (مثلاً DG-main/) تو اس کے اندر کی فائلیں لو
-            top=( "$tmp"/* )
-            if [ ${#top[@]} -eq 1 ] && [ -d "${top[0]}" ]; then src="${top[0]}"; else src="$tmp"; fi
-            # ورک فلو اور git کی فائلیں کبھی نہ بدلیں
-            rm -rf "$src/.github" "$src/.git"
-            dest=$(dirname "$z")
-            cp -a "$src"/. "$dest"/
-            git rm -q --cached "$z" 2>/dev/null || true
-            rm -f "$z"
-            rm -rf "$tmp"
-            names="$names $(basename "$z" .zip)"
-            echo "✅ مکمل: $z"
-          done
-          echo "names=$names" >> "$GITHUB_OUTPUT"
+          import os, re, zipfile, subprocess, sys
 
-      - name: Commit
-        if: steps.un.outputs.none != '1'
+          ALLOWED = {"index.html", "sw.js", "hifz-pro-poster.png"}   # صرف یہی فائلیں زِپ سے نکلیں گی
+          REQUIRED = {"index.html"}
+          # نام کا قاعدہ: HFZ + تاریخ(1-31) + مہینہ(1-12) + دن(MO..SU) + سیریل(3 ہندسے) مثلاً HFZ610TU012.zip
+          NAME_OK = re.compile(r"^HFZ(?:[1-9]|[12][0-9]|3[01])(?:[1-9]|1[0-2])(?:MO|TU|WE|TH|FR|SA|SU)[0-9]{3}\.zip$")
+
+          def git(*a):
+              subprocess.run(["git", *a], check=True)
+
+          zips = []
+          for root, dirs, files in os.walk("."):
+              if ".git" in root.split(os.sep):
+                  continue
+              for f in files:
+                  if f.lower().endswith(".zip"):
+                      zips.append(os.path.join(root, f))
+
+          if not zips:
+              print("کوئی زِپ نہیں ملی")
+              sys.exit(0)
+
+          removed, extracted = [], []
+          # پرانے سے نئے ترتیب میں (نام کے لحاظ سے) — آخری والی جیتے گی
+          for path in sorted(zips, key=lambda p: os.path.basename(p)):
+              name = os.path.basename(path)
+              in_root = os.path.dirname(os.path.normpath(path)) in ("", ".")
+
+              # ① نام HFZ سے شروع نہیں، یا روٹ میں نہیں → ڈیلیٹ
+              if not NAME_OK.match(name) or not in_root:
+                  print(f"❌ ڈیلیٹ (HFZ والی نہیں / غلط جگہ): {path}")
+                  git("rm", "-q", "-f", path); removed.append(name); continue
+
+              # ② زِپ خراب ہو → ڈیلیٹ
+              try:
+                  z = zipfile.ZipFile(path)
+                  members = [m for m in z.infolist() if not m.is_dir()]
+              except zipfile.BadZipFile:
+                  print(f"❌ خراب زِپ، ڈیلیٹ: {name}")
+                  git("rm", "-q", "-f", path); removed.append(name); continue
+
+              # فولڈر کے اندر رکھی فائلیں بھی قبول (صرف آخری نام دیکھا جاتا ہے)
+              picked = {}
+              for m in members:
+                  base = os.path.basename(m.filename.replace("\\", "/"))
+                  if base in ALLOWED:
+                      picked[base] = m
+                  else:
+                      print(f" ⚠️ نظرانداز (اجازت نہیں): {m.filename}")
+
+              if not REQUIRED.issubset(picked):
+                  print(f"❌ index.html موجود نہیں، ڈیلیٹ: {name}")
+                  z.close(); git("rm", "-q", "-f", path); removed.append(name); continue
+
+              # ③ تصدیق: یہ واقعی Hifz Pro کی index.html ہے اور ورژن زِپ کے نام سے ملتا ہے
+              html = z.read(picked["index.html"]).decode("utf-8", "ignore")
+              m = re.search(r"APP_VERSION\s*=\s*'(HFZ[0-9A-Za-z_-]+)'", html)
+              ver = name[:-4]
+              if not m:
+                  print(f"❌ یہ Hifz Pro کی فائل نہیں (APP_VERSION='HFZ…' نہیں ملا)، ڈیلیٹ: {name}")
+                  z.close(); git("rm", "-q", "-f", path); removed.append(name); continue
+              if m.group(1) != ver:
+                  print(f"❌ ورژن مختلف: زِپ {ver} مگر اندر {m.group(1)} — ڈیلیٹ: {name}")
+                  z.close(); git("rm", "-q", "-f", path); removed.append(name); continue
+
+              # ④ اَن زِپ (صرف اجازت والی فائلیں، روٹ میں، پرانی کے اوپر)
+              for base, info in picked.items():
+                  with open(base, "wb") as out:
+                      out.write(z.read(info))
+                  git("add", base)
+                  print(f" ✅ نکالی: {base}")
+              z.close()
+              git("rm", "-q", "-f", path)
+              extracted.append(name)
+              print(f"✅ اَن زِپ مکمل: {name}")
+
+          with open(os.environ["GITHUB_ENV"], "a", encoding="utf-8") as env:
+              env.write(f"HFZ_DONE={' '.join(extracted) or '-'}\n")
+              env.write(f"HFZ_REMOVED={' '.join(removed) or '-'}\n")
+
+      - name: تبدیلیاں محفوظ (commit + push)
         run: |
-          git config user.name "github-actions[bot]"
+          git config user.name  "github-actions[bot]"
           git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          if git diff --cached --quiet; then echo "کوئی تبدیلی نہیں"; exit 0; fi
-          git commit -m "Auto-unzip:${{ steps.un.outputs.names }}"
+          if git diff --cached --quiet; then
+            echo "کوئی تبدیلی نہیں"
+            exit 0
+          fi
+          git commit -m "🤖 Auto: unzipped [${HFZ_DONE}] · removed [${HFZ_REMOVED}]"
           git push
+          echo "HFZ_PUSHED=1" >> "$GITHUB_ENV"
 
-      - name: Rebuild GitHub Pages
-        if: steps.un.outputs.none != '1'
+      - name: GitHub Pages پر نیا ورژن پبلش
+        if: env.HFZ_PUSHED == '1'
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh api -X POST "repos/${{ github.repository }}/pages/builds" || echo "Pages build trigger skipped"
+        run: |
+          # بوٹ کی تبدیلی پر Pages ہمیشہ خود نہیں چلتا — اس لیے یہاں سے پکا حکم دیا جاتا ہے
+          gh api -X POST "repos/${{ github.repository }}/pages/builds" >/dev/null \
+            && echo "✅ Pages پبلش شروع — 1-2 منٹ میں نیا ورژن لائیو" \
+            || echo "ℹ️ Pages کا حکم نہیں گیا (شاید Pages کسی اور طریقے سے چلتا ہے) — فائلیں پھر بھی ریپو میں لگ گئی ہیں"
