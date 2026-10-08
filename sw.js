@@ -1,11 +1,11 @@
-// Hafiz Musab / Hifz Pro — Service Worker (HFZ610TU018)
+// Hafiz Musab / Hifz Pro — Service Worker (HFZ810TH019)
 // ══ آف لائن حکمتِ عملی ══
 // 1) شیل (index، manifest، آئیکن): انسٹال پر کیش؛ صفحہ کھلنے پر پہلے کیش (فوری، آف لائن)، پس منظر میں تازہ کاپی
 // 2) فونٹس (نوری نستعلیق، امیری، نسخ): پہلی بار آن لائن ملتے ہی مستقل کیش — آف لائن بھی خوبصورت اردو/عربی
 // 3) پاروں کا رکوع ڈیٹا (alquran.cloud/juz): نیٹ پہلے (6 سیکنڈ حد)، ناکامی پر کیش
 // 4) ڈاؤن لوڈ شدہ تلاوت (quran-audio-v2): کیش پہلے — نیٹ کا ایک بائٹ بھی خرچ نہیں، Range (آگے پیچھے) سپورٹ
 // 5) welcome.txt وغیرہ: ?t= کے بغیر ایک ہی کاپی محفوظ (کیش پھولتی نہیں)
-const VERSION = 'HFZ610TU018';
+const VERSION = 'HFZ810TH019';
 const CACHE_NAME = 'hafiz-musab-shell-' + VERSION;
 const FONT_CACHE = 'hfz-fonts-v1';
 const API_CACHE = 'hfz-api-v1';

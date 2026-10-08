@@ -1704,6 +1704,63 @@ html,body{height:100vh;height:100svh;height:calc(100svh / var(--pz,1));overflow:
 .wfr-ur{font-family:'Jameel-Noori.N','JN',serif;font-size:17px;font-weight:700;line-height:1.35;color:#fff;
   text-shadow:0 1px 2px rgba(0,0,0,.35);}
 .wfr-en{font-family:Arial,sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;line-height:1;color:#fde68a;direction:ltr;}
+/* ══ 📜 مسلسل تلاوت + پلے لسٹ (لوپ) — HFZ810TH019 ══ */
+#plBtn{flex-shrink:0;display:inline-flex;align-items:center;gap:5px;border:1.5px solid var(--gd);
+  background:linear-gradient(145deg,var(--gdi),var(--gdd));color:#fff;font-family:'Jameel-Noori.N','JN',serif;
+  font-weight:900;font-size:13px;line-height:1;padding:7px 11px;border-radius:999px;cursor:pointer;white-space:nowrap;
+  box-shadow:0 3px 0 var(--gddd),0 4px 10px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.35)}
+#plBtn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--gddd)}
+#plBtn.on{background:linear-gradient(145deg,#22c55e,#15803d);border-color:#bbf7d0;animation:plGlow 1.6s ease-in-out infinite}
+@keyframes plGlow{0%,100%{box-shadow:0 3px 0 #14532d,0 0 0 0 rgba(74,222,128,.7)}50%{box-shadow:0 3px 0 #14532d,0 0 0 7px rgba(74,222,128,0)}}
+#plOverlay{position:fixed;inset:0;z-index:9000;display:none;align-items:flex-end;justify-content:center;
+  background:rgba(0,0,0,.6);backdrop-filter:blur(3px)}
+#plOverlay.open{display:flex}
+.pl-card{width:100%;max-width:520px;max-height:92vh;overflow-y:auto;direction:rtl;color:var(--txt);
+  background:linear-gradient(170deg,var(--b1),var(--b3));border:1.5px solid var(--gd);border-bottom:none;
+  border-radius:22px 22px 0 0;padding:12px 12px 18px;box-shadow:0 -10px 40px rgba(0,0,0,.6);
+  font-family:'Jameel-Noori.N','JN',serif}
+.pl-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.pl-title{font-size:21px;font-weight:900;color:var(--ghi)}
+.pl-x{border:none;background:rgba(255,255,255,.12);color:#fff;font-size:18px;width:36px;height:36px;border-radius:50%;cursor:pointer}
+.pl-qari{font-size:13.5px;line-height:1.7;color:var(--txt2);background:rgba(var(--gdR),.12);border:1px solid var(--apbr);
+  border-radius:12px;padding:6px 10px;margin-bottom:10px;text-align:center}
+.pl-qari b{color:var(--ghi)}
+.pl-status{display:none;align-items:center;gap:8px;background:rgba(34,197,94,.16);border:1.5px solid #4ade80;
+  border-radius:14px;padding:8px 10px;margin-bottom:10px;font-size:15px;font-weight:800;color:#bbf7d0}
+.pl-status.show{display:flex}
+.pl-status span{flex:1}
+.pl-stop{border:none;background:#dc2626;color:#fff;font-family:inherit;font-weight:900;font-size:14px;padding:7px 12px;border-radius:999px;cursor:pointer}
+.pl-sec{background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:10px;margin-bottom:10px}
+.pl-sec-ti{font-size:18px;font-weight:900;color:var(--ghi);margin-bottom:3px}
+.pl-sec-sub{font-size:13px;line-height:1.75;color:var(--txt2);margin-bottom:8px}
+.pl-go{width:100%;border:none;border-radius:14px;padding:11px 0;font-family:inherit;font-size:17px;font-weight:900;color:#fff;cursor:pointer;
+  background:linear-gradient(135deg,var(--gd),var(--gdi));box-shadow:0 3px 0 var(--gddd)}
+.pl-go:disabled{opacity:.45}
+.pl-go:active{transform:translateY(2px)}
+.pl-presets{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.pl-pre{border:1px solid var(--apbr);background:rgba(255,255,255,.08);color:var(--txt);font-family:inherit;font-size:13px;font-weight:800;
+  padding:5px 9px;border-radius:999px;cursor:pointer}
+.pl-pre.clr{border-color:#f87171;color:#fecaca}
+.pl-order{min-height:34px;display:flex;flex-wrap:wrap;gap:5px;align-items:center;padding:6px;border-radius:12px;
+  background:rgba(0,0,0,.25);border:1px dashed var(--apbr);margin-bottom:8px;font-size:13px;color:var(--txt2)}
+.pl-ochip{display:inline-flex;align-items:center;gap:4px;background:var(--gd);color:#fff;border-radius:999px;padding:3px 4px 3px 9px;font-size:14px;font-weight:800}
+.pl-ochip i{font-style:normal;background:rgba(0,0,0,.3);border-radius:50%;min-width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;font-family:Arial,sans-serif;font-size:11px}
+.pl-ochip.now{background:#16a34a;box-shadow:0 0 0 2px #bbf7d0}
+.pl-ochip b{cursor:pointer;padding:0 5px;font-size:13px}
+.pl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;max-height:34vh;overflow-y:auto;padding:2px;margin-bottom:8px}
+.pl-s{position:relative;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:var(--txt);border-radius:10px;
+  padding:6px 4px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;text-align:center;line-height:1.3}
+.pl-s small{display:block;font-family:Arial,sans-serif;font-size:10px;opacity:.7}
+.pl-s.sel{background:linear-gradient(145deg,var(--gdi),var(--gdd));border-color:var(--ghi);color:#fff}
+.pl-s .pl-n{position:absolute;top:-6px;left:-4px;background:#16a34a;color:#fff;border:1.5px solid #fff;border-radius:50%;width:20px;height:20px;
+  font-family:Arial,sans-serif;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center}
+.pl-s .pl-dl{position:absolute;top:2px;right:3px;font-size:9px}
+.pl-loop{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:15px;font-weight:800;margin-bottom:8px}
+.pl-tog{width:52px;height:28px;border-radius:999px;border:none;background:#475569;position:relative;cursor:pointer;flex-shrink:0}
+.pl-tog::after{content:'';position:absolute;top:3px;right:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:right .2s}
+.pl-tog.on{background:#16a34a}
+.pl-tog.on::after{right:27px}
+
 </style>
 </head>
 <body>
@@ -1795,7 +1852,7 @@ html,body{height:100vh;height:100svh;height:calc(100svh / var(--pz,1));overflow:
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">HFZ610TU018</span>
+    <span class="ver-code" id="splashVerCode">HFZ810TH019</span>
   </div>
 </div>
 
@@ -1862,6 +1919,8 @@ html,body{height:100vh;height:100svh;height:calc(100svh / var(--pz,1));overflow:
     <span id="pzBarIcon">🔍</span>
     <input type="range" id="pageZoomSlider" min="50" max="200" step="5" value="100" oninput="setPageZoom(this.value)">
     <span id="pageZoomPct" onclick="setPageZoom(100)" title="دبائیں: 100% پر واپس" style="cursor:pointer">100%</span>
+    <!-- 📜 نیا بٹن: مسلسل تلاوت / پلے لسٹ (HFZ810TH019) -->
+    <button id="plBtn" onclick="plOpen()" title="مسلسل تلاوت / پلے لسٹ">📜 <span id="plBtnTxt">مسلسل / پلے لسٹ</span></button>
   </div>
 
   <!-- QARI BUTTONS اب دائیں کالم (qariCol) میں نیچے موجود ہیں -->
@@ -2237,6 +2296,39 @@ html,body{height:100vh;height:100svh;height:calc(100svh / var(--pz,1));overflow:
     <div class="sq-hint">یہ قاری صرف مکمل سورت کی صورت میں دستیاب ہیں (آیت وار انتخاب کام نہیں کرتا)۔ نیچے سے قاری منتخب کریں، موجودہ سورت (<span id="sqSurahName">—</span>) چلنا شروع ہو جائے گی۔</div>
   </div>
   <div id="specialQList"></div>
+</div>
+
+<!-- 📜 مسلسل تلاوت + پلے لسٹ (لوپ) — HFZ810TH019 -->
+<div id="plOverlay" onclick="if(event.target===this)plClose()">
+  <div class="pl-card">
+    <div class="pl-head">
+      <div class="pl-title">📜 مسلسل تلاوت / پلے لسٹ</div>
+      <button class="pl-x" onclick="plClose()">✕</button>
+    </div>
+    <div class="pl-qari" id="plQariNote"></div>
+    <div class="pl-status" id="plStatus"><span id="plStatusTxt"></span><button class="pl-stop" onclick="plStop(true)">⏹ بند کریں</button></div>
+
+    <div class="pl-sec">
+      <div class="pl-sec-ti">▶▶ مسلسل تلاوت (ترتیب سے)</div>
+      <div class="pl-sec-sub">جو سورت ابھی منتخب ہے (<b id="plCurName">—</b>) وہاں سے شروع ہو گی۔ ایک سورت ختم ہوتے ہی اگلی سورت خود بخود چلے گی — قرآن پاک آخر تک چلتا رہے گا، سورۃ الناس کے بعد پھر الفاتحہ سے۔</div>
+      <button class="pl-go" onclick="plStartCont()">▶▶ مسلسل تلاوت شروع کریں</button>
+    </div>
+
+    <div class="pl-sec">
+      <div class="pl-sec-ti">🔁 میری پلے لسٹ (لوپ)</div>
+      <div class="pl-sec-sub">نیچے سے اپنی مرضی کی سورتیں جس ترتیب میں چاہیں ٹیپ کریں — اسی ترتیب سے ایک کے بعد ایک چلیں گی۔</div>
+      <div class="pl-presets">
+        <button class="pl-pre" onclick="plPreset([1,36,67,56,32])">⭐ فاتحہ، یٰس، ملک، واقعہ، سجدہ</button>
+        <button class="pl-pre" onclick="plPreset([18])">جمعہ: الکہف</button>
+        <button class="pl-pre" onclick="plPreset([112,113,114])">تین قل</button>
+        <button class="pl-pre clr" onclick="plPreset([])">🗑 سب ہٹائیں</button>
+      </div>
+      <div class="pl-order" id="plOrder"></div>
+      <div class="pl-grid" id="plGrid"></div>
+      <div class="pl-loop"><span>🔁 لسٹ ختم ہو تو دوبارہ شروع سے (لوپ)</span><button class="pl-tog on" id="plLoopTog" onclick="plToggleLoop()"></button></div>
+      <button class="pl-go" id="plListGo" onclick="plStartList()">🔁 پلے لسٹ چلائیں</button>
+    </div>
+  </div>
 </div>
 
 <div id="toast"></div>
@@ -2790,7 +2882,7 @@ function closeManzil(){
 
 // ═══ زوم پلس/مائنس بٹن (فکسڈ پوزیشن) — سیٹنگز/ڈاؤن لوڈ/اشتہار وغیرہ اوورلے کھلے ہوں تو چھپا دیں،
 // ورنہ یہ ہر صفحے پر اوپر تیرتے نظر آتے ہیں (فکسڈ پوزیشننگ کی وجہ سے) ═══
-const ZOOM_HIDE_OVERLAY_IDS=['settingsOverlay','adOverlay','dlOverlay','specialQOverlay','shareEditOverlay','timerOverlay','cardPreviewOverlay'];
+const ZOOM_HIDE_OVERLAY_IDS=['settingsOverlay','adOverlay','dlOverlay','specialQOverlay','shareEditOverlay','timerOverlay','cardPreviewOverlay','plOverlay'];
 function isAnyOverlayOpen(){
   return ZOOM_HIDE_OVERLAY_IDS.some(function(id){
     const el=document.getElementById(id);
@@ -2836,7 +2928,7 @@ aud.addEventListener('timeupdate',()=>{
   const _pt=document.getElementById('posTime');if(_pt)_pt.textContent=fmt(aud.currentTime);
   const _dt=document.getElementById('durTime');if(_dt)_dt.textContent=fmt(aud.duration);
 });
-aud.addEventListener('ended',()=>{if(St.ar){aud.currentTime=0;aud.play().catch(()=>{});}else nextA(true);});
+aud.addEventListener('ended',()=>{if(St.ar){aud.currentTime=0;aud.play().catch(()=>{});}else if(typeof plOnEnded==='function'&&plOnEnded()){}else nextA(true);});
 aud.addEventListener('play',()=>{
   _initAudioCtx();
   if(_actx&&_actx.state==='suspended')_actx.resume().catch(()=>{});
@@ -4809,7 +4901,7 @@ function setupMediaSession(){
   navigator.mediaSession.setActionHandler('play',()=>{aud.play().catch(()=>{});});
   navigator.mediaSession.setActionHandler('pause',()=>{aud.pause();});
   navigator.mediaSession.setActionHandler('previoustrack',()=>{prevA();});
-  navigator.mediaSession.setActionHandler('nexttrack',()=>{nextA(false);});
+  navigator.mediaSession.setActionHandler('nexttrack',()=>{if(PL.mode!=='off'&&(SHAKIR||St.a>=St.to))plAdvance();else nextA(false);});
   navigator.mediaSession.setActionHandler('seekbackward',()=>{aud.currentTime=Math.max(0,aud.currentTime-10);});
   navigator.mediaSession.setActionHandler('seekforward',()=>{aud.currentTime=Math.min(aud.duration||0,aud.currentTime+10);});
 }
@@ -5052,13 +5144,128 @@ function hfzOpenQariPicker(){
 aud.addEventListener('play',()=>document.getElementById('tbQariBadge')?.classList.add('glow'));
 aud.addEventListener('pause',()=>document.getElementById('tbQariBadge')?.classList.remove('glow'));
 
+// ══ 📜 مسلسل تلاوت + پلے لسٹ (لوپ) — HFZ810TH019 ══
+// موڈ: off = عام (پرانا طریقہ بالکل ویسا ہی) | cont = سورت ختم → اگلی سورت | list = اپنی چنی ہوئی سورتیں ترتیب سے، لوپ کے ساتھ
+// قاری وہی رہتا ہے جو اوپر منتخب ہے؛ آڈیو smartUrl سے آتی ہے: ڈاؤن لوڈ شدہ ہو تو آف لائن، ورنہ انٹرنیٹ سے
+const PL={mode:'off',list:[],idx:0,loop:true};
+try{const o=JSON.parse(localStorage.getItem('hfzPL')||'{}');
+  if(Array.isArray(o.list))PL.list=o.list.filter(n=>n>=1&&n<=114);
+  if(typeof o.loop==='boolean')PL.loop=o.loop;}catch(e){}
+function plSave(){try{localStorage.setItem('hfzPL',JSON.stringify({list:PL.list,loop:PL.loop}));}catch(e){}}
+function plOpen(){
+  document.getElementById('plOverlay').classList.add('open');
+  document.getElementById('plCurName').textContent=St.s+'. '+SH[St.s-1].ar;
+  document.getElementById('plQariNote').innerHTML='🎙 قاری: <b>'+QARIS[CQ].name+'</b> (اوپر سے بدل سکتے ہیں)<br>✅ والی سورتیں ڈاؤن لوڈ شدہ ہیں — آف لائن چلیں گی، باقی انٹرنیٹ سے';
+  plRender();
+}
+function plClose(){document.getElementById('plOverlay').classList.remove('open');}
+function plRender(){
+  const g=document.getElementById('plGrid');
+  if(g){
+    g.innerHTML=SH.map(s=>{
+      const pos=PL.list.indexOf(s.n);
+      return '<button class="pl-s'+(pos>=0?' sel':'')+'" onclick="plTogSurah('+s.n+')">'
+        +(pos>=0?'<span class="pl-n">'+(pos+1)+'</span>':'')
+        +(isSurahDL(CQ,s.n)?'<span class="pl-dl">✅</span>':'')
+        +s.ar+'<small>'+s.n+'</small></button>';
+    }).join('');
+  }
+  const o=document.getElementById('plOrder');
+  if(o){
+    o.innerHTML=PL.list.length?PL.list.map((n,i)=>'<span class="pl-ochip'+(PL.mode==='list'&&i===PL.idx?' now':'')+'"><i>'+(i+1)+'</i>'+SH[n-1].ar+'<b onclick="plTogSurah('+n+')">✕</b></span>').join('')
+      :'ابھی کوئی سورت منتخب نہیں — نیچے سے ٹیپ کریں';
+  }
+  const go=document.getElementById('plListGo');if(go)go.disabled=!PL.list.length;
+  document.getElementById('plLoopTog')?.classList.toggle('on',PL.loop);
+  plUpdateUI();
+}
+function plTogSurah(n){
+  const i=PL.list.indexOf(n);
+  if(i>=0){PL.list.splice(i,1);if(PL.mode==='list'&&PL.idx>=i&&PL.idx>0)PL.idx--;}
+  else PL.list.push(n);
+  if(PL.mode==='list'&&!PL.list.length)plStop(false);
+  plSave();plRender();
+}
+function plPreset(arr){
+  if(!arr.length){PL.list=[];if(PL.mode==='list')plStop(false);}
+  else arr.forEach(n=>{if(!PL.list.includes(n))PL.list.push(n);});
+  plSave();plRender();
+}
+function plToggleLoop(){PL.loop=!PL.loop;plSave();plRender();}
+function plUpdateUI(){
+  const b=document.getElementById('plBtn'),t=document.getElementById('plBtnTxt');
+  let msg='';
+  if(PL.mode==='cont')msg='▶▶ مسلسل تلاوت چل رہی ہے — '+SH[St.s-1].ar;
+  else if(PL.mode==='list')msg='🔁 پلے لسٹ '+(PL.idx+1)+'/'+PL.list.length+' — '+SH[(PL.list[PL.idx]||St.s)-1].ar+(PL.loop?' (لوپ)':'');
+  if(b)b.classList.toggle('on',PL.mode!=='off');
+  if(t)t.textContent=PL.mode==='cont'?'مسلسل ✓':PL.mode==='list'?('لسٹ '+(PL.idx+1)+'/'+PL.list.length):'مسلسل / پلے لسٹ';
+  const st=document.getElementById('plStatus');
+  if(st){st.classList.toggle('show',PL.mode!=='off');document.getElementById('plStatusTxt').textContent=msg;}
+}
+// سورت پر جائیں اور چلائیں — ویل، لسٹ، ڈراپ ڈاؤن سب ہم آہنگ (selSurah جیسا، مگر خود چلنا شروع)
+function plGoSurah(n){
+  wSelected=n;onWheelChange(n);
+  document.querySelectorAll('#surahCol .s-item').forEach(el=>el.classList.toggle('selected',+el.dataset.n===n));
+  try{syncSurahWheel(n);}catch(e){}
+  try{syncQuickSurahSel();}catch(e){}
+  const sk=document.getElementById('shakirSurahName');if(sk)sk.textContent=SH[n-1].ar;
+  St.fr=1;St.to=SH[n-1].a;St.a=1;St.pl=true;
+  loadA(n,1,true);
+  plUpdateUI();
+}
+function plStartCont(){
+  PL.mode='cont';plClose();
+  const mx=SH[St.s-1].a;St.to=mx;
+  try{scrollAyahWheel('toWheel',mx,true);const ti=document.getElementById('toManualInput');if(ti)ti.value=mx;}catch(e){}
+  St.pl=true;loadA(St.s,SHAKIR?1:St.a,true);
+  showToast('▶▶ مسلسل تلاوت: '+SH[St.s-1].ar+' سے آگے');
+  plUpdateUI();
+}
+function plStartList(){
+  if(!PL.list.length){showToast('پہلے کوئی سورت منتخب کریں');return;}
+  PL.mode='list';PL.idx=0;plClose();
+  plGoSurah(PL.list[0]);
+  showToast('🔁 پلے لسٹ شروع: '+PL.list.map(n=>SH[n-1].ar).join(' ← '));
+}
+function plStop(pause){
+  PL.mode='off';
+  if(pause){St.pl=false;aud.pause();showToast('⏹ مسلسل/پلے لسٹ بند — عام موڈ');}
+  plRender();
+}
+// آف لائن ہوں تو اگلی وہی سورت چنیں جو ڈاؤن لوڈ شدہ ہو (ورنہ آڈیو رک جاتی)
+function plUsable(n){return navigator.onLine||isSurahDL(CQ,n);}
+function plAdvance(){
+  if(PL.mode==='cont'){
+    let n=St.s;
+    for(let k=0;k<114;k++){n=n>=114?1:n+1;if(plUsable(n)){
+      if(n===1&&St.s===114)showToast('✓ قرآن پاک مکمل — الفاتحہ سے دوبارہ');
+      plGoSurah(n);return true;}}
+  }else if(PL.mode==='list'){
+    const L=PL.list.length;
+    for(let k=1;k<=L;k++){
+      let i=PL.idx+k;
+      if(i>=L){if(!PL.loop){PL.mode='off';plRender();showToast('✓ پلے لسٹ مکمل');aud.pause();return true;}i%=L;}
+      if(plUsable(PL.list[i])){PL.idx=i;plGoSurah(PL.list[i]);return true;}
+    }
+  }
+  showToast('📴 اگلی سورت ڈاؤن لوڈ نہیں — انٹرنیٹ آن کریں');
+  plStop(true);return true;
+}
+// آڈیو ختم ہونے پر: سورت کی آخری آیت/مکمل سورت فائل ختم → اگلی سورت؛ ورنہ عام اگلی آیت
+function plOnEnded(){
+  if(PL.mode==='off')return false;
+  const last=SHAKIR||St.a>=SH[St.s-1].a||St.a>=St.to;
+  if(!last)return false;
+  return plAdvance();
+}
+
 // ══ APP VERSION — ہر نئی اپلوڈ شدہ فائل پر یہ کوڈ بدلیں تاکہ فون/GitHub پر
 // فوراً تصدیق ہو سکے کہ تازہ ترین فائل ہی چل رہی ہے (پرانا کیش/پرانی فائل نہیں) ══
 // ── ورژن کوڈ کا قاعدہ (مالک کی ہدایت): HFZ + تاریخ + مہینہ + دن کے دو حروف + تین ہندسوں کا سیریل ──
 //    مثال: HFZ610TU018 = 6 اکتوبر، منگل (TU)، سیریل 012 — اگلا ورژن 013، پھر 014، 015… (سیریل کبھی دوبارہ شروع نہیں ہوتا)
 //    دن: MO پیر، TU منگل، WE بدھ، TH جمعرات، FR جمعہ، SA ہفتہ، SU اتوار — زِپ کا نام بھی یہی: HFZ610TU018.zip
-const APP_VERSION='HFZ610TU018';
-const APP_VERSION_DISPLAY='HFZ610TU018';
+const APP_VERSION='HFZ810TH019';
+const APP_VERSION_DISPLAY='HFZ810TH019';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
