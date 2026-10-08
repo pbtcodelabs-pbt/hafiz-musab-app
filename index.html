@@ -1761,6 +1761,28 @@ html,body{height:100vh;height:100svh;height:calc(100svh / var(--pz,1));overflow:
 .pl-tog.on{background:#16a34a}
 .pl-tog.on::after{right:27px}
 
+/* ══ 📥 نیچے والی ڈاؤن لوڈ پٹی + پکا محفوظ بٹن — HFZ810TH020 ══ */
+#dlMiniBar{position:fixed;left:8px;right:8px;bottom:62px;z-index:390;display:none;align-items:center;gap:8px;direction:rtl;
+  padding:6px 8px 6px 10px;border-radius:14px;overflow:hidden;cursor:pointer;background:#0f172a;border:1.5px solid #f59e0b;
+  box-shadow:0 6px 18px rgba(0,0,0,.55);font-family:'Jameel-Noori.N','JN',serif;color:#fff}
+#dlMiniBar.show{display:flex}
+#dlMiniBar>*{position:relative;z-index:1}
+#dlMiniBar .dmb-fill{position:absolute;top:0;bottom:0;right:0;width:0%;z-index:0;transition:width .3s;
+  background:linear-gradient(270deg,rgba(245,158,11,.75),rgba(234,88,12,.6))}
+.dmb-ic{font-size:18px;flex-shrink:0}
+.dmb-txt{flex:1;min-width:0;line-height:1.35}
+.dmb-l1{font-size:13.5px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dmb-l2{font-size:11px;font-weight:700;color:#fde68a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dmb-pct{font-family:Arial,sans-serif;font-size:15px;font-weight:900;flex-shrink:0;min-width:44px;text-align:center}
+.dmb-stop{flex-shrink:0;border:none;background:#dc2626;color:#fff;border-radius:50%;width:30px;height:30px;font-size:13px;cursor:pointer}
+body.dlb-on #toast{bottom:118px}
+#dlPersistBox{margin-top:6px;display:flex;flex-direction:column;gap:5px}
+#dlPersistBtn{display:none;border:none;border-radius:10px;padding:8px;cursor:pointer;font-family:'Jameel-Noori.N','JN',serif;
+  font-size:13px;font-weight:900;color:#fff;background:linear-gradient(145deg,#16a34a,#166534);box-shadow:0 3px 0 #14532d}
+#dlPersistBtn.show{display:block}
+#dlStorage.ok{color:#166534!important;font-weight:900;font-size:11px!important}
+#dlStorage.warn{color:#b91c1c!important;font-weight:900;font-size:11px!important}
+
 </style>
 </head>
 <body>
@@ -1852,7 +1874,7 @@ html,body{height:100vh;height:100svh;height:calc(100svh / var(--pz,1));overflow:
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">HFZ810TH019</span>
+    <span class="ver-code" id="splashVerCode">HFZ810TH020</span>
   </div>
 </div>
 
@@ -2064,7 +2086,7 @@ html,body{height:100vh;height:100svh;height:calc(100svh / var(--pz,1));overflow:
       <span class="dl-stat" id="dlStatDone">0 سورتیں</span>
       <span class="dl-stat" id="dlStatSize">0 MB</span>
     </div>
-    <div id="dlStorage">کیشڈ آڈیو براؤزر میں محفوظ ہے</div>
+    <div id="dlPersistBox"><div id="dlStorage">کیشڈ آڈیو براؤزر میں محفوظ ہے</div><button id="dlPersistBtn" onclick="hfzMakePersistent()">🔒 ڈاؤن لوڈز کو پکا محفوظ کریں (فون خود صاف نہ کرے)</button></div>
     <div class="dl-qsel" id="dlQsel"></div>
     <div class="dl-actions">
       <button class="dla-btn amber" onclick="dlJuzAmma()">⬇ جز عم</button>
@@ -2331,6 +2353,8 @@ html,body{height:100vh;height:100svh;height:calc(100svh / var(--pz,1));overflow:
   </div>
 </div>
 
+<!-- 📥 ڈاؤن لوڈ کی نیچے والی پٹی (HFZ810TH020) — ہوم پیج پر ڈاؤن لوڈ کے دوران ہر وقت نظر آتی ہے -->
+<div id="dlMiniBar" onclick="openDL()"><div class="dmb-fill" id="dmbFill"></div><span class="dmb-ic">📥</span><div class="dmb-txt"><div class="dmb-l1" id="dmbL1"></div><div class="dmb-l2" id="dmbL2"></div></div><span class="dmb-pct" id="dmbPct">0%</span><button class="dmb-stop" onclick="event.stopPropagation();dlStopAll()" title="روکیں">⏹</button></div>
 <div id="toast"></div>
 <audio id="aud" x-webkit-airplay="allow" playsinline webkit-playsinline preload="auto" preload="none"></audio>
 
@@ -2480,13 +2504,38 @@ async function idbGet(k){try{const db=await idbOpen();return await new Promise(r
 async function idbSet(k,v){try{const db=await idbOpen();return await new Promise(r=>{const t=db.transaction('kv','readwrite');t.objectStore('kv').put(v,k);t.oncomplete=()=>r(true);t.onerror=()=>r(false);});}catch{return false;}}
 async function syncFromIDB(){
   const st=await idbGet('dlSt');if(!st)return;let ch=false;
-  for(const k in st){if(st[k]&&st[k].done&&!(dlSt[k]&&dlSt[k].done)){dlSt[k]=st[k];ch=true;}}
+  for(const k in st){if(st[k]&&st[k].done&&!(dlSt[k]&&dlSt[k].done)){dlSt[k]=st[k];ch=true;const i=k.lastIndexOf('_');try{wantAdd(k.slice(0,i),parseInt(k.slice(i+1),10));}catch(e){}}}
   if(ch){try{localStorage.setItem('dlSt',JSON.stringify(dlSt));}catch{}try{updateDLStats();updateQariBadges();}catch{}}
 }
 function dlKey(q,s){return `${q}_${s}`;}
 function isSurahDL(q,s){return !!(dlSt[dlKey(q,s)]?.done);}
-function markDL(q,s,sz=0){dlSt[dlKey(q,s)]={done:true,size:sz};saveDlSt();}
+function markDL(q,s,sz=0,want=true){dlSt[dlKey(q,s)]={done:true,size:sz};saveDlSt();if(want)wantAdd(q,s);}
 function unmarkDL(q,s){delete dlSt[dlKey(q,s)];saveDlSt();}
+// ══ 🛡 "میرے ڈاؤن لوڈز" کی فہرست — تین جگہ محفوظ (localStorage + IndexedDB + کوکی)
+// اگر فون/براؤزر آڈیو صاف کر دے تب بھی یہ فہرست بچ جاتی ہے اور ایپ کھلتے ہی غائب سورتیں خود دوبارہ آ جاتی ہیں ══
+let dlWant={};
+function _bitsEnc(arr){const b=new Uint8Array(15);arr.forEach(n=>{if(n>=1&&n<=114)b[(n-1)>>3]|=1<<((n-1)&7);});
+  return btoa(String.fromCharCode.apply(null,b)).replace(/=+$/,'').replace(/\+/g,'-').replace(/\//g,'_');}
+function _bitsDec(x){try{x=x.replace(/-/g,'+').replace(/_/g,'/');while(x.length%4)x+='=';const bin=atob(x);const o=[];
+  for(let i=0;i<bin.length;i++)for(let j=0;j<8;j++)if(bin.charCodeAt(i)&(1<<j))o.push(i*8+j+1);return o.filter(n=>n<=114);}catch(e){return [];}}
+function _wantMerge(src){if(!src)return;for(const k in src){if(!QARIS[k]||!Array.isArray(src[k]))continue;const set=new Set(dlWant[k]||[]);src[k].forEach(n=>{if(n>=1&&n<=114)set.add(n);});dlWant[k]=[...set].sort((a,b)=>a-b);}}
+function _wantCookieRead(){try{const m=document.cookie.match(/(?:^|;\s*)hfzW=([^;]*)/);if(!m)return null;const o={};
+  decodeURIComponent(m[1]).split('.').forEach(p=>{const i=p.indexOf(':');if(i>0)o[p.slice(0,i)]=_bitsDec(p.slice(i+1));});return o;}catch(e){return null;}}
+function saveWant(){
+  try{localStorage.setItem('hfzWant',JSON.stringify(dlWant));}catch(e){}
+  try{idbSet('dlWant',dlWant);}catch(e){}
+  try{const v=Object.keys(dlWant).filter(k=>dlWant[k].length).map(k=>k+':'+_bitsEnc(dlWant[k])).join('.');
+    document.cookie='hfzW='+encodeURIComponent(v)+';max-age=315360000;path=/;SameSite=Lax'+(location.protocol==='https:'?';Secure':'');}catch(e){}
+}
+function wantAdd(q,s){const a=dlWant[q]||(dlWant[q]=[]);if(!a.includes(s)){a.push(s);a.sort((x,y)=>x-y);saveWant();}}
+function wantDel(q,s){const a=dlWant[q];if(a&&a.includes(s)){dlWant[q]=a.filter(n=>n!==s);saveWant();}}
+let _wantLoaded=false;
+async function loadWant(){
+  try{_wantMerge(JSON.parse(localStorage.getItem('hfzWant')||'null'));}catch(e){}
+  _wantMerge(_wantCookieRead());
+  try{_wantMerge(await idbGet('dlWant'));}catch(e){}
+  _wantLoaded=true;
+}
 
 async function getCached(url){
   try{const c=await caches.open(CACHE);const m=await c.match(url);if(m){const b=await m.blob();return URL.createObjectURL(b);}}catch{}
@@ -2547,7 +2596,7 @@ async function deleteSurahCache(q,s){
   try{const c=await caches.open(CACHE);const qr=QARIS[q];
     if(qr.mode==='surah'){await c.delete(qr.url(s));}
     else{for(let a=1;a<=SH[s-1].a;a++)await c.delete(qr.url(s,a));}}catch{}
-  unmarkDL(q,s);
+  unmarkDL(q,s);wantDel(q,s);
 }
 
 async function smartUrl(s,a){
@@ -2559,31 +2608,48 @@ async function smartUrl(s,a){
 }
 
 let dlStop=false;
+// ══ ⚡ تیز ڈاؤن لوڈ (HFZ810TH020): ہر آیت 4 بار تک کوشش، 12 آیات ایک ساتھ، متبادل سرور بھی؛ ہر ڈاؤن لوڈ نیچے والی پٹی پر ══
+const DL_AYAH_WORKERS=12;
+async function cacheUrlRetry(u,alt){
+  for(let t=0;t<4;t++){
+    if(dlStop)return false;
+    if(await cacheUrl(u))return true;
+    await new Promise(r=>setTimeout(r,350*(t+1)));
+  }
+  if(alt&&!dlStop)return await cacheUrl(alt);
+  return false;
+}
 async function downloadSurah(qk,sn,onProg,onDone){
-  const q=QARIS[qk];
-  if(q.mode==='surah'){
-    const url=q.url(sn);onProg(0,1);
-    const ok=await cacheUrlProg(url,onProg);if(ok)markDL(qk,sn,0);
-    onProg(1,1);onDone(ok);return;
-  }
-  // ══ ⚡ تیز ڈاؤن لوڈ: ایک ساتھ 8 آیات پیرالل، ناکام ہوں تو دوبارہ کوشش ══
-  const tot=SH[sn-1].a;
-  const queue=[];for(let a=1;a<=tot;a++)queue.push(a);
-  let done=0,fail=0;
-  async function worker(){
-    while(queue.length){
-      if(dlStop)return;
-      const a=queue.shift();const u=q.url(sn,a);
-      let ok=await cacheUrl(u);
-      if(!ok&&!dlStop){await new Promise(r=>setTimeout(r,300));ok=await cacheUrl(u);}
-      if(!ok)fail++;
-      done++;onProg(done,tot);
+  const q=QARIS[qk];const key=qk+'_'+sn;
+  const prog=(d,t)=>{try{dlbProg(key,qk,sn,t?d/t:0);}catch(e){} try{onProg(d,t);}catch(e){}};
+  try{hfzAskPersist();}catch(e){}
+  try{
+    if(q.mode==='surah'){
+      const url=q.url(sn);prog(0,1);
+      let ok=false;
+      for(let t=0;t<3&&!ok&&!dlStop;t++){ok=await cacheUrlProg(url,prog);if(!ok&&!dlStop)await new Promise(r=>setTimeout(r,800*(t+1)));}
+      if(!ok&&q.alt&&!dlStop)ok=await cacheUrlProg(q.alt(sn),prog);
+      if(dlStop&&!ok)return;
+      if(ok)markDL(qk,sn,0);
+      prog(1,1);onDone(ok);return;
     }
-  }
-  await Promise.all(Array.from({length:8},worker));
-  if(dlStop)return;
-  if(fail){onDone(false);return;}
-  markDL(qk,sn,0);onDone(true);
+    const tot=SH[sn-1].a;
+    const queue=[];for(let a=1;a<=tot;a++)queue.push(a);
+    let done=0,fail=0;prog(0,tot);
+    async function worker(){
+      while(queue.length){
+        if(dlStop)return;
+        const a=queue.shift();
+        const ok=await cacheUrlRetry(q.url(sn,a),q.alt?q.alt(sn,a):null);
+        if(!ok)fail++;
+        done++;prog(done,tot);
+      }
+    }
+    await Promise.all(Array.from({length:DL_AYAH_WORKERS},worker));
+    if(dlStop)return;
+    if(fail){onDone(false);return;}
+    markDL(qk,sn,0);onDone(true);
+  }finally{try{dlbEnd(key);}catch(e){}}
 }
 
 // ══ ترجمہ زبان / مترجم کا ڈھانچہ (Translation Language / Translator framework) ══
@@ -3164,7 +3230,8 @@ async function loadA(s,a,play=false){
   aud.src=url;aud.load();
   if(!offline){
     const rawUrl=QARIS[CQ].mode==='surah'?QARIS[CQ].url(s):QARIS[CQ].url(s,a);
-    cacheUrl(rawUrl).then(ok=>{if(ok)markDL(CQ,s,0);});
+    // صرف مکمل سورت والے قاری کی پوری فائل کیش ہو تو ✅ — آیت والے قاری کی ایک آیت سے پوری سورت ✅ نہیں (HFZ810TH020)
+    const _q=CQ;cacheUrl(rawUrl).then(ok=>{if(ok&&QARIS[_q].mode==='surah'){markDL(_q,s,0,false);try{updateSurahListDLBadges();}catch(e){}}});
   }
   if(play){aud.play().catch(()=>{});}
   else if(St.pl){aud.play().catch(()=>{});}
@@ -3789,6 +3856,7 @@ function updateSurahListDLBadges(){
 // ══ مین پیج کی سورہ لسٹ سے براہ راست ڈاؤن لوڈ — ڈاؤن لوڈ مینجر میں جائے بغیر ══
 async function mainListDlSurah(sn){
   if(isSurahDL(CQ,sn)){showToast('✅ '+SH[sn-1].ar+' پہلے سے ڈاؤن لوڈ ہے');return;}
+  dlStop=false;
   const b=document.getElementById('sdlb-'+sn);
   const it=document.querySelector('#surahCol .s-item[data-n="'+sn+'"]');
   const bar=document.getElementById('sdlf-'+sn);
@@ -3809,6 +3877,7 @@ async function mainListDlSurah(sn){
 // ══ سورہ پکر (ڈراپ ڈاؤن لسٹ) کے اندر سے براہ راست ڈاؤن لوڈ ══
 async function pickerDlSurah(sn){
   if(isSurahDL(CQ,sn)){showToast('✅ '+SH[sn-1].ar+' پہلے سے ڈاؤن لوڈ ہے');return;}
+  dlStop=false;
   const g=()=>[document.getElementById('pkdl-'+sn),document.getElementById('pkdlf-'+sn)];
   let [b,pb]=g();
   if(b){b.textContent='0%';b.classList.add('pct');}
@@ -4195,34 +4264,78 @@ async function pumpBG(){
     await sleep(800);
   }
 }
-async function pumpLocal(){
-  for(;;){
-    const q=await idbGet('dlQueue');
-    if(!q||!q.items.length||dlStop)break;
-    const it=q.items[0];
-    if(!isSurahDL(it.qk,it.sn))await dlSurahLocal(it.sn,it.qk);
-    if(dlStop)break;
-    const q2=(await idbGet('dlQueue'))||q;q2.items=q2.items.filter(i=>!(i.qk===it.qk&&i.sn===it.sn));
-    await idbSet('dlQueue',q2);updateOverallProg(q2.total-q2.items.length,q2.total);
+// ══ ⚡ تیز قطار (HFZ810TH020): ایپ سامنے ہو تو 3 سورتیں ایک ساتھ؛ ایپ پیچھے جائے تو باقی کام Background Fetch ══
+const DL_PAR=3;let dlFails=0;
+let _qLock=Promise.resolve();
+function qMutate(fn){_qLock=_qLock.then(async()=>{const q=(await idbGet('dlQueue'))||{items:[],total:0};fn(q);await idbSet('dlQueue',q);}).catch(()=>{});return _qLock;}
+function dlSurahLocal(sn,qk){
+  qk=qk||dlQari;rowProg(qk,sn,0);
+  return new Promise(res=>{
+    downloadSurah(qk,sn,(d,t)=>rowProg(qk,sn,Math.round(d/t*100)),
+      ok=>{rowDone(qk,sn,ok);if(ok){updateDLStats();updateQariBadges();try{updateSurahListDLBadges();}catch(e){}}res(ok);}
+    ).then(()=>res(false),()=>res(false));
+  });
+}
+async function pumpFast(){
+  const active=new Set();
+  async function worker(){
+    for(;;){
+      if(dlStop)return;
+      if(document.hidden&&BF_OK())return;
+      const q=await idbGet('dlQueue');
+      if(!q||!q.items.length)return;
+      const it=q.items.find(i=>!active.has(i.qk+'_'+i.sn));
+      if(!it)return;
+      const k=it.qk+'_'+it.sn;active.add(k);
+      let ok=isSurahDL(it.qk,it.sn);
+      if(!ok)ok=await dlSurahLocal(it.sn,it.qk);
+      if(dlStop){active.delete(k);return;}
+      await qMutate(q2=>{
+        const x=q2.items.find(i=>i.qk===it.qk&&i.sn===it.sn);if(!x)return;
+        q2.items=q2.items.filter(i=>i!==x);
+        if(!ok){x.tries=(x.tries||0)+1;if(x.tries<3)q2.items.push(x);else dlFails++;}
+      });
+      active.delete(k);
+      dlbOverall();
+    }
   }
+  await Promise.all(Array.from({length:DL_PAR},worker));
+}
+function _swReady(){return Promise.race([navigator.serviceWorker.ready,sleep(3000).then(()=>null)]);}
+async function abortBG(){
+  try{const reg=await _swReady();if(!reg||!reg.backgroundFetch)return;
+    for(const id of await reg.backgroundFetch.getIds()){if(!id.startsWith('hfz|'))continue;const b=await reg.backgroundFetch.get(id);if(b)await b.abort();}}catch(e){}
+}
+async function bgHandoff(){
+  try{const reg=await _swReady();const w=(reg&&reg.active)||navigator.serviceWorker.controller;if(w)w.postMessage('BG_QUEUE');}catch(e){}
+}
+async function dlNotify(txt){
+  try{if(!('Notification' in window)||Notification.permission!=='granted')return;
+    const reg=await _swReady();if(reg)reg.showNotification('Hifz Pro',{body:txt,icon:'icon-192.png',badge:'icon-192.png',tag:'hfz-dl'});}catch(e){}
 }
 async function runQueue(){
-  if(dlRunning)return;dlRunning=true;
+  if(dlRunning)return;dlRunning=true;let q0=null;
   try{
-    const q=await idbGet('dlQueue');
-    if(q&&q.items.length){showOverallProg(q.label||'⏳ ڈاؤن لوڈ ہو رہا ہے...');updateOverallProg(q.total-q.items.length,q.total);}
-    if(BF_OK()){try{await pumpBG();}catch(e){await pumpLocal();}}else await pumpLocal();
+    q0=await idbGet('dlQueue');
+    if(!q0||!q0.items.length)return;
+    showOverallProg(q0.label||'⏳ ڈاؤن لوڈ ہو رہا ہے...');await dlbOverall();
+    if(BF_OK())await abortBG();
+    dlFails=0;
+    await pumpFast();
     const f=await idbGet('dlQueue');
+    if(!dlStop&&f&&f.items.length&&document.hidden&&BF_OK()){bgHandoff();return;}
     if(!dlStop&&(!f||!f.items.length)){
       await idbSet('dlQueue',{items:[],total:0});
-      if(q&&q.items.length)showToast('✅ '+(q.doneLabel||'ڈاؤن لوڈ مکمل'));
+      if(dlFails){showToast('⚠ '+dlFails+' سورتیں مکمل نہ ہو سکیں — انٹرنیٹ چیک کر کے دوبارہ ⬇ دبائیں');}
+      else{showToast('✅ '+(q0.doneLabel||'ڈاؤن لوڈ مکمل'));dlNotify('✅ '+(q0.doneLabel||'ڈاؤن لوڈ مکمل'));}
     }
-  }finally{dlRunning=false;hideOverallProg();updateDLStats();updateQariBadges();}
+  }finally{dlRunning=false;hideOverallProg();await dlbOverall();updateDLStats();updateQariBadges();try{updateSurahListDLBadges();}catch(e){}}
 }
 async function dlStopAll(){
   dlStop=true;
   await idbSet('dlQueue',{items:[],total:0});
-  try{if(BF_OK()){const reg=await navigator.serviceWorker.ready;for(const id of await reg.backgroundFetch.getIds()){const b=await reg.backgroundFetch.get(id);if(b)await b.abort();}}}catch{}
+  try{if(BF_OK())await abortBG();}catch{}
+  DLB.act={};_dlbQ={total:0,left:0};dlbRender();
   hideOverallProg();buildDLList();showToast('⏹ روک دیا گیا');
 }
 async function resumeDL(){
@@ -4230,51 +4343,99 @@ async function resumeDL(){
   const q=await idbGet('dlQueue');
   if(q&&q.items.length&&navigator.onLine!==false){dlStop=false;runQueue();}
 }
-// ══ 🔍 کیش کی تصدیق: اگر براؤزنگ ڈیٹا صاف ہونے سے آڈیو غائب ہو تو خودکار بحالی ══
+// ══ 🔍 کیش کی مکمل تصدیق + خودکار بحالی (HFZ810TH020)
+// 1) جو سورت فون میں واقعی پوری موجود ہے وہ ✅ (چاہے نشان مٹ گیا ہو)
+// 2) جو ادھوری/غائب ہے وہ ✅ نہیں دکھے گی
+// 3) جو سورت آپ نے خود ڈاؤن لوڈ کی تھی اور فون نے صاف کر دی — وہ خود دوبارہ ڈاؤن لوڈ (صرف غائب حصے) ══
+let _restoreAsked=false;
 async function verifyAndRestore(){
   await syncFromIDB();
-  let lost={};
-  try{
-    const c=await caches.open(CACHE);
-    for(const k of Object.keys(dlSt)){
-      if(!dlSt[k]||!dlSt[k].done)continue;
-      const i=k.lastIndexOf('_');const qk=k.slice(0,i),sn=parseInt(k.slice(i+1),10);
-      const q=QARIS[qk];if(!q||!SH[sn-1])continue;
-      const u=q.mode==='surah'?q.url(sn):q.url(sn,1);
-      const u2=q.mode==='surah'?u:q.url(sn,SH[sn-1].a);
-      if(!(await c.match(u))||!(await c.match(u2))){(lost[qk]=lost[qk]||[]).push(sn);delete dlSt[k];}
+  if(!_wantLoaded)await loadWant();
+  let have;
+  try{const c=await caches.open(CACHE);have=new Set((await c.keys()).map(r=>r.url));}catch{return;}
+  const nu=u=>{try{return new URL(u).href;}catch(e){return u;}};
+  const firstRun=(()=>{try{return !localStorage.getItem('hfzWantInit');}catch(e){return false;}})();
+  const lost={};let lostN=0,ch=false;
+  for(const qk of Object.keys(QARIS)){
+    const q=QARIS[qk];
+    for(let sn=1;sn<=114;sn++){
+      const k=dlKey(qk,sn);let full=true,any=false;
+      if(q.mode==='surah'){full=have.has(nu(q.url(sn)))||(!!q.alt&&have.has(nu(q.alt(sn))));any=full;}
+      else{for(let a=1;a<=SH[sn-1].a;a++){const h=have.has(nu(q.url(sn,a)))||(!!q.alt&&have.has(nu(q.alt(sn,a))));if(h)any=true;else full=false;if(!full&&any)break;}}
+      const marked=!!(dlSt[k]&&dlSt[k].done);
+      // پہلی بار: پرانے ✅ نشانات سے "میرے ڈاؤن لوڈز" فہرست بنائیں (ادھورے نشان — جو ایک آیت سننے سے لگے تھے — شامل نہیں)
+      if(firstRun&&marked&&(full||!any))wantAdd(qk,sn);
+      if(full&&!marked){dlSt[k]={done:true,size:0};ch=true;}
+      else if(!full&&marked){delete dlSt[k];ch=true;}
+      if(!full&&(dlWant[qk]||[]).includes(sn)){(lost[qk]=lost[qk]||[]).push(sn);lostN++;}
     }
-  }catch{return;}
-  const qks=Object.keys(lost);if(!qks.length)return;
-  saveDlSt();
-  if(navigator.onLine===false)return;
-  for(const qk of qks)await enqueue(lost[qk],qk,'♻️ گم شدہ ڈاؤن لوڈز بحال ہو رہے ہیں...','ڈاؤن لوڈز بحال ہو گئے');
-  showToast('♻️ گم شدہ ڈاؤن لوڈز دوبارہ بحال ہو رہے ہیں');
+  }
+  try{localStorage.setItem('hfzWantInit','1');}catch(e){}
+  if(ch){saveDlSt();try{updateDLStats();updateQariBadges();updateSurahListDLBadges();}catch(e){}}
+  if(!lostN||navigator.onLine===false||_restoreAsked)return;
+  _restoreAsked=true;
+  const cell=navigator.connection&&navigator.connection.type==='cellular';
+  if(cell&&!confirm('♻️ آپ کی پہلے سے ڈاؤن لوڈ کی ہوئی '+lostN+' سورتیں فون نے صاف کر دی تھیں۔\nابھی موبائل ڈیٹا ہے — کیا دوبارہ ڈاؤن لوڈ کریں؟\n(نہیں دبائیں تو وائی فائی ملنے پر دوبارہ پوچھا جائے گا)')){_restoreAsked=false;return;}
+  for(const qk of Object.keys(lost))await enqueue(lost[qk],qk,'♻️ غائب ڈاؤن لوڈز خود بحال ہو رہے ہیں...','ڈاؤن لوڈز بحال ہو گئے');
+  showToast('♻️ '+lostN+' غائب سورتیں خود دوبارہ ڈاؤن لوڈ ہو رہی ہیں');
   dlStop=false;runQueue();
 }
+// ══ 🔒 پکا محفوظ (Persistent Storage): براؤزر جگہ کم ہونے پر بھی ڈاؤن لوڈز صاف نہ کرے ══
+async function hfzAskPersist(){try{if(navigator.storage&&navigator.storage.persist&&!(await navigator.storage.persisted()))await navigator.storage.persist();}catch(e){}}
 async function hfzStorageNote(){
+  const el=document.getElementById('dlStorage'),btn=document.getElementById('dlPersistBtn');
   try{
     let ok=false;
     if(navigator.storage&&navigator.storage.persist){ok=await navigator.storage.persisted();if(!ok)ok=await navigator.storage.persist();}
-    document.getElementById('dlStorage').textContent=ok?'🔒 ڈاؤن لوڈز مستقل محفوظ ہیں (براؤزر خود صاف نہیں کرے گا)':'کیشڈ آڈیو براؤزر میں محفوظ ہے';
-  }catch{}
+    let used='';
+    try{const e=await navigator.storage.estimate();if(e&&e.usage>=1048576)used=' — استعمال شدہ جگہ: '+(e.usage/1048576>=1024?(e.usage/1073741824).toFixed(2)+' GB':Math.round(e.usage/1048576)+' MB');}catch(e){}
+    if(el){el.textContent=(ok?'🔒 ڈاؤن لوڈز پکے محفوظ ہیں — فون/براؤزر خود صاف نہیں کرے گا':'⚠️ ابھی پکا محفوظ نہیں — جگہ کم ہونے پر فون صاف کر سکتا ہے، نیچے والا بٹن دبائیں')+used;
+      el.classList.toggle('ok',ok);el.classList.toggle('warn',!ok);}
+    if(btn)btn.classList.toggle('show',!ok);
+    return ok;
+  }catch{return false;}
 }
-window.addEventListener('load',()=>setTimeout(async()=>{await hfzStorageNote();await verifyAndRestore();resumeDL();},2000));
-document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'){syncFromIDB();if(!dlRunning)resumeDL();}});
+async function hfzMakePersistent(){
+  try{if('Notification' in window&&Notification.permission==='default')await Notification.requestPermission();}catch(e){}
+  const ok=await hfzStorageNote();
+  showToast(ok?'🔒 ڈاؤن لوڈز اب پکے محفوظ ہیں':'⚠ براؤزر نے ابھی اجازت نہیں دی — ایپ ہوم اسکرین/پلے اسٹور والی استعمال کریں');
+}
+// ══ 📥 نیچے والی پٹی ══
+const DLB={act:{}};let _dlbQ={total:0,left:0},_dlbRaf=0;
+function dlbProg(key,qk,sn,frac){DLB.act[key]={qk,sn,pc:Math.max(0,Math.min(1,frac||0))};dlbRender();}
+function dlbEnd(key){delete DLB.act[key];dlbRender();}
+async function dlbOverall(){try{const q=await idbGet('dlQueue');_dlbQ={total:(q&&q.items&&q.items.length)?(q.total||q.items.length):0,left:(q&&q.items)?q.items.length:0};}catch(e){}dlbRender();}
+function dlbRender(){if(_dlbRaf)return;_dlbRaf=requestAnimationFrame(()=>{_dlbRaf=0;_dlbDraw();});}
+function _dlbDraw(){
+  const bar=document.getElementById('dlMiniBar');if(!bar)return;
+  const acts=Object.values(DLB.act);
+  if(!acts.length&&!_dlbQ.left){bar.classList.remove('show');document.body.classList.remove('dlb-on');return;}
+  bar.classList.add('show');document.body.classList.add('dlb-on');
+  let frac,l2;
+  const qn=acts.length?QARIS[acts[0].qk].name:'';
+  if(_dlbQ.total>0){
+    const fin=Math.max(0,_dlbQ.total-_dlbQ.left);
+    frac=Math.min(1,(fin+acts.reduce((t,a)=>t+a.pc,0))/_dlbQ.total);
+    l2='کل: '+fin+'/'+_dlbQ.total+' سورتیں'+(qn?' • قاری: '+qn:'');
+    try{updateOverallProg(Math.round(frac*_dlbQ.total*10)/10,_dlbQ.total);}catch(e){}
+  }else{frac=acts.length?acts.reduce((t,a)=>t+a.pc,0)/acts.length:0;l2=qn?'قاری: '+qn:'';}
+  document.getElementById('dmbL1').textContent=acts.length?('⬇ '+acts.map(a=>SH[a.sn-1].ar+' '+Math.round(a.pc*100)+'%').join(' • ')):'⏳ ڈاؤن لوڈ جاری ہے...';
+  document.getElementById('dmbL2').textContent=l2;
+  document.getElementById('dmbPct').textContent=Math.round(frac*100)+'%';
+  document.getElementById('dmbFill').style.width=(frac*100)+'%';
+}
+window.addEventListener('load',()=>setTimeout(async()=>{await loadWant();await hfzStorageNote();await verifyAndRestore();resumeDL();},2000));
+window.addEventListener('online',()=>setTimeout(()=>{if(!dlRunning)verifyAndRestore();},4000));
+document.addEventListener('visibilitychange',async()=>{
+  if(document.visibilityState==='visible'){await syncFromIDB();if(!dlRunning)resumeDL();}
+  else{try{const q=await idbGet('dlQueue');if(q&&q.items&&q.items.length&&BF_OK()&&!dlStop)bgHandoff();}catch(e){}}
+});
 
 async function dlSurah(sn){
   dlStop=false;
   await enqueue([sn],dlQari,'⏳ ڈاؤن لوڈ ہو رہا ہے...','✅ '+SH[sn-1].ar);
   rowProg(dlQari,sn,0);
   runQueue();
-}
-async function dlSurahLocal(sn,qk){
-  qk=qk||dlQari;
-  const prog=document.getElementById('dpp-'+sn),fill=document.getElementById('dpf-'+sn),stat=document.getElementById('dst-'+sn);
-  rowProg(qk,sn,0);
-  await downloadSurah(qk,sn,(done,tot)=>{const pc=Math.round(done/tot*100);rowProg(qk,sn,pc);},
-    (ok)=>{rowDone(qk,sn,ok);if(ok){updateDLStats();updateQariBadges();showToast('✅ '+SH[sn-1].ar);}else showToast('❌ ناکام');}
-  );
 }
 async function delSurah(sn){
   await deleteSurahCache(dlQari,sn);
@@ -4291,7 +4452,7 @@ function showOverallProg(label){
 function updateOverallProg(done,tot){
   const pct=Math.round(done/tot*100);
   document.getElementById('dlOverallFill').style.width=pct+'%';
-  document.getElementById('dlOverallPct').textContent=done+'/'+tot+' ('+pct+'%)';
+  document.getElementById('dlOverallPct').textContent=Math.floor(done)+'/'+tot+' ('+pct+'%)';
 }
 function hideOverallProg(){document.getElementById('dlOverallWrap').classList.remove('show');}
 async function dlRange(list,label,doneLabel){
@@ -4309,7 +4470,7 @@ async function dlAll(){
   const list=[];for(let sn=1;sn<=114;sn++)list.push(sn);
   await dlRange(list,'⏳ پورا قرآن پاک ڈاؤن لوڈ ہو رہا ہے...','پورا قرآن پاک ڈاؤن لوڈ مکمل');
 }
-async function clearAll(){if(!confirm('سب کیش حذف کریں؟'))return;try{await caches.delete(CACHE);}catch{}dlSt={};saveDlSt();await idbSet('dlQueue',{items:[],total:0});buildDLList();updateDLStats();updateQariBadges();showToast('🗑 سب کیش صاف');}
+async function clearAll(){if(!confirm('سب کیش حذف کریں؟'))return;try{await caches.delete(CACHE);}catch{}dlSt={};saveDlSt();dlWant={};saveWant();await idbSet('dlQueue',{items:[],total:0});buildDLList();updateDLStats();updateQariBadges();showToast('🗑 سب کیش صاف');}
 function updateQariBadges(){Object.keys(QARIS).forEach(k=>{const done=Object.keys(dlSt).filter(dk=>dk.startsWith(k+'_')&&dlSt[dk].done).length;document.getElementById('dlb-'+k)?.classList.toggle('show',done>0);});}
 
 // ══ TOAST ══
@@ -5264,8 +5425,8 @@ function plOnEnded(){
 // ── ورژن کوڈ کا قاعدہ (مالک کی ہدایت): HFZ + تاریخ + مہینہ + دن کے دو حروف + تین ہندسوں کا سیریل ──
 //    مثال: HFZ610TU018 = 6 اکتوبر، منگل (TU)، سیریل 012 — اگلا ورژن 013، پھر 014، 015… (سیریل کبھی دوبارہ شروع نہیں ہوتا)
 //    دن: MO پیر، TU منگل، WE بدھ، TH جمعرات، FR جمعہ، SA ہفتہ، SU اتوار — زِپ کا نام بھی یہی: HFZ610TU018.zip
-const APP_VERSION='HFZ810TH019';
-const APP_VERSION_DISPLAY='HFZ810TH019';
+const APP_VERSION='HFZ810TH020';
+const APP_VERSION_DISPLAY='HFZ810TH020';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){

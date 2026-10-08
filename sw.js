@@ -1,11 +1,11 @@
-// Hafiz Musab / Hifz Pro — Service Worker (HFZ810TH019)
+// Hafiz Musab / Hifz Pro — Service Worker (HFZ810TH020)
 // ══ آف لائن حکمتِ عملی ══
 // 1) شیل (index، manifest، آئیکن): انسٹال پر کیش؛ صفحہ کھلنے پر پہلے کیش (فوری، آف لائن)، پس منظر میں تازہ کاپی
 // 2) فونٹس (نوری نستعلیق، امیری، نسخ): پہلی بار آن لائن ملتے ہی مستقل کیش — آف لائن بھی خوبصورت اردو/عربی
 // 3) پاروں کا رکوع ڈیٹا (alquran.cloud/juz): نیٹ پہلے (6 سیکنڈ حد)، ناکامی پر کیش
 // 4) ڈاؤن لوڈ شدہ تلاوت (quran-audio-v2): کیش پہلے — نیٹ کا ایک بائٹ بھی خرچ نہیں، Range (آگے پیچھے) سپورٹ
 // 5) welcome.txt وغیرہ: ?t= کے بغیر ایک ہی کاپی محفوظ (کیش پھولتی نہیں)
-const VERSION = 'HFZ810TH019';
+const VERSION = 'HFZ810TH020';
 const CACHE_NAME = 'hafiz-musab-shell-' + VERSION;
 const FONT_CACHE = 'hfz-fonts-v1';
 const API_CACHE = 'hfz-api-v1';
@@ -40,6 +40,8 @@ self.addEventListener('install', (event) => {
 self.addEventListener('message', (event) => {
   if (event.data === 'REWARM_SHELL_CACHE') event.waitUntil(warmShellCache(false));
   if (event.data === 'SKIP_WAITING') self.skipWaiting();
+  // ایپ پیچھے گئی/بند ہوئی — باقی ڈاؤن لوڈ Background Fetch سے جاری (HFZ810TH020)
+  if (event.data === 'BG_QUEUE') event.waitUntil(startNextInQueue());
 });
 
 self.addEventListener('activate', (event) => {
@@ -240,7 +242,14 @@ async function kvSet(k, v) {
     return await new Promise((res) => { const t = db.transaction('kv', 'readwrite'); t.objectStore('kv').put(v, k); t.oncomplete = () => res(true); t.onerror = () => res(false); });
   } catch (e) { return false; }
 }
-async function startNextInQueue() {
+async function startNextInQueue(curId) {
+  // ایپ سامنے کھلی ہو تو ایپ خود تیز ڈاؤن لوڈ کرتی ہے؛ پہلے سے کوئی پس منظر ڈاؤن لوڈ چل رہا ہو تو دوسرا نہیں
+  try {
+    const cl = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
+    if (cl.some((c) => c.visibilityState === 'visible')) return;
+    const ids = await self.registration.backgroundFetch.getIds();
+    if (ids.some((i) => i.startsWith('hfz|') && i !== curId)) return;
+  } catch (e) {}
   const q = await kvGet('dlQueue');
   if (!q || !q.items || !q.items.length) return;
   const cache = await caches.open(AUDIO_CACHE);
@@ -273,7 +282,7 @@ async function finishItem(id, ok) {
     else { q.items[idx].tries = (q.items[idx].tries || 0) + 1; if (q.items[idx].tries >= 2) q.items.splice(idx, 1); }
     await kvSet('dlQueue', q);
   }
-  await startNextInQueue();
+  await startNextInQueue(id);
 }
 self.addEventListener('backgroundfetchsuccess', (event) => {
   const bf = event.registration;
