@@ -1783,6 +1783,63 @@ body.dlb-on #toast{bottom:118px}
 #dlStorage.ok{color:#166534!important;font-weight:900;font-size:11px!important}
 #dlStorage.warn{color:#b91c1c!important;font-weight:900;font-size:11px!important}
 
+/* ══ 🎤 تیرتا مائیک + آواز سے تلاش (HFZ1010SA021) ══ */
+#vtMic{position:fixed;z-index:1050;width:62px;height:62px;border-radius:50%;cursor:pointer;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;
+  background:radial-gradient(circle at 32% 28%,#4ade80 0%,#16a34a 45%,#065f46 100%);color:#fff;
+  box-shadow:0 6px 18px rgba(0,0,0,.45),0 0 0 3px rgba(250,204,21,.9),inset 0 2px 6px rgba(255,255,255,.35);
+  display:flex;align-items:center;justify-content:center;transition:transform .15s,box-shadow .2s,opacity .2s;}
+#vtMic .vt-ico{width:52%;height:52%;display:flex;pointer-events:none;filter:drop-shadow(0 1px 2px rgba(0,0,0,.45));}
+#vtMic .vt-ico svg{width:100%;height:100%;}
+#vtMic.vt-hide{opacity:0;pointer-events:none;transform:scale(.6);}
+#vtMic.vt-press{transform:scale(.92);}
+#vtMic.vt-drag{transform:scale(1.12);box-shadow:0 14px 30px rgba(0,0,0,.55),0 0 0 4px #facc15;opacity:.92;}
+#vtMic .vt-ring{position:absolute;inset:0;border-radius:50%;border:3px solid rgba(239,68,68,.75);opacity:0;pointer-events:none;}
+#vtMic.vt-on{background:radial-gradient(circle at 32% 28%,#fb7185 0%,#dc2626 50%,#7f1d1d 100%);box-shadow:0 6px 18px rgba(0,0,0,.45),0 0 0 3px #fecaca;}
+#vtMic.vt-on .vt-ring{animation:vtRing 1.4s ease-out infinite;}
+#vtMic.vt-on .vt-ring.r2{animation-delay:.7s;}
+@keyframes vtRing{0%{transform:scale(1);opacity:.9;}100%{transform:scale(1.9);opacity:0;}}
+#vtPanel{position:fixed;left:0;right:0;bottom:0;margin:0 auto;max-width:500px;z-index:1055;
+  background:linear-gradient(180deg,#0b3b2a,#062519);color:#ecfdf5;border-radius:22px 22px 0 0;
+  box-shadow:0 -10px 30px rgba(0,0,0,.5);border-top:3px solid #facc15;padding:12px 14px calc(14px + env(safe-area-inset-bottom));
+  transform:translateY(105%);transition:transform .28s ease;max-height:72vh;overflow-y:auto;direction:rtl;
+  font-family:'Jameel-Noori.N','JN',serif;}
+#vtPanel.open{transform:translateY(0);}
+#vtPanel .vt-head,#vtSet .vt-head{display:flex;align-items:center;gap:8px;}
+.vt-title{font-size:20px;font-weight:900;color:#fde68a;flex:1;}
+.vt-x{background:#7f1d1d;color:#fff;border:0;border-radius:50%;width:34px;height:34px;font-size:16px;}
+.vt-langs{display:flex;gap:6px;}
+.vt-langs button{border:1.5px solid #34d399;background:transparent;color:#a7f3d0;border-radius:16px;padding:3px 12px;font-family:inherit;font-size:15px;}
+.vt-langs button.on{background:#10b981;color:#fff;border-color:#facc15;font-weight:900;}
+.vt-langs.big{flex-direction:column;}
+.vt-langs.big button{padding:8px 12px;font-size:16px;text-align:right;}
+.vt-status{margin:10px 0 6px;font-size:17px;line-height:1.7;padding:8px 10px;border-radius:12px;background:rgba(255,255,255,.06);}
+.vt-status.on{color:#fecaca;background:rgba(220,38,38,.18);}
+.vt-status.ok{color:#bbf7d0;background:rgba(16,185,129,.22);}
+.vt-status.warn{color:#fde68a;background:rgba(234,179,8,.16);}
+.vt-status.err{color:#fecaca;background:rgba(239,68,68,.16);}
+.vt-dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:#ef4444;margin-left:6px;animation:vtBlink 1s infinite;}
+@keyframes vtBlink{50%{opacity:.2;}}
+.vt-heard{font-family:'Noto Naskh Arabic','Amiri Quran',serif;font-size:20px;color:#fff;background:rgba(0,0,0,.25);border-radius:12px;padding:6px 10px;margin-bottom:6px;border:1px dashed rgba(250,204,21,.5);}
+.vt-heard:empty{display:none;}
+.vt-sub{font-size:14px;color:#a7f3d0;margin:6px 2px 4px;}
+.vt-row{display:block;width:100%;text-align:right;background:rgba(255,255,255,.07);border:1px solid rgba(52,211,153,.35);border-radius:14px;padding:8px 10px;margin:6px 0;color:#ecfdf5;font-family:inherit;}
+.vt-row.best{background:linear-gradient(135deg,rgba(16,185,129,.35),rgba(250,204,21,.18));border:2px solid #facc15;}
+.vt-ref{display:flex;justify-content:space-between;font-size:16px;font-weight:900;color:#fde68a;}
+.vt-ref i{font-style:normal;font-family:Arial,sans-serif;font-size:13px;color:#a7f3d0;direction:ltr;}
+.vt-ar{display:block;font-family:'Noto Naskh Arabic','Amiri Quran',serif;font-size:19px;line-height:1.9;color:#fff;margin-top:2px;}
+.vt-tip{font-size:14.5px;line-height:1.9;color:#d1fae5;opacity:.9;margin:6px 2px;}
+.vt-tip b{color:#fde68a;}
+.vt-foot{display:flex;gap:8px;margin-top:10px;}
+.vt-foot button{flex:1;border:0;border-radius:14px;padding:10px;font-family:inherit;font-size:17px;font-weight:900;background:#10b981;color:#fff;box-shadow:0 3px 0 #065f46;}
+.vt-foot .vt-stop{background:#b91c1c;box-shadow:0 3px 0 #7f1d1d;}
+#vtSet{position:fixed;inset:0;z-index:1060;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;direction:rtl;font-family:'Jameel-Noori.N','JN',serif;}
+#vtSet.open{display:flex;}
+.vt-set-card{width:min(92%,420px);background:linear-gradient(180deg,#0b3b2a,#062519);color:#ecfdf5;border-radius:20px;padding:14px;border:2px solid #facc15;box-shadow:0 10px 40px rgba(0,0,0,.6);}
+.vt-set-row{display:flex;align-items:center;gap:8px;margin:12px 0;font-size:17px;}
+.vt-set-row input{flex:1;accent-color:#facc15;}
+.vt-sz{width:36px;height:36px;border-radius:50%;border:0;background:#10b981;color:#fff;font-size:22px;font-weight:900;line-height:1;}
+.vt-set-lbl{font-size:16px;color:#fde68a;margin:8px 0 4px;}
+.vt-set-hint{font-size:14px;color:#a7f3d0;margin-top:10px;line-height:1.8;}
 </style>
 </head>
 <body>
@@ -1874,7 +1931,7 @@ body.dlb-on #toast{bottom:118px}
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">HFZ810TH020</span>
+    <span class="ver-code" id="splashVerCode">HFZ1010SA021</span>
   </div>
 </div>
 
@@ -5425,8 +5482,8 @@ function plOnEnded(){
 // ── ورژن کوڈ کا قاعدہ (مالک کی ہدایت): HFZ + تاریخ + مہینہ + دن کے دو حروف + تین ہندسوں کا سیریل ──
 //    مثال: HFZ610TU018 = 6 اکتوبر، منگل (TU)، سیریل 012 — اگلا ورژن 013، پھر 014، 015… (سیریل کبھی دوبارہ شروع نہیں ہوتا)
 //    دن: MO پیر، TU منگل، WE بدھ، TH جمعرات، FR جمعہ، SA ہفتہ، SU اتوار — زِپ کا نام بھی یہی: HFZ610TU018.zip
-const APP_VERSION='HFZ810TH020';
-const APP_VERSION_DISPLAY='HFZ810TH020';
+const APP_VERSION='HFZ1010SA021';
+const APP_VERSION_DISPLAY='HFZ1010SA021';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
@@ -5599,6 +5656,561 @@ async function forceRefresh(){
   if(document.readyState==='complete'||document.readyState==='interactive')init();
 })();
 
+</script>
+<script>
+// ══ 🎤 وائس سرچ انجن (HFZ1010SA021) — پاکستانی/ہندوستانی لہجے کے لیے "صوتی ڈھانچہ" مماثلت ══
+// اصول: سننے والا انجن (Google) عربی لفظ کو جیسا بھی غلط لکھے، ہم ہر حرف کو اس کے "آواز والے خاندان" میں بدل کر
+// پورے قرآن سے قریب ترین آیت ڈھونڈتے ہیں — ث/س/ص ایک، ذ/ز/ض/ظ ایک، ح/ہ ایک، ق/ک ایک، ط/ت ایک، ع/ا/ء گرا دیے۔
+var VT=(function(){
+  // ── حروف کے صوتی خاندان ──
+  var MAP={};
+  function m(chars,to){for(var i=0;i<chars.length;i++)MAP[chars[i]]=to;}
+  m('اأإآٱٲٳءعٰ','');          // الف، ہمزہ، عین — لہجے میں سب سے زیادہ گڑبڑ، اس لیے گرا دیے
+  m('ؤ','و'); m('ئیيىےۍې','ي');
+  m('ثسص','س'); m('ذزضظ','ز');
+  m('حهةۃہھۀ','ه'); m('طت','ت'); m('قكک','ك');
+  m('غ','غ'); m('خ','خ'); m('گ','ك'); m('پ','ب'); m('چ','ج'); m('ژ','ز'); m('ڈ','د'); m('ٹ','ت'); m('ڑ','ر'); m('ں','ن');
+  var KEEP='بجدرسزشفكلمنهويتخغ';
+  function norm(s){
+    if(!s)return'';
+    var out='',prev='';
+    for(var i=0;i<s.length;i++){
+      var c=s[i],r;
+      if(MAP.hasOwnProperty(c))r=MAP[c];
+      else if(KEEP.indexOf(c)>=0)r=c;
+      else r='';                       // حرکات، وقف کے نشان، ہندسے، خالی جگہ — سب نکال دیں
+      if(r&&r!==prev){out+=r;prev=r;}   // شد/دوہرا حرف ایک ہی شمار
+    }
+    return out;
+  }
+  // ── قرآن کا اشاریہ (ایک بار، پہلی دفعہ مائیک دبانے پر) ──
+  var IDX=null; // {keys:[], txt:[], tri:Map}
+  function build(){
+    if(IDX)return IDX;
+    var keys=[],txt=[],tri=new Map();
+    for(var s=1;s<=114;s++){
+      for(var a=1;a<=SH[s-1].a;a++){
+        var k=s+'_'+a,t=norm(QAR[k]||'');
+        var id=keys.length;keys.push([s,a]);txt.push(t);
+        var seen={};
+        for(var i=0;i+3<=t.length;i++){
+          var g=t.substr(i,3);if(seen[g])continue;seen[g]=1;
+          var l=tri.get(g);if(!l){l=[];tri.set(g,l);}l.push(id);
+        }
+      }
+    }
+    IDX={keys:keys,txt:txt,tri:tri};
+    return IDX;
+  }
+  // ── تقریبی ذیلی لڑی: q کو T کے کسی بھی حصے سے ملائیں، کم سے کم فرق اور آغاز کی جگہ ──
+  function approx(q,T){
+    var m=q.length,n=T.length;
+    if(!m)return{d:0,st:0};
+    var prev=new Array(m+1),cur=new Array(m+1),ps=new Array(m+1),cs=new Array(m+1);
+    var best=m,bst=0;
+    for(var i=0;i<=m;i++){prev[i]=i;ps[i]=0;}
+    for(var j=1;j<=n;j++){
+      cur[0]=0;cs[0]=j;
+      var tj=T[j-1];
+      for(var i=1;i<=m;i++){
+        var sub=prev[i-1]+(q[i-1]===tj?0:1),del=prev[i]+1,ins=cur[i-1]+1,v=sub,st=ps[i-1];
+        if(del<v){v=del;st=ps[i];}
+        if(ins<v){v=ins;st=cs[i-1];}
+        cur[i]=v;cs[i]=st;
+      }
+      if(cur[m]<best||(cur[m]===best&&cs[m]<bst)){best=cur[m];bst=cs[m];}
+      var t=prev;prev=cur;cur=t;t=ps;ps=cs;cs=t;
+    }
+    if(prev[m]<best){best=prev[m];bst=ps[m];}
+    return{d:best,st:bst};
+  }
+  // سادہ مکمل فرق (نام وغیرہ کے لیے)
+  function lev(a,b){
+    var m=a.length,n=b.length;if(!m)return n;if(!n)return m;
+    var p=[],c=[];for(var j=0;j<=n;j++)p[j]=j;
+    for(var i=1;i<=m;i++){c[0]=i;for(var j=1;j<=n;j++){c[j]=Math.min(p[j]+1,c[j-1]+1,p[j-1]+(a[i-1]===b[j-1]?0:1));}var t=p;p=c;c=t;}
+    return p[n];
+  }
+  var ISTIADHA=norm('اعوذ بالله من الشيطان الرجيم'),BASMALA=norm('بسم الله الرحمن الرحيم');
+  function stripPrefix(q,ph){
+    if(q.length<ph.length-3)return null;
+    var best=99,cut=0;
+    for(var L=Math.max(1,ph.length-3);L<=Math.min(q.length,ph.length+3);L++){var d=lev(q.substr(0,L),ph);if(d<best){best=d;cut=L;}}
+    return best<=Math.max(2,Math.floor(ph.length*0.25))?q.substr(cut):null;
+  }
+  // ── آیت تلاش: تلاوت سے ──
+  function searchAyah(raw){
+    var I=build();
+    var q=norm(raw);
+    if(q.length<4)return[];
+    var r=stripPrefix(q,ISTIADHA);if(r!==null)q=r;
+    var hadBasmala=false;
+    r=stripPrefix(q,BASMALA);
+    if(r!==null){hadBasmala=true;q=r;}
+    if(q.length<4){
+      if(hadBasmala)return[{s:1,a:1,sc:1,exact:true}];
+      return[];
+    }
+    // مرحلہ 1: تین حرفی ٹکڑوں سے امیدوار
+    var grams={},gl=[];
+    for(var i=0;i+3<=q.length;i++){var g=q.substr(i,3);if(!grams[g]){grams[g]=1;gl.push(g);}}
+    var hit=new Map();
+    for(var i=0;i<gl.length;i++){
+      var l=I.tri.get(gl[i]);if(!l)continue;
+      if(l.length>2500)continue; // بہت عام ٹکڑا — فرق نہیں ڈالتا
+      for(var k=0;k<l.length;k++){var id=l[k];hit.set(id,(hit.get(id)||0)+1);}
+    }
+    var comb=new Map();  // اگلی آیت تک پھیلی تلاوت: آیت + اگلی آیت کے ٹکڑے ساتھ گنیں
+    hit.forEach(function(v,id){comb.set(id,(comb.get(id)||0)+v);if(id>0)comb.set(id-1,(comb.get(id-1)||0)+v);});
+    var cand=[];
+    comb.forEach(function(v,id){cand.push([id,v]);});
+    cand.sort(function(x,y){return y[1]-x[1];});
+    cand=cand.slice(0,120);
+    // اگلی آیت تک پھیلی تلاوت: پچھلی آیت کو بھی امیدوار بنائیں
+    var set={};cand.forEach(function(c){set[c[0]]=1;if(c[0]>0)set[c[0]-1]=1;});
+    // مرحلہ 2: باریک موازنہ
+    var res=[];
+    Object.keys(set).forEach(function(ks){
+      var id=+ks,A=I.txt[id],B=(id+1<I.txt.length&&I.keys[id+1][0]===I.keys[id][0])?I.txt[id+1]:'';
+      if(!A)return;
+      var T=A+B,x=approx(q,T),ex=(x.d===0&&x.st===0&&q.length===A.length);
+      if(x.st>=A.length)return;      // شروعات اگلی آیت میں — وہ اپنی باری پر گنی جائے گی
+      var sc=1-x.d/q.length;
+      if(x.st===0)sc+=0.04;else if(x.st===1)sc+=0.02; // آیت کے شروع سے پڑھنا عام ہے
+      sc+=0.03*Math.min(1,q.length/A.length);           // جتنی آیت پوری پڑھی، اتنا یقین
+      res.push({s:I.keys[id][0],a:I.keys[id][1],sc:sc+(ex?0.05:0),id:id,st:x.st,exact:ex});
+    });
+    res.sort(function(x,y){return y.sc-x.sc||x.id-y.id;});
+    // ایک جیسی آیات (مثلاً فبای آلاء ربکما) — سب رکھیں مگر پہلی آگے
+    return res.slice(0,8);
+  }
+
+  // ── سورتوں کے نام: عربی + اردو بول چال + رومن ──
+  var UR=[null,'فاتحہ|الحمد|الحمد شریف|سورہ حمد','بقرہ|بقرۃ','آل عمران|ال عمران','نساء|نسا','مائدہ|مایدہ','انعام','اعراف','انفال','توبہ|براءت','یونس','ہود','یوسف','رعد','ابراہیم|ابراھیم','حجر','نحل','بنی اسرائیل|اسراء|اسرا','کہف|کھف','مریم','طہ|طٰہٰ|طاہا|طاہ','انبیاء|انبیا','حج','مومنون|مؤمنون','نور','فرقان','شعراء|شعرا','نمل','قصص','عنکبوت','روم','لقمان','سجدہ|الم سجدہ','احزاب','سبا|سباء','فاطر','یٰسین|یاسین|یسین|یس','صافات','صاد','زمر','مومن|غافر','حم سجدہ|فصلت','شوری|شوریٰ','زخرف','دخان','جاثیہ','احقاف','محمد','فتح','حجرات','قاف','ذاریات','طور','نجم','قمر','رحمن|رحمان|الرحمن','واقعہ|واقعۃ','حدید','مجادلہ','حشر','ممتحنہ','صف','جمعہ','منافقون','تغابن','طلاق','تحریم','ملک|تبارک|تبارک الذی','قلم|نون','حاقہ','معارج','نوح','جن','مزمل|مزمّل','مدثر','قیامہ|قیامت','دہر|انسان','مرسلات','نبا|عم|عم یتساءلون','نازعات','عبس','تکویر','انفطار','مطففین','انشقاق','بروج','طارق','اعلی|اعلیٰ','غاشیہ','فجر','بلد','شمس','لیل','ضحی|والضحی|ضحیٰ','الم نشرح|انشراح|شرح','تین|والتین','علق|اقرا','قدر','بینہ','زلزال|زلزلہ','عادیات','قارعہ','تکاثر','عصر|والعصر','ہمزہ','فیل','قریش','ماعون','کوثر','کافرون','نصر','لہب|مسد|تبت','اخلاص','فلق','ناس'];
+  var NAMES=null;
+  function lat(s){
+    s=(s||'').toLowerCase().replace(/[^a-z]/g,'');
+    s=s.replace(/^(al|an|ar|as|at|ad|az|ash|adh)(?=[a-z]{3})/,'');
+    s=s.replace(/ph/g,'f').replace(/th/g,'s').replace(/dh/g,'z').replace(/kh/g,'k').replace(/gh/g,'g').replace(/sh/g,'s').replace(/q/g,'k').replace(/c/g,'k');
+    var f=s[0]||'';s=f+s.slice(1).replace(/[aeiouyhw]/g,'');
+    return s.replace(/(.)\1+/g,'$1');
+  }
+  function names(){
+    if(NAMES)return NAMES;
+    NAMES=[];
+    for(var n=1;n<=114;n++){
+      var al=[SH[n-1].ar,SH[n-1].ar.replace(/^ال/,'')].concat((UR[n]||'').split('|'));
+      var sk={};al.forEach(function(x){var k=norm(x.replace(/^ال/,''));if(k)sk[k]=1;});
+      NAMES.push({n:n,sk:Object.keys(sk),lt:lat(SH[n-1].tr)});
+    }
+    return NAMES;
+  }
+  // ── اعداد: ہندسے، عربی الفاظ، اردو الفاظ ──
+  function simp(w){return w.replace(/[ًٌٍَُِّْٰٓٔ]/g,'').replace(/[أإآٱ]/g,'ا').replace(/[ةۃ]/g,'ه').replace(/ہ/g,'ه').replace(/[ىی]/g,'ي').replace(/ک/g,'ك').replace(/^ال(?=..)/,'');}
+  var AR_U={'واحد':1,'واحده':1,'احد':1,'اولي':1,'اول':1,'اثنان':2,'اثنين':2,'اثنتان':2,'اثنتين':2,'ثانيه':2,'ثاني':2,'ثلاث':3,'ثلاثه':3,'ثالثه':3,'ثالث':3,'اربع':4,'اربعه':4,'رابعه':4,'رابع':4,'خمس':5,'خمسه':5,'خامسه':5,'خامس':5,'ست':6,'سته':6,'سادسه':6,'سادس':6,'سبع':7,'سبعه':7,'سابعه':7,'سابع':7,'ثمان':8,'ثماني':8,'ثمانيه':8,'ثامنه':8,'ثامن':8,'تسع':9,'تسعه':9,'تاسعه':9,'تاسع':9,'عشر':10,'عشره':10,'عاشره':10,'عاشر':10};
+  var AR_T={'عشرون':20,'عشرين':20,'ثلاثون':30,'ثلاثين':30,'اربعون':40,'اربعين':40,'خمسون':50,'خمسين':50,'ستون':60,'ستين':60,'سبعون':70,'سبعين':70,'ثمانون':80,'ثمانين':80,'تسعون':90,'تسعين':90,'مئه':100,'مائه':100,'مئتان':200,'مئتين':200,'مائتان':200,'مائتين':200};
+  var UR_N={'ايك':1,'دو':2,'تين':3,'چار':4,'پانچ':5,'چھ':6,'چھے':6,'سات':7,'آٹھ':8,'اٹھ':8,'نو':9,'دس':10,'گياره':11,'باره':12,'تيره':13,'چوده':14,'پندره':15,'سوله':16,'ستره':17,'اٹھاره':18,'انيس':19,'بيس':20,'اكيس':21,'بائيس':22,'تئيس':23,'چوبيس':24,'پچيس':25,'چھبيس':26,'ستائيس':27,'اٹھائيس':28,'انتيس':29,'تيس':30,'چاليس':40,'پچاس':50,'ساٹھ':60,'ستر':70,'اسي':80,'نوے':90,'سو':100};
+  function digits(w){return w.replace(/[٠-٩]/g,function(c){return c.charCodeAt(0)-1632;}).replace(/[۰-۹]/g,function(c){return c.charCodeAt(0)-1776;});}
+  // الفاظ کی فہرست میں i سے شروع ہونے والا عدد پڑھیں → {v,len}
+  function readNum(toks,i){
+    var t=digits(toks[i]||'');
+    var dm=t.match(/^\d+$/);if(dm)return{v:+t,len:1};
+    var total=0,len=0,got=false;
+    while(i+len<toks.length){
+      var w=simp(digits(toks[i+len])),wa=w.replace(/^و(?=..)/,'');
+      if(/^\d+$/.test(w)){if(got)break;return{v:+w,len:len+1};}
+      var v=null;
+      if(AR_U.hasOwnProperty(wa))v=AR_U[wa];else if(AR_T.hasOwnProperty(wa))v=AR_T[wa];
+      else if(UR_N.hasOwnProperty(w)&&!got)v=UR_N[w];
+      if(v===null){if(wa==='و'&&got){len++;continue;}break;}
+      if(v===10&&got&&total%10>0&&total<10){total+=10;}else total+=v;
+      got=true;len++;
+      if(UR_N.hasOwnProperty(w)&&!AR_U.hasOwnProperty(wa)){ // اردو: "دو سو" وغیرہ
+        if(simp(toks[i+len]||'')==='سو'){total=total*100;len++;}
+        var nx=i+len<toks.length?readNum(toks,i+len):null;
+        if(total>=100&&nx&&nx.v<100){total+=nx.v;len+=nx.len;}
+        break;
+      }
+    }
+    return got?{v:total,len:len}:null;
+  }
+  var KW_S=/^(سوره|سورة|سورت|سورتي|سوري|surah|surat|sura|soorah|soora)$/i;
+  var KW_A=/^(آيت|ايت|آيه|ايه|آيات|ايات|الآيه|الايه|آيتي|نمبر|رقم|ayat|ayah|aayat|aya|verse|number)$/i;
+  var KW_P=/^(پاره|پارے|پارہ|سپاره|جز|جزء|الجزء|para|juz|parah|sipara)$/i;
+  function parseCommand(raw){
+    var txt=(raw||'').replace(/[،,.؟?!:؛\-]/g,' ').trim();
+    if(!txt)return null;
+    var nk=simp(txt.replace(/\s+/g,''));
+    if(/ايه?الكرس|ايتالكرس|كرسي/.test(nk)||/ayat.?ul.?kursi|kursi/i.test(txt))return{s:2,a:255,strong:true,score:1,why:'آیت الکرسی'};
+    var toks=txt.split(/\s+/),hasS=false,hasA=false,hasP=false;
+    var surahNum=null,ayah=null,para=null,rest=[];
+    for(var i=0;i<toks.length;i++){
+      var w=simp(toks[i]),wn=w.replace(/^(و|ب|ف)(?=سور)/,'');
+      if(KW_S.test(wn)||KW_S.test(toks[i])){hasS=true;var nx1=simp(toks[i+1]||''),r=(UR_N.hasOwnProperty(nx1)&&!/^\d+$/.test(digits(toks[i+1]||'')))?null:readNum(toks,i+1);if(r&&!/^\d+$/.test(digits(toks[i+1]||''))&&names().some(function(N){return N.sk.indexOf(norm((toks[i+1]||'').replace(/^ال/,'')))>=0;}))r=null;if(r){surahNum=r.v;i+=r.len;}continue;}
+      if(KW_A.test(w)||KW_A.test(toks[i])||w==='الايه'||w==='الاية'){hasA=true;var r2=readNum(toks,i+1);if(r2){ayah=r2.v;i+=r2.len;}continue;}
+      if(KW_P.test(w)||KW_P.test(toks[i])){hasP=true;var r3=readNum(toks,i+1);if(r3){para=r3.v;i+=r3.len;}continue;}
+      var r4=readNum(toks,i);
+      if(r4&&(!UR_N.hasOwnProperty(w)||rest.length)){ // اکیلا عدد: سورت کے نام کے بعد → آیت
+        if(rest.length&&ayah===null)ayah=r4.v;else if(surahNum===null&&!rest.length)surahNum=r4.v;
+        i+=r4.len-1;continue;
+      }
+      rest.push(toks[i]);
+    }
+    if(hasP&&para&&para>=1&&para<=30&&!rest.length&&surahNum===null)return{para:para,why:'پارہ '+para};
+    // نام تلاش
+    var best=null,restTxt=rest.join(' ');
+    if(rest.length){
+      var NS=names(),q=norm(restTxt),ql=lat(restTxt),isLat=/[a-z]/i.test(restTxt)&&!/[؀-ۿ]/.test(restTxt);
+      // اردو عدد جو اصل میں سورت کا نام ہو سکتا ہے (مثلاً "تین" = سورۃ التین) — نام کو ترجیح
+      NS.forEach(function(N){
+        var cand=isLat?[N.lt]:N.sk,qq=isLat?ql:q;
+        cand.forEach(function(a){
+          if(!a)return;var r;
+          if(a.length<=2){r=(qq===a)?0:1;}
+          else{
+            var d1=lev(qq,a),d2=approx(a,qq).d;
+            var d=hasS?Math.min(d1,qq.length>a.length+2?d2+0.5:d1):d1;
+            r=d/a.length;
+          }
+          if(!best||r<best.r||(r===best.r&&a.length>best.len))best={n:N.n,r:r,len:a.length};
+        });
+      });
+      var lim=hasS?0.34:0.2;
+      if(best&&best.r>lim)best=null;
+    }
+    if(!best&&surahNum&&surahNum>=1&&surahNum<=114)best={n:surahNum,r:0};
+    if(!best){
+      // "تین" وغیرہ جو عدد سمجھ لیے گئے مگر سورہ کا لفظ ساتھ تھا
+      if(hasS&&ayah&&!surahNum&&ayah<=114)return{s:ayah,a:1,why:'سورت نمبر '+ayah};
+      return hasA&&ayah&&!hasS?null:null;
+    }
+    var s=best.n,a=1;
+    if(ayah){a=Math.max(1,Math.min(SH[s-1].a,ayah));}
+    return{s:s,a:a,strong:hasS||hasA,score:1-best.r,why:SH[s-1].ar+(ayah?' • آیت '+a:'')};
+  }
+  // ── مجموعی فیصلہ: ایک یا کئی متبادل جملوں میں سے بہترین ──
+  function decide(alts){
+    var bestCmd=null,bestAy=null,list=[];
+    alts.forEach(function(t,idx){
+      if(!t)return;
+      var c=parseCommand(t);
+      if(c&&(!bestCmd||(c.strong&&!bestCmd.strong)))bestCmd=c,bestCmd.text=t;
+      var r=searchAyah(t);
+      if(r.length&&(!bestAy||r[0].sc>bestAy[0].sc)){bestAy=r;bestAy.text=t;}
+    });
+    var words=((alts[0]||'').trim().split(/\s+/).length);
+    var ay=bestAy?bestAy[0]:null;
+    // حکم (سورت/آیت/پارہ کا نام) کب جیتے
+    if(bestCmd&&(bestCmd.para||bestCmd.strong))return{kind:'cmd',cmd:bestCmd,list:bestAy||[]};
+    if(bestCmd&&words<=3&&(!ay||ay.sc<0.85||bestCmd.score>=0.95))return{kind:'cmd',cmd:bestCmd,list:bestAy||[]};
+    if(ay){
+      var second=null;
+      for(var i=1;i<bestAy.length;i++){var o=bestAy[i];if(IDX.txt[o.id]!==IDX.txt[ay.id]){second=o;break;}}
+      var margin=second?ay.sc-second.sc:1;
+      var sure=ay.exact||(ay.st<=1?(ay.sc>=0.75&&margin>=0.05):(ay.sc>=0.92&&margin>=0.12));
+      if(sure)return{kind:'ayah',hit:ay,list:bestAy,sure:true};
+      if(ay.sc>=0.5)return{kind:'ayah',hit:ay,list:bestAy,sure:false};
+    }
+    if(bestCmd)return{kind:'cmd',cmd:bestCmd,list:bestAy||[]};
+    return{kind:'none',list:bestAy||[]};
+  }
+  return{norm:norm,build:build,searchAyah:searchAyah,parseCommand:parseCommand,decide:decide,_lev:lev,_approx:approx};
+})();
+
+// ══ 🎤 تیرتا مائیک + آواز سے سورت/آیت تلاش (HFZ1010SA021) ══
+// • مائیک کو انگلی سے گھسیٹ کر اسکرین پر کہیں بھی کھڑا کریں — جگہ یاد رہتی ہے
+// • دو انگلیوں سے چٹکی (pinch) یا لمبا دبا کر ترتیب سے چھوٹا/بڑا کریں
+// • ایک بار دبائیں → بولیں: «سورہ یاسین آیت 5»، «پارہ 30»، «آیت الکرسی» یا کسی آیت کا حصہ تلاوت کریں
+// • ملتے ہی وہی آیت اسکرین پر اور منتخب قاری کی آواز میں تلاوت شروع
+(function(){
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  var P={cx:0.86,cy:0.36,size:62,lang:'ar-SA'};
+  try{var sv=JSON.parse(localStorage.getItem('vtPrefs')||'null');if(sv)for(var k in sv)P[k]=sv[k];}catch(e){}
+  function saveP(){try{localStorage.setItem('vtPrefs',JSON.stringify(P));}catch(e){}}
+  var MIN_S=40,MAX_S=120;
+  var closeT=null,mic,panel,setBox,rec=null,listening=false,gotFinal=false,lastAlts=[],interimTimer=null,userStopped=false,restarts=0;
+  var MIC_SVG='<svg viewBox="0 0 24 24" fill="currentColor"><rect x="8.5" y="2.5" width="7" height="12" rx="3.5"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 18v3.2M8.6 21.3h6.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+  function zf(){var z=parseFloat(document.documentElement.style.zoom);return z>0?z/100:1;}
+  function vw(){return window.innerWidth/zf();}
+  function vh(){return window.innerHeight/zf();}
+  function place(){
+    if(!mic)return;
+    var s=P.size,W=vw(),H=vh();
+    var x=P.cx*W-s/2,y=P.cy*H-s/2;
+    x=Math.max(4,Math.min(W-s-4,x));y=Math.max(4,Math.min(H-s-4,y));
+    mic.style.width=mic.style.height=s+'px';
+    mic.style.left=x+'px';mic.style.top=y+'px';
+  }
+  function build(){
+    mic=document.createElement('div');
+    mic.id='vtMic';mic.setAttribute('role','button');mic.setAttribute('aria-label','آواز سے سورت یا آیت تلاش');
+    mic.innerHTML='<span class="vt-ring"></span><span class="vt-ring r2"></span><span class="vt-ico">'+MIC_SVG+'</span>';
+    document.body.appendChild(mic);
+    panel=document.createElement('div');
+    panel.id='vtPanel';
+    panel.innerHTML=
+      '<div class="vt-head"><div class="vt-title">🎤 آواز سے تلاش</div>'+
+      '<div class="vt-langs"><button data-l="ar-SA">عربی</button><button data-l="ur-PK">اردو</button></div>'+
+      '<button class="vt-x" aria-label="بند">✖</button></div>'+
+      '<div class="vt-status" id="vtStatus"></div>'+
+      '<div class="vt-heard" id="vtHeard"></div>'+
+      '<div class="vt-res" id="vtRes"></div>'+
+      '<div class="vt-tip" id="vtTip">💡 بولیں: <b>«سورہ یاسین آیت 5»</b> • <b>«پارہ 30»</b> • <b>«آیت الکرسی»</b><br>یا کسی بھی آیت کا حصہ تلاوت کریں — پاکستانی/ہندوستانی لہجہ بھی پہچانا جاتا ہے</div>'+
+      '<div class="vt-foot"><button class="vt-again" id="vtAgain">🎤 دوبارہ بولیں</button><button class="vt-stop" id="vtStop">⏹ روکیں</button></div>';
+    document.body.appendChild(panel);
+    setBox=document.createElement('div');
+    setBox.id='vtSet';
+    setBox.innerHTML=
+      '<div class="vt-set-card"><div class="vt-title">🎤 مائیک کی ترتیب</div>'+
+      '<div class="vt-set-row"><span>سائز</span><button class="vt-sz" data-d="-8">−</button><input type="range" id="vtSize" min="'+MIN_S+'" max="'+MAX_S+'" step="2"><button class="vt-sz" data-d="8">+</button></div>'+
+      '<div class="vt-set-lbl">بولنے کی زبان</div>'+
+      '<div class="vt-langs big"><button data-l="ar-SA">عربی — تلاوت اور سورت کا نام</button><button data-l="ur-PK">اردو — «سورہ یاسین آیت پانچ»</button></div>'+
+      '<div class="vt-set-hint">مائیک کو انگلی سے گھسیٹ کر کہیں بھی رکھیں • دو انگلیوں سے چٹکی بھر کر بھی چھوٹا/بڑا ہوتا ہے</div>'+
+      '<div class="vt-foot"><button id="vtReset">↺ اصل جگہ اور سائز</button><button class="vt-stop" id="vtSetClose">✔ ٹھیک ہے</button></div></div>';
+    document.body.appendChild(setBox);
+    // واقعات
+    panel.querySelector('.vt-x').onclick=closePanel;
+    document.getElementById('vtStop').onclick=function(){userStopped=true;stopRec();setStatus('⏹ سننا بند','idle');};
+    document.getElementById('vtAgain').onclick=function(){startListen();};
+    [].forEach.call(document.querySelectorAll('.vt-langs button'),function(b){
+      b.onclick=function(){P.lang=b.dataset.l;saveP();syncLang();if(listening){stopRec();setTimeout(startListen,250);}};
+    });
+    var sz=document.getElementById('vtSize');
+    sz.oninput=function(){P.size=+sz.value;place();saveP();};
+    [].forEach.call(setBox.querySelectorAll('.vt-sz'),function(b){b.onclick=function(){setSize(P.size+(+b.dataset.d));};});
+    document.getElementById('vtReset').onclick=function(){P.cx=0.86;P.cy=0.36;P.size=62;saveP();place();syncSet();};
+    document.getElementById('vtSetClose').onclick=function(){setBox.classList.remove('open');};
+    setBox.addEventListener('click',function(e){if(e.target===setBox)setBox.classList.remove('open');});
+    initGestures();
+    syncLang();place();
+    window.addEventListener('resize',place);
+    setInterval(vis,700);vis();
+  }
+  function setSize(s){P.size=Math.max(MIN_S,Math.min(MAX_S,Math.round(s)));place();saveP();syncSet();}
+  function syncSet(){var sz=document.getElementById('vtSize');if(sz)sz.value=P.size;}
+  function syncLang(){[].forEach.call(document.querySelectorAll('.vt-langs button'),function(b){b.classList.toggle('on',b.dataset.l===P.lang);});}
+  var HIDE_IDS=['welcomeOverlay','pickerOverlay','manzilOverlay','cardPreviewOverlay','vleOverlay','wlcEditOverlay','posterOverlay','hfzClosedBox','hfzResumeBox','splash'];
+  function shown(id){var el=document.getElementById(id);if(!el)return false;var cs=getComputedStyle(el);return cs.display!=='none'&&cs.visibility!=='hidden'&&cs.opacity!=='0';}
+  var lastZ=1;
+  function vis(){
+    if(!mic)return;
+    var z=zf();if(z!==lastZ){lastZ=z;place();} // پیج زوم بدلا تو مائیک اسکرین کے اندر ہی رہے
+    var app=document.getElementById('app');
+    var hide=!app||app.style.display==='none';
+    if(!hide&&typeof isAnyOverlayOpen==='function'&&isAnyOverlayOpen())hide=true;
+    if(!hide)for(var i=0;i<HIDE_IDS.length;i++)if(shown(HIDE_IDS[i])){hide=true;break;}
+    if(hide&&!listening)mic.classList.add('vt-hide');else mic.classList.remove('vt-hide');
+    if(hide&&panel.classList.contains('open')&&!listening)panel.classList.remove('open');
+  }
+  // ── گھسیٹنا، دبانا، لمبا دبانا، چٹکی ──
+  function initGestures(){
+    var pts={},sx=0,sy=0,moved=false,lp=null,lpFired=false,pinch=null,ox=0,oy=0;
+    mic.addEventListener('contextmenu',function(e){e.preventDefault();});
+    mic.addEventListener('pointerdown',function(e){
+      e.preventDefault();
+      try{mic.setPointerCapture(e.pointerId);}catch(_){}
+      pts[e.pointerId]={x:e.clientX,y:e.clientY};
+      var ids=Object.keys(pts);
+      if(ids.length===2){
+        clearTimeout(lp);var a=pts[ids[0]],b=pts[ids[1]];
+        pinch={d:Math.hypot(a.x-b.x,a.y-b.y)||1,s:P.size};moved=true;return;
+      }
+      sx=e.clientX;sy=e.clientY;moved=false;lpFired=false;
+      var r=mic.getBoundingClientRect();ox=e.clientX-(r.left+r.width/2);oy=e.clientY-(r.top+r.height/2);
+      mic.classList.add('vt-press');
+      lp=setTimeout(function(){lpFired=true;mic.classList.remove('vt-press');openSettings();},600);
+    });
+    mic.addEventListener('pointermove',function(e){
+      if(!pts[e.pointerId])return;
+      pts[e.pointerId]={x:e.clientX,y:e.clientY};
+      var ids=Object.keys(pts);
+      if(pinch&&ids.length>=2){
+        var a=pts[ids[0]],b=pts[ids[1]];
+        setSize(pinch.s*(Math.hypot(a.x-b.x,a.y-b.y)/pinch.d));return;
+      }
+      if(lpFired)return;
+      if(!moved&&Math.hypot(e.clientX-sx,e.clientY-sy)>8){moved=true;clearTimeout(lp);mic.classList.remove('vt-press');mic.classList.add('vt-drag');}
+      if(moved){
+        var z=zf();
+        P.cx=((e.clientX-ox)/z)/vw();P.cy=((e.clientY-oy)/z)/vh();
+        P.cx=Math.max(0,Math.min(1,P.cx));P.cy=Math.max(0,Math.min(1,P.cy));
+        place();
+      }
+    });
+    function up(e){
+      if(!pts[e.pointerId])return;
+      delete pts[e.pointerId];
+      clearTimeout(lp);mic.classList.remove('vt-press');mic.classList.remove('vt-drag');
+      if(Object.keys(pts).length)return;
+      if(pinch){pinch=null;saveP();return;}
+      if(moved){
+        // کنارے سے چپکنے کی بجائے جہاں چھوڑا وہیں کھڑا — بس اسکرین کے اندر
+        var W=vw(),H=vh(),s=P.size;
+        P.cx=Math.max((s/2+4)/W,Math.min(1-(s/2+4)/W,P.cx));P.cy=Math.max((s/2+4)/H,Math.min(1-(s/2+4)/H,P.cy));
+        saveP();place();return;
+      }
+      if(lpFired)return;
+      if(e.type==='pointercancel')return;
+      toggle();
+    }
+    mic.addEventListener('pointerup',up);
+    mic.addEventListener('pointercancel',up);
+  }
+  function openSettings(){syncSet();syncLang();setBox.classList.add('open');try{navigator.vibrate&&navigator.vibrate(30);}catch(e){}}
+  function toggle(){if(listening){userStopped=true;stopRec();setStatus('⏹ سننا بند','idle');}else startListen();}
+  // ── پینل ──
+  function openPanel(){clearTimeout(closeT);panel.classList.add('open');}
+  function closePanel(){userStopped=true;stopRec();panel.classList.remove('open');}
+  function setStatus(t,cls){var s=document.getElementById('vtStatus');s.innerHTML=t;s.className='vt-status '+(cls||'');}
+  function setHeard(t){var h=document.getElementById('vtHeard');h.textContent=t||'';h.style.display=t?'':'none';}
+  function clearRes(){document.getElementById('vtRes').innerHTML='';}
+  function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function arTxt(s,a){var t=(typeof QAR!=='undefined'&&QAR[s+'_'+a])||'';return t.length>110?t.slice(0,110)+' …':t;}
+  function row(s,a,label,best){
+    return '<button class="vt-row'+(best?' best':'')+'" data-s="'+s+'" data-a="'+a+'">'+
+      '<span class="vt-ref">'+esc(label||(SH[s-1].ar+' • آیت '+a))+'<i>'+s+':'+a+'</i></span>'+
+      '<span class="vt-ar">'+esc(arTxt(s,a))+'</span></button>';
+  }
+  function bindRows(){
+    [].forEach.call(document.querySelectorAll('#vtRes .vt-row'),function(b){
+      b.onclick=function(){goTo(+b.dataset.s,+b.dataset.a,true);};
+    });
+  }
+  // ── سننا ──
+  function startListen(){
+    openPanel();clearRes();setHeard('');
+    document.getElementById('vtTip').style.display='';
+    if(!SR){setStatus('⚠ اس فون کے براؤزر میں آواز کی سہولت نہیں — Google Chrome اور «Google» ایپ اپڈیٹ کریں','err');return;}
+    if(!navigator.onLine){setStatus('📴 آواز پہچاننے کے لیے انٹرنیٹ ضروری ہے — نیٹ آن کر کے دوبارہ مائیک دبائیں','err');return;}
+    // قاری کی آواز چل رہی ہو تو روک دیں ورنہ مائیک قاری کی آواز سن لے گا
+    try{if(typeof aud!=='undefined'&&!aud.paused){St.pl=false;aud.pause();}}catch(e){}
+    setTimeout(function(){try{VT.build();}catch(e){}},0); // پورے قرآن کا اشاریہ (ایک بار)
+    userStopped=false;gotFinal=false;lastAlts=[];restarts=0;
+    beginRec();
+  }
+  function beginRec(){
+    try{if(rec){rec.onend=null;rec.abort();}}catch(e){}
+    rec=new SR();
+    rec.lang=P.lang;rec.interimResults=true;rec.maxAlternatives=5;rec.continuous=false;
+    rec.onstart=function(){listening=true;mic.classList.add('vt-on');
+      setStatus('<span class="vt-dot"></span> سن رہا ہوں… '+(P.lang==='ur-PK'?'(اردو)':'(عربی)')+' — اب بولیں','on');};
+    rec.onresult=function(ev){
+      var fin=[],inter='';
+      for(var i=ev.resultIndex;i<ev.results.length;i++){
+        var r=ev.results[i];
+        if(r.isFinal){for(var j=0;j<r.length;j++)fin.push(r[j].transcript);}
+        else inter+=r[0].transcript;
+      }
+      if(fin.length){gotFinal=true;lastAlts=fin;setHeard(fin[0]);}
+      else if(inter){
+        setHeard(inter);
+        clearTimeout(interimTimer);
+        interimTimer=setTimeout(function(){livePreview(inter);},300);
+      }
+    };
+    rec.onerror=function(ev){
+      var e=ev.error;
+      if(e==='no-speech'){setStatus('🤫 آواز نہیں آئی — مائیک دوبارہ دبا کر صاف اور قریب سے بولیں','err');}
+      else if(e==='not-allowed'||e==='service-not-allowed'){setStatus('🔒 مائیک کی اجازت نہیں ملی — فون کی سیٹنگز ← ایپس ← Hifz Pro (یا Chrome) ← اجازتیں ← مائیکروفون «اجازت دیں» کریں','err');userStopped=true;}
+      else if(e==='network'){setStatus('📶 انٹرنیٹ کمزور ہے — آواز پہچاننے کے لیے نیٹ ضروری ہے، دوبارہ کوشش کریں','err');userStopped=true;}
+      else if(e==='audio-capture'){setStatus('🎙 مائیک نہیں ملا — کوئی اور ایپ مائیک استعمال کر رہی ہے تو بند کریں','err');userStopped=true;}
+      else if(e==='language-not-supported'&&P.lang!=='ar-SA'){P.lang='ar-SA';saveP();syncLang();}
+      else if(e==='aborted'){}
+      else setStatus('⚠ مسئلہ: '+esc(e),'err');
+    };
+    rec.onend=function(){
+      listening=false;mic.classList.remove('vt-on');
+      clearTimeout(interimTimer);
+      if(gotFinal){handle(lastAlts);return;}
+      var heard=document.getElementById('vtHeard').textContent;
+      if(heard&&!userStopped){handle([heard]);return;}
+      // اینڈرائیڈ کبھی خاموشی سے فوراً بند ہو جاتا ہے — ایک بار خود دوبارہ سنیں
+      if(!userStopped&&restarts<1&&!/err/.test(document.getElementById('vtStatus').className)){restarts++;try{beginRec();}catch(e){}return;}
+      if(!/err/.test(document.getElementById('vtStatus').className))setStatus('⏹ سننا بند — دوبارہ بولنے کے لیے 🎤 دبائیں','idle');
+    };
+    try{rec.start();}catch(e){setStatus('⚠ مائیک شروع نہیں ہوا — دوبارہ دبائیں','err');}
+  }
+  function stopRec(){try{if(rec)rec.stop();}catch(e){}listening=false;mic&&mic.classList.remove('vt-on');}
+  function livePreview(t){
+    if(!listening)return;
+    try{
+      var d=VT.decide([t]);
+      var h='';
+      if(d.kind==='cmd'&&!d.cmd.para)h=row(d.cmd.s,d.cmd.a,'🔎 '+d.cmd.why);
+      else if(d.kind==='ayah')h=row(d.hit.s,d.hit.a,'🔎 '+SH[d.hit.s-1].ar+' • آیت '+d.hit.a);
+      document.getElementById('vtRes').innerHTML=h?'<div class="vt-sub">اندازہ (ابھی سن رہا ہوں)…</div>'+h:'';
+      bindRows();
+    }catch(e){}
+  }
+  // ── فیصلہ ──
+  function handle(alts){
+    clearTimeout(closeT);var d;
+    try{d=VT.decide(alts);}catch(e){setStatus('⚠ تلاش میں مسئلہ','err');return;}
+    document.getElementById('vtTip').style.display='none';
+    var res=document.getElementById('vtRes'),seen={},more='';
+    function others(skipS,skipA,max){
+      var h='',c=0;
+      (d.list||[]).forEach(function(o){var k=o.s+':'+o.a;if(seen[k]||(o.s===skipS&&o.a===skipA)||c>=max||o.sc<0.45)return;seen[k]=1;c++;h+=row(o.s,o.a);});
+      return h;
+    }
+    if(d.kind==='cmd'&&d.cmd.para){
+      var js=JUZ_START[d.cmd.para-1];
+      setStatus('✅ پارہ '+d.cmd.para+' — '+(PARA_NAMES[d.cmd.para-1]||''),'ok');
+      res.innerHTML=row(js[0],js[1],'پارہ '+d.cmd.para+' • '+SH[js[0]-1].ar+' آیت '+js[1],true);bindRows();
+      goTo(js[0],js[1],false);return;
+    }
+    if(d.kind==='cmd'){
+      setStatus('✅ '+esc(d.cmd.why),'ok');
+      res.innerHTML=row(d.cmd.s,d.cmd.a,null,true);bindRows();
+      goTo(d.cmd.s,d.cmd.a,false);return;
+    }
+    if(d.kind==='ayah'&&d.sure){
+      var h=d.hit;seen[h.s+':'+h.a]=1;
+      // بالکل یہی الفاظ دوسری جگہ بھی ہوں (مثلاً فبای آلاء ربکما) تو وہ بھی دکھائیں
+      var same=(d.list||[]).filter(function(o){return VT.norm(QAR[o.s+'_'+o.a])===VT.norm(QAR[h.s+'_'+h.a])&&!(o.s===h.s&&o.a===h.a);});
+      setStatus('✅ مل گئی: '+SH[h.s-1].ar+' • آیت '+h.a,'ok');
+      var x=row(h.s,h.a,null,true);
+      if(same.length){x+='<div class="vt-sub">یہی آیت ان جگہوں پر بھی ہے:</div>';same.slice(0,3).forEach(function(o){seen[o.s+':'+o.a]=1;x+=row(o.s,o.a);});}
+      res.innerHTML=x;bindRows();
+      goTo(h.s,h.a,false);return;
+    }
+    if(d.kind==='ayah'||(d.list&&d.list.length)){
+      setStatus('🤔 یقین نہیں — اپنی آیت پر ٹیپ کریں، یا آیت کا شروع والا حصہ دوبارہ پڑھیں','warn');
+      var top=(d.list&&d.list[0])?d.list[0].sc:0;d.list=(d.list||[]).filter(function(o){return o.sc>=Math.max(0.5,top-0.22);});
+      res.innerHTML='<div class="vt-sub">قریب ترین آیات:</div>'+others(0,0,4);bindRows();return;
+    }
+    setStatus('❓ سمجھ نہیں آیا — 🎤 دوبارہ دبا کر آہستہ اور صاف پڑھیں','err');
+  }
+  // ── آیت پر جائیں اور منتخب قاری کی تلاوت شروع ──
+  function goTo(s,a,fromTap){
+    try{
+      s=Math.max(1,Math.min(114,s));a=Math.max(1,Math.min(SH[s-1].a,a));
+      if(typeof SHAKIR!=='undefined'&&SHAKIR){
+        var sn=document.getElementById('shakirSurahName');if(sn)sn.textContent=SH[s-1].ar;
+        St.s=s;St.fr=1;St.to=SH[s-1].a;
+        try{syncSurahHighlight(s);}catch(e){}
+        loadA(s,a,true);
+        showToast('🎤 '+SH[s-1].ar+' — اس قاری کی پوری سورت کی آواز ہے، تلاوت سورت کے شروع سے ہوگی');
+      }else{
+        if(St.s!==s||wSelected!==s){
+          wSelected=s;onWheelChange(s);
+          document.querySelectorAll('#surahCol .s-item').forEach(function(el){el.classList.toggle('selected',+el.dataset.n===s);});
+          try{syncSurahWheel(s);}catch(e){}
+          try{syncQuickSurahSel();}catch(e){}
+        }
+        St.fr=a;St.to=SH[s-1].a;
+        var fi=document.getElementById('fromManualInput');if(fi)fi.value=a;
+        var ti=document.getElementById('toManualInput');if(ti)ti.value=St.to;
+        setTimeout(function(){try{scrollAyahWheel('fromWheel',a,false);scrollAyahWheel('toWheel',St.to,false);}catch(e){}},160);
+        loadA(s,a,true);
+        showToast('🎤 '+SH[s-1].ar+' • آیت '+a+' — '+QARIS[CQ].name);
+      }
+      clearTimeout(closeT);closeT=setTimeout(function(){if(!listening)panel.classList.remove('open');},fromTap?600:2600);
+    }catch(e){setStatus('⚠ آیت کھولنے میں مسئلہ: '+esc(e.message||e),'err');}
+  }
+  window.vtHandleText=function(t){openPanel();setHeard(t);handle([t]);}; // جانچ/ٹیسٹ کے لیے
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',build);else build();
+})();
 </script>
 <script>
 if('serviceWorker' in navigator){
