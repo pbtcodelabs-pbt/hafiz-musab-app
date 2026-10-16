@@ -1953,7 +1953,7 @@ body.ur-aud-playing .tr-aud-btn.on{animation:qariGlowPulse 1.1s ease-in-out infi
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">HFZ1610FR028</span>
+    <span class="ver-code" id="splashVerCode">HFZ1610FR029</span>
   </div>
 </div>
 
@@ -2864,7 +2864,7 @@ function onMutarjimChange(id){
 
 function updTrCredit(){
   const el=document.getElementById('trCredit');if(!el)return;
-  const tr=(typeof SHAKIR!=='undefined'&&SHAKIR)?null:TRANSLATORS.find(t=>t.id===curTranslatorId);
+  const tr=TRANSLATORS.find(t=>t.id===curTranslatorId);
   el.textContent=tr&&tr.credit||'';el.style.display=tr&&tr.credit?'':'none';
   document.getElementById('urduPanel')?.classList.toggle('has-credit',!!(tr&&tr.credit));
 }
@@ -3081,7 +3081,7 @@ const UR_AUD_URL=(s,a)=>`https://everyayah.com/data/translations/urdu_shamshad_a
 let UR_AUD=false;try{UR_AUD=localStorage.getItem('hfzUrAud')==='1';}catch(e){}
 const audTr=new Audio();audTr.preload='auto';audTr.setAttribute('playsinline','');
 let _urAudNext=null;
-function stopUrAudio(){_urAudNext=null;try{if(!audTr.paused)audTr.pause();}catch(e){}document.body.classList.remove('ur-aud-playing');}
+function stopUrAudio(){_urAudNext=null;_segBusy=false;try{if(!audTr.paused)audTr.pause();}catch(e){}document.body.classList.remove('ur-aud-playing');}
 function playUrAudio(s,a,next){
   try{
     const u=UR_AUD_URL(s,a);
@@ -3097,16 +3097,117 @@ audTr.addEventListener('error',()=>{const n=_urAudNext;if(!n)return;stopUrAudio(
 function syncUrAudBtn(){
   const b=document.getElementById('urAudBtn');if(!b)return;
   b.textContent=UR_AUD?'🔊':'🔇';b.classList.toggle('on',UR_AUD);
-  b.disabled=!!SHAKIR;b.title=SHAKIR?'مکمل سورت والے قاری کے ساتھ آیت وار ترجمہ ممکن نہیں':'ہر آیت کے بعد اردو ترجمہ آواز میں';
+  const blocked=!!SHAKIR&&CQ!=='shaker';
+  b.disabled=blocked;b.title=blocked?'مکمل سورت والے قاری کے ساتھ آیت وار ترجمہ ممکن نہیں':'ہر آیت کے بعد اردو ترجمہ آواز میں';
 }
 function toggleUrAudio(){
-  if(SHAKIR){showToast('یہ قاری مکمل سورت والے ہیں — اردو آواز آیت وار قاری کے ساتھ چلتی ہے');return;}
+  if(SHAKIR&&CQ!=='shaker'){showToast('یہ قاری مکمل سورت والے ہیں — اردو آواز آیت وار قاری کے ساتھ چلتی ہے');return;}
+  if(SHAKIR&&!SEG_TRIAL.includes(St.s))showToast('شاکر قاسمی صاحب کے ساتھ آزمائشی طور پر صرف ان سورتوں میں: '+SEG_TRIAL.map(n=>SH[n-1].ar).join('، '));
   UR_AUD=!UR_AUD;try{localStorage.setItem('hfzUrAud',UR_AUD?'1':'0');}catch(e){}
   if(!UR_AUD)stopUrAudio();
   syncUrAudBtn();
   showToast(UR_AUD?'🔊 اردو آڈیو ترجمہ آن — ہر آیت کے بعد ترجمہ سنائی دے گا':'🔇 اردو آڈیو ترجمہ بند');
 }
 window.addEventListener('load',()=>setTimeout(syncUrAudBtn,500));
+// ══ شاکر قاسمی صاحب — مکمل سورت کو آیتوں میں بانٹنا (آزمائشی، HFZ1610FR029) ══
+// سورت کی آواز میں وقفے ڈھونڈ کر، عربی متن کی لمبائی کے حساب سے ہر آیت کی جگہ طے کی جاتی ہے
+const SEG_TRIAL=[1,36,55,56,67,78,112,113,114];
+let SEG=null,_segCur=0,_segBusy=false,_segWorking=0;
+function _arLetters(s,a){const t=(QAR[s+'_'+a]||'').replace(/[ً-ٰٟۖ-ۭـ]/g,'').replace(/[^ء-يٱ-ۓ]/g,'');return Math.max(3,t.length);}
+async function _segSurahBuf(s){
+  const q=QARIS.shaker,us=[q.url(s),q.alt(s)];
+  for(const u of us){try{const c=await caches.open(CACHE);const m=await c.match(u);if(m)return await m.arrayBuffer();}catch(e){}}
+  for(const u of us){try{const r=await fetch(u,{mode:'cors'});if(r.ok)return await r.arrayBuffer();}catch(e){}}
+  return null;
+}
+function _segCompute(data,sr,s){
+  const N=SH[s-1].a,F=Math.round(sr*0.02),nf=Math.floor(data.length/F),en=new Float32Array(nf);
+  for(let i=0;i<nf;i++){let x=0;for(let j=i*F,k=j+F;j<k;j++)x+=data[j]*data[j];en[i]=Math.sqrt(x/F);}
+  const so=Array.from(en).sort((a,b)=>a-b),lo=so[Math.floor(nf*0.08)],hi=so[Math.floor(nf*0.7)],thr=lo+(hi-lo)*0.12;
+  let first=0;while(first<nf&&en[first]<thr)first++;let last=nf-1;while(last>0&&en[last]<thr)last--;
+  const cands=[];let i=first;
+  while(i<=last){if(en[i]<thr){let j=i;while(j<=last&&en[j]<thr)j++;const len=(j-i)*0.02;if(len>=0.22)cands.push({a:i*0.02,b:j*0.02,m:(i+j)*0.01,len});i=j;}else i++;}
+  const T0s=[first*0.02],TE=(last+1)*0.02;
+  for(const c of cands){if(c.m<35&&T0s.length<5)T0s.push(c.b);}
+  const L=[];let sumL=0;for(let a=1;a<=N;a++){const l=_arLetters(s,a);L.push(l);sumL+=l;}
+  let best=null;
+  for(const T0 of T0s){
+    const rate=(TE-T0)/sumL;
+    const C=cands.filter(c=>c.m>T0+0.3&&c.m<TE-0.3),M=C.length;
+    if(M<N-1)continue;
+    const segCost=(d,e,bonus)=>{const r=(d-e)/(e+1.5);return r*r-0.35*Math.min(bonus,1.2);};
+    // dp[i][j]: آیت i (0 سے) کا اختتام وقفہ j پر
+    let prev=new Float64Array(M).fill(Infinity);const back=[];
+    for(let j=0;j<M;j++){const d=C[j].m-T0;const e=rate*L[0];if(d<e*3+4)prev[j]=segCost(d,e,C[j].len);}
+    back.push(null);
+    for(let ai=1;ai<N-1;ai++){
+      const cur=new Float64Array(M).fill(Infinity),bk=new Int32Array(M).fill(-1),e=rate*L[ai];
+      for(let j=ai;j<M;j++){
+        for(let k=j-1;k>=ai-1;k--){const d=C[j].m-C[k].m;if(d>e*3+4)break;if(prev[k]===Infinity)continue;
+          const v=prev[k]+segCost(d,e,C[j].len);if(v<cur[j]){cur[j]=v;bk[j]=k;}}
+      }
+      back.push(bk);prev=cur;
+    }
+    let tot=Infinity,jl=-1;
+    if(N===1){tot=segCost(TE-T0,rate*L[0],0);}
+    else for(let j=0;j<M;j++){if(prev[j]===Infinity)continue;const v=prev[j]+segCost(TE-C[j].m,rate*L[N-1],0);if(v<tot){tot=v;jl=j;}}
+    if(tot===Infinity)continue;
+    if(!best||tot<best.tot){
+      const bj=new Array(N-1);let j=jl;for(let ai=N-2;ai>=0;ai--){bj[ai]=j;if(ai>0)j=back[ai][j];}
+      const segs=[];for(let a=0;a<N;a++){const st=a===0?Math.max(0,T0-0.15):C[bj[a-1]].b-0.12;const enT=a===N-1?TE+0.25:C[bj[a]].a+0.12;segs.push({st:+st.toFixed(2),en:+enT.toFixed(2)});}
+      best={tot,segs};
+    }
+  }
+  return best&&best.segs;
+}
+async function segEnsure(s){
+  if(SEG&&SEG.s===s)return true;
+  try{const sv=JSON.parse(localStorage.getItem('hfzSeg_shaker_'+s)||'null');if(sv&&sv.length===SH[s-1].a){SEG={s,a:sv};return true;}}catch(e){}
+  if(_segWorking===s)return false;_segWorking=s;
+  showToast('⏳ آزمائشی: سورت کو آیتوں میں بانٹا جا رہا ہے…');
+  try{
+    const buf=await _segSurahBuf(s);if(!buf)throw new Error('nobuf');
+    const OC=window.OfflineAudioContext||window.webkitOfflineAudioContext;
+    const ab=await new Promise((res,rej)=>{const c=new OC(1,1,8000);const p=c.decodeAudioData(buf,res,rej);if(p&&p.then)p.then(res,rej);});
+    const segs=_segCompute(ab.getChannelData(0),ab.sampleRate,s);
+    if(!segs)throw new Error('noseg');
+    try{localStorage.setItem('hfzSeg_shaker_'+s,JSON.stringify(segs));}catch(e){}
+    if(St.s===s){SEG={s,a:segs};_segCur=-1;}
+    showToast('✓ آیتیں الگ ہو گئیں (آزمائشی) — ہر آیت کے بعد رکے گا');
+    return true;
+  }catch(e){showToast('⚠ اس سورت کو آیتوں میں نہیں بانٹا جا سکا — پوری سورت چلے گی');return false;}
+  finally{_segWorking=0;}
+}
+function _segWanted(){return SHAKIR&&CQ==='shaker'&&SEG_TRIAL.includes(St.s)&&(UR_AUD||St.rr);}
+function _segIdxAt(t){const A=SEG.a;for(let i=0;i<A.length;i++)if(t<A[i].en)return i;return A.length-1;}
+setInterval(()=>{
+  if(!_segWanted()){return;}
+  if(!SEG||SEG.s!==St.s){if(!aud.paused)segEnsure(St.s);return;}
+  if(aud.paused||_segBusy)return;
+  const A=SEG.a,N=A.length,t=aud.currentTime;
+  if(_segCur===N){if(t<A[N-1].en-0.6)_segCur=-1;else return;}// سورت مکمل — آخر تک خود چلے
+  if(_segCur<0||_segCur>N||t<A[_segCur].st-1.2||t>A[_segCur].en+1.2){
+    _segCur=_segIdxAt(t);
+    if(St.rr&&(_segCur+1<St.fr||_segCur+1>St.to)){_segCur=Math.max(0,St.fr-1);aud.currentTime=A[_segCur].st;}
+    if(St.a!==_segCur+1)loadA(St.s,_segCur+1,false,true);
+    return;
+  }
+  if(t<A[_segCur].en)return;
+  const A1=_segCur+1;
+  if(A1>=N&&!St.rr&&!UR_AUD)return;
+  aud.pause();_segBusy=true;
+  const go=()=>{
+    _segBusy=false;
+    let nx;
+    if(St.rr)nx=(A1>=St.to||A1<St.fr)?St.fr:A1+1;else nx=A1+1;
+    if(nx>N){_segCur=N;aud.play().catch(()=>{});return;}// سورت کا آخر — باقی خود ختم ہو
+    _segCur=nx-1;aud.currentTime=A[_segCur].st;
+    loadA(St.s,nx,false,true);
+    aud.play().catch(()=>{});
+  };
+  if(UR_AUD)playUrAudio(St.s,A1,go);else go();
+},100);
+
 let curBlobUrl=null;
 
 aud.addEventListener('error',()=>{
@@ -3332,8 +3433,8 @@ async function getAyah(s,a){
 }
 
 // ══ LOAD AYAH ══
-async function loadA(s,a,play=false){
-  stopUrAudio();
+async function loadA(s,a,play=false,viewOnly=false){
+  if(!viewOnly)stopUrAudio();
   St.s=s;St.a=a;
   const sh=SH[s-1];
   const _tbS=document.getElementById('tbSurah');if(_tbS)_tbS.textContent=sh.ar;
@@ -3367,6 +3468,7 @@ async function loadA(s,a,play=false){
     document.getElementById('trTag').textContent=_tr?('ترجمہ: '+_tr.name+' ● قرآن متن آف لائن'):'ترجمہ دستیاب نہیں';
   }
   updTrCredit();
+  if(viewOnly)return;
   if(curBlobUrl){URL.revokeObjectURL(curBlobUrl);curBlobUrl=null;}
   aud.dataset.ua='';
   const {url,offline}=await smartUrl(s,a);
@@ -5569,8 +5671,8 @@ function plOnEnded(){
 // ── ورژن کوڈ کا قاعدہ (مالک کی ہدایت): HFZ + تاریخ + مہینہ + دن کے دو حروف + تین ہندسوں کا سیریل ──
 //    مثال: HFZ610TU018 = 6 اکتوبر، منگل (TU)، سیریل 012 — اگلا ورژن 013، پھر 014، 015… (سیریل کبھی دوبارہ شروع نہیں ہوتا)
 //    دن: MO پیر، TU منگل، WE بدھ، TH جمعرات، FR جمعہ، SA ہفتہ، SU اتوار — زِپ کا نام بھی یہی: HFZ610TU018.zip
-const APP_VERSION='HFZ1610FR028';
-const APP_VERSION_DISPLAY='HFZ1610FR028';
+const APP_VERSION='HFZ1610FR029';
+const APP_VERSION_DISPLAY='HFZ1610FR029';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
