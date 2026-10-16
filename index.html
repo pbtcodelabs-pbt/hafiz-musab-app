@@ -1944,7 +1944,7 @@ body.dlb-on #toast{bottom:118px}
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">HFZ1610FR022</span>
+    <span class="ver-code" id="splashVerCode">HFZ1610FR023</span>
   </div>
 </div>
 
@@ -2749,6 +2749,16 @@ const JUNAGARHI_FATIHA={
   "1_6":"ہمیں سیدھی (اور سچی) راہ دکھا۔",
   "1_7":"ان لوگوں کی راہ جن پر تو نے انعام کیا، ان کی نہیں جن پر غضب کیا گیا اور نہ گمراہوں کی۔"
 };
+// مفتی محمد تقی عثمانی صاحب — آسان ترجمۂ قرآن (فاتحہ پہلے سے، باقی مکمل ترجمہ آن لائن سے ایک بار، پھر آف لائن)
+const TAQIUSMANI_FATIHA={
+  "1_1":"شروع اللہ کے نام سے جو سب پر مہربان ہے، بہت مہربان ہے",
+  "1_2":"تمام تعریفیں اللہ کی ہیں جو تمام جہانوں کا پروردگار ہے",
+  "1_3":"جو سب پر مہربان ہے، بہت مہربان ہے",
+  "1_4":"جو روز جزاء کا مالک ہے",
+  "1_5":"(اے اللہ) ہم تیری ہی عبادت کرتے ہیں اور تجھی سے مدد مانگتے ہیں",
+  "1_6":"ہمیں سیدھے راستے کی ہدایت عطا فرما",
+  "1_7":"ان لوگوں کے راستے کی جن پر تو نے انعام کیا نہ کہ ان لوگوں کے راستے کی جن پر غضب نازل ہوا ہے اور نہ ان کے راستے کی جو بھٹکے ہوئے ہیں۔"
+};
 // Sahih International (انگریزی) — ماخذ: Tanzil Project (Creative Commons Attribution 3.0، مکمل فری)
 const SAHIH_EN_FATIHA={
   "1_1":"In the name of Allah, the Entirely Merciful, the Especially Merciful.",
@@ -2761,6 +2771,7 @@ const SAHIH_EN_FATIHA={
 };
 const TRANSLATORS=[
   {id:'jalandhari', name:'مولانا فتح محمد جالندھری صاحب', lang:'ur', data:QUR},
+  {id:'taqiusmani', name:'مفتی تقی عثمانی صاحب (آسان ترجمہ)', lang:'ur', data:Object.assign({},TAQIUSMANI_FATIHA), fullSrc:'taqiusmani'},
   {id:'junagarhi', name:'مولانا محمد جوناگڑھی صاحب', lang:'ur', data:Object.assign({},JUNAGARHI_FATIHA), apiId:'ur.junagarhi', fullSrc:'junagarhi'},
   {id:'maududi', name:'مولانا سید ابوالاعلیٰ مودودی صاحب', lang:'ur', data:{}, apiId:'ur.maududi', fullSrc:'maududi'},
   {id:'ahmedraza', name:'اعلیٰ حضرت مولانا احمد رضا خان بریلوی صاحب (کنزالایمان)', lang:'ur', data:{}, apiId:'ur.kanzuliman', fullSrc:'ahmedraza'},
@@ -3132,6 +3143,8 @@ async function fetchOnlineAyahTr(tr,s,a){
 const FULL_TR_CACHE='hfz-tr-v1';
 // ماخذ ترتیب: alquran.cloud (پورا ایڈیشن ایک درخواست میں) ← fawazahmed0 ← quran.com
 const FULL_TR_SOURCES={
+  taqiusmani:{label:'مفتی محمد تقی عثمانی صاحب (آسان ترجمۂ قرآن)',
+    fawazNames:['urd-muhammadtaqiusm'],fawazMatch:a=>/taqi/i.test(a)&&/usm/i.test(a)},
   mahmoodhassan:{label:'شیخ الہند مولانا محمود الحسن صاحب',
     fawazNames:['urd-mahmoodulhassan'],fawazMatch:a=>/mahm[ou]+d/i.test(a)&&/has+an/i.test(a),qcomId:151},
   junagarhi:{label:'مولانا محمد جوناگڑھی صاحب',acId:'ur.junagarhi',
@@ -5497,8 +5510,8 @@ function plOnEnded(){
 // ── ورژن کوڈ کا قاعدہ (مالک کی ہدایت): HFZ + تاریخ + مہینہ + دن کے دو حروف + تین ہندسوں کا سیریل ──
 //    مثال: HFZ610TU018 = 6 اکتوبر، منگل (TU)، سیریل 012 — اگلا ورژن 013، پھر 014، 015… (سیریل کبھی دوبارہ شروع نہیں ہوتا)
 //    دن: MO پیر، TU منگل، WE بدھ، TH جمعرات، FR جمعہ، SA ہفتہ، SU اتوار — زِپ کا نام بھی یہی: HFZ610TU018.zip
-const APP_VERSION='HFZ1610FR022';
-const APP_VERSION_DISPLAY='HFZ1610FR022';
+const APP_VERSION='HFZ1610FR023';
+const APP_VERSION_DISPLAY='HFZ1610FR023';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
