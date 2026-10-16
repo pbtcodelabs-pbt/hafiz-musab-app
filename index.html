@@ -1856,6 +1856,12 @@ body.dlb-on #toast{bottom:118px}
 /* ══ مترجم کا شکریہ — ڈبے کے نیچے بائیں کونے میں ٹکا ہوا (HFZ1610FR025) ══ */
 .tr-credit{flex-shrink:0;text-align:left;padding:0 12px 1px;pointer-events:none;white-space:nowrap;
   font-family:'Jameel-Noori.N','JN',serif;font-size:10px;font-weight:700;color:#64748b;opacity:.85;line-height:1.5}
+/* ══ اردو آڈیو ترجمہ بٹن (HFZ1610FR028) ══ */
+.tr-sel-col.tr-aud-col{flex:0 0 50px!important;max-width:50px!important;min-width:0!important}
+.tr-aud-btn{width:100%;height:100%;min-height:30px;border-radius:8px;border:1px solid rgba(var(--acR),0.4);background:rgba(255,255,255,0.06);font-size:17px;cursor:pointer;color:inherit;padding:0}
+.tr-aud-btn.on{background:linear-gradient(145deg,#16a34a,#15803d);border-color:#fde047;box-shadow:0 0 8px rgba(253,224,71,.6)}
+.tr-aud-btn:disabled{opacity:.4}
+body.ur-aud-playing .tr-aud-btn.on{animation:qariGlowPulse 1.1s ease-in-out infinite}
 </style>
 </head>
 <body>
@@ -1947,7 +1953,7 @@ body.dlb-on #toast{bottom:118px}
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">HFZ1610FR027</span>
+    <span class="ver-code" id="splashVerCode">HFZ1610FR028</span>
   </div>
 </div>
 
@@ -2093,6 +2099,10 @@ body.dlb-on #toast{bottom:118px}
     <div class="tr-sel-col">
       <select id="mutarjimSelect" class="tr-sel" dir="rtl" onchange="onMutarjimChange(this.value)"></select>
       <span class="hint-cap hint-legend">مترجم یہاں سے منتخب کریں</span>
+    </div>
+    <div class="tr-sel-col tr-aud-col">
+      <button id="urAudBtn" class="tr-aud-btn" onclick="toggleUrAudio()" title="ہر آیت کے بعد اردو ترجمہ آواز میں">🔇</button>
+      <span class="hint-cap hint-legend">اردو آواز</span>
     </div>
   </div>
 
@@ -3066,6 +3076,37 @@ function updateZoomCornerVisibility(){
 // ══ STATE ══
 const St={s:1,a:1,fr:1,to:7,pl:false,spd:1,ar:false,rr:false};
 const aud=document.getElementById('aud');
+// ══ اردو آڈیو ترجمہ — آیت وار (شمشاد علی خان صاحب کی آواز، everyayah.com) (HFZ1610FR028) ══
+const UR_AUD_URL=(s,a)=>`https://everyayah.com/data/translations/urdu_shamshad_ali_khan_46kbps/${p3(s)}${p3(a)}.mp3`;
+let UR_AUD=false;try{UR_AUD=localStorage.getItem('hfzUrAud')==='1';}catch(e){}
+const audTr=new Audio();audTr.preload='auto';audTr.setAttribute('playsinline','');
+let _urAudNext=null;
+function stopUrAudio(){_urAudNext=null;try{if(!audTr.paused)audTr.pause();}catch(e){}document.body.classList.remove('ur-aud-playing');}
+function playUrAudio(s,a,next){
+  try{
+    const u=UR_AUD_URL(s,a);
+    if(audTr.dataset.u!==u){audTr.src=u;audTr.dataset.u=u;}
+    else audTr.currentTime=0;
+    _urAudNext=next;document.body.classList.add('ur-aud-playing');
+    audTr.play().catch(()=>{const n=_urAudNext;stopUrAudio();if(n)n();});
+    return true;
+  }catch(e){return false;}
+}
+audTr.addEventListener('ended',()=>{const n=_urAudNext;stopUrAudio();if(n)n();});
+audTr.addEventListener('error',()=>{const n=_urAudNext;if(!n)return;stopUrAudio();showToast('⚠ اردو آواز لوڈ نہیں ہوسکی — اگلی آیت');n();});
+function syncUrAudBtn(){
+  const b=document.getElementById('urAudBtn');if(!b)return;
+  b.textContent=UR_AUD?'🔊':'🔇';b.classList.toggle('on',UR_AUD);
+  b.disabled=!!SHAKIR;b.title=SHAKIR?'مکمل سورت والے قاری کے ساتھ آیت وار ترجمہ ممکن نہیں':'ہر آیت کے بعد اردو ترجمہ آواز میں';
+}
+function toggleUrAudio(){
+  if(SHAKIR){showToast('یہ قاری مکمل سورت والے ہیں — اردو آواز آیت وار قاری کے ساتھ چلتی ہے');return;}
+  UR_AUD=!UR_AUD;try{localStorage.setItem('hfzUrAud',UR_AUD?'1':'0');}catch(e){}
+  if(!UR_AUD)stopUrAudio();
+  syncUrAudBtn();
+  showToast(UR_AUD?'🔊 اردو آڈیو ترجمہ آن — ہر آیت کے بعد ترجمہ سنائی دے گا':'🔇 اردو آڈیو ترجمہ بند');
+}
+window.addEventListener('load',()=>setTimeout(syncUrAudBtn,500));
 let curBlobUrl=null;
 
 aud.addEventListener('error',()=>{
@@ -3088,7 +3129,12 @@ aud.addEventListener('timeupdate',()=>{
   const _pt=document.getElementById('posTime');if(_pt)_pt.textContent=fmt(aud.currentTime);
   const _dt=document.getElementById('durTime');if(_dt)_dt.textContent=fmt(aud.duration);
 });
-aud.addEventListener('ended',()=>{if(St.ar){aud.currentTime=0;aud.play().catch(()=>{});}else if(typeof plOnEnded==='function'&&plOnEnded()){}else nextA(true);});
+function _afterAyahEnded(){if(St.ar){aud.currentTime=0;aud.play().catch(()=>{});}else if(typeof plOnEnded==='function'&&plOnEnded()){}else nextA(true);}
+aud.addEventListener('ended',()=>{
+  // اردو آڈیو ترجمہ آن ہو تو: عربی آیت کے بعد اسی آیت کا اردو ترجمہ آواز میں، پھر اگلی آیت/ریپیٹ (HFZ1610FR028)
+  if(UR_AUD&&!SHAKIR&&playUrAudio(St.s,St.a,_afterAyahEnded))return;
+  _afterAyahEnded();
+});
 aud.addEventListener('play',()=>{
   _initAudioCtx();
   if(_actx&&_actx.state==='suspended')_actx.resume().catch(()=>{});
@@ -3287,6 +3333,7 @@ async function getAyah(s,a){
 
 // ══ LOAD AYAH ══
 async function loadA(s,a,play=false){
+  stopUrAudio();
   St.s=s;St.a=a;
   const sh=SH[s-1];
   const _tbS=document.getElementById('tbSurah');if(_tbS)_tbS.textContent=sh.ar;
@@ -3360,8 +3407,8 @@ document.addEventListener('click',e=>{
   const wrap=document.querySelector('.unified-share-wrap');
   if(wrap&&!wrap.contains(e.target))closeShareMenu();
 });
-function togPlay(){if(aud.paused){aud.play().catch(()=>{});}else{St.pl=false;aud.pause();}}
-function stopPlayback(){St.pl=false;St.rr=false;aud.pause();aud.currentTime=0;showToast('⏹ روک دی گئی');}
+function togPlay(){if(audTr&&!audTr.paused){St.pl=false;stopUrAudio();return;}if(aud.paused){aud.play().catch(()=>{});}else{St.pl=false;aud.pause();}}
+function stopPlayback(){St.pl=false;St.rr=false;stopUrAudio();aud.pause();aud.currentTime=0;showToast('⏹ روک دی گئی');}
 function prevA(){if(St.a>St.fr)loadA(St.s,St.a-1,St.pl);else loadA(St.s,St.fr,St.pl);}
 function nextA(auto=false){
   if(St.rr){if(St.a<St.to)loadA(St.s,St.a+1,true);else loadA(St.s,St.fr,true);}
@@ -3446,7 +3493,7 @@ function populateQariDropdown(){
   });
 }
 function setQari(k){
-  CQ=k;const q=QARIS[k];SHAKIR=q.mode==='surah';
+  CQ=k;const q=QARIS[k];SHAKIR=q.mode==='surah';try{if(SHAKIR)stopUrAudio();syncUrAudBtn();}catch(e){}
   document.querySelectorAll('.qc').forEach(b=>b.classList.remove('active'));
   const ids={afasy:'qAfasy',sudais:'qSudais',basit:'qBasit',maher:'qMaher',
     husary:'qHusary',ghamdi:'qGhamdi',minsh:'qMinsh',hani:'qHani',ayyub:'qAyyub',
@@ -5522,8 +5569,8 @@ function plOnEnded(){
 // ── ورژن کوڈ کا قاعدہ (مالک کی ہدایت): HFZ + تاریخ + مہینہ + دن کے دو حروف + تین ہندسوں کا سیریل ──
 //    مثال: HFZ610TU018 = 6 اکتوبر، منگل (TU)، سیریل 012 — اگلا ورژن 013، پھر 014، 015… (سیریل کبھی دوبارہ شروع نہیں ہوتا)
 //    دن: MO پیر، TU منگل، WE بدھ، TH جمعرات، FR جمعہ، SA ہفتہ، SU اتوار — زِپ کا نام بھی یہی: HFZ610TU018.zip
-const APP_VERSION='HFZ1610FR027';
-const APP_VERSION_DISPLAY='HFZ1610FR027';
+const APP_VERSION='HFZ1610FR028';
+const APP_VERSION_DISPLAY='HFZ1610FR028';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
