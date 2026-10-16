@@ -1953,7 +1953,7 @@ body.ur-aud-playing .tr-aud-btn.on{animation:qariGlowPulse 1.1s ease-in-out infi
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">HFZ1610FR029</span>
+    <span class="ver-code" id="splashVerCode">HFZ1610FR030</span>
   </div>
 </div>
 
@@ -5671,8 +5671,8 @@ function plOnEnded(){
 // ── ورژن کوڈ کا قاعدہ (مالک کی ہدایت): HFZ + تاریخ + مہینہ + دن کے دو حروف + تین ہندسوں کا سیریل ──
 //    مثال: HFZ610TU018 = 6 اکتوبر، منگل (TU)، سیریل 012 — اگلا ورژن 013، پھر 014، 015… (سیریل کبھی دوبارہ شروع نہیں ہوتا)
 //    دن: MO پیر، TU منگل، WE بدھ، TH جمعرات، FR جمعہ، SA ہفتہ، SU اتوار — زِپ کا نام بھی یہی: HFZ610TU018.zip
-const APP_VERSION='HFZ1610FR029';
-const APP_VERSION_DISPLAY='HFZ1610FR029';
+const APP_VERSION='HFZ1610FR030';
+const APP_VERSION_DISPLAY='HFZ1610FR030';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
@@ -6446,11 +6446,20 @@ var VT=(function(){
   .hup-ok:active{transform:translateY(3px);box-shadow:0 0 0 2px #fff,0 2px 0 #a16207}`;
   function css(){if(document.getElementById('hupCss'))return;const st=document.createElement('style');st.id='hupCss';st.textContent=CSS;document.head.appendChild(st);}
   let bar=null,shownAt=0;
-  function setNewV(nv){const el=bar&&bar.querySelector('#hupNew');if(el&&nv)el.textContent=nv;}
   async function fetchNewV(){
-    try{const t=await (await fetch('./sw.js?t='+Date.now(),{cache:'no-store'})).text();const m=/VERSION\s*=\s*'([^']+)'/.exec(t);if(m)setNewV(m[1]);}catch(e){}
+    try{const t=await (await fetch('./sw.js?t='+Date.now(),{cache:'no-store'})).text();const m=/VERSION\s*=\s*'([^']+)'/.exec(t);return m?m[1]:'';}catch(e){return '';}
   }
-  function showBar(){
+  function hideBar(){if(bar){bar.remove();bar=null;}}
+  // نیا ورژن واقعی مختلف ہو تب ہی پٹی (اسی ورژن کا پس منظر انسٹال ہو تو کچھ نہ دکھائیں) — HFZ1610FR030
+  async function maybeShowBar(w){
+    const nv=await fetchNewV();
+    if(nv&&nv===V)return;// یہ صفحہ پہلے ہی نیا ہے
+    showBar(nv);
+    const done=()=>{if(reloading)return;if(navigator.serviceWorker.controller&&nv&&nv!==V){reloading=true;setTimeout(()=>location.reload(),600);}else hideBar();};
+    if(w)w.addEventListener('statechange',()=>{if(w.state==='redundant')hideBar();else if(w.state==='activated')setTimeout(done,1500);});
+    setTimeout(()=>{if(bar&&!reloading)done();},30000);// حفاظتی حد: پٹی کبھی اٹکی نہ رہے
+  }
+  function showBar(nv){
     if(bar||!document.body)return;css();shownAt=Date.now();
     bar=document.createElement('div');bar.className='hup-bar';bar.setAttribute('role','status');
     bar.innerHTML='<svg class="hup-glass" viewBox="0 0 40 60" aria-hidden="true">'+
@@ -6471,8 +6480,8 @@ var VT=(function(){
       '<rect x="3" y="1.5" width="34" height="5" rx="2" fill="url(#hgWood)" stroke="#713f12" stroke-width=".6"/>'+
       '<rect x="3" y="53.5" width="34" height="5" rx="2" fill="url(#hgWood)" stroke="#713f12" stroke-width=".6"/>'+
       '</svg><span><b>نئی اپڈیٹ آ رہی ہے</b><small>براہِ کرم انتظار فرمائیں — فی الحال ایپ میں کام روک دیں</small>'+
-      '<span class="hup-v"><i>پرانا ورژن <code>'+(V||'—')+'</code></i><i>نیا ورژن <code id="hupNew">…</code></i></span></span>';
-    document.body.appendChild(bar);fetchNewV();
+      '<span class="hup-v"><i>پرانا ورژن <code>'+(V||'—')+'</code></i><i>نیا ورژن <code id="hupNew">'+(nv||'…')+'</code></i></span></span>';
+    document.body.appendChild(bar);
   }
   function showDone(oldV){
     css();
@@ -6486,7 +6495,7 @@ var VT=(function(){
     ov.addEventListener('click',e=>{if(e.target===ov)close();});
     document.body.appendChild(ov);
   }
-  window.hfzUpdateDemo=function(step){if(step==='done')showDone('HFZ1610FR025');else showBar();}; // جانچ کے لیے
+  window.hfzUpdateDemo=function(step){if(step==='done')showDone('HFZ1610FR025');else showBar('HFZ—');}; // جانچ کے لیے
   function checkSeen(){
     let old='';try{old=localStorage.getItem(KEY)||'';localStorage.setItem(KEY,V);}catch(e){}
     if(old&&V&&old!==V)showDone(old);
@@ -6498,14 +6507,15 @@ var VT=(function(){
   let reloading=false;
   navigator.serviceWorker.addEventListener('controllerchange',()=>{
     if(!hadController||reloading)return;
-    reloading=true;showBar();
-    // پٹی کم از کم ڈھائی سیکنڈ نظر آئے، پھر ایپ تازہ
+    // صرف تب تازہ کریں جب پٹی دکھ رہی ہو (یعنی واقعی نیا ورژن)؛ کم از کم ڈھائی سیکنڈ نظر آئے
+    if(!bar)return;
+    reloading=true;
     setTimeout(()=>location.reload(),Math.max(600,2500-(Date.now()-shownAt)));
   });
   window.addEventListener('load',()=>{
     navigator.serviceWorker.getRegistration().then(reg=>{
       if(!reg)return;
-      const watch=w=>{if(w&&hadController)showBar();};
+      const watch=w=>{if(w&&hadController)maybeShowBar(w);};
       if(reg.installing)watch(reg.installing);
       reg.addEventListener('updatefound',()=>watch(reg.installing));
       const check=()=>{if(!document.hidden)reg.update().catch(()=>{});};
