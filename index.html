@@ -1947,7 +1947,7 @@ body.dlb-on #toast{bottom:118px}
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">HFZ1610FR025</span>
+    <span class="ver-code" id="splashVerCode">HFZ1610FR026</span>
   </div>
 </div>
 
@@ -5522,8 +5522,8 @@ function plOnEnded(){
 // ── ورژن کوڈ کا قاعدہ (مالک کی ہدایت): HFZ + تاریخ + مہینہ + دن کے دو حروف + تین ہندسوں کا سیریل ──
 //    مثال: HFZ610TU018 = 6 اکتوبر، منگل (TU)، سیریل 012 — اگلا ورژن 013، پھر 014، 015… (سیریل کبھی دوبارہ شروع نہیں ہوتا)
 //    دن: MO پیر، TU منگل، WE بدھ، TH جمعرات، FR جمعہ، SA ہفتہ، SU اتوار — زِپ کا نام بھی یہی: HFZ610TU018.zip
-const APP_VERSION='HFZ1610FR025';
-const APP_VERSION_DISPLAY='HFZ1610FR025';
+const APP_VERSION='HFZ1610FR026';
+const APP_VERSION_DISPLAY='HFZ1610FR026';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
@@ -6250,6 +6250,120 @@ var VT=(function(){
   }
   window.vtHandleText=function(t){openPanel();setHeard(t);handle([t]);}; // جانچ/ٹیسٹ کے لیے
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',build);else build();
+})();
+</script>
+<script>
+/* ══ اپڈیٹ کی اطلاع (HFZ1610FR026) — نیا ورژن اترے تو اوپر سرخ پٹی + گھومتی ریت گھڑی؛
+   مکمل ہو کر ایپ تازہ ہو تو پرانا → نیا ورژن اور "ٹھیک ہے" بٹن ══ */
+(function(){
+  const V=(typeof APP_VERSION!=='undefined')?APP_VERSION:'';
+  const KEY='hfz-seen-version';
+  const CSS=`
+  .hup-bar{position:fixed;left:0;right:0;top:0;z-index:2147483000;display:flex;align-items:center;justify-content:center;gap:12px;
+    padding:calc(8px + env(safe-area-inset-top)) 14px 8px;background:linear-gradient(180deg,#7f1d1d,#dc2626);color:#fff;
+    border-bottom:3px solid #fde047;box-shadow:0 6px 18px rgba(0,0,0,.5);direction:rtl;text-align:center;animation:hupIn .35s ease both}
+  .hup-bar b{display:block;font-family:'Jameel-Noori.K','Jameel-Noori.N','JN',serif;font-weight:400;font-size:21px;line-height:1.75;color:#fde047;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+  .hup-bar small{display:block;font-family:'Jameel-Noori.N','JN',serif;font-size:14px;line-height:1.8;color:#fef9c3}
+  .hup-bar .hup-v{display:flex;gap:6px 12px;justify-content:center;flex-wrap:wrap;margin-top:2px;font-family:'Jameel-Noori.N','JN',serif;font-size:12px;color:#fef08a}
+  .hup-bar .hup-v i{font-style:normal;white-space:nowrap}
+  .hup-bar .hup-v code{font:700 11px ui-monospace,Menlo,Consolas,monospace;direction:ltr;background:rgba(0,0,0,.25);border-radius:6px;padding:1px 6px;color:#fff}
+  .hup-glass{flex:none;width:36px;height:54px;overflow:visible;filter:drop-shadow(0 3px 4px rgba(0,0,0,.5));transform-origin:50% 50%;animation:hgFlip 4.5s ease-in-out infinite}
+  .hup-glass .hg-top,.hup-glass .hg-bot{transform-box:fill-box;transform-origin:50% 100%}
+  .hup-glass .hg-top{animation:hgTop 4.5s linear infinite}
+  .hup-glass .hg-bot{animation:hgBot 4.5s linear infinite}
+  .hup-glass .hg-flow{animation:hgFlow 4.5s linear infinite}
+  .hup-glass .hg-gr{animation:hgGrain .55s linear infinite}
+  .hup-glass .hg-gr:nth-child(2){animation-delay:-.18s}.hup-glass .hg-gr:nth-child(3){animation-delay:-.36s}
+  @keyframes hgTop{0%{transform:scaleY(1)}80%,100%{transform:scaleY(0)}}
+  @keyframes hgBot{0%{transform:scaleY(0)}80%,100%{transform:scaleY(1)}}
+  @keyframes hgFlow{0%,77%{opacity:1}81%,100%{opacity:0}}
+  @keyframes hgGrain{from{transform:translateY(0);opacity:1}to{transform:translateY(21px);opacity:.5}}
+  @keyframes hgFlip{0%,83%{transform:rotate(0)}100%{transform:rotate(180deg)}}
+  @keyframes hupIn{from{transform:translateY(-100%)}to{transform:none}}
+  .hup-ov{position:fixed;inset:0;z-index:2147483001;display:grid;place-items:center;padding:20px;background:rgba(2,20,12,.65);direction:rtl;animation:hupFade .3s ease both}
+  @keyframes hupFade{from{opacity:0}to{opacity:1}}
+  .hup-card{width:100%;max-width:340px;text-align:center;padding:20px 18px 18px;border-radius:24px;color:#14532d;font-family:'Jameel-Noori.N','JN',serif;
+    background:linear-gradient(180deg,#fff,#fbf4e2 45%,#efe0bb);box-shadow:0 0 0 3px #dc2626,0 10px 0 #7f1d1d,0 24px 40px rgba(0,0,0,.5);animation:hupPop .45s cubic-bezier(.2,1.4,.4,1) both}
+  @keyframes hupPop{from{transform:scale(.7);opacity:0}to{transform:none;opacity:1}}
+  .hup-card .ic{font-size:46px;line-height:1.2}
+  .hup-card h3{font-family:'Jameel-Noori.K','Jameel-Noori.N','JN',serif;font-weight:400;font-size:25px;line-height:1.8;margin:4px 0 8px}
+  .hup-vv{display:grid;gap:8px;margin:6px 0 14px}
+  .hup-vv div{display:flex;align-items:center;justify-content:space-between;gap:10px;border-radius:14px;padding:4px 14px;font-size:16px;line-height:1.9}
+  .hup-vv .o{background:#fee2e2;color:#7f1d1d}
+  .hup-vv .n{background:linear-gradient(180deg,#16a34a,#14532d);color:#fef08a}
+  .hup-vv span{font:700 14px ui-monospace,Menlo,Consolas,monospace;direction:ltr;letter-spacing:.5px}
+  .hup-ok{border:0;width:100%;border-radius:99px;padding:6px;font-family:'Jameel-Noori.N','JN',serif;font-size:20px;line-height:1.8;cursor:pointer;color:#7f1d1d;
+    background:linear-gradient(180deg,#fef9c3,#fde047 45%,#eab308);box-shadow:0 0 0 2px #fff,0 5px 0 #a16207}
+  .hup-ok:active{transform:translateY(3px);box-shadow:0 0 0 2px #fff,0 2px 0 #a16207}`;
+  function css(){if(document.getElementById('hupCss'))return;const st=document.createElement('style');st.id='hupCss';st.textContent=CSS;document.head.appendChild(st);}
+  let bar=null,shownAt=0;
+  function setNewV(nv){const el=bar&&bar.querySelector('#hupNew');if(el&&nv)el.textContent=nv;}
+  async function fetchNewV(){
+    try{const t=await (await fetch('./sw.js?t='+Date.now(),{cache:'no-store'})).text();const m=/VERSION\s*=\s*'([^']+)'/.exec(t);if(m)setNewV(m[1]);}catch(e){}
+  }
+  function showBar(){
+    if(bar||!document.body)return;css();shownAt=Date.now();
+    bar=document.createElement('div');bar.className='hup-bar';bar.setAttribute('role','status');
+    bar.innerHTML='<svg class="hup-glass" viewBox="0 0 40 60" aria-hidden="true">'+
+      '<defs><linearGradient id="hgSand" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#93c5fd"/><stop offset="1" stop-color="#2563eb"/></linearGradient>'+
+      '<linearGradient id="hgWood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fde047"/><stop offset="1" stop-color="#a16207"/></linearGradient>'+
+      '<clipPath id="hgClip"><path d="M9 6C9 20 18.4 25 18.4 30C18.4 35 9 40 9 54L31 54C31 40 21.6 35 21.6 30C21.6 25 31 20 31 6Z"/></clipPath></defs>'+
+      '<path d="M9 6C9 20 18.4 25 18.4 30C18.4 35 9 40 9 54L31 54C31 40 21.6 35 21.6 30C21.6 25 31 20 31 6Z" fill="rgba(219,234,254,.22)"/>'+
+      '<g clip-path="url(#hgClip)">'+
+        '<rect class="hg-top" x="8" y="15" width="24" height="15" fill="url(#hgSand)"/>'+
+        '<rect class="hg-bot" x="8" y="41" width="24" height="13" fill="url(#hgSand)"/>'+
+        '<g class="hg-flow"><rect x="19.4" y="29" width="1.2" height="25" fill="#60a5fa"/>'+
+          '<g><circle class="hg-gr" cx="18.6" cy="31" r=".8" fill="#bfdbfe"/><circle class="hg-gr" cx="21.4" cy="31" r=".7" fill="#93c5fd"/><circle class="hg-gr" cx="20" cy="31" r=".9" fill="#dbeafe"/></g></g>'+
+      '</g>'+
+      '<path d="M9 6C9 20 18.4 25 18.4 30C18.4 35 9 40 9 54L31 54C31 40 21.6 35 21.6 30C21.6 25 31 20 31 6Z" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="1.3"/>'+
+      '<path d="M12 9C12 18 16 22 17.5 26" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="1.1" stroke-linecap="round"/>'+
+      '<path d="M12 51C12 44 15 39 17 36" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1" stroke-linecap="round"/>'+
+      '<rect x="4.5" y="6" width="2.2" height="48" rx="1" fill="url(#hgWood)"/><rect x="33.3" y="6" width="2.2" height="48" rx="1" fill="url(#hgWood)"/>'+
+      '<rect x="3" y="1.5" width="34" height="5" rx="2" fill="url(#hgWood)" stroke="#713f12" stroke-width=".6"/>'+
+      '<rect x="3" y="53.5" width="34" height="5" rx="2" fill="url(#hgWood)" stroke="#713f12" stroke-width=".6"/>'+
+      '</svg><span><b>نئی اپڈیٹ آ رہی ہے</b><small>براہِ کرم انتظار فرمائیں — فی الحال ایپ میں کام روک دیں</small>'+
+      '<span class="hup-v"><i>پرانا ورژن <code>'+(V||'—')+'</code></i><i>نیا ورژن <code id="hupNew">…</code></i></span></span>';
+    document.body.appendChild(bar);fetchNewV();
+  }
+  function showDone(oldV){
+    css();
+    const ov=document.createElement('div');ov.className='hup-ov';
+    ov.innerHTML='<div class="hup-card" role="dialog" aria-label="ایپ اپڈیٹ ہو گئی"><div class="ic">✅</div>'+
+      '<h3>آپ کی ایپ اپڈیٹ ہو گئی ہے</h3>'+
+      '<div class="hup-vv"><div class="o">پرانا ورژن <span>'+oldV+'</span></div><div class="n">نیا ورژن <span>'+V+'</span></div></div>'+
+      '<button type="button" class="hup-ok">ٹھیک ہے</button></div>';
+    const close=()=>ov.remove();
+    ov.querySelector('.hup-ok').onclick=close;
+    ov.addEventListener('click',e=>{if(e.target===ov)close();});
+    document.body.appendChild(ov);
+  }
+  window.hfzUpdateDemo=function(step){if(step==='done')showDone('HFZ1610FR025');else showBar();}; // جانچ کے لیے
+  function checkSeen(){
+    let old='';try{old=localStorage.getItem(KEY)||'';localStorage.setItem(KEY,V);}catch(e){}
+    if(old&&V&&old!==V)showDone(old);
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',checkSeen);else checkSeen();
+
+  if(!('serviceWorker' in navigator))return;
+  const hadController=!!navigator.serviceWorker.controller;
+  let reloading=false;
+  navigator.serviceWorker.addEventListener('controllerchange',()=>{
+    if(!hadController||reloading)return;
+    reloading=true;showBar();
+    // پٹی کم از کم ڈھائی سیکنڈ نظر آئے، پھر ایپ تازہ
+    setTimeout(()=>location.reload(),Math.max(600,2500-(Date.now()-shownAt)));
+  });
+  window.addEventListener('load',()=>{
+    navigator.serviceWorker.getRegistration().then(reg=>{
+      if(!reg)return;
+      const watch=w=>{if(w&&hadController)showBar();};
+      if(reg.installing)watch(reg.installing);
+      reg.addEventListener('updatefound',()=>watch(reg.installing));
+      const check=()=>{if(!document.hidden)reg.update().catch(()=>{});};
+      setInterval(check,120000);
+      document.addEventListener('visibilitychange',check);
+    }).catch(()=>{});
+  });
 })();
 </script>
 <script>
