@@ -1840,6 +1840,19 @@ body.dlb-on #toast{bottom:118px}
 .vt-sz{width:36px;height:36px;border-radius:50%;border:0;background:#10b981;color:#fff;font-size:22px;font-weight:900;line-height:1;}
 .vt-set-lbl{font-size:16px;color:#fde68a;margin:8px 0 4px;}
 .vt-set-hint{font-size:14px;color:#a7f3d0;margin-top:10px;line-height:1.8;}
+
+/* ══ رہنمائی کی باریک لکھائی (HFZ1610FR022) — جگہ نہیں لیتی، باقی ڈیزائن جوں کا توں ══ */
+#tbQariBadge{flex-direction:column;line-height:1;padding-top:1px!important;padding-bottom:1px!important}
+#tbQariBadge .qb-main{display:inline-flex;align-items:center}
+.hint-cap{font-family:'Jameel-Noori.N','JN',serif;font-weight:700;white-space:nowrap;pointer-events:none;text-shadow:none!important}
+.qb-hint{font-size:8px;color:#fde68a;opacity:.85;margin-top:1px}
+.fw-surah-wrap{position:relative;display:flex;flex:0.85 1 auto;min-width:68px}
+.front-wheel-row .fw-surah-wrap{flex:1 1 0;min-width:90px}
+.fw-surah-wrap .hint-legend{top:-9px;max-width:none}
+.fw-surah-wrap .fw-surah-sel{width:100%;flex:1 1 auto!important;min-width:0!important}
+.tr-sel-col{position:relative}
+.hint-legend{position:absolute;top:-6px;left:50%;transform:translateX(-50%);font-size:8px;line-height:1;
+  padding:1px 6px 2px;border-radius:6px;background:#052e1e;color:#fde047;border:1px solid rgba(253,224,71,.45);z-index:2;max-width:100%;overflow:hidden;text-overflow:ellipsis}
 </style>
 </head>
 <body>
@@ -1931,7 +1944,7 @@ body.dlb-on #toast{bottom:118px}
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">HFZ1010SA021</span>
+    <span class="ver-code" id="splashVerCode">HFZ1610FR022</span>
   </div>
 </div>
 
@@ -1979,7 +1992,7 @@ body.dlb-on #toast{bottom:118px}
         <button class="theme-dd-item" id="thdd-sand"      onclick="selectThemeFromDD('sand')"      style="background:#ca8a04"></button>
       </div>
     </div>
-    <div id="tbQariBadge" onclick="hfzOpenQariPicker()" title="قاری منتخب کریں" style="cursor:pointer"><span id="tbQariName">—</span><span style="font-size:10px;margin-inline-start:6px">▼</span></div>
+    <div id="tbQariBadge" onclick="hfzOpenQariPicker()" title="قاری منتخب کریں" style="cursor:pointer"><span class="qb-main"><span id="tbQariName">—</span><span style="font-size:10px;margin-inline-start:6px">▼</span></span><span class="hint-cap qb-hint">پسند کا قاری یہاں سے چنیں</span></div>
     <button class="icon-btn btn-settings sm" onclick="openSettings()" title="سیٹنگز">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
     </button>
@@ -2046,7 +2059,7 @@ body.dlb-on #toast{bottom:118px}
         </div>
         <input type="number" class="ayat-manual-input" id="fromManualInput" min="1" oninput="onManualAyatInput('fromWheel',this.value)" onfocus="this.value=''" placeholder="سے">
       </div>
-      <select id="quickSurahSel" class="quick-mini-sel fw-surah-sel" dir="rtl" onchange="quickSelSurah(this.value)"></select>
+      <span class="fw-surah-wrap"><select id="quickSurahSel" class="quick-mini-sel fw-surah-sel" dir="rtl" onchange="quickSelSurah(this.value)"></select><span class="hint-cap hint-legend">سورت یہاں سے چنیں</span></span>
       <div class="awheel-block rr-block fw-block">
         <div class="awheel-row">
           <div class="wheel-outer awheel-outer">
@@ -2072,9 +2085,11 @@ body.dlb-on #toast{bottom:118px}
   <div id="trSelectRow">
     <div class="tr-sel-col">
       <select id="zabanSelect" class="tr-sel" dir="rtl" onchange="onZabanChange(this.value)"></select>
+      <span class="hint-cap hint-legend">ترجمے کی زبان یہاں سے منتخب کریں</span>
     </div>
     <div class="tr-sel-col">
       <select id="mutarjimSelect" class="tr-sel" dir="rtl" onchange="onMutarjimChange(this.value)"></select>
+      <span class="hint-cap hint-legend">مترجم یہاں سے منتخب کریں</span>
     </div>
   </div>
 
@@ -5482,8 +5497,8 @@ function plOnEnded(){
 // ── ورژن کوڈ کا قاعدہ (مالک کی ہدایت): HFZ + تاریخ + مہینہ + دن کے دو حروف + تین ہندسوں کا سیریل ──
 //    مثال: HFZ610TU018 = 6 اکتوبر، منگل (TU)، سیریل 012 — اگلا ورژن 013، پھر 014، 015… (سیریل کبھی دوبارہ شروع نہیں ہوتا)
 //    دن: MO پیر، TU منگل، WE بدھ، TH جمعرات، FR جمعہ، SA ہفتہ، SU اتوار — زِپ کا نام بھی یہی: HFZ610TU018.zip
-const APP_VERSION='HFZ1010SA021';
-const APP_VERSION_DISPLAY='HFZ1010SA021';
+const APP_VERSION='HFZ1610FR022';
+const APP_VERSION_DISPLAY='HFZ1610FR022';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
