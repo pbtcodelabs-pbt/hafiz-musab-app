@@ -1853,8 +1853,9 @@ body.dlb-on #toast{bottom:118px}
 .tr-sel-col{position:relative}
 .hint-legend{position:absolute;top:-6px;left:50%;transform:translateX(-50%);font-size:8px;line-height:1;
   padding:1px 6px 2px;border-radius:6px;background:#052e1e;color:#fde047;border:1px solid rgba(253,224,71,.45);z-index:2;max-width:100%;overflow:hidden;text-overflow:ellipsis}
-/* ══ مترجم کا شکریہ (HFZ1610FR024) ══ */
-.tr-credit{font-family:'Jameel-Noori.N','JN',serif;font-size:11px;font-weight:700;color:#64748b;text-align:left;margin-top:6px;opacity:.9}
+/* ══ مترجم کا شکریہ — ڈبے کے نیچے بائیں کونے میں ٹکا ہوا (HFZ1610FR025) ══ */
+.tr-credit{flex-shrink:0;text-align:left;padding:0 12px 1px;pointer-events:none;white-space:nowrap;
+  font-family:'Jameel-Noori.N','JN',serif;font-size:10px;font-weight:700;color:#64748b;opacity:.85;line-height:1.5}
 </style>
 </head>
 <body>
@@ -1946,7 +1947,7 @@ body.dlb-on #toast{bottom:118px}
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">HFZ1610FR024</span>
+    <span class="ver-code" id="splashVerCode">HFZ1610FR025</span>
   </div>
 </div>
 
@@ -2107,9 +2108,9 @@ body.dlb-on #toast{bottom:118px}
       </div>
       <div id="urduScroll">
         <div id="urduText">شروع اللہ کے نام سے جو بڑا مہربان، نہایت رحم والا ہے</div>
-        <div id="trCredit" class="tr-credit" style="display:none"></div>
       </div>
     </div>
+    <div id="trCredit" class="tr-credit" style="display:none"></div>
     <div class="panel-share-row urdu-bottom-row" dir="ltr">
       <div class="awheel-block wcol-ruku fw-pr-block">
         <div class="wheel-outer awheel-outer sel-wheel-outer">
@@ -2855,6 +2856,7 @@ function updTrCredit(){
   const el=document.getElementById('trCredit');if(!el)return;
   const tr=(typeof SHAKIR!=='undefined'&&SHAKIR)?null:TRANSLATORS.find(t=>t.id===curTranslatorId);
   el.textContent=tr&&tr.credit||'';el.style.display=tr&&tr.credit?'':'none';
+  document.getElementById('urduPanel')?.classList.toggle('has-credit',!!(tr&&tr.credit));
 }
 async function refreshCurrentAyahText(){
   const uT=document.getElementById('urduText');
@@ -5520,8 +5522,8 @@ function plOnEnded(){
 // ── ورژن کوڈ کا قاعدہ (مالک کی ہدایت): HFZ + تاریخ + مہینہ + دن کے دو حروف + تین ہندسوں کا سیریل ──
 //    مثال: HFZ610TU018 = 6 اکتوبر، منگل (TU)، سیریل 012 — اگلا ورژن 013، پھر 014، 015… (سیریل کبھی دوبارہ شروع نہیں ہوتا)
 //    دن: MO پیر، TU منگل، WE بدھ، TH جمعرات، FR جمعہ، SA ہفتہ، SU اتوار — زِپ کا نام بھی یہی: HFZ610TU018.zip
-const APP_VERSION='HFZ1610FR024';
-const APP_VERSION_DISPLAY='HFZ1610FR024';
+const APP_VERSION='HFZ1610FR025';
+const APP_VERSION_DISPLAY='HFZ1610FR025';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
