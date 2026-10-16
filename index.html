@@ -1947,7 +1947,7 @@ body.dlb-on #toast{bottom:118px}
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">HFZ1610FR026</span>
+    <span class="ver-code" id="splashVerCode">HFZ1610FR027</span>
   </div>
 </div>
 
@@ -2791,7 +2791,7 @@ const LANGUAGES=[
   {code:'ur', name:'اردو (Urdu)'},
   {code:'en', name:'English'}
 ];
-let curLang='ur', curTranslatorId='jalandhari';
+let curLang='ur', curTranslatorId='taqiusmani'; // ڈیفالٹ: مفتی تقی عثمانی صاحب کا آسان ترجمہ (HFZ1610FR027)
 try{
   const sL=localStorage.getItem('qlang'),sT=localStorage.getItem('qtranslator');
   if(sL)curLang=sL;
@@ -3277,7 +3277,7 @@ async function getAyah(s,a){
       // مکمل ڈاؤن لوڈ ہونے تک: پہلے سے محفوظ آیت یا آن لائن صرف یہی آیت
       if(tr.apiId)urTxt=await fetchOnlineAyahTr(tr,s,a);
       if(!urTxt&&ok==='wait')urTxt='⏳ مکمل ترجمہ ڈاؤن لوڈ ہو رہا ہے... (صرف پہلی بار، پھر ہمیشہ آف لائن)';
-      if(!urTxt&&!navigator.onLine)urTxt='یہ ترجمہ پہلی بار ڈاؤن لوڈ کرنے کے لیے ایک دفعہ انٹرنیٹ آن کریں — پھر ہمیشہ آف لائن چلے گا';
+      if(!urTxt&&!navigator.onLine)urTxt=QUR[k]?(QUR[k]+'\n\n(انٹرنیٹ نہیں — فی الحال جالندھری صاحب کا ترجمہ؛ نیٹ آتے ہی یہ ترجمہ خود آ جائے گا)'):'یہ ترجمہ پہلی بار ڈاؤن لوڈ کرنے کے لیے ایک دفعہ انٹرنیٹ آن کریں — پھر ہمیشہ آف لائن چلے گا';
     }
   }
   if(!urTxt&&tr&&tr.apiId){urTxt=await fetchOnlineAyahTr(tr,s,a);}
@@ -5522,8 +5522,8 @@ function plOnEnded(){
 // ── ورژن کوڈ کا قاعدہ (مالک کی ہدایت): HFZ + تاریخ + مہینہ + دن کے دو حروف + تین ہندسوں کا سیریل ──
 //    مثال: HFZ610TU018 = 6 اکتوبر، منگل (TU)، سیریل 012 — اگلا ورژن 013، پھر 014، 015… (سیریل کبھی دوبارہ شروع نہیں ہوتا)
 //    دن: MO پیر، TU منگل، WE بدھ، TH جمعرات، FR جمعہ، SA ہفتہ، SU اتوار — زِپ کا نام بھی یہی: HFZ610TU018.zip
-const APP_VERSION='HFZ1610FR026';
-const APP_VERSION_DISPLAY='HFZ1610FR026';
+const APP_VERSION='HFZ1610FR027';
+const APP_VERSION_DISPLAY='HFZ1610FR027';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
