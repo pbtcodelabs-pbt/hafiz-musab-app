@@ -1862,6 +1862,27 @@ body.dlb-on #toast{bottom:118px}
 .tr-aud-btn.on{background:linear-gradient(145deg,#16a34a,#15803d);border-color:#fde047;box-shadow:0 0 8px rgba(253,224,71,.6)}
 .tr-aud-btn:disabled{opacity:.4}
 body.ur-aud-playing .tr-aud-btn.on{animation:qariGlowPulse 1.1s ease-in-out infinite}
+/* ══ اسپیکر پاپ اپ (HFZ1910MO034) ══ */
+#ttsPop{position:fixed;inset:0;z-index:99990;background:rgba(2,20,12,.6);display:none;align-items:center;justify-content:center;padding:16px}
+#ttsPop.open{display:flex}
+.ttp-card{width:min(360px,100%);max-height:86vh;overflow-y:auto;background:#fff;border-radius:20px;box-shadow:0 18px 50px rgba(0,0,0,.45);font-family:'Jameel-Noori.N','JN',serif;color:#14532d;padding-bottom:12px}
+.ttp-h{position:relative;background:linear-gradient(135deg,#15803d,#166534);color:#fef9c3;font-size:19px;line-height:1.9;padding:8px 14px;text-align:center;border-radius:20px 20px 0 0}
+.ttp-x{position:absolute;left:10px;top:9px;border:none;background:rgba(255,255,255,.18);color:#fff;border-radius:50%;width:30px;height:30px;font-size:15px;cursor:pointer}
+.ttp-onoff{display:block;width:calc(100% - 24px);margin:12px auto 4px;border:none;border-radius:14px;padding:6px 10px;font-family:inherit;font-size:15px;line-height:1.9;cursor:pointer;background:#f1f5f9;color:#334155;box-shadow:0 3px 0 #cbd5e1}
+.ttp-onoff.on{background:linear-gradient(145deg,#16a34a,#15803d);color:#fff;box-shadow:0 3px 0 #14532d}
+.ttp-onoff:disabled{opacity:.55}
+.ttp-sub{font-size:13px;color:#475569;padding:8px 14px 2px;line-height:1.8}
+.ttp-list{padding:0 12px}
+.ttp-it{display:flex;align-items:center;gap:8px;border:1.5px solid #e2e8f0;border-radius:12px;padding:5px 10px;margin:6px 0;cursor:pointer;font-size:14px;line-height:1.8}
+.ttp-it.sel{border-color:#16a34a;background:#ecfdf5}
+.ttp-r{width:16px;height:16px;border-radius:50%;border:2px solid #94a3b8;flex:none}
+.ttp-it.sel .ttp-r{border-color:#16a34a;background:radial-gradient(#16a34a 45%,transparent 50%)}
+.ttp-n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;direction:ltr;text-align:right}
+.ttp-t{color:#16a34a;font-size:13px}
+.ttp-empty,.ttp-hint{font-size:12.5px;color:#92400e;background:#fffbeb;border:1px solid #fcd34d;border-radius:12px;padding:6px 10px;margin:6px 12px;line-height:1.9}
+.ttp-pitch{display:flex;gap:6px;padding:4px 12px}
+.ttp-pitch button{flex:1;border:1.5px solid #e2e8f0;background:#fff;border-radius:12px;padding:4px;font-family:inherit;font-size:14px;line-height:1.9;cursor:pointer;color:#334155}
+.ttp-pitch button.on{border-color:#16a34a;background:#16a34a;color:#fff}
 </style>
 </head>
 <body>
@@ -1953,7 +1974,7 @@ body.ur-aud-playing .tr-aud-btn.on{animation:qariGlowPulse 1.1s ease-in-out infi
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">HFZ1910MO033</span>
+    <span class="ver-code" id="splashVerCode">HFZ1910MO034</span>
   </div>
 </div>
 
@@ -2101,7 +2122,7 @@ body.ur-aud-playing .tr-aud-btn.on{animation:qariGlowPulse 1.1s ease-in-out infi
       <span class="hint-cap hint-legend">مترجم یہاں سے منتخب کریں</span>
     </div>
     <div class="tr-sel-col tr-aud-col">
-      <button id="urAudBtn" class="tr-aud-btn" onclick="toggleUrAudio()" title="ہر آیت کے بعد اردو ترجمہ آواز میں">🔇</button>
+      <button id="urAudBtn" class="tr-aud-btn" onclick="openTtsPop()" title="ہر آیت کے بعد اردو ترجمہ آواز میں">🔇</button>
       <span class="hint-cap hint-legend">اردو آواز</span>
     </div>
   </div>
@@ -2371,6 +2392,18 @@ body.ur-aud-playing .tr-aud-btn.on{animation:qariGlowPulse 1.1s ease-in-out infi
     <button class="thm-btn"        id="th-blush"     onclick="setTheme('blush')"     style="background:#f472b6"></button>
     <button class="thm-btn"        id="th-mist"      onclick="setTheme('mist')"      style="background:#64748b"></button>
     <button class="thm-btn"        id="th-sand"      onclick="setTheme('sand')"      style="background:#ca8a04"></button>
+  </div>
+  <div class="settings-sec-title">🗣 اردو ترجمے کی آواز</div>
+  <div id="ttsBox" style="padding:2px 16px 12px;font-family:'Jameel-Noori.N','JN',serif;">
+    <div style="font-size:12px;color:#065f46;line-height:1.9;margin-bottom:6px;">جالندھری صاحب کے سوا باقی تراجم فون کی اردو آواز پڑھتی ہے۔ مرد کی آواز ہو تو یہاں سے چنیں۔</div>
+    <select id="ttsVoiceSel" class="tr-sel" dir="rtl" style="width:100%;margin-bottom:8px;box-sizing:border-box;" onchange="setTtsVoice(this.value)"></select>
+    <div style="display:flex;gap:6px;margin-bottom:8px;">
+      <button class="sq-btn tts-p" data-p="1" onclick="setTtsPitch(1)" style="flex:1">عام</button>
+      <button class="sq-btn tts-p" data-p="0.8" onclick="setTtsPitch(0.8)" style="flex:1">بھاری</button>
+      <button class="sq-btn tts-p" data-p="0.62" onclick="setTtsPitch(0.62)" style="flex:1">زیادہ بھاری</button>
+    </div>
+    <button class="sq-btn" onclick="testTtsVoice()" style="width:100%;box-sizing:border-box;background:linear-gradient(145deg,#16a34a,#15803d);color:#fff;border:none;">▶ آواز آزمائیں</button>
+    <div id="ttsHint" style="font-size:11px;color:#64748b;line-height:1.9;margin-top:6px;"></div>
   </div>
   <div class="settings-sec-title">🎙 ڈیفالٹ قاری</div>
   <div id="defQariBox" style="padding:2px 16px 12px;">
@@ -3084,8 +3117,57 @@ let _urAudNext=null;
 // جالندھری صاحب کا ترجمہ: شمشاد علی خان صاحب کی ریکارڈ شدہ آواز (وہ یہی ترجمہ پڑھتے ہیں)
 // باقی مترجمین (تقی عثمانی، مودودی، کنزالایمان، محمود الحسن، جوناگڑھی): فون کی اردو آواز وہی ترجمہ پڑھتی ہے جو اسکرین پر ہے (HFZ1910MO032)
 let _ttsTok=0,_ttsWarned=false;
-function _urVoice(){try{const v=speechSynthesis.getVoices();return v.find(x=>/^ur/i.test(x.lang))||null;}catch(e){return null;}}
-try{speechSynthesis.getVoices();speechSynthesis.onvoiceschanged=()=>speechSynthesis.getVoices();}catch(e){}
+// آواز کا انتخاب (HFZ1910MO034): فون کی اردو آوازوں میں سے مرد والی خود پہلے؛ صارف سیٹنگز سے بدل سکتا ہے؛ "بھاری" پچ
+const _MALE_RE=/\bmale\b|asad|uzair|salman|مرد/i,_FEMALE_RE=/female|woman|gul|uzma|عورت/i;
+let TTS_PITCH=1;try{TTS_PITCH=parseFloat(localStorage.getItem('hfzTtsPitch'))||1;}catch(e){}
+function _urVoices(){try{return speechSynthesis.getVoices().filter(x=>/^ur/i.test(x.lang)||/urdu/i.test(x.name));}catch(e){return [];}}
+function _urVoice(){
+  const vs=_urVoices();if(!vs.length)return null;
+  let pick='';try{pick=localStorage.getItem('hfzTtsVoice')||'';}catch(e){}
+  return vs.find(x=>x.voiceURI===pick)||vs.find(x=>_MALE_RE.test(x.name)&&!_FEMALE_RE.test(x.name))||vs.find(x=>/PK/i.test(x.lang))||vs[0];
+}
+function _ttsLabel(v){const m=_MALE_RE.test(v.name)&&!_FEMALE_RE.test(v.name),f=_FEMALE_RE.test(v.name);return (m?'👨 ':f?'👩 ':'🔈 ')+v.name+' ('+v.lang+')'+(v.localService?'':' • آن لائن');}
+function fillTtsUI(){
+  const sel=document.getElementById('ttsVoiceSel');if(!sel)return;
+  const vs=_urVoices(),cur=_urVoice();
+  sel.innerHTML=vs.length?vs.map(v=>'<option value="'+v.voiceURI.replace(/"/g,'&quot;')+'"'+(cur&&cur.voiceURI===v.voiceURI?' selected':'')+'>'+_ttsLabel(v)+'</option>').join(''):'<option>فون میں اردو آواز نہیں ملی</option>';
+  sel.disabled=!vs.length;
+  document.querySelectorAll('.tts-p').forEach(b=>b.classList.toggle('active',Math.abs(parseFloat(b.dataset.p)-TTS_PITCH)<0.01));
+  const anyMale=vs.some(v=>_MALE_RE.test(v.name)&&!_FEMALE_RE.test(v.name));
+  const h=document.getElementById('ttsHint');
+  if(h)h.textContent=!vs.length?'فون کی Settings ← Text-to-speech ← Google ← زبان: اردو کی آواز ڈاؤن لوڈ کریں۔'
+    :anyMale?'✓ مرد کی آواز ملی اور چن لی گئی۔'
+    :'مرد کی الگ اردو آواز اس فون میں نہیں ملی — "بھاری" یا "زیادہ بھاری" سے آواز مردانہ ہو جائے گی۔ فون کی Settings ← Text-to-speech ← Google میں اردو کی مزید آوازیں ہوں تو وہاں سے بھی چن سکتے ہیں۔';
+}
+function setTtsVoice(uri){try{localStorage.setItem('hfzTtsVoice',uri);}catch(e){}fillTtsUI();}
+// ══ اسپیکر بٹن کا پاپ اپ (HFZ1910MO034): آن/بند + فون کی اردو آوازوں کی فہرست + بھاری پن؛ انتخاب محفوظ رہتا ہے ══
+function openTtsPop(){
+  let ov=document.getElementById('ttsPop');
+  if(!ov){ov=document.createElement('div');ov.id='ttsPop';ov.addEventListener('click',e=>{if(e.target===ov)closeTtsPop();});document.body.appendChild(ov);}
+  renderTtsPop();ov.classList.add('open');
+  try{speechSynthesis.getVoices();}catch(e){}
+}
+function closeTtsPop(){document.getElementById('ttsPop')?.classList.remove('open');}
+function renderTtsPop(){
+  const ov=document.getElementById('ttsPop');if(!ov)return;
+  const vs=_urVoices(),cur=_urVoice(),blocked=!!SHAKIR;
+  const anyMale=vs.some(v=>_MALE_RE.test(v.name)&&!_FEMALE_RE.test(v.name));
+  ov.innerHTML='<div class="ttp-card" dir="rtl"><div class="ttp-h">🔊 اردو ترجمے کی آواز<button class="ttp-x" onclick="closeTtsPop()">✕</button></div>'+
+    '<button class="ttp-onoff'+(UR_AUD?' on':'')+'"'+(blocked?' disabled':'')+' onclick="toggleUrAudio();renderTtsPop()">'+(blocked?'مکمل سورت والے قاری کے ساتھ دستیاب نہیں':UR_AUD?'✓ آن ہے — ہر آیت کے بعد ترجمہ (بند کرنے کو دبائیں)':'بند ہے — آن کرنے کے لیے دبائیں')+'</button>'+
+    '<div class="ttp-sub">آواز چنیں (جالندھری صاحب کا ترجمہ ہمیشہ شمشاد علی خان صاحب کی ریکارڈ شدہ آواز میں):</div>'+
+    '<div class="ttp-list">'+(vs.length?vs.map((v,i)=>'<div class="ttp-it'+(cur&&cur.voiceURI===v.voiceURI?' sel':'')+'" onclick="pickTtsVoice('+i+')"><span class="ttp-r"></span><span class="ttp-n">'+_ttsLabel(v)+'</span><span class="ttp-t">▶</span></div>').join('')
+      :'<div class="ttp-empty">فون میں اردو آواز نہیں ملی۔ فون کی Settings ← Text-to-speech ← Google ← اردو کی آواز ڈاؤن لوڈ کریں۔</div>')+'</div>'+
+    '<div class="ttp-sub">آواز کا بھاری پن:</div><div class="ttp-pitch">'+[[1,'عام'],[0.8,'بھاری'],[0.62,'زیادہ بھاری']].map(([p,n])=>'<button class="'+(Math.abs(p-TTS_PITCH)<0.01?'on':'')+'" onclick="setTtsPitch('+p+');renderTtsPop()">'+n+'</button>').join('')+'</div>'+
+    (vs.length&&!anyMale?'<div class="ttp-hint">اس فون میں مرد کی الگ اردو آواز نہیں ملی — «بھاری» یا «زیادہ بھاری» سے آواز مردانہ ہو جاتی ہے۔</div>':'')+
+    '</div>';
+}
+function pickTtsVoice(i){const v=_urVoices()[i];if(!v)return;setTtsVoice(v.voiceURI);if(!UR_AUD&&!SHAKIR)toggleUrAudio();renderTtsPop();testTtsVoice();}
+function setTtsPitch(p){TTS_PITCH=p;try{localStorage.setItem('hfzTtsPitch',String(p));}catch(e){}fillTtsUI();testTtsVoice();}
+function testTtsVoice(){
+  try{speechSynthesis.cancel();const v=_urVoice();const u=new SpeechSynthesisUtterance('شروع اللہ کے نام سے جو سب پر مہربان ہے، بہت مہربان ہے');
+    u.lang=(v&&v.lang)||'ur-PK';if(v)u.voice=v;u.rate=0.95;u.pitch=TTS_PITCH;speechSynthesis.speak(u);}catch(e){showToast('⚠ اس فون میں آواز نہیں چل سکی');}
+}
+try{speechSynthesis.getVoices();speechSynthesis.onvoiceschanged=()=>{speechSynthesis.getVoices();fillTtsUI();if(document.getElementById('ttsPop')?.classList.contains('open'))renderTtsPop();};}catch(e){}
 function _trTextFor(s,a){
   const tr=TRANSLATORS.find(t=>t.id===curTranslatorId);let t=tr&&tr.data&&tr.data[s+'_'+a];
   if(!t&&St.s===s&&St.a===a){const el=document.getElementById('urduText');t=el&&el.textContent;}
@@ -3107,7 +3189,7 @@ function _speakUr(txt,next){
   const say=()=>{
     if(tok!==_ttsTok)return;
     if(i>=parts.length){fin();return;}
-    const u=new SpeechSynthesisUtterance(parts[i++]);u.lang=(v&&v.lang)||'ur-PK';if(v)u.voice=v;u.rate=0.95;
+    const u=new SpeechSynthesisUtterance(parts[i++]);u.lang=(v&&v.lang)||'ur-PK';if(v)u.voice=v;u.rate=0.95;u.pitch=TTS_PITCH;
     u.onstart=()=>{started=true;};
     u.onend=say;u.onerror=say;speechSynthesis.speak(u);
   };
@@ -4217,6 +4299,7 @@ function saveVideoLinkEditor(){
 function openSettings(){
   document.getElementById('settingsOverlay').classList.add('open');
   populateDefQariSelect();
+  try{fillTtsUI();}catch(e){}
 }
 function closeSettings(){
   document.getElementById('settingsOverlay').classList.remove('open');
@@ -5610,9 +5693,9 @@ function plOnEnded(){
 // ── ورژن کوڈ کا قاعدہ (مالک کی ہدایت): HFZ + تاریخ + مہینہ + دن کے دو حروف + تین ہندسوں کا سیریل ──
 //    مثال: HFZ610TU018 = 6 اکتوبر، منگل (TU)، سیریل 012 — اگلا ورژن 013، پھر 014، 015… (سیریل کبھی دوبارہ شروع نہیں ہوتا)
 //    دن: MO پیر، TU منگل، WE بدھ، TH جمعرات، FR جمعہ، SA ہفتہ، SU اتوار — زِپ کا نام بھی یہی: HFZ610TU018.zip
-const APP_VERSION='HFZ1910MO033';
-const UPDATE_NOTE='اپڈیٹ کا پیغام اب باقی ایپس جیسا — ریت گھڑی، پرانا/نیا ورژن اور "کیا نیا ہے"؛ اردو آواز وہی ترجمہ پڑھتی ہے جو آپ نے چنا';
-const APP_VERSION_DISPLAY='HFZ1910MO033';
+const APP_VERSION='HFZ1910MO034';
+const UPDATE_NOTE='اسپیکر بٹن دبائیں: فون کی اردو آوازوں کی فہرست — مرد کی آواز چنیں یا آواز بھاری کریں؛ انتخاب محفوظ رہتا ہے';
+const APP_VERSION_DISPLAY='HFZ1910MO034';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
