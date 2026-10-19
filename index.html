@@ -1974,7 +1974,7 @@ body.ur-aud-playing .tr-aud-btn.on{animation:qariGlowPulse 1.1s ease-in-out infi
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">HFZ1910MO034</span>
+    <span class="ver-code" id="splashVerCode">HFZ1910MO035</span>
   </div>
 </div>
 
@@ -5693,9 +5693,9 @@ function plOnEnded(){
 // ── ورژن کوڈ کا قاعدہ (مالک کی ہدایت): HFZ + تاریخ + مہینہ + دن کے دو حروف + تین ہندسوں کا سیریل ──
 //    مثال: HFZ610TU018 = 6 اکتوبر، منگل (TU)، سیریل 012 — اگلا ورژن 013، پھر 014، 015… (سیریل کبھی دوبارہ شروع نہیں ہوتا)
 //    دن: MO پیر، TU منگل، WE بدھ، TH جمعرات، FR جمعہ، SA ہفتہ، SU اتوار — زِپ کا نام بھی یہی: HFZ610TU018.zip
-const APP_VERSION='HFZ1910MO034';
-const UPDATE_NOTE='اسپیکر بٹن دبائیں: فون کی اردو آوازوں کی فہرست — مرد کی آواز چنیں یا آواز بھاری کریں؛ انتخاب محفوظ رہتا ہے';
-const APP_VERSION_DISPLAY='HFZ1910MO034';
+const APP_VERSION='HFZ1910MO035';
+const UPDATE_NOTE='اپڈیٹ پاپ اپ میں پورا نوٹ نظر آئے — کوئی لفظ نہیں کٹتا';
+const APP_VERSION_DISPLAY='HFZ1910MO035';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
@@ -6461,7 +6461,7 @@ var VT=(function(){
   + '.aupd-card .av.o b{color:#9ca3af;text-decoration:line-through}.aupd-card .av.n{border-color:#34d399;background:#ecfdf5}.aupd-card .av.n b{color:#047857}'
   + '.aupd-card .aa{color:#10b981;font-size:16px;line-height:1}'
   + '.aupd-card .anote{margin:10px 0 4px;padding:8px 12px;border-radius:12px;background:#fffbeb;border:1px solid #fcd34d;color:#78350f;font-size:13.5px;font-weight:700;line-height:1.7;'
-  +   'display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}'
+  +   'white-space:normal;overflow-wrap:anywhere;max-height:40vh;overflow-y:auto}'
   + '.aupd-card .af{padding:10px 16px 16px;display:flex;justify-content:center}'
   + '.aupd-card .aok{min-width:140px;height:44px;border:none;border-radius:14px;background:linear-gradient(135deg,#0d3b66,#0f766e);color:#fff;font-size:17px;font-weight:800;font-family:inherit;box-shadow:0 5px 0 #0a2c4d;cursor:pointer}'
   + '.aupd-card .aok:active{transform:translateY(3px);box-shadow:0 2px 0 #0a2c4d}'
@@ -6542,7 +6542,7 @@ var VT=(function(){
     AppUpd.waiting('براہِ کرم انتظار کریں، کام روک دیں — ورژن: \u2066'+(V||'—')+' → '+(nv||'…')+'\u2069');
   }
   function showDone(oldV){AppUpd.done(oldV,V,(typeof UPDATE_NOTE!=='undefined')?UPDATE_NOTE:'');}
-  window.hfzUpdateDemo=function(step){if(step==='done')showDone('HFZ1910MO032');else showBar('HFZ1910MO034');}; // جانچ کے لیے
+  window.hfzUpdateDemo=function(step){if(step==='done')showDone('HFZ1910MO032');else showBar('HFZ1910MO035');}; // جانچ کے لیے
   function checkSeen(){
     let old='';try{old=localStorage.getItem(KEY)||'';localStorage.setItem(KEY,V);}catch(e){}
     if(old&&V&&old!==V)showDone(old);
