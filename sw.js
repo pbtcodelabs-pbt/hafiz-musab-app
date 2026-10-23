@@ -5,7 +5,7 @@
 // 3) پاروں کا رکوع ڈیٹا (alquran.cloud/juz): نیٹ پہلے (6 سیکنڈ حد)، ناکامی پر کیش
 // 4) ڈاؤن لوڈ شدہ تلاوت (quran-audio-v2): کیش پہلے — نیٹ کا ایک بائٹ بھی خرچ نہیں، Range (آگے پیچھے) سپورٹ
 // 5) welcome.txt وغیرہ: ?t= کے بغیر ایک ہی کاپی محفوظ (کیش پھولتی نہیں)
-const VERSION = 'HFZ1910MO035';
+const VERSION = 'HFZ2310FR036';
 const CACHE_NAME = 'hafiz-musab-shell-' + VERSION;
 const FONT_CACHE = 'hfz-fonts-v1';
 const API_CACHE = 'hfz-api-v1';
