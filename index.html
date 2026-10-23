@@ -1974,7 +1974,7 @@ body.ur-aud-playing .tr-aud-btn.on{animation:qariGlowPulse 1.1s ease-in-out infi
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">HFZ2310FR036</span>
+    <span class="ver-code" id="splashVerCode">HFZ2310FR037</span>
   </div>
 </div>
 
@@ -5693,9 +5693,9 @@ function plOnEnded(){
 // ── ورژن کوڈ کا قاعدہ (مالک کی ہدایت): HFZ + تاریخ + مہینہ + دن کے دو حروف + تین ہندسوں کا سیریل ──
 //    مثال: HFZ610TU018 = 6 اکتوبر، منگل (TU)، سیریل 012 — اگلا ورژن 013، پھر 014، 015… (سیریل کبھی دوبارہ شروع نہیں ہوتا)
 //    دن: MO پیر، TU منگل، WE بدھ، TH جمعرات، FR جمعہ، SA ہفتہ، SU اتوار — زِپ کا نام بھی یہی: HFZ610TU018.zip
-const APP_VERSION='HFZ2310FR036';
-const UPDATE_NOTE='دوسری ایپس کا کیش اور ڈیٹا اب کبھی نہیں مٹتا';
-const APP_VERSION_DISPLAY='HFZ2310FR036';
+const APP_VERSION='HFZ2310FR037';
+const UPDATE_NOTE='انسٹال درست: اب «پہلے سے انسٹال» غلطی سے نہیں آتا';
+const APP_VERSION_DISPLAY='HFZ2310FR037';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
@@ -6543,7 +6543,7 @@ var VT=(function(){
     AppUpd.waiting('براہِ کرم انتظار کریں، کام روک دیں — ورژن: \u2066'+(V||'—')+' → '+(nv||'…')+'\u2069');
   }
   function showDone(oldV){AppUpd.done(oldV,V,(typeof UPDATE_NOTE!=='undefined')?UPDATE_NOTE:'');}
-  window.hfzUpdateDemo=function(step){if(step==='done')showDone('HFZ1910MO032');else showBar('HFZ2310FR036');}; // جانچ کے لیے
+  window.hfzUpdateDemo=function(step){if(step==='done')showDone('HFZ1910MO032');else showBar('HFZ2310FR037');}; // جانچ کے لیے
   function checkSeen(){
     let old='';try{old=localStorage.getItem(KEY)||'';localStorage.setItem(KEY,V);}catch(e){}
     if(old&&V&&old!==V)showDone(old);
