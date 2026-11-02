@@ -1974,7 +1974,7 @@ body.ur-aud-playing .tr-aud-btn.on{animation:qariGlowPulse 1.1s ease-in-out infi
   <div style="display:none" id="splashNetStatus"><span class="net-dot online" id="splashNetDot"></span><span id="splashNetLabel">آن لائن</span></div>
   <div class="status-block" style="margin-top:10px;">
     <span class="ver-pill" id="splashVerPill">Online</span>
-    <span class="ver-code" id="splashVerCode">HFZ0211MO039</span>
+    <span class="ver-code" id="splashVerCode">HFZ0211MO040</span>
   </div>
 </div>
 
@@ -1991,6 +1991,7 @@ body.ur-aud-playing .tr-aud-btn.on{animation:qariGlowPulse 1.1s ease-in-out infi
       <span id="timerCountdown">--:--</span>
     </div>
     <span class="pdot" id="pdot"></span>
+    <button type="button" onclick="openHelpDesk()" title="PBT Help Desk" style="background:none;border:0;padding:0;cursor:pointer;flex:0 0 auto;display:inline-flex;align-items:center">🆘</button>
     <div class="unified-share-wrap tb-share-wrap">
       <button class="tb-share-btn-lg" onclick="toggleShareMenu()">
         <svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
@@ -2023,7 +2024,6 @@ body.ur-aud-playing .tr-aud-btn.on{animation:qariGlowPulse 1.1s ease-in-out infi
       </div>
     </div>
     <div id="tbQariBadge" onclick="hfzOpenQariPicker()" title="قاری منتخب کریں" style="cursor:pointer"><span class="qb-main"><span id="tbQariName">—</span><span style="font-size:10px;margin-inline-start:6px">▼</span></span><span class="hint-cap qb-hint">پسند کا قاری یہاں سے چنیں</span></div>
-    <button class="icon-btn sm" onclick="openHelpDesk()" title="PBT Help Desk">🆘</button>
     <button class="icon-btn btn-settings sm" onclick="openSettings()" title="سیٹنگز">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
     </button>
@@ -5694,9 +5694,9 @@ function plOnEnded(){
 // ── ورژن کوڈ کا قاعدہ (مالک کی ہدایت): HFZ + تاریخ + مہینہ + دن کے دو حروف + تین ہندسوں کا سیریل ──
 //    مثال: HFZ610TU018 = 6 اکتوبر، منگل (TU)، سیریل 012 — اگلا ورژن 013، پھر 014، 015… (سیریل کبھی دوبارہ شروع نہیں ہوتا)
 //    دن: MO پیر، TU منگل، WE بدھ، TH جمعرات، FR جمعہ، SA ہفتہ، SU اتوار — زِپ کا نام بھی یہی: HFZ610TU018.zip
-const APP_VERSION='HFZ0211MO039';
+const APP_VERSION='HFZ0211MO040';
 const UPDATE_NOTE='SOS بٹن اب ایپ کی اپنی پٹی میں (درمیان والا ہٹا دیا)';
-const APP_VERSION_DISPLAY='HFZ0211MO039';
+const APP_VERSION_DISPLAY='HFZ0211MO040';
 
 // ══ ONLINE / OFFLINE INDICATOR + VERSION BADGE ══
 function updateNetStatus(){
@@ -6544,7 +6544,7 @@ var VT=(function(){
     AppUpd.waiting('براہِ کرم انتظار کریں، کام روک دیں — ورژن: \u2066'+(V||'—')+' → '+(nv||'…')+'\u2069');
   }
   function showDone(oldV){AppUpd.done(oldV,V,(typeof UPDATE_NOTE!=='undefined')?UPDATE_NOTE:'');}
-  window.hfzUpdateDemo=function(step){if(step==='done')showDone('HFZ1910MO032');else showBar('HFZ0211MO039');}; // جانچ کے لیے
+  window.hfzUpdateDemo=function(step){if(step==='done')showDone('HFZ1910MO032');else showBar('HFZ0211MO040');}; // جانچ کے لیے
   function checkSeen(){
     let old='';try{old=localStorage.getItem(KEY)||'';localStorage.setItem(KEY,V);}catch(e){}
     if(old&&V&&old!==V)showDone(old);
@@ -6598,6 +6598,6 @@ if('serviceWorker' in navigator){
   });
 }
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="hafiz-musab-app" data-ver="HFZ0211MO039" defer></script> <!-- 🆘 HFZ0211MO039: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="hafiz-musab-app" data-ver="HFZ0211MO040" defer></script> <!-- 🆘 HFZ0211MO040: PBT Help Desk -->
 </body>
 </html>
